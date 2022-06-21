@@ -1,0 +1,48 @@
+//
+//  EmployeeOnboardingVCStep1.swift
+//  Liteapp
+//
+//  Created by Navroz Huda on 10/06/22.
+//
+
+import UIKit
+
+class EmployeeOnboardingVCStep1:BaseViewController, StoryboardSceneBased{
+    static let sceneStoryboard = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil)
+    @IBOutlet weak var txtFirstName: UITextField!
+    @IBOutlet weak var txtLastName: UITextField!
+    @IBOutlet weak var txtJobTitle: UITextField!
+   
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+    @IBAction func continueClicked(sender:UIButton){
+        if checkValidation(){
+            var saveEmployee = SaveEmployee()
+            saveEmployee.emp_firstname = txtFirstName.text!
+            saveEmployee.emp_lastname = txtLastName.text!
+            saveEmployee.emp_job_title = txtJobTitle.text!
+            
+            let vc = EmployeeOnboardingVCStep2.instantiate()
+            vc.saveEmployee = saveEmployee
+            self.pushVC(controller:vc)
+        }
+    }
+    func checkValidation()->Bool{
+        if txtFirstName.text!.count < 3{
+            AlertMesage.show(.error, message: "Please Enter Valid First Name")
+            return false
+        }
+        if txtLastName.text!.count < 3{
+            AlertMesage.show(.error, message: "Please Enter Valid Last Name")
+            return false
+        }
+        if txtJobTitle.text!.count < 3{
+            AlertMesage.show(.error, message: "Please Enter Job Title")
+            return false
+        }
+        return true
+    }
+}
