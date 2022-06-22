@@ -10,7 +10,7 @@ import SideMenu
 import ObjectMapper
 import Alamofire
 import SwiftUI
-
+import IQKeyboardManagerSwift
 
 struct CustomDate{
     var date:Date?
@@ -18,6 +18,7 @@ struct CustomDate{
     var datestring:String?
     var dayName:String?
 }
+private var myContext = 0
 class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     
     static let sceneStoryboard = UIStoryboard(name: StoryboardName.merchant.rawValue, bundle: nil)
@@ -87,16 +88,28 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         setupMenu()
         setData()
         setTableview()
+        tblEvents.addObserver(self, forKeyPath: #keyPath(UITableView.contentSize), options: [NSKeyValueObservingOptions.new], context: &myContext)
     }
     override func viewWillAppear(_ animated: Bool) {
         fetchpayperiod()
     }
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if context == &myContext,
+            keyPath == #keyPath(UITextView.contentSize),
+            let contentSize = change?[NSKeyValueChangeKey.newKey] as? CGSize {
+            print("contentSize:", contentSize)
+            eventTableHeightConstraint.constant = tblEvents.contentSize.height
+        }
+    }
+    deinit {
+        tblEvents.removeObserver(self, forKeyPath: #keyPath(UITextView.contentSize))
+    }
     override func viewWillLayoutSubviews() {
         super.updateViewConstraints()
-        eventTableHeightConstraint.constant = tblEvents.contentSize.height
+       // eventTableHeightConstraint.constant = tblEvents.contentSize.height
     }
     override func updateViewConstraints() {
-        eventTableHeightConstraint.constant = tblEvents.contentSize.height
+      //  eventTableHeightConstraint.constant = tblEvents.contentSize.height
         super.updateViewConstraints()
     }
     private func setupMenu(){
@@ -152,10 +165,10 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     @IBAction func selectSettingType(sender:UIButton){
         
         let pickerArray = ["User Information","Timesheets"]
-        
+        IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField: txtselectedPayperiod, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
-                
+                IQKeyboardManager.shared.enable = true
                  print(value)
                 if value == Settings.userInfo.rawValue{
                     self.selectedSettings = .userInfo
@@ -206,6 +219,12 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     }
     @IBAction func cancelClick(sender:UIButton){
         saveView.isHidden = true
+        for controller in self.navigationController!.viewControllers as Array {
+            if controller.isKind(of: EmployeesVC.self) {
+                self.navigationController!.popToViewController(controller, animated: true)
+                break
+            }
+        }
     }
     @IBAction func weekDaySelected(sender:UIButton){
      
@@ -226,7 +245,7 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         self.weekDaysPopupView.isHidden = true
        
     }
-    @IBAction func backClickFromWeekPopup(sender:UIButton){
+    @objc func backClickFromWeekPopup(sender:UIButton){
         self.weekDaysPopupView.isHidden = true
     }
     func setWeekDays(days:[CustomDate]){
@@ -272,7 +291,7 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
                 break
             }
         }
-        self.weekDaysPopupView.isHidden = false
+      //  self.weekDaysPopupView.isHidden = false
   
     }
     func createEmployeeDetails(){
@@ -316,17 +335,11 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         }
     }
     @objc func addTimesheetClicked(sender:UIButton) {
-        let selectedWeek = selectedPayPeriod?.weeks?[sender.tag]
-        let dateFormatter = DateFormatter()
 
-        dateFormatter.dateFormat = kDateGetFormat
-        let fromDate = dateFormatter.date(from:selectedWeek?.weekFrom ??
-                                          "") ?? Date()
-        let toDate = dateFormatter.date(from:selectedWeek?.weekTo ??
-        "") ?? Date()
-        let dates = (Date.dates(from:fromDate, to: toDate))
-        print(dates)
-        self.setWeekDays(days:dates)
+        let timesheet = Timesheet().addEventsForDay(date:nil)
+        self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.tag].timesheet?.append(timesheet)
+        
+        self.tblEvents.reloadData()
         selectedWeekIndex = sender.tag
     }
     @objc func approvedClicked(sender:UIButton) {
@@ -372,6 +385,36 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         cell.mainView.isHidden = false
         cell.addshiftMainView.isHidden = true
     }
+    @objc func selectWeekdayViewBack(sender:MyButton) {
+        let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        let cell = tblEvents.cellForRow(at: indexpath) as! TimeSheetCell
+        cell.mainView.isHidden = false
+        cell.weekDaysPopupView.isHidden = true
+        
+        self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.remove(at:sender.timeSheetIndex)
+        self.tblEvents.reloadData()
+    }
+    
+    @objc func weekDaySelectClicked(sender:MyButton){
+     
+        for obj in (self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet ?? [Timesheet]()){
+            if obj.date == weekDates[sender.tag - 1].datestring ?? ""{
+                AlertMesage.show(.error, message: "This day already added")
+                return
+            }
+            
+        }
+       // print(weekDates[sender.tag - 1])
+        let timesheet = Timesheet().addEventsForDay(date: weekDates[sender.tag - 1])
+        self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?[sender.timeSheetIndex] = timesheet
+     //   self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.append(timesheet)
+        
+       // self.selectedPayPeriod?.weeks?[self.selectedWeekIndex].timesheet?.append(timesheet)
+        self.tblEvents.reloadData()
+        
+        self.weekDaysPopupView.isHidden = true
+       
+    }
     @objc func changeTimeClick(sender:MyButton) {
         
         if saveView.isHidden{
@@ -385,7 +428,7 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         let time = "\(event?.timelineTime ?? "")"
      
         picker.datePickerMode = UIDatePicker.Mode.time
-        picker.addTarget(self, action: #selector(timesheetTimeChange(sender:)), for: UIControl.Event.valueChanged)
+    //    picker.addTarget(self, action: #selector(timesheetTimeChange(sender:)), for: UIControl.Event.valueChanged)
   
         picker.preferredDatePickerStyle = .wheels
         let dateFormatter = DateFormatter()
@@ -781,6 +824,16 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 cell.btnBack.timeSheetIndex = indexPath.row - 1
                 cell.btnBack.weekIndex = indexPath.section
                 
+                cell.btncloseWeekday.addTarget(self, action:#selector(self.selectWeekdayViewBack(sender:)), for: .touchUpInside)
+                cell.btncloseWeekday.tag = indexPath.section
+                cell.btncloseWeekday.timeSheetIndex = indexPath.row - 1
+                cell.btncloseWeekday.weekIndex = indexPath.section
+                
+                cell.btnBackWeekday.addTarget(self, action:#selector(self.selectWeekdayViewBack(sender:)), for: .touchUpInside)
+                cell.btnBackWeekday.tag = indexPath.section
+                cell.btnBackWeekday.timeSheetIndex = indexPath.row - 1
+                cell.btnBackWeekday.weekIndex = indexPath.section
+                
                 
                 var startTime:Date!
                 var breakstartTime:Date!
@@ -845,8 +898,55 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 cell.totalTimeLabel.text = "\(tuple.hours).\((tuple.leftMinutes * 100)/60 ) hrs"
                 cell.regularHoursLabel.text = "\(tuple.hours).\((tuple.leftMinutes * 100)/60 ) hrs"
            
-                
+                cell.mainView.backgroundColor = .clear
                 cell.selectionStyle = .none
+                if timesheet?.date == ""{
+                    cell.weekDaysPopupView.isHidden = false
+                    
+                    let selectedWeek = selectedPayPeriod?.weeks?[indexPath.section]
+                    let dateFormatter = DateFormatter()
+
+                    dateFormatter.dateFormat = kDateGetFormat
+                    let fromDate = dateFormatter.date(from:selectedWeek?.weekFrom ??
+                                                      "") ?? Date()
+                    let toDate = dateFormatter.date(from:selectedWeek?.weekTo ??
+                    "") ?? Date()
+                    let dates = (Date.dates(from:fromDate, to: toDate))
+                    print(dates)
+                    cell.setWeekDays(days:dates)
+                    self.weekDates = dates
+                    cell.btnWeekDay1.timeSheetIndex = indexPath.row - 1
+                    cell.btnWeekDay1.weekIndex = indexPath.section
+                   
+                    cell.btnWeekDay2.timeSheetIndex = indexPath.row - 1
+                    cell.btnWeekDay2.weekIndex = indexPath.section
+                   
+                    cell.btnWeekDay3.timeSheetIndex = indexPath.row - 1
+                    cell.btnWeekDay3.weekIndex = indexPath.section
+                   
+                    cell.btnWeekDay4.timeSheetIndex = indexPath.row - 1
+                    cell.btnWeekDay4.weekIndex = indexPath.section
+                   
+                    cell.btnWeekDay5.timeSheetIndex = indexPath.row - 1
+                    cell.btnWeekDay5.weekIndex = indexPath.section
+                   
+                    cell.btnWeekDay6.timeSheetIndex = indexPath.row - 1
+                    cell.btnWeekDay6.weekIndex = indexPath.section
+                   
+                    cell.btnWeekDay7.timeSheetIndex = indexPath.row - 1
+                    cell.btnWeekDay7.weekIndex = indexPath.section
+                   
+                    
+                    cell.btnWeekDay1.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                    cell.btnWeekDay2.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                    cell.btnWeekDay3.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                    cell.btnWeekDay4.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                    cell.btnWeekDay5.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                    cell.btnWeekDay6.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                    cell.btnWeekDay7.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                }else{
+                    cell.weekDaysPopupView.isHidden = true
+                }
                 return cell
             }
        

@@ -47,6 +47,9 @@ extension UIViewController {
     func popVC(animated: Bool = true) {
         self.navigationController?.popViewController(animated: animated)
     }
+    func poptoVC(controller:UIViewController, animated: Bool = true) {
+        self.navigationController?.popToViewController(controller, animated: animated)
+    }
     
     /// dimiss controller
     /// - Parameter controller: UIViewController

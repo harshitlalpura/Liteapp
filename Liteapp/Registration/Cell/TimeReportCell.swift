@@ -1,20 +1,19 @@
 //
-//  TimeSheetCell.swift
-//  Liteapp
+//  TimeReportCell.swift
+//  Bryte
 //
-//  Created by Navroz Huda on 18/06/22.
+//  Created by Navroz Huda on 03/04/22.
 //
 
 import UIKit
 
-class TimeSheetCell: UITableViewCell , NibReusable {
+class TimeReportCell: UITableViewCell , NibReusable {
 
-    
     @IBOutlet weak var stackView: UIStackView!
 
     @IBOutlet weak var totalTimeLabel: UILabel!
     @IBOutlet weak var regularHoursLabel: UILabel!
-   
+    @IBOutlet weak var overTimeLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var scrollMainView: UIView!
@@ -27,7 +26,6 @@ class TimeSheetCell: UITableViewCell , NibReusable {
     @IBOutlet weak var btnAddShift: MyButton!
     @IBOutlet weak var btnAddbreak: MyButton!
     @IBOutlet weak var addshiftMainView: UIView!
-    @IBOutlet weak var mainView: UIView!
     
     @IBOutlet weak var lblweekDay1: UILabel!
     @IBOutlet weak var lblweekDayDate1: UILabel!
@@ -62,18 +60,16 @@ class TimeSheetCell: UITableViewCell , NibReusable {
     
     @IBOutlet weak var btnBackWeekday: MyButton!
     @IBOutlet weak var btncloseWeekday: MyButton!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+       
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+       
     }
-    
     func setWeekDays(days:[CustomDate]){
       
         var dates = days
@@ -122,5 +118,4 @@ class TimeSheetCell: UITableViewCell , NibReusable {
       //  self.weekDaysPopupView.isHidden = false
   
     }
-    
 }

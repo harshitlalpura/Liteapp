@@ -246,14 +246,14 @@ class Timesheet:NSObject,Codable, Mappable {
     }
     
     
-    func addEventsForDay(date:CustomDate)->Timesheet{
+    func addEventsForDay(date:CustomDate?)->Timesheet{
         let timesheet = Timesheet()
-        timesheet.date = date.datestring ?? ""
+        timesheet.date = date?.datestring ?? ""
         var events = [Events]()
-        events.append(Events().addStartShift(date: date.datestring ?? ""))
-        events.append(Events().addEndShift(date: date.datestring ?? ""))
-        events.append(Events().addStartBreak(date: date.datestring ?? ""))
-        events.append(Events().addEndBreak(date: date.datestring ?? ""))
+        events.append(Events().addStartShift(date: date?.datestring ?? ""))
+        events.append(Events().addEndShift(date: date?.datestring ?? ""))
+        events.append(Events().addStartBreak(date: date?.datestring ?? ""))
+        events.append(Events().addEndBreak(date: date?.datestring ?? ""))
         timesheet.events = events
         return timesheet
     }

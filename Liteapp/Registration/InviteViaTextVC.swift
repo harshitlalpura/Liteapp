@@ -26,7 +26,7 @@ class InviteViaTextVC:BaseViewController, StoryboardSceneBased,MFMailComposeView
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        inviteLink = "Hey! Please download our TimeClock App with the link below. \n Your referral code is 0DB9.\n https://lite.testbryteportal.com/\(Defaults.shared.currentUser?.merchantReferenceNumber ?? "")"
+        inviteLink = "Hey! Please download our TimeClock App with the link below. \n Your referral code is \(Defaults.shared.currentUser?.merchantReferenceNumber ?? "").\n https://lite.testbryteportal.com/\(Defaults.shared.currentUser?.merchantReferenceNumber ?? "")"
        // contacts = self.getContactFromCNContact()
         contactList = ContactsModel.generateModelArray()
         allContactList =  contactList
@@ -82,9 +82,9 @@ class InviteViaTextVC:BaseViewController, StoryboardSceneBased,MFMailComposeView
     @IBAction func backClicked(sender:UIButton){
         self.popVC()
     }
-    func prepatePhoneList()->[String]{
+    func preparePhoneList()->[String]{
         var numbers = [String]()
-        for contact in self.contactList{
+        for contact in self.selectedContactList{
             if let number = contact.phoneNumber.first{
                 numbers.append(number)
             }
@@ -92,7 +92,7 @@ class InviteViaTextVC:BaseViewController, StoryboardSceneBased,MFMailComposeView
         return numbers
     }
     @IBAction func inviteClicked(sender:UIButton){
-        let numbers = self.prepatePhoneList()
+        let numbers = self.preparePhoneList()
         if selectedContactList.count > 0{
             
             if (MFMessageComposeViewController.canSendText()) {

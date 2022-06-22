@@ -17,7 +17,7 @@ class InviteViaRefferalLinkVC:BaseViewController,StoryboardSceneBased{
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        inviteLink = "Hey! Please download our TimeClock App with the link below. \n Your referral code is 0DB9.\n https://lite.testbryteportal.com/\(Defaults.shared.currentUser?.merchantReferenceNumber ?? "")"
+        inviteLink = "Hey! Please download our TimeClock App with the link below. \n Your referral code is \(Defaults.shared.currentUser?.merchantReferenceNumber ?? "").\n https://lite.testbryteportal.com/\(Defaults.shared.currentUser?.merchantReferenceNumber ?? "")"
         lblCode.text = "\(Defaults.shared.currentUser?.merchantReferenceNumber ?? "")"
     }
     @IBAction func backClicked(sender:UIButton){
