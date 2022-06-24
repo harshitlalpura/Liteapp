@@ -26,6 +26,7 @@ let kDateGetFormat = "yyyy-MM-dd"
 let kDateFormatDisplay = "YYYY-MM-dd hh:mm a"
 let kHHmmss = "HH:mm:ss"
 let MMddYYYY = "MM/dd/YYYY"
+let MMMMddYYYY = "MMMM dd, yyyy"
 var futureDate = true
 class DatePicker: NSObject {
     /// Call this function to present date picker on textfield

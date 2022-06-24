@@ -10,6 +10,7 @@ import UIKit
 class TimeReportFooterCell: UITableViewHeaderFooterView {
 
     @IBOutlet weak var lblTotalTime: UILabel!
+    @IBOutlet weak var weeklyOverTimeView: UIView!
 //    override init(reuseIdentifier: String?) {
 //            super.init(reuseIdentifier: reuseIdentifier)
 //    }

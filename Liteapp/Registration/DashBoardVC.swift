@@ -40,15 +40,18 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var clockInSuccessPopup: UIView!
     @IBOutlet weak var lbltimeClockInPopup: UILabel!
+    @IBOutlet weak var lbltimeClockInampm: UILabel!
     @IBOutlet weak var lblDateClockInPopup: UILabel!
     
     @IBOutlet weak var breakinSuccessPopup: UIView!
     @IBOutlet weak var lbltimebreakinPopup: UILabel!
+    @IBOutlet weak var lbltimebreakinampm: UILabel!
     @IBOutlet weak var lblDatebreakinPopup: UILabel!
     @IBOutlet weak var lblMessagebreakinPopup: UILabel!
     
     @IBOutlet weak var clockOutSuccessPopup: UIView!
     @IBOutlet weak var lbltimeclockOutPopup: UILabel!
+    @IBOutlet weak var lbltimeclockOutampm: UILabel!
     @IBOutlet weak var lblDateclockOutPopup: UILabel!
   
     var dashboardData:DashBoardData!
@@ -137,7 +140,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
         let parameters = ["merchant_id":Defaults.shared.currentUser?.merchantId ?? 0,
             "emp_token":Defaults.shared.currentUser?.empToken ?? "",
             "emp_id":Defaults.shared.currentUser?.empId ?? 0] as [String : Any]
-        let headerAuth:HTTPHeaders = ["Authorization":"Bearer \(Defaults.shared.currentUser?.empToken ?? "")"]
+        let headerAuth = ["Authorization":"Bearer \(Defaults.shared.currentUser?.empToken ?? "")"]
         print(parameters)
         NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.dashboard(), param: parameters,header:headerAuth){ success, response, error in
             if let res = response{
@@ -223,16 +226,23 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
                 print(response ?? "")
                 let dateFormat = "MMM,dd YYYY"
                 
-                let timeFormat = "hh:mm a"
+                let timeFormat = "hh:mm"
+                let timeFormatampm = "a"
                 let time = Date().string(format: timeFormat)
                 let date = Date().string(format: dateFormat)
+                let ampm = Date().string(format: timeFormatampm)
                 self.lblDatebreakinPopup.text = date
                 self.lblDateclockOutPopup.text = date
                 self.lblDateClockInPopup.text = date
                 
+                
                 self.lbltimebreakinPopup.text = time
                 self.lbltimeclockOutPopup.text = time
                 self.lbltimeClockInPopup.text = time
+                
+                self.lbltimeClockInampm.text = ampm
+                self.lbltimeclockOutampm.text = ampm
+                self.lbltimebreakinampm.text = ampm
                 
                 if  event_type == UserStatus.loggedIN.rawValue {
                    // self.showSucessMessage(strMessage: Localizable.Clockin.clokcin)

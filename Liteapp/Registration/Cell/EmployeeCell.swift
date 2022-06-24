@@ -35,7 +35,7 @@ class TimesheetDetailsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        mainView.dropShadow()
+      //  mainView.dropShadow()
         btnCheck.setImage(UIImage.checkImage, for: .selected)
         btnCheck.setImage(UIImage.uncheckImage, for: .normal)
     }

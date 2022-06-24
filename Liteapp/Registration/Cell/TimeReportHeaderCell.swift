@@ -15,6 +15,8 @@ class TimeReportHeaderCell: UITableViewCell , NibReusable {
     @IBOutlet weak var totalTimeLabel: UILabel!
     @IBOutlet weak var regularHoursLabel: UILabel!
     @IBOutlet weak var overTimeLabel: UILabel!
+    @IBOutlet weak var weeklyOverTimeView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

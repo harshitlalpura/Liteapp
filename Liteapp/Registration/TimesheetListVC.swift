@@ -10,6 +10,7 @@ import SideMenu
 import ObjectMapper
 import Alamofire
 import SwiftUI
+import IQKeyboardManagerSwift
 
 enum TimesheetStatus:String{
     case approved = "A"
@@ -131,6 +132,7 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
                 self.selectedPayPeriod = self.payPeriodsData.first
                 self.selectedPayPeriodIndex = 0
                 let str = "\(self.selectedPayPeriod?.payperiodFrom1 ?? "") - \(self.selectedPayPeriod?.payperiodTo1 ?? "")"
+               self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
                 self.selectedPayperiodLabel.text = str
                //call timesheet by id
                 self.fetchTimesheetList()
@@ -139,19 +141,36 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
             }
         }
     }
+    func compareDate(_ dateString:String){
+        let formatter = DateFormatter()
+        formatter.dateFormat = MMMMddYYYY
+        let date = formatter.date(from:dateString)
+      
+        if Date() < date ?? Date()  {
+             print("date1 is earlier than date2")
+            self.approveMainview.isUserInteractionEnabled = false
+            self.approveMainview.alpha = 0.5
+        }else{
+            self.approveMainview.isUserInteractionEnabled = true
+            self.approveMainview.alpha = 1.0
+        }
+    }
     @IBAction func selectPayperiodButton(sender:UIButton){
         
         let pickerArray = createPickerArray(payPereods:self.payPeriodsData )
+        IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField:txtselectedPayperiod, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
                 // self.txtselectedPayperiod.text = value
                  print(value)
+                IQKeyboardManager.shared.enable = true
                  self.selectedPayperiodLabel.text = value
                  self.selectedPayPeriod = self.payPeriodsData[index]
                  self.selectedPayPeriodIndex = index
                 let str = "\(self.selectedPayPeriod?.payperiodFrom1 ?? "") - \(self.selectedPayPeriod?.payperiodTo1 ?? "")"
+                self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
                 self.selectedPayperiodLabel.text = str
-               //call timesheet by id
+              
                 self.fetchTimesheetList()
                 print(self.selectedPayPeriod?.toJSON() ?? "")
              }
@@ -186,7 +205,7 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         print(joinedString)
         let employeeIDs = joinedString
       //  let ids = "\(self.selectedTimesheetList.first?.empId ?? 0)"
-        let message = (status == TimesheetStatus.unapproved) ? "The selected timesheets were successfully approved" : "The selected timesheets were successfully unapproved"
+        let message = (status == TimesheetStatus.unapproved) ? "The selected timesheets were successfully unapproved" : "The selected timesheets were successfully approved"
         let parameters = ["merchant_id":Defaults.shared.currentUser?.merchantId ?? 0,
             "emp_token":Defaults.shared.currentUser?.empToken ?? "",
             "emp_id":Defaults.shared.currentUser?.empId ?? 0,
@@ -239,6 +258,7 @@ extension TimesheetListVC:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = EmployeeTimeReportVC.instantiate()
+        vc.isFromEmployee = false
         vc.selectedEmployeeID = timesheetList[indexPath.row].empId?.stringValue ?? ""
         self.pushVC(controller:vc)
     }
@@ -254,10 +274,13 @@ extension TimesheetListVC:UITableViewDelegate,UITableViewDataSource {
         if selectedTimesheetList.count > 0{
             self.approveMainview.alpha = 1.0
             self.exportMainView.alpha = 1.0
+            self.approveMainview.isUserInteractionEnabled = true
         }else{
             self.approveMainview.alpha = 0.5
             self.exportMainView.alpha = 0.5
+            self.approveMainview.isUserInteractionEnabled = false
         }
+        self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
         print( self.selectedTimesheetList.count)
     }
     

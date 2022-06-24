@@ -57,6 +57,7 @@ class TimeReportCell: UITableViewCell , NibReusable {
     @IBOutlet weak var btnWeekDay7: MyButton!
    
     @IBOutlet weak var weekDaysPopupView: UIView!
+    @IBOutlet weak var dailyOverTimeView: UIView!
     
     @IBOutlet weak var btnBackWeekday: MyButton!
     @IBOutlet weak var btncloseWeekday: MyButton!

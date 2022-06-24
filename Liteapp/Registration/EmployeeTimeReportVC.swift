@@ -88,7 +88,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var saveView: UIView!
     @IBOutlet weak var editView: UIView!
     
-    
+    var isFromEmployee = false
     var weekDates = [CustomDate]()
     var selectedWeekIndex = 0
     var selectedSettings:Settings = .userInfo
@@ -107,7 +107,15 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         setData()
         setTableview()
         setupMenu()
-       
+        if isFromEmployee{
+            self.selectedSettings = .userInfo
+            self.userinformationView.isHidden = false
+            self.timereportView.isHidden = true
+        }else{
+            self.selectedSettings = .timeSheet
+            self.userinformationView.isHidden = true
+            self.timereportView.isHidden = false
+        }
         tblEvents.addObserver(self, forKeyPath: #keyPath(UITableView.contentSize), options: [NSKeyValueObservingOptions.new], context: &myContext)
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -170,9 +178,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     func setData(){
         logoutView.isHidden = true
         lblusername.text = "\(Defaults.shared.currentUser?.empFirstname ?? "") \(Defaults.shared.currentUser?.empLastname ?? "")"
-        
-     
-        
+
         txtFirstName.isUserInteractionEnabled = false
         txtLastName.isUserInteractionEnabled = false
         txtEmail.isUserInteractionEnabled = false
@@ -268,10 +274,12 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBAction func selectPayperiodButton(sender:UIButton){
         
         let pickerArray = createPickerArray(payPereods:self.payPeriodsData )
+        IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField:txtselectedPayperiod, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
                 // self.txtselectedPayperiod.text = value
                  print(value)
+                IQKeyboardManager.shared.enable = true
                  self.selectedPayperiodLabel.text = value
                  self.selectedPayPeriod = self.payPeriodsData[index]
                  self.selectedPayPeriodIndex = index
@@ -345,12 +353,41 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         txtjobtitle.isUserInteractionEnabled = false
         tblEvents.isUserInteractionEnabled = false
 
-        saveView.isHidden = true
-        editView.isUserInteractionEnabled = true
-        editView.alpha = 1.0
-       //call save api
-        updateEmployeeDetails()
       
+       //call save api
+        for week in self.selectedPayPeriod?.weeks ?? [Weeks](){
+            for timeLine in week.timesheet ?? [Timesheet](){
+                for event in timeLine.events ?? [Events](){
+                    if self.submitTimeValidation(currentEvent:event, timesheet: timeLine){
+                        updateEmployeeDetails()
+                        
+                        txtFirstName.isUserInteractionEnabled = false
+                        txtLastName.isUserInteractionEnabled = false
+                        txtEmail.isUserInteractionEnabled = false
+                        txtjobtitle.isUserInteractionEnabled = false
+                        tblEvents.isUserInteractionEnabled = false
+                        
+                        
+                        saveView.isHidden = true
+                        editView.isUserInteractionEnabled = true
+                        editView.alpha = 1.0
+                    }else{
+                        
+                        txtFirstName.isUserInteractionEnabled = true
+                        txtLastName.isUserInteractionEnabled = true
+                        txtEmail.isUserInteractionEnabled = true
+                        txtjobtitle.isUserInteractionEnabled = true
+                        tblEvents.isUserInteractionEnabled = true
+                        
+                        saveView.isHidden = false
+                        editView.isUserInteractionEnabled = false
+                        editView.alpha = 0.5
+                        break
+                    }
+                }
+            }
+        }
+
     }
     @IBAction func cancelClick(sender:UIButton){
         txtFirstName.isUserInteractionEnabled = false
@@ -365,6 +402,14 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     }
     func updateEmployeeDetails(){
         var employee = UpdateEmployee()
+        
+        for (i,week) in (self.selectedPayPeriod?.weeks ?? [Weeks]()).enumerated(){
+            for (j,_) in (week.timesheet ?? [Timesheet]()).enumerated(){
+                let events = self.selectedPayPeriod?.weeks?[i].timesheet?[i].events?.filter({$0.timelineTime != ""})
+                self.selectedPayPeriod?.weeks?[i].timesheet?[j].events = events
+                print(self.selectedPayPeriod?.weeks?[i].timesheet?[i].events?.toJSON() ?? "")
+            }
+        }
         if let weeks = self.selectedPayPeriod?.weeks{
             self.editedTimeSheet = weeks
         }
@@ -584,7 +629,8 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
             if startTime != nil && endTime != nil{
                 totalWorkTime = self.differenceBetweenDates(from:startTime, toDate: endTime)
             }
-            let workTime = totalWorkTime - breakTime
+           // let workTime = totalWorkTime - breakTime
+            let workTime = self.calculateTotalTime(events:timesheet.events ?? [Events]())
             TotalWorkTime = TotalWorkTime + workTime
            
         }
@@ -605,7 +651,8 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 
                 let tuple = self.calculateTotalTimeForWeek(sectionIndex:indexPath.section)
                // print("Total Time \(tuple.hours).\(tuple.leftMinutes) hrs")
-                cell.totalTimeLabel.text = "\(tuple.hours).\(tuple.leftMinutes) hrs"
+            
+                cell.totalTimeLabel.text = "\(tuple.hours).\((tuple.leftMinutes * 100)/60 ) hrs"
                 let totalWeeklyMinutes:Int = (self.merchantData?.merchantWeeklyOvertime as! Int * 60)
                 
                 //regular Hours
@@ -623,6 +670,12 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 cell.btnAddTimesheet.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
                 cell.btnAddTimesheet.tag = indexPath.section
+                if merchantData?.merchantWeeklyOvertimeEnabled ?? "" == "Y"{
+                    cell.weeklyOverTimeView.isHidden = false
+                }else{
+                    cell.weeklyOverTimeView.isHidden = true
+                }
+               
                 cell.selectionStyle = .none
                 return cell
 
@@ -643,6 +696,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 for subview in cell.stackView.subviews{
                     subview.removeFromSuperview()
                 }
+               
                 for (i,event) in (timesheet?.events ?? [Events]()).enumerated(){
                     let timeReportViewNew = TimesheetView()
                     
@@ -684,37 +738,50 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 }
              }
                 
-                var breakTime = 0
+              /*  var breakTime = 0
                 var totalWorkTime = 0
                 if breakstartTime != nil && breakEndTime != nil{
                     breakTime = self.differenceBetweenDates(from:breakstartTime, toDate: breakEndTime)
                 }
                 if startTime != nil && endTime != nil{
-                  //  print(startTime)
-                 //   print(endTime)
+                
                     totalWorkTime = self.differenceBetweenDates(from:startTime, toDate: endTime)
-                }
-                let workTime = totalWorkTime - breakTime
+                } */
+              //  let workTime = totalWorkTime - breakTime
+                let workTime = self.calculateTotalTime(events:timesheet?.events ?? [Events]())
                 let tuple = minutesToHoursAndMinutes(workTime)
-              
+                
                 cell.totalTimeLabel.text = "\(tuple.hours).\((tuple.leftMinutes * 100)/60 ) hrs"
                 
                 //regular Hours
                 let totalDailyMinutes:Int = (self.merchantData?.merchantDailyOvertime as! Int * 60)
+                if merchantData?.merchantDailyOvertimeEnabled ?? "" == "Y"{
+                }else{
+                    
+                }
+                cell.regularHoursLabel.text = "0.0 hrs"
+                cell.overTimeLabel.text = "0.0 hrs"
+               
                 if workTime > totalDailyMinutes{
                     //overtime
-                    let overtimeMinutes = workTime - totalDailyMinutes
-                    let overtimetuple = minutesToHoursAndMinutes(overtimeMinutes)
-                    cell.overTimeLabel.text = "\(overtimetuple.hours).\(overtimetuple.leftMinutes) hrs"
+                    if merchantData?.merchantDailyOvertimeEnabled ?? "" == "Y"{
+                        let overtimeMinutes = workTime - totalDailyMinutes
+                        let overtimetuple = minutesToHoursAndMinutes(overtimeMinutes)
+                        cell.overTimeLabel.text = "\(overtimetuple.hours).\(overtimetuple.leftMinutes) hrs"
+                        
+                        let regularMinutes = workTime - overtimeMinutes
+                        let regulartuple = minutesToHoursAndMinutes(regularMinutes)
+                        cell.regularHoursLabel.text = "\(regulartuple.hours).\(regulartuple.leftMinutes) hrs"
+                    }else{
+                        let regularMinutes = workTime
+                        let regulartuple = minutesToHoursAndMinutes(regularMinutes)
+                        cell.regularHoursLabel.text = "\(regulartuple.hours).\(regulartuple.leftMinutes) hrs"
+                    }
                     
-                    //regularhours
-                    let regularMinutes = workTime - overtimeMinutes
+                }else{
+                    let regularMinutes = workTime
                     let regulartuple = minutesToHoursAndMinutes(regularMinutes)
                     cell.regularHoursLabel.text = "\(regulartuple.hours).\(regulartuple.leftMinutes) hrs"
-                   
-                }else{
-                    cell.regularHoursLabel.text = "0.0 hrs"
-                    cell.overTimeLabel.text = "0.0 hrs"
                 }
                 
                 cell.btnMore.addTarget(self, action:#selector(self.moreOptionClicked(sender:)), for: .touchUpInside)
@@ -800,9 +867,40 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 }else{
                     cell.weekDaysPopupView.isHidden = true
                 }
+                if merchantData?.merchantDailyOvertimeEnabled ?? "" == "Y"{
+                    cell.dailyOverTimeView.isHidden = false
+                }else{
+                    cell.dailyOverTimeView.isHidden = true
+                }
                 return cell
             }
        
+    }
+    func calculateTotalTime(events:[Events])->Int{
+        var totalMinutes = 0
+        for (i,event) in events.enumerated(){
+            if events.count > i + 1{
+                if (events[i + 1].timelineTime != "") {
+                    if (((events[i].timelineEvent ?? "") == "I" && (events[i + 1].timelineEvent ?? "") == "B") ||
+                        ((events[i].timelineEvent ?? "") == "S" && (events[i + 1].timelineEvent ?? "") == "O") ||
+                        ((events[i].timelineEvent ?? "") == "S" && (events[i + 1].timelineEvent ?? "") == "B") ||
+                        ((events[i].timelineEvent ?? "") == "I" && (events[i + 1].timelineEvent ?? "") == "O")) {
+                        
+                        if (event.timelineTime != "") {
+
+                            let start = event.timelineTime ?? ""
+                            let end = events[i + 1].timelineTime ?? ""
+                            let startDate = start.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                            let endDate = end.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                            let duration = self.differenceBetweenDates(from:startDate, toDate: endDate)
+                            totalMinutes = totalMinutes + duration
+                        }
+                        
+                    }
+                }
+            }
+        }
+        return totalMinutes
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
       //  self.viewWillLayoutSubviews()
@@ -847,14 +945,15 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
         dateFormatter.dateFormat = kMMddYYYYhhmmss
         print(dateFormatter.string(from: sender.date))
         dateFormatter.dateFormat = timeFormat
-        let timeLineTime = dateFormatter.string(from: sender.date)
+      
 
         self.datePickerView.isHidden = true
         
-        if self.timeValidation(time:timeLineTime,weekIndex:sender.weekIndex,timeSheetIndex:sender.timeSheetIndex,eventIndex:sender.eventIndex){
+      /*  if self.timeValidation(time:timeLineTime,weekIndex:sender.weekIndex,timeSheetIndex:sender.timeSheetIndex,eventIndex:sender.eventIndex){
             //do after everything is fine
-            self.setUpdatedTimesheetData(date:sender.date,weekIndex:sender.weekIndex,timeSheetIndex:sender.timeSheetIndex,eventIndex:sender.eventIndex)
-        }
+           
+        } */
+        self.setUpdatedTimesheetData(date:sender.date,weekIndex:sender.weekIndex,timeSheetIndex:sender.timeSheetIndex,eventIndex:sender.eventIndex)
         
        
     }
@@ -874,8 +973,21 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
        
         self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex].timelineValue = timeLineValue
         self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex].timelineTime = timeLineTime
-        self.selectedPayPeriod = self.payPeriodsData[selectedPayPeriodIndex]
+       
         event = self.selectedPayPeriod?.weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex]
+        
+        let eventArray = self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events ?? [Events]()
+        
+        let emptyArray = eventArray.filter{$0.timelineValue == ""}
+        let filledArray = eventArray.filter{$0.timelineValue != ""}
+        let timesortedArray = filledArray.sorted { ($0.timelineValue ?? "").toFullTime().localizedStandardCompare(($1.timelineValue ?? "").toFullTime()) == .orderedAscending }
+        
+        var finalEvents:[Events] = timesortedArray
+        finalEvents.append(contentsOf:emptyArray)
+        
+        self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events = finalEvents
+        
+        self.selectedPayPeriod = self.payPeriodsData[selectedPayPeriodIndex]
         
         let indexpath = IndexPath(row:timeSheetIndex + 1, section: weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
@@ -895,6 +1007,117 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
         let event = timesheet?.events?[eventIndex]
         let currentEventType = event?.timelineEvent ?? ""
 
+        if currentEventType == UserStatus.loggedIN.rawValue{
+            
+            for event in timesheet?.events ?? [Events](){
+                if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
+                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
+                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
+                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
+                       
+                        return false
+                    }
+                }
+            }
+        }else if currentEventType == UserStatus.loggedOut.rawValue{
+            for event in timesheet?.events ?? [Events](){
+                if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
+                        
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
+                        
+                        return false
+                    }
+                }
+            }
+            
+        }else if currentEventType == UserStatus.Inbreak.rawValue{
+            for event in timesheet?.events ?? [Events](){
+                if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
+                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
+                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
+                       
+                        return false
+                    }
+                }
+            }
+            
+        }else if currentEventType == UserStatus.Endbreak.rawValue{
+            for event in timesheet?.events ?? [Events](){
+                if event.timelineEvent == UserStatus.loggedIN.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent == UserStatus.Inbreak.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
+                      
+                        return false
+                    }
+                }else if event.timelineEvent == UserStatus.loggedOut.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
+                        
+                        return false
+                    }
+                }
+            }
+        }
+      return true
+    }
+    func submitTimeValidation(currentEvent:Events,timesheet:Timesheet?)->Bool{
+
+       
+        let currentEventType = currentEvent.timelineEvent ?? ""
+        let time = currentEvent.timelineValue ?? ""
         if currentEventType == UserStatus.loggedIN.rawValue{
             
             for event in timesheet?.events ?? [Events](){
@@ -1117,6 +1340,18 @@ extension EmployeeTimeReportVC{
             return false
         }
  
+    }
+   
+}
+extension String{
+
+    func toFullTime()->String{
+        let f = DateFormatter()
+        f.dateFormat = "hh:mm a"
+        let date = f.date(from: self) ?? Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from:date)
     }
    
 }

@@ -9,6 +9,7 @@ import UIKit
 import SideMenu
 import ObjectMapper
 import Alamofire
+import IQKeyboardManagerSwift
 
 enum EditSelectedDay:Int{
     case sunday = 1
@@ -277,7 +278,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
           "emp_work_email": "\(merchantSettings?.empWorkEmail ?? "")"
         ] as [String : Any]
         
-        NetworkLayer.sharedNetworkLayer.postWebApiCallWithHeader(apiEndPoints: APIEndPoints.saveSettings(), param: param, header: Defaults.shared.header ?? ["":""]) { success, response, error in
+        NetworkLayer.sharedNetworkLayer.postWebApiCallWithHeader(apiEndPoints: APIEndPoints.saveSettings(), param: param, header: ["":""]) { success, response, error in
             if let res = response{
                 print(res)
                
@@ -291,8 +292,9 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
           "emp_token": "\(Defaults.shared.currentUser?.empToken ?? "")",
           "emp_id": "\(Defaults.shared.currentUser?.empId ?? 0)"
         ] as [String : Any]
-        
-        NetworkLayer.sharedNetworkLayer.postWebApiCallWithHeader(apiEndPoints: APIEndPoints.fetchSettings(), param: param, header: Defaults.shared.header ?? ["":""]) { success, response, error in
+        print(param)
+        print(Defaults.shared.header ?? ["":""])
+        NetworkLayer.sharedNetworkLayer.postWebApiCallWithHeader(apiEndPoints: APIEndPoints.fetchSettings(), param: param, header: ["":""]) { success, response, error in
             if let res = response{
                 print(res)
                 let data = Mapper<MerchantSettingsData>().map(JSONObject:res)
@@ -405,10 +407,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBAction func selectSettingType(sender:UIButton){
         
         let pickerArray = ["TimeClock Settings","Account Settings"]
-        
+        IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField: txtname, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
-                
+                IQKeyboardManager.shared.enable = true
                  print(value)
                 if value == Settings.timeclock.rawValue{
                     self.selectedSettings = .timeclock
@@ -472,10 +474,14 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         self.congratulationsPopup.isHidden = true
         self.editPayPeriodStartDayView.isHidden = false
         self.blurOverlayView.isHidden = false
+       
+        
     }
     
     @IBAction func successPopupContinueSelected(sender:UIButton){
         self.successPopup.isHidden = true
+        let vc = EmployeesVC.instantiate()
+        self.pushVC(controller:vc)
     }
     
     @IBAction func successPopupSkipSelected(sender:UIButton){
@@ -500,10 +506,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     @IBAction func selectPayPeriodClick(sender:UIButton){
         let pickerArray = self.durationOptions
-        
+        IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField: txtselectWeekStartday, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
-                
+                IQKeyboardManager.shared.enable = true
                  print(value)
                 self.txtselectPayPeriod.text = value
                 if index == 0{
@@ -530,10 +536,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     @IBAction func selectStartWeekdayClick(sender:UIButton){
         let pickerArray = self.weekDaysArray
-        
+        IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField: txtselectWeekStartday, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
-                
+                IQKeyboardManager.shared.enable = true
                  print(value)
                 self.txtselectWeekStartday.text = value
                 self.merchantSettings?.merchantWeekStart = ((index + 1) as NSNumber)

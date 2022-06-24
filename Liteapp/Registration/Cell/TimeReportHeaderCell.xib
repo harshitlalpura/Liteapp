@@ -203,6 +203,7 @@
                 <outlet property="regularHoursLabel" destination="vMQ-0Y-Cp1" id="C7H-nM-Yit"/>
                 <outlet property="timeLabel" destination="LPd-WC-bCd" id="bL7-0D-ets"/>
                 <outlet property="totalTimeLabel" destination="LNn-Ib-A8e" id="Bmo-eN-rU7"/>
+                <outlet property="weeklyOverTimeView" destination="vSy-WS-bm9" id="jNd-pi-2oW"/>
             </connections>
             <point key="canvasLocation" x="-30.434782608695656" y="60.9375"/>
         </tableViewCell>

@@ -57,7 +57,7 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
         }
         menuTableview.delegate = self
         menuTableview.dataSource = self
-        menuTableview.rowHeight = 65.0
+        menuTableview.rowHeight = 50.0
         menuTableview.separatorStyle = .none
         menuTableview.bouncesZoom = false
         menuTableview.bounces = false

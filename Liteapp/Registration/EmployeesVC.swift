@@ -108,6 +108,7 @@ extension EmployeesVC:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = EmployeeTimeReportVC.instantiate()
+        vc.isFromEmployee = true
         vc.selectedEmployeeID = self.employeeList[indexPath.row].empId?.stringValue ?? ""
         self.pushVC(controller:vc)
     }

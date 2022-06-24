@@ -53,7 +53,7 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
         }
     }
     func checkRefferalCode(_ code:String){
-        let header:HTTPHeaders = Defaults.shared.header ?? ["":""]
+        let header = Defaults.shared.header ?? ["":""]
         let parameter = ["merchant_reference_number":"\(code)"]
         NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.searchMerchantsByRef(), param: parameter, header: header) { success, response, error in
             if let res = response{

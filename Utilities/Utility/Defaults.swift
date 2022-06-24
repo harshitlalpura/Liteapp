@@ -15,8 +15,18 @@ class Defaults {
     let userDefaults = UserDefaults()
     
     
-    var header: HTTPHeaders?
    
+   
+    var header: [String:String]?{
+        get {
+            return userDefaults.value(forKey: "header") as? [String : String]
+        }
+        set {
+            userDefaults.setValue(newValue, forKey: "header")
+            userDefaults.synchronize()
+        }
+    }
+    
     var currentUser: EmpData? {
         get {
             if let loggedUser = userDefaults.object(forKey: "loggedUser") as? Data {

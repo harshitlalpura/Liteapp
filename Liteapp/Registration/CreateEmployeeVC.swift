@@ -186,9 +186,11 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     @IBAction func selectPayperiodButton(sender:UIButton){
         
         let pickerArray = createPickerArray(payPereods:self.payPeriodsData )
+        IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField:txtselectedPayperiod, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
                 // self.txtselectedPayperiod.text = value
+                IQKeyboardManager.shared.enable = true
                  print(value)
                  self.selectedPayperiodLabel.text = value
                  self.selectedPayPeriod = self.payPeriodsData[index]
@@ -213,8 +215,19 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         
     }
     @IBAction func saveClick(sender:UIButton){
-        self.createEmployeeDetails()
-        saveEmployeeDetails()
+        
+        for week in self.selectedPayPeriod?.weeks ?? [Weeks](){
+            for timeLine in week.timesheet ?? [Timesheet](){
+                for event in timeLine.events ?? [Events](){
+                    if self.submitTimeValidation(currentEvent:event, timesheet: timeLine){
+                        self.createEmployeeDetails()
+                        saveEmployeeDetails()
+                    }else{
+                        break
+                    }
+                }
+            }
+        }
 
     }
     @IBAction func cancelClick(sender:UIButton){
@@ -545,13 +558,16 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         dateFormatter.dateFormat = kMMddYYYYhhmmss
         print(dateFormatter.string(from: sender.date))
         dateFormatter.dateFormat = timeFormat
-        let timeLineTime = dateFormatter.string(from: sender.date)
+       
       
         
-        if self.timeValidation(time:timeLineTime,weekIndex:sender.weekIndex,timeSheetIndex:sender.timeSheetIndex,eventIndex:sender.eventIndex){
+        self.setUpdatedTimesheetData(date:sender.date,weekIndex:sender.weekIndex,timeSheetIndex:sender.timeSheetIndex,eventIndex:sender.eventIndex)
+        
+        let timeLineTime = dateFormatter.string(from: sender.date)
+      /* if self.timeValidation(time:timeLineTime,weekIndex:sender.weekIndex,timeSheetIndex:sender.timeSheetIndex,eventIndex:sender.eventIndex){
             //do after everything is fine
-            self.setUpdatedTimesheetData(date:sender.date,weekIndex:sender.weekIndex,timeSheetIndex:sender.timeSheetIndex,eventIndex:sender.eventIndex)
-        }
+           
+        } */
         
        
     }
@@ -571,8 +587,21 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
        
         self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex].timelineValue = timeLineValue
         self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex].timelineTime = timeLineTime
-        self.selectedPayPeriod = self.payPeriodsData[selectedPayPeriodIndex]
+       
         event = self.selectedPayPeriod?.weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex]
+        
+        let eventArray = self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events ?? [Events]()
+        
+        let emptyArray = eventArray.filter{$0.timelineValue == ""}
+        let filledArray = eventArray.filter{$0.timelineValue != ""}
+        let timesortedArray = filledArray.sorted { ($0.timelineValue ?? "").toFullTime().localizedStandardCompare(($1.timelineValue ?? "").toFullTime()) == .orderedAscending }
+        
+        var finalEvents:[Events] = timesortedArray
+        finalEvents.append(contentsOf:emptyArray)
+        
+        self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events = finalEvents
+        
+        self.selectedPayPeriod = self.payPeriodsData[selectedPayPeriodIndex]
         
         let indexpath = IndexPath(row:timeSheetIndex + 1, section: weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeSheetCell
@@ -584,6 +613,117 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         let indexpathHeader = IndexPath(row:timeSheetIndex + 1, section: weekIndex)
         tblEvents.reloadRows(at: [indexpathHeader], with: .none)
         
+    }
+    func submitTimeValidation(currentEvent:Events,timesheet:Timesheet?)->Bool{
+
+       
+        let currentEventType = currentEvent.timelineEvent ?? ""
+        let time = currentEvent.timelineValue ?? ""
+        if currentEventType == UserStatus.loggedIN.rawValue{
+            
+            for event in timesheet?.events ?? [Events](){
+                if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
+                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
+                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
+                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
+                       
+                        return false
+                    }
+                }
+            }
+        }else if currentEventType == UserStatus.loggedOut.rawValue{
+            for event in timesheet?.events ?? [Events](){
+                if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
+                        
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
+                        
+                        return false
+                    }
+                }
+            }
+            
+        }else if currentEventType == UserStatus.Inbreak.rawValue{
+            for event in timesheet?.events ?? [Events](){
+                if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
+                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
+                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
+                       
+                        return false
+                    }
+                }
+            }
+            
+        }else if currentEventType == UserStatus.Endbreak.rawValue{
+            for event in timesheet?.events ?? [Events](){
+                if event.timelineEvent == UserStatus.loggedIN.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
+                       
+                        return false
+                    }
+                }else if event.timelineEvent == UserStatus.Inbreak.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
+                      
+                        return false
+                    }
+                }else if event.timelineEvent == UserStatus.loggedOut.rawValue{
+                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
+                    if flag{
+                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
+                        
+                        return false
+                    }
+                }
+            }
+        }
+      return true
     }
     func timeValidation(time:String,weekIndex:Int,timeSheetIndex:Int,eventIndex:Int)->Bool{
 
@@ -731,7 +871,8 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
             if startTime != nil && endTime != nil{
                 totalWorkTime = self.differenceBetweenDates(from:startTime, toDate: endTime)
             }
-            let workTime = totalWorkTime - breakTime
+            // let workTime = totalWorkTime - breakTime
+             let workTime = self.calculateTotalTime(events:timesheet.events ?? [Events]())
             TotalWorkTime = TotalWorkTime + workTime
            
         }
@@ -842,6 +983,7 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 for subview in cell.stackView.subviews{
                     subview.removeFromSuperview()
                 }
+                self.calculateTotalTime(events:timesheet?.events ?? [Events]())
                 for (i,event) in (timesheet?.events ?? [Events]()).enumerated(){
                     let timeReportViewNew = TimesheetView()
                     
@@ -882,7 +1024,7 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 }
                  timeReportViewNew.timeLabel.tag = i
                 }
-                var breakTime = 0
+               /* var breakTime = 0
                 var totalWorkTime = 0
                 if breakstartTime != nil && breakEndTime != nil{
                     breakTime = self.differenceBetweenDates(from:breakstartTime, toDate: breakEndTime)
@@ -893,6 +1035,8 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                     totalWorkTime = self.differenceBetweenDates(from:startTime, toDate: endTime)
                 }
                 let workTime = totalWorkTime - breakTime
+                */
+                let workTime = self.calculateTotalTime(events:timesheet?.events ?? [Events]())
                 let tuple = minutesToHoursAndMinutes(workTime)
               
                 cell.totalTimeLabel.text = "\(tuple.hours).\((tuple.leftMinutes * 100)/60 ) hrs"
@@ -950,6 +1094,32 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
        
+    }
+    func calculateTotalTime(events:[Events])->Int{
+        var totalMinutes = 0
+        for (i,event) in events.enumerated(){
+            if events.count > i + 1{
+                if (events[i + 1].timelineTime != "") {
+                    if (((events[i].timelineEvent ?? "") == "I" && (events[i + 1].timelineEvent ?? "") == "B") ||
+                        ((events[i].timelineEvent ?? "") == "S" && (events[i + 1].timelineEvent ?? "") == "O") ||
+                        ((events[i].timelineEvent ?? "") == "S" && (events[i + 1].timelineEvent ?? "") == "B") ||
+                        ((events[i].timelineEvent ?? "") == "I" && (events[i + 1].timelineEvent ?? "") == "O")) {
+                        
+                        if (event.timelineTime != "") {
+
+                            let start = event.timelineTime ?? ""
+                            let end = events[i + 1].timelineTime ?? ""
+                            let startDate = start.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                            let endDate = end.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                            let duration = self.differenceBetweenDates(from:startDate, toDate: endDate)
+                            totalMinutes = totalMinutes + duration
+                        }
+                        
+                    }
+                }
+            }
+        }
+        return totalMinutes
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         self.viewWillLayoutSubviews()

@@ -133,7 +133,8 @@ class NetworkLayer: NSObject {
         }
     }
     
-    func postWebApiCallwithHeader(apiEndPoints:String, param:[String:Any]?, header:HTTPHeaders, completionHandler: @escaping webApiCallResponsCompletoionHandler){
+    func postWebApiCallwithHeader(apiEndPoints:String, param:[String:Any]?, header:[String:String], completionHandler: @escaping webApiCallResponsCompletoionHandler){
+        
         let headerAuth:HTTPHeaders = ["Authorization":"Bearer \(Defaults.shared.currentUser?.empToken ?? "")"]
         ProgressHUD.show()
         if reachabilityManager?.isReachable ?? false {
@@ -305,9 +306,9 @@ class NetworkLayer: NSObject {
     
     func postWebApiCallWithHeader(apiEndPoints:String,param:[String:Any]?, header:HTTPHeaders, completionHandler: @escaping webApiCallResponsCompletoionHandler){
         let urlString = apiEndPoints.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
-        
+        let headerAuth:HTTPHeaders = ["Authorization":"Bearer \(Defaults.shared.currentUser?.empToken ?? "")"]
         if reachabilityManager?.isReachable ?? false {
-            AF.request(urlString, method:.post, parameters:param, encoding: JSONEncoding.default, headers: header).responseJSON { response in
+            AF.request(urlString, method:.post, parameters:param, encoding: JSONEncoding.default, headers: headerAuth).responseJSON { response in
               
                 switch response.result {
                 case let .success(value):
