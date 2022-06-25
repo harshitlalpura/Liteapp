@@ -17,6 +17,7 @@ class TimeSheetCell: UITableViewCell , NibReusable {
    
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var btnDate: MyButton!
     @IBOutlet weak var scrollMainView: UIView!
     @IBOutlet weak var scrollView: UIView!
     @IBOutlet weak var scrollContentView: UIView!
@@ -63,6 +64,7 @@ class TimeSheetCell: UITableViewCell , NibReusable {
     @IBOutlet weak var btnBackWeekday: MyButton!
     @IBOutlet weak var btncloseWeekday: MyButton!
     
+   var isChangeDate = false
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

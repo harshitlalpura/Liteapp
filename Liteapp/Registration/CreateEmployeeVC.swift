@@ -216,19 +216,23 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     }
     @IBAction func saveClick(sender:UIButton){
         
+        var validationSucceess = true
         for week in self.selectedPayPeriod?.weeks ?? [Weeks](){
             for timeLine in week.timesheet ?? [Timesheet](){
                 for event in timeLine.events ?? [Events](){
                     if self.submitTimeValidation(currentEvent:event, timesheet: timeLine){
-                        self.createEmployeeDetails()
-                        saveEmployeeDetails()
+                        validationSucceess = true
                     }else{
+                        validationSucceess = false
                         break
                     }
                 }
             }
         }
-
+        if validationSucceess{
+            self.createEmployeeDetails()
+             saveEmployeeDetails()
+        }
     }
     @IBAction func cancelClick(sender:UIButton){
         saveView.isHidden = true
@@ -355,6 +359,14 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         self.tblEvents.reloadData()
         selectedWeekIndex = sender.tag
     }
+    @objc func changeDateSelected(sender:MyButton) {
+
+        let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        let cell = tblEvents.cellForRow(at: indexpath) as! TimeSheetCell
+        cell.weekDaysPopupView.isHidden = false
+        cell.isChangeDate = true
+
+    }
     @objc func approvedClicked(sender:UIButton) {
         
     }
@@ -403,13 +415,31 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeSheetCell
         cell.mainView.isHidden = false
         cell.weekDaysPopupView.isHidden = true
-        
-        self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.remove(at:sender.timeSheetIndex)
+        if cell.isChangeDate == false{
+            self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.remove(at:sender.timeSheetIndex)
+        }
         self.tblEvents.reloadData()
     }
     
     @objc func weekDaySelectClicked(sender:MyButton){
      
+        let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        if let cell = tblEvents.cellForRow(at: indexpath) as? TimeSheetCell{
+            if cell.isChangeDate{
+                self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].date = weekDates[sender.tag - 1].datestring ?? ""
+                let events = self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events ?? [Events]()
+                
+                for (i,_) in events.enumerated(){
+                    events[i].timelineDate = weekDates[sender.tag - 1].datestring ?? ""
+                }
+                self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events = events
+                print(self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events ?? [Events]())
+                cell.weekDaysPopupView.isHidden = true
+                self.tblEvents.reloadRows(at: [indexpath], with: .none)
+                return
+            }
+        }
+        
         for obj in (self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet ?? [Timesheet]()){
             if obj.date == weekDates[sender.tag - 1].datestring ?? ""{
                 AlertMesage.show(.error, message: "This day already added")
@@ -417,12 +447,10 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
             }
             
         }
-       // print(weekDates[sender.tag - 1])
+    
         let timesheet = Timesheet().addEventsForDay(date: weekDates[sender.tag - 1])
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?[sender.timeSheetIndex] = timesheet
-     //   self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.append(timesheet)
-        
-       // self.selectedPayPeriod?.weeks?[self.selectedWeekIndex].timesheet?.append(timesheet)
+  
         self.tblEvents.reloadData()
         
         self.weekDaysPopupView.isHidden = true
@@ -610,7 +638,10 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
                 subview.text = event?.timelineValue
             }
         }
-        let indexpathHeader = IndexPath(row:timeSheetIndex + 1, section: weekIndex)
+        let indexpathCell = IndexPath(row:timeSheetIndex + 1, section: weekIndex)
+        tblEvents.reloadRows(at: [indexpathCell], with: .none)
+        
+        let indexpathHeader = IndexPath(row:0, section: weekIndex)
         tblEvents.reloadRows(at: [indexpathHeader], with: .none)
         
     }
@@ -941,6 +972,11 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 cell.dateLabel.text = dateString
                 cell.dayLabel.text = weekday
                 
+                
+                cell.btnDate.addTarget(self, action:#selector(self.changeDateSelected(sender:)), for: .touchUpInside)
+                cell.btnDate.timeSheetIndex = indexPath.row - 1
+                cell.btnDate.weekIndex = indexPath.section
+                
                 cell.btnMore.addTarget(self, action:#selector(self.moreOptionClicked(sender:)), for: .touchUpInside)
                 cell.btnMore.timeSheetIndex = indexPath.row - 1
                 cell.btnMore.weekIndex = indexPath.section
@@ -1044,51 +1080,53 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
            
                 cell.mainView.backgroundColor = .clear
                 cell.selectionStyle = .none
+                
+                let selectedWeek = selectedPayPeriod?.weeks?[indexPath.section]
+                let dateFormatter = DateFormatter()
+
+                dateFormatter.dateFormat = kDateGetFormat
+                let fromDate = dateFormatter.date(from:selectedWeek?.weekFrom ??
+                                                  "") ?? Date()
+                let toDate = dateFormatter.date(from:selectedWeek?.weekTo ??
+                "") ?? Date()
+                let dates = (Date.dates(from:fromDate, to: toDate))
+                print(dates)
+                cell.setWeekDays(days:dates)
+                self.weekDates = dates
+                cell.btnWeekDay1.timeSheetIndex = indexPath.row - 1
+                cell.btnWeekDay1.weekIndex = indexPath.section
+               
+                cell.btnWeekDay2.timeSheetIndex = indexPath.row - 1
+                cell.btnWeekDay2.weekIndex = indexPath.section
+               
+                cell.btnWeekDay3.timeSheetIndex = indexPath.row - 1
+                cell.btnWeekDay3.weekIndex = indexPath.section
+               
+                cell.btnWeekDay4.timeSheetIndex = indexPath.row - 1
+                cell.btnWeekDay4.weekIndex = indexPath.section
+               
+                cell.btnWeekDay5.timeSheetIndex = indexPath.row - 1
+                cell.btnWeekDay5.weekIndex = indexPath.section
+               
+                cell.btnWeekDay6.timeSheetIndex = indexPath.row - 1
+                cell.btnWeekDay6.weekIndex = indexPath.section
+               
+                cell.btnWeekDay7.timeSheetIndex = indexPath.row - 1
+                cell.btnWeekDay7.weekIndex = indexPath.section
+               
+                
+                cell.btnWeekDay1.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                cell.btnWeekDay2.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                cell.btnWeekDay3.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                cell.btnWeekDay4.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                cell.btnWeekDay5.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                cell.btnWeekDay6.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+                cell.btnWeekDay7.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
                 if timesheet?.date == ""{
                     cell.weekDaysPopupView.isHidden = false
                     
-                    let selectedWeek = selectedPayPeriod?.weeks?[indexPath.section]
-                    let dateFormatter = DateFormatter()
-
-                    dateFormatter.dateFormat = kDateGetFormat
-                    let fromDate = dateFormatter.date(from:selectedWeek?.weekFrom ??
-                                                      "") ?? Date()
-                    let toDate = dateFormatter.date(from:selectedWeek?.weekTo ??
-                    "") ?? Date()
-                    let dates = (Date.dates(from:fromDate, to: toDate))
-                    print(dates)
-                    cell.setWeekDays(days:dates)
-                    self.weekDates = dates
-                    cell.btnWeekDay1.timeSheetIndex = indexPath.row - 1
-                    cell.btnWeekDay1.weekIndex = indexPath.section
-                   
-                    cell.btnWeekDay2.timeSheetIndex = indexPath.row - 1
-                    cell.btnWeekDay2.weekIndex = indexPath.section
-                   
-                    cell.btnWeekDay3.timeSheetIndex = indexPath.row - 1
-                    cell.btnWeekDay3.weekIndex = indexPath.section
-                   
-                    cell.btnWeekDay4.timeSheetIndex = indexPath.row - 1
-                    cell.btnWeekDay4.weekIndex = indexPath.section
-                   
-                    cell.btnWeekDay5.timeSheetIndex = indexPath.row - 1
-                    cell.btnWeekDay5.weekIndex = indexPath.section
-                   
-                    cell.btnWeekDay6.timeSheetIndex = indexPath.row - 1
-                    cell.btnWeekDay6.weekIndex = indexPath.section
-                   
-                    cell.btnWeekDay7.timeSheetIndex = indexPath.row - 1
-                    cell.btnWeekDay7.weekIndex = indexPath.section
-                   
-                    
-                    cell.btnWeekDay1.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
-                    cell.btnWeekDay2.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
-                    cell.btnWeekDay3.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
-                    cell.btnWeekDay4.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
-                    cell.btnWeekDay5.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
-                    cell.btnWeekDay6.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
-                    cell.btnWeekDay7.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
                 }else{
+                    
                     cell.weekDaysPopupView.isHidden = true
                 }
                 return cell
