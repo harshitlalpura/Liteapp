@@ -591,13 +591,6 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         
         self.setUpdatedTimesheetData(date:sender.date,weekIndex:sender.weekIndex,timeSheetIndex:sender.timeSheetIndex,eventIndex:sender.eventIndex)
         
-        let timeLineTime = dateFormatter.string(from: sender.date)
-      /* if self.timeValidation(time:timeLineTime,weekIndex:sender.weekIndex,timeSheetIndex:sender.timeSheetIndex,eventIndex:sender.eventIndex){
-            //do after everything is fine
-           
-        } */
-        
-       
     }
     func setUpdatedTimesheetData(date:Date,weekIndex:Int,timeSheetIndex:Int,eventIndex:Int){
         let dateFormatter = DateFormatter()
@@ -645,230 +638,103 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         tblEvents.reloadRows(at: [indexpathHeader], with: .none)
         
     }
+    func getEventTypeMessage(eventType:String)->String{
+        var eventTypeMessage = ""
+        switch eventType {
+        case UserStatus.loggedIN.rawValue:
+            eventTypeMessage = "Shift Start"
+            break
+        case UserStatus.loggedOut.rawValue:
+            eventTypeMessage = "Shift End"
+            break
+        case UserStatus.Inbreak.rawValue:
+            eventTypeMessage = "Lunch Start"
+            break
+        case UserStatus.Endbreak.rawValue:
+            eventTypeMessage = "Lunch End"
+            break
+        default:
+            break
+        }
+        return eventTypeMessage
+    }
     func submitTimeValidation(currentEvent:Events,timesheet:Timesheet?)->Bool{
 
+        var currentEventType = currentEvent.timelineEvent ?? ""
+     
+        let events = timesheet?.events ?? [Events]()
+        for (i,event) in events.enumerated(){
+            currentEventType = event.timelineEvent ?? ""
+            let currentEventTypeMessage = self.getEventTypeMessage(eventType: currentEventType)
+
+            if events.last?.timelineTime ?? "" == ""{
+                AlertMesage.show(.error, message: "Please enter valid time")
+                return false
+              
+            }
+           
+            if event == events.first{
+                if event.timelineEvent ?? "" != UserStatus.loggedIN.rawValue{
+                    AlertMesage.show(.error, message: "First event must be \(currentEventTypeMessage)")
+                    return false
+                }
+            }else if event == events.last{
+                if event.timelineEvent ?? "" != UserStatus.loggedOut.rawValue{
+                    AlertMesage.show(.error, message: "Last event must be \(currentEventTypeMessage)")
+                    return false
+                }
+            }
+            
+            if events.count > i + 1{
+                
+                
+                let eventTypeMessage = self.getEventTypeMessage(eventType: events[i+1].timelineEvent ?? "")
+                
+                if event.timelineTime ?? "" == events[i + 1].timelineEvent ?? ""{
+                    AlertMesage.show(.error, message: "\(eventTypeMessage) and \(currentEventTypeMessage) time can not be same")
+                    return false
+                   
+                }
+                
+                if currentEventType == UserStatus.loggedIN.rawValue{
+                    let nextEventType = events[i + 1].timelineEvent ?? ""
+                    if nextEventType == UserStatus.loggedOut.rawValue || nextEventType == UserStatus.Inbreak.rawValue{
+                       
+                    }else{
+                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        return false
+                    }
+                }else if currentEventType == UserStatus.loggedOut.rawValue{
+                    let nextEventType = events[i + 1].timelineEvent ?? ""
+                    if nextEventType == UserStatus.loggedIN.rawValue{
+                       
+                    }else{
+                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        return false
+                    }
+                }else if currentEventType == UserStatus.Inbreak.rawValue{
+                    let nextEventType = events[i + 1].timelineEvent ?? ""
+                    if nextEventType == UserStatus.Endbreak.rawValue{
+                       
+                    }else{
+                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        return false
+                    }
+                }else if currentEventType == UserStatus.Endbreak.rawValue{
+                    let nextEventType = events[i + 1].timelineEvent ?? ""
+                    if nextEventType == UserStatus.loggedOut.rawValue {
+                       
+                    }else{
+                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        return false
+                    }
+                }
+            }
+        }
+        return true
        
-        let currentEventType = currentEvent.timelineEvent ?? ""
-        let time = currentEvent.timelineValue ?? ""
-        if currentEventType == UserStatus.loggedIN.rawValue{
-            
-            for event in timesheet?.events ?? [Events](){
-                if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
-                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
-                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
-                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
-                       
-                        return false
-                    }
-                }
-            }
-        }else if currentEventType == UserStatus.loggedOut.rawValue{
-            for event in timesheet?.events ?? [Events](){
-                if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
-                        
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
-                        
-                        return false
-                    }
-                }
-            }
-            
-        }else if currentEventType == UserStatus.Inbreak.rawValue{
-            for event in timesheet?.events ?? [Events](){
-                if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
-                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
-                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
-                       
-                        return false
-                    }
-                }
-            }
-            
-        }else if currentEventType == UserStatus.Endbreak.rawValue{
-            for event in timesheet?.events ?? [Events](){
-                if event.timelineEvent == UserStatus.loggedIN.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent == UserStatus.Inbreak.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
-                      
-                        return false
-                    }
-                }else if event.timelineEvent == UserStatus.loggedOut.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
-                        
-                        return false
-                    }
-                }
-            }
-        }
-      return true
     }
-    func timeValidation(time:String,weekIndex:Int,timeSheetIndex:Int,eventIndex:Int)->Bool{
-
-        let week = self.selectedPayPeriod?.weeks?[weekIndex]
-        let timesheet = week?.timesheet?[timeSheetIndex]
-        let event = timesheet?.events?[eventIndex]
-        let currentEventType = event?.timelineEvent ?? ""
-
-        if currentEventType == UserStatus.loggedIN.rawValue{
-            
-            for event in timesheet?.events ?? [Events](){
-                if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
-                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
-                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
-                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
-                       
-                        return false
-                    }
-                }
-            }
-        }else if currentEventType == UserStatus.loggedOut.rawValue{
-            for event in timesheet?.events ?? [Events](){
-                if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
-                        
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
-                        
-                        return false
-                    }
-                }
-            }
-            
-        }else if currentEventType == UserStatus.Inbreak.rawValue{
-            for event in timesheet?.events ?? [Events](){
-                if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
-                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
-                    let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
-                       
-                        return false
-                    }
-                }
-            }
-            
-        }else if currentEventType == UserStatus.Endbreak.rawValue{
-            for event in timesheet?.events ?? [Events](){
-                if event.timelineEvent == UserStatus.loggedIN.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
-                       
-                        return false
-                    }
-                }else if event.timelineEvent == UserStatus.Inbreak.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
-                      
-                        return false
-                    }
-                }else if event.timelineEvent == UserStatus.loggedOut.rawValue{
-                    let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
-                    if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
-                        
-                        return false
-                    }
-                }
-            }
-        }
-      return true
-    }
+   
     func calculateTotalTimeForWeek(sectionIndex:Int)->(hours: Int , leftMinutes: Int , totalMinutes:Int ){
       
         let week =  selectedPayPeriod?.weeks?[sectionIndex]
@@ -947,8 +813,9 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 
                 let tuple = self.calculateTotalTimeForWeek(sectionIndex:indexPath.section)
                // print("Total Time \(tuple.hours).\(tuple.leftMinutes) hrs")
-                cell.totalTimeLabel.text = "\(tuple.hours).\(tuple.leftMinutes) hrs"
-                cell.regularHoursLabel.text = "\(tuple.hours).\(tuple.leftMinutes) hrs"
+               
+                cell.totalTimeLabel.text = "\(tuple.hours)." + String(format: "%02d hrs", tuple.leftMinutes)
+                cell.regularHoursLabel.text = "\(tuple.hours)." + String(format: "%02d hrs", tuple.leftMinutes)
                 
                 cell.btnAddTimesheet.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
                 cell.btnAddTimesheet.tag = indexPath.section
@@ -1012,14 +879,11 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 cell.btnBackWeekday.weekIndex = indexPath.section
                 
                 
-                var startTime:Date!
-                var breakstartTime:Date!
-                var breakEndTime:Date!
-                var endTime:Date!
+              
                 for subview in cell.stackView.subviews{
                     subview.removeFromSuperview()
                 }
-                self.calculateTotalTime(events:timesheet?.events ?? [Events]())
+               
                 for (i,event) in (timesheet?.events ?? [Events]()).enumerated(){
                     let timeReportViewNew = TimesheetView()
                     
@@ -1035,20 +899,20 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                   if timeLineEvent == "I"{
                       timeReportViewNew.titleLabel.text = "Shift Start:"
                       timeReportViewNew.barView.backgroundColor = UIColor.startShiftColor
-                      startTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                     
                     
                   }else if timeLineEvent == "O"{
                       timeReportViewNew.titleLabel.text = "Shift End:"
                       timeReportViewNew.barView.backgroundColor = UIColor.endShiftColor
-                      endTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                     
                   }else if timeLineEvent == "B"{
                       timeReportViewNew.titleLabel.text = "Break Start:"
                       timeReportViewNew.barView.backgroundColor = UIColor.breakStartColor
-                      breakstartTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                      
                   }else if timeLineEvent == "S"{
                       timeReportViewNew.titleLabel.text = "Break End:"
                       timeReportViewNew.barView.backgroundColor = UIColor.breakEndColor
-                      breakEndTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+    
                   }
                  timeReportViewNew.btnTimeEdit.addTarget(self, action:#selector(self.changeTimeClick(sender:)), for: .touchUpInside)
                  timeReportViewNew.btnTimeEdit.timeSheetIndex = indexPath.row - 1
@@ -1060,23 +924,13 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 }
                  timeReportViewNew.timeLabel.tag = i
                 }
-               /* var breakTime = 0
-                var totalWorkTime = 0
-                if breakstartTime != nil && breakEndTime != nil{
-                    breakTime = self.differenceBetweenDates(from:breakstartTime, toDate: breakEndTime)
-                }
-                if startTime != nil && endTime != nil{
-                  //  print(startTime)
-                 //   print(endTime)
-                    totalWorkTime = self.differenceBetweenDates(from:startTime, toDate: endTime)
-                }
-                let workTime = totalWorkTime - breakTime
-                */
+               
                 let workTime = self.calculateTotalTime(events:timesheet?.events ?? [Events]())
                 let tuple = minutesToHoursAndMinutes(workTime)
               
-                cell.totalTimeLabel.text = "\(tuple.hours).\((tuple.leftMinutes * 100)/60 ) hrs"
-                cell.regularHoursLabel.text = "\(tuple.hours).\((tuple.leftMinutes * 100)/60 ) hrs"
+                
+                cell.totalTimeLabel.text = "\(tuple.hours)." + String(format: "%02d hrs", ((tuple.leftMinutes * 100)/60 ))
+                cell.regularHoursLabel.text = "\(tuple.hours)." + String(format: "%02d hrs", ((tuple.leftMinutes * 100)/60 ))
            
                 cell.mainView.backgroundColor = .clear
                 cell.selectionStyle = .none
@@ -1144,11 +998,13 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                         ((events[i].timelineEvent ?? "") == "I" && (events[i + 1].timelineEvent ?? "") == "O")) {
                         
                         if (event.timelineTime != "") {
-
-                            let start = event.timelineTime ?? ""
-                            let end = events[i + 1].timelineTime ?? ""
-                            let startDate = start.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
-                            let endDate = end.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                            
+                            let start = event.timelineValue ?? ""
+                            let end = events[i + 1].timelineValue ?? ""
+                          //  let startDate = start.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                          //  let endDate = end.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                            let startDate = start.toDate(dateFormat:DateTimeFormat.time.rawValue)
+                            let endDate = end.toDate(dateFormat:DateTimeFormat.time.rawValue)
                             let duration = self.differenceBetweenDates(from:startDate, toDate: endDate)
                             totalMinutes = totalMinutes + duration
                         }
@@ -1254,6 +1110,7 @@ extension CreateEmployeeVC{
     }
     func differenceBetweenDates(from:Date,toDate:Date)->Int{
         let dateComponentsFormatter = DateComponentsFormatter()
+        
         print( dateComponentsFormatter.difference(from:from, to: toDate) ?? "")
         return Int((dateComponentsFormatter.difference(from:from, to: toDate) ?? "0").allowNumberOnly()) ?? 0
     }

@@ -477,7 +477,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
        
         
     }
-    
+    @IBAction func changePasswordClicked(sender:UIButton){
+        let vc = ChangePasswordVC.instantiate()
+        self.presentVC(controller:vc)
+    }
     @IBAction func successPopupContinueSelected(sender:UIButton){
         self.successPopup.isHidden = true
         let vc = EmployeesVC.instantiate()

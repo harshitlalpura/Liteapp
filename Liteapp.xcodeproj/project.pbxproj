@@ -240,6 +240,7 @@
 		61EA23832856076200CB0891 /* EmployeesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EA23822856076200CB0891 /* EmployeesVC.swift */; };
 		61EA238528560E9300CB0891 /* EmployeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EA238428560E9300CB0891 /* EmployeeCell.swift */; };
 		61EA23872856112700CB0891 /* Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EA23862856112700CB0891 /* Employees.swift */; };
+		61F67BF52869C91E005E9622 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F67BF42869C91D005E9622 /* ChangePasswordVC.swift */; };
 		61FBCBBA285A6B7000D7BBC5 /* AddEmployeeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBCBB9285A6B7000D7BBC5 /* AddEmployeeVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -514,6 +515,7 @@
 		61EA23822856076200CB0891 /* EmployeesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesVC.swift; sourceTree = "<group>"; };
 		61EA238428560E9300CB0891 /* EmployeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeCell.swift; sourceTree = "<group>"; };
 		61EA23862856112700CB0891 /* Employees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employees.swift; sourceTree = "<group>"; };
+		61F67BF42869C91D005E9622 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		61FBCBB9285A6B7000D7BBC5 /* AddEmployeeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmployeeVC.swift; sourceTree = "<group>"; };
 		900C9CDEA89A1DFAF57CEBCB /* Pods_Liteapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Liteapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F698F00D4EDAB0A3A10A1B1C /* Pods-Liteapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Liteapp.release.xcconfig"; path = "Target Support Files/Pods-Liteapp/Pods-Liteapp.release.xcconfig"; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 				6177FA84285F227900C4A44F /* InviteViaEmailVC.swift */,
 				6177FA86285F2CAC00C4A44F /* InviteViaTextVC.swift */,
 				6177FA88285F398300C4A44F /* InviteViaRefferalLinkVC.swift */,
+				61F67BF42869C91D005E9622 /* ChangePasswordVC.swift */,
 				61A297C728549A650015777F /* CustomView */,
 				61A297C628549A4D0015777F /* Cell */,
 			);
@@ -1589,6 +1592,7 @@
 				6182F785284933FB0006BDF0 /* URL+SoundEmitting.swift in Sources */,
 				6182F7B0284933FB0006BDF0 /* SignInWithApple+Manager.swift in Sources */,
 				6182F799284933FB0006BDF0 /* HandlerView.swift in Sources */,
+				61F67BF52869C91E005E9622 /* ChangePasswordVC.swift in Sources */,
 				6182F7A1284933FB0006BDF0 /* DocumentPicker.swift in Sources */,
 				6198167228509DEE00D41BA2 /* OnboardingRegisterStep1VC.swift in Sources */,
 				6182F79D284933FB0006BDF0 /* UIimageExtention.swift in Sources */,

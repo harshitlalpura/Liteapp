@@ -833,8 +833,11 @@ weekly , biweekly.</string>
                                                                                         <buttonConfiguration key="configuration" style="plain" title="Change">
                                                                                             <color key="baseForegroundColor" name="appBlueColor"/>
                                                                                         </buttonConfiguration>
+                                                                                        <connections>
+                                                                                            <action selector="changePasswordClickedWithSender:" destination="6D3-2p-9GA" eventType="touchUpInside" id="oel-Bl-sLE"/>
+                                                                                        </connections>
                                                                                     </button>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gYZ-Kp-FTB">
+                                                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gYZ-Kp-FTB">
                                                                                         <rect key="frame" x="20" y="45" width="324" height="45"/>
                                                                                         <color key="backgroundColor" red="0.94509804249999996" green="0.96078431610000004" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                         <constraints>
@@ -2291,19 +2294,31 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                                                                 <color key="textColor" red="0.28235294117647058" green="0.33333333333333331" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_updown" translatesAutoresizingMaskIntoConstraints="NO" id="j5a-9P-d0K">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconsortDefault" translatesAutoresizingMaskIntoConstraints="NO" id="j5a-9P-d0K">
                                                                 <rect key="frame" x="204.5" y="17.5" width="10" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="10" id="MMO-HQ-qwr"/>
                                                                     <constraint firstAttribute="height" constant="20" id="Ykl-yq-fmA"/>
                                                                 </constraints>
                                                             </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9TF-mG-hdZ">
+                                                                <rect key="frame" x="0.0" y="0.0" width="224.5" height="55"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                                <connections>
+                                                                    <action selector="sortNameClickedWithSender:" destination="HqX-bF-n4j" eventType="touchUpInside" id="Ivk-ZB-6S7"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="6nm-ha-DH2" firstAttribute="leading" secondItem="kNW-R9-xAw" secondAttribute="leading" constant="10" id="4Da-pi-YXW"/>
+                                                            <constraint firstAttribute="bottom" secondItem="9TF-mG-hdZ" secondAttribute="bottom" id="5iu-A4-fSc"/>
+                                                            <constraint firstAttribute="trailing" secondItem="9TF-mG-hdZ" secondAttribute="trailing" id="QyL-cF-ArO"/>
+                                                            <constraint firstItem="9TF-mG-hdZ" firstAttribute="top" secondItem="kNW-R9-xAw" secondAttribute="top" id="S9N-tz-r5l"/>
                                                             <constraint firstAttribute="trailing" secondItem="j5a-9P-d0K" secondAttribute="trailing" constant="10" id="apm-l3-VHr"/>
                                                             <constraint firstItem="j5a-9P-d0K" firstAttribute="centerY" secondItem="kNW-R9-xAw" secondAttribute="centerY" id="b69-jt-cqc"/>
+                                                            <constraint firstItem="9TF-mG-hdZ" firstAttribute="leading" secondItem="kNW-R9-xAw" secondAttribute="leading" id="h5a-xW-ob7"/>
                                                             <constraint firstItem="6nm-ha-DH2" firstAttribute="centerY" secondItem="kNW-R9-xAw" secondAttribute="centerY" id="w2S-09-wUB"/>
                                                         </constraints>
                                                     </view>
@@ -2316,18 +2331,30 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                                                                 <color key="textColor" red="0.28235294119999998" green="0.33333333329999998" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_updown" translatesAutoresizingMaskIntoConstraints="NO" id="8Rz-zH-sGk">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconsortDefault" translatesAutoresizingMaskIntoConstraints="NO" id="8Rz-zH-sGk">
                                                                 <rect key="frame" x="129.5" y="17.5" width="10" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="kP1-VO-1eq"/>
                                                                     <constraint firstAttribute="width" constant="10" id="vUx-pT-qfR"/>
                                                                 </constraints>
                                                             </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yK-uL-zTA">
+                                                                <rect key="frame" x="0.0" y="0.0" width="149.5" height="55"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                                <connections>
+                                                                    <action selector="sortJobTitleClickedWithSender:" destination="HqX-bF-n4j" eventType="touchUpInside" id="hjI-Q3-kyo"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="6yK-uL-zTA" secondAttribute="trailing" id="3J4-dy-6K7"/>
+                                                            <constraint firstAttribute="bottom" secondItem="6yK-uL-zTA" secondAttribute="bottom" id="7w1-zo-EJT"/>
                                                             <constraint firstItem="ZHj-Cg-y80" firstAttribute="leading" secondItem="aaG-LR-2h6" secondAttribute="leading" constant="10" id="Mt0-Yj-aC8"/>
                                                             <constraint firstItem="8Rz-zH-sGk" firstAttribute="centerY" secondItem="aaG-LR-2h6" secondAttribute="centerY" id="QCG-zc-Mj9"/>
+                                                            <constraint firstItem="6yK-uL-zTA" firstAttribute="top" secondItem="aaG-LR-2h6" secondAttribute="top" id="VXz-Kj-0GH"/>
+                                                            <constraint firstItem="6yK-uL-zTA" firstAttribute="leading" secondItem="aaG-LR-2h6" secondAttribute="leading" id="k4t-PA-QMI"/>
                                                             <constraint firstAttribute="trailing" secondItem="8Rz-zH-sGk" secondAttribute="trailing" constant="10" id="koS-Mt-m4H"/>
                                                             <constraint firstItem="ZHj-Cg-y80" firstAttribute="centerY" secondItem="aaG-LR-2h6" secondAttribute="centerY" id="nyU-Kc-XPD"/>
                                                         </constraints>
@@ -2491,8 +2518,10 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="jobTitleSortImageview" destination="8Rz-zH-sGk" id="Qk5-UD-Y1b"/>
                         <outlet property="lblusername" destination="oXY-i0-N6a" id="lLF-tJ-gYK"/>
                         <outlet property="logoutView" destination="xOf-Bc-RFy" id="awT-Cm-XuA"/>
+                        <outlet property="nameSortImageview" destination="j5a-9P-d0K" id="rSv-Xg-YUj"/>
                         <outlet property="tblview" destination="v14-v9-q3I" id="QrY-KV-dZy"/>
                     </connections>
                 </viewController>
@@ -6360,7 +6389,7 @@ YW5pemF0aW9uLgtTaGFyYWJsZSBsaW5rIGlzIHZhbGlkIGZvciAzMCBkYXlzA
         <image name="ic_person_add" width="50" height="36"/>
         <image name="ic_settings" width="47" height="48"/>
         <image name="ic_sms" width="48" height="48"/>
-        <image name="ic_updown" width="24" height="48"/>
+        <image name="iconsortDefault" width="24" height="48"/>
         <image name="img_success" width="237" height="237"/>
         <image name="luuminateLogo" width="267" height="121"/>
         <namedColor name="appBlueColor">

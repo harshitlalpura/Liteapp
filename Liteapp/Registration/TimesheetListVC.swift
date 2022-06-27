@@ -16,10 +16,26 @@ enum TimesheetStatus:String{
     case approved = "A"
     case unapproved = "U"
 }
-
+enum Sort:String{
+   // asc / desc
+    case defaultShort = ""
+    case ascending = "asc"
+    case decending = "desc"
+}
+enum CurrentSortType:Int{
+   // asc / desc
+    case none = 0
+    case name = 1
+    case total = 2
+    case approval = 3
+}
 extension UIImage{
     static let checkImage = UIImage(named:"ic_check_box")
     static let uncheckImage = UIImage(named:"ic_uncheck_box")
+    
+    static let sortAsc = UIImage(named:"iconsortAsc")
+    static let sortDesc = UIImage(named:"iconsortDesc")
+    static let sortDefault = UIImage(named:"iconsortDefault")
 }
 class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         
@@ -33,11 +49,27 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var exportMainView: UIView!
     @IBOutlet weak var approveMainview: UIView!
+    
+    @IBOutlet weak var nameSortImageview: UIImageView!
+    @IBOutlet weak var totalSortImageview: UIImageView!
+    @IBOutlet weak var approvalSortImageview: UIImageView!
+    
+    var sortNameType = Sort.defaultShort
+    var sortTotalType = Sort.defaultShort
+    var sortApprovalType = Sort.defaultShort
+    var currentSortType = CurrentSortType.none
+    
+    var sortType = ""
+    var sortColumn = ""
+    
     var timesheetList =  [PayPeriodTimesheet]()
     var selectedTimesheetList =  [PayPeriodTimesheet]()
     var selectedPayPeriod:Payperiods?
     var selectedPayPeriodIndex:Int = 0
+    
+    
     var payPeriodsData = [Payperiods]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
@@ -72,6 +104,10 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         
         self.approveMainview.alpha = 0.5
         self.exportMainView.alpha = 0.5
+        
+        nameSortImageview.image = UIImage.sortDefault
+        totalSortImageview.image = UIImage.sortDefault
+        approvalSortImageview.image = UIImage.sortDefault
     }
     func setTableView(){
         //self.tblview.register(EmployeeCell.self, forCellWithReuseIdentifier: "EmployeeCell")
@@ -98,11 +134,11 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
              "payperiod_id":"\(selectedPayPeriod?.payperiodId ?? 0)",
             "limit":"100",
             "offset":"0",
-            "sort_column":"emp_firstname",
-            "sort_type":"asc",
+            "sort_column":self.sortColumn,
+            "sort_type":self.sortType,
         ] as [String : Any]
 
-        
+        self.timesheetList =  [PayPeriodTimesheet]()
         print(parameters)
         NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.fetchTimesheetsById(), param: parameters, header: Defaults.shared.header ?? ["":""]){ success, response, error in
             if let res = response{
@@ -198,7 +234,83 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
     @IBAction func exportClick(sender:UIButton){
         
     }
-    
+    @IBAction func sortNameClicked(sender:UIButton){
+        sortColumn = ""
+        
+        nameSortImageview.image = UIImage.sortDefault
+        totalSortImageview.image = UIImage.sortDefault
+        approvalSortImageview.image = UIImage.sortDefault
+        
+        if sortNameType == Sort.decending{
+            currentSortType = CurrentSortType.none
+            sortType = Sort.defaultShort.rawValue
+            sortColumn = "emp_firstname"
+            sortNameType = Sort.defaultShort
+        }else if sortNameType == Sort.defaultShort{
+            currentSortType = CurrentSortType.name
+            sortType = Sort.ascending.rawValue
+            sortColumn = "emp_firstname"
+            sortNameType = Sort.ascending
+            nameSortImageview.image = UIImage.sortAsc
+        }else if sortNameType == Sort.ascending{
+            currentSortType = CurrentSortType.name
+            sortType = Sort.decending.rawValue
+            sortColumn = "emp_firstname"
+            sortNameType = Sort.decending
+            nameSortImageview.image = UIImage.sortDesc
+        }
+        self.fetchTimesheetList()
+    }
+    @IBAction func sortTotalClicked(sender:UIButton){
+        sortColumn = ""
+        nameSortImageview.image = UIImage.sortDefault
+        totalSortImageview.image = UIImage.sortDefault
+        approvalSortImageview.image = UIImage.sortDefault
+        if sortTotalType == Sort.decending{
+            currentSortType = CurrentSortType.none
+            sortType = Sort.defaultShort.rawValue
+            sortColumn = "total"
+            sortTotalType = Sort.defaultShort
+        }else if sortTotalType == Sort.defaultShort{
+            currentSortType = CurrentSortType.total
+            sortType = Sort.ascending.rawValue
+            sortColumn = "total"
+            sortTotalType = Sort.ascending
+           totalSortImageview.image = UIImage.sortAsc
+        }else if sortTotalType == Sort.ascending{
+            currentSortType = CurrentSortType.total
+            sortType = Sort.decending.rawValue
+            sortColumn = "total"
+            sortTotalType = Sort.decending
+            totalSortImageview.image = UIImage.sortDesc
+        }
+        self.fetchTimesheetList()
+    }
+    @IBAction func sortApprovalClicked(sender:UIButton){
+        sortColumn = ""
+        nameSortImageview.image = UIImage.sortDefault
+        totalSortImageview.image = UIImage.sortDefault
+        approvalSortImageview.image = UIImage.sortDefault
+        if sortApprovalType == Sort.decending{
+            currentSortType = CurrentSortType.none
+            sortType = Sort.defaultShort.rawValue
+            sortColumn = "payperiod_status"
+            sortApprovalType = Sort.defaultShort
+        }else if sortApprovalType == Sort.defaultShort{
+            currentSortType = CurrentSortType.approval
+            sortType = Sort.ascending.rawValue
+            sortColumn = "payperiod_status"
+            sortApprovalType = Sort.ascending
+            approvalSortImageview.image = UIImage.sortAsc
+        }else if sortApprovalType == Sort.ascending{
+            currentSortType = CurrentSortType.approval
+            sortType = Sort.decending.rawValue
+            sortColumn = "payperiod_status"
+            sortApprovalType = Sort.decending
+            approvalSortImageview.image = UIImage.sortDesc
+        }
+        self.fetchTimesheetList()
+    }
     func changeStatusAPI(status:TimesheetStatus){
         let array: Array = selectedTimesheetList.map(){"\($0.empId ?? 0)"}
         let joinedString: String  = array.joined(separator:",")
