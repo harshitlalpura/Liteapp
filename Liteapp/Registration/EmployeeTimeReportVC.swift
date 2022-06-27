@@ -569,6 +569,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @objc func weekDaySelectClicked(sender:MyButton){
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
         if let cell = tblEvents.cellForRow(at: indexpath) as? TimeReportCell{
+            self.weekDates = cell.weekDates
             if cell.isChangeDate{
                 self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].date = weekDates[sender.tag - 1].datestring ?? ""
                 let events = self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events ?? [Events]()
@@ -583,6 +584,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                 return
             }
         }
+        guard let cell = tblEvents.cellForRow(at: indexpath) as? TimeReportCell else {return}
+        self.weekDates = cell.weekDates
         for obj in (self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet ?? [Timesheet]()){
             if obj.date == weekDates[sender.tag - 1].datestring ?? ""{
                 AlertMesage.show(.error, message: "This day already added")
@@ -866,9 +869,9 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 print(dates)
                 cell.setWeekDays(days:dates)
                 self.weekDates = dates
+                cell.weekDates = dates
                 if timesheet?.date == ""{
                     cell.weekDaysPopupView.isHidden = false
-
                 }else{
                     cell.weekDaysPopupView.isHidden = true
                 }

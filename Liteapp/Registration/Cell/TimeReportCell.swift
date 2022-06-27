@@ -63,6 +63,7 @@ class TimeReportCell: UITableViewCell , NibReusable {
     @IBOutlet weak var btnBackWeekday: MyButton!
     @IBOutlet weak var btncloseWeekday: MyButton!
     var isChangeDate = false
+    var weekDates = [CustomDate]()
     override func awakeFromNib() {
         super.awakeFromNib()
        
