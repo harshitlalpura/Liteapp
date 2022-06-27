@@ -10,6 +10,12 @@ import SideMenu
 import ObjectMapper
 import Alamofire
 
+enum EmployeeSortType:Int{
+   // asc / desc
+    case none = 0
+    case name = 1
+    case jobtitle = 2
+}
 class EmployeesVC:BaseViewController, StoryboardSceneBased{
     
     static let sceneStoryboard = UIStoryboard(name: StoryboardName.merchant.rawValue, bundle: nil)
@@ -18,6 +24,19 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var tblview: UITableView!
     var employeeList =  [Employee]()
+    
+    @IBOutlet weak var nameSortImageview: UIImageView!
+    @IBOutlet weak var jobTitleSortImageview: UIImageView!
+  
+    
+    var sortNameType = Sort.defaultShort
+    var sortJobTitleType = Sort.defaultShort
+   
+    var currentSortType = EmployeeSortType.none
+    
+    var sortType = ""
+    var sortColumn = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,6 +68,58 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
         Utility.setRootScreen(isShowAnimation: true)
         logoutView.isHidden = true
     }
+    @IBAction func sortNameClicked(sender:UIButton){
+        sortColumn = ""
+        
+        nameSortImageview.image = UIImage.sortDefault
+        jobTitleSortImageview.image = UIImage.sortDefault
+        
+        
+        if sortNameType == Sort.decending{
+            currentSortType = EmployeeSortType.none
+            sortType = Sort.defaultShort.rawValue
+            sortColumn = "emp_firstname"
+            sortNameType = Sort.defaultShort
+        }else if sortNameType == Sort.defaultShort{
+            currentSortType = EmployeeSortType.name
+            sortType = Sort.ascending.rawValue
+            sortColumn = "emp_firstname"
+            sortNameType = Sort.ascending
+            nameSortImageview.image = UIImage.sortAsc
+        }else if sortNameType == Sort.ascending{
+            currentSortType = EmployeeSortType.name
+            sortType = Sort.decending.rawValue
+            sortColumn = "emp_firstname"
+            sortNameType = Sort.decending
+            nameSortImageview.image = UIImage.sortDesc
+        }
+        fetchEmployees()
+    }
+    @IBAction func sortJobTitleClicked(sender:UIButton){
+        sortColumn = ""
+        nameSortImageview.image = UIImage.sortDefault
+        jobTitleSortImageview.image = UIImage.sortDefault
+       
+        if sortJobTitleType == Sort.decending{
+            currentSortType = EmployeeSortType.none
+            sortType = Sort.defaultShort.rawValue
+            sortColumn = "emp_job_title"
+            sortJobTitleType = Sort.defaultShort
+        }else if sortJobTitleType == Sort.defaultShort{
+            currentSortType = EmployeeSortType.jobtitle
+            sortType = Sort.ascending.rawValue
+            sortColumn = "emp_job_title"
+            sortJobTitleType = Sort.ascending
+            jobTitleSortImageview.image = UIImage.sortAsc
+        }else if sortJobTitleType == Sort.ascending{
+            currentSortType = EmployeeSortType.jobtitle
+            sortType = Sort.decending.rawValue
+            sortColumn = "emp_job_title"
+            sortJobTitleType = Sort.decending
+            jobTitleSortImageview.image = UIImage.sortDesc
+        }
+        fetchEmployees()
+    }
     @IBAction func addEmployeeClicked(sender:UIButton){
         let vc = AddEmployeeVC.instantiate()
         self.pushVC(controller: vc)
@@ -74,8 +145,8 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
             "emp_id":Defaults.shared.currentUser?.empId ?? 0,
             "limit":"100",
             "offset":"0",
-            "sort_column":"emp_firstname",
-            "sort_type":"asc",
+            "sort_column":self.sortColumn,
+            "sort_type":self.sortType,
         ] as [String : Any]
 
         print(parameters)

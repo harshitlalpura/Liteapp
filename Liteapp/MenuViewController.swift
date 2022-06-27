@@ -10,8 +10,8 @@ import UIKit
 
 enum Menuname{
     static let timeClock = "TimeClock"
-    static let employee = "Employee"
-    static let timeSheet = "TimeSheet"
+    static let employee = "Employees"
+    static let timeSheet = "TimeSheets"
     static let Exams = "Exams"
     static let settings = "Settings"
     static let logout = "Logout \n Manager"
@@ -40,7 +40,7 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var upgradePremiumView: UIView!
     var selectedOption:SelectedOption = .TimeClock
     weak public var delegate: MenuItemDelegate?
-    var menuItems = ["TimeClock","Employee","TimeSheet","Settings","Logout \n Manager"]
+    var menuItems = ["TimeClock","Employees","TimeSheets","Settings","Logout \n Manager"]
     var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
     
     override func viewDidLoad() {
@@ -49,7 +49,7 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
     }
     private func setupTableView(){
         if Defaults.shared.currentUser?.empType ?? "" == "S"{
-            menuItems = ["TimeClock","Employee","TimeSheet","Settings","Logout \n Manager"]
+            menuItems = ["TimeClock","Employees","TimeSheets","Settings","Logout \n Manager"]
             menuImages = ["ic_timeclock","ic_employee","ic_timesheets","ic_settings","ic_logout"]
         }else{
            menuItems = ["TimeClock","Logout \n Manager"]
