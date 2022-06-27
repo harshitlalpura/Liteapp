@@ -63,7 +63,7 @@ class TimeSheetCell: UITableViewCell , NibReusable {
     
     @IBOutlet weak var btnBackWeekday: MyButton!
     @IBOutlet weak var btncloseWeekday: MyButton!
-    
+    var weekDates = [CustomDate]()
    var isChangeDate = false
     override func awakeFromNib() {
         super.awakeFromNib()

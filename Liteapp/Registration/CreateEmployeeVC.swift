@@ -425,7 +425,9 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
      
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
         if let cell = tblEvents.cellForRow(at: indexpath) as? TimeSheetCell{
+            self.weekDates = cell.weekDates
             if cell.isChangeDate{
+               
                 self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].date = weekDates[sender.tag - 1].datestring ?? ""
                 let events = self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events ?? [Events]()
                 
@@ -439,7 +441,8 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
                 return
             }
         }
-        
+        guard let cell = tblEvents.cellForRow(at: indexpath) as? TimeSheetCell else {return}
+        self.weekDates = cell.weekDates
         for obj in (self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet ?? [Timesheet]()){
             if obj.date == weekDates[sender.tag - 1].datestring ?? ""{
                 AlertMesage.show(.error, message: "This day already added")
@@ -946,6 +949,7 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 let dates = (Date.dates(from:fromDate, to: toDate))
                 print(dates)
                 cell.setWeekDays(days:dates)
+                cell.weekDates = dates
                 self.weekDates = dates
                 cell.btnWeekDay1.timeSheetIndex = indexPath.row - 1
                 cell.btnWeekDay1.weekIndex = indexPath.section
