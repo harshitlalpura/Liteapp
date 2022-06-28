@@ -219,7 +219,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
      
         for obj in (self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet ?? [Timesheet]()){
             if obj.date == weekDates[sender.tag - 1].datestring ?? ""{
-                AlertMesage.show(.error, message: "This day already added")
+                self.showAlert(alertType:.validation, message: "This day already added")
+              
                 return
             }
             
@@ -588,7 +589,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         self.weekDates = cell.weekDates
         for obj in (self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet ?? [Timesheet]()){
             if obj.date == weekDates[sender.tag - 1].datestring ?? ""{
-                AlertMesage.show(.error, message: "This day already added")
+               
+                self.showAlert(alertType:.validation, message: "This day already added")
                 return
             }
             
@@ -1050,21 +1052,19 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
                     let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
-                       
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for Start Shift")
                         return false
                     }
                 }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
                     let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
-                       
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for Start Shift")
                         return false
                     }
                 }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
                     let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Start Shift")
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for Start Shift")
                        
                         return false
                     }
@@ -1075,21 +1075,24 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for End Shift")
+                       
                         
                         return false
                     }
                 }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for End Shift")
+                     
                        
                         return false
                     }
                 }else if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for End Shift")
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for End Shift")
+                       
                         
                         return false
                     }
@@ -1101,21 +1104,23 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
-                       
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch Start")
+                     
                         return false
                     }
                 }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
                     let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch Start")
+                       
                        
                         return false
                     }
                 }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
                     let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch Start")
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch Start")
+                       
                        
                         return false
                     }
@@ -1127,21 +1132,24 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 if event.timelineEvent == UserStatus.loggedIN.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch End")
+                      
                        
                         return false
                     }
                 }else if event.timelineEvent == UserStatus.Inbreak.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch End")
+                       
                       
                         return false
                     }
                 }else if event.timelineEvent == UserStatus.loggedOut.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        AlertMesage.show(.error, message: "Please choose a different time for Lunch End")
+                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch End")
+                      
                         
                         return false
                     }
@@ -1182,18 +1190,21 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
            
             
             if events.last?.timelineTime ?? "" == ""{
-                AlertMesage.show(.error, message: "Please enter valid time")
+                self.showAlert(alertType:.validation, message: "Please enter valid time")
+               
                 return false
               
             }
             if event == events.first{
                 if event.timelineEvent ?? "" != UserStatus.loggedIN.rawValue{
-                    AlertMesage.show(.error, message: "First event must be Shift Start")
+                    self.showAlert(alertType:.validation, message: "First event must be Shift Start")
+                   
                     return false
                 }
             }else if event == events.last{
                 if event.timelineEvent ?? "" != UserStatus.loggedOut.rawValue{
-                    AlertMesage.show(.error, message: "Last event must be Shift End")
+                    self.showAlert(alertType:.validation, message: "Last event must be Shift End")
+                   
                     return false
                 }
             }
@@ -1210,7 +1221,8 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     if nextEventType == UserStatus.loggedOut.rawValue || nextEventType == UserStatus.Inbreak.rawValue{
                        
                     }else{
-                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        
                         return false
                     }
                 }else if currentEventType == UserStatus.loggedOut.rawValue{
@@ -1218,7 +1230,8 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     if nextEventType == UserStatus.loggedIN.rawValue{
                        
                     }else{
-                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                       
                         return false
                     }
                 }else if currentEventType == UserStatus.Inbreak.rawValue{
@@ -1226,7 +1239,8 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     if nextEventType == UserStatus.Endbreak.rawValue{
                        
                     }else{
-                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                       
                         return false
                     }
                 }else if currentEventType == UserStatus.Endbreak.rawValue{
@@ -1234,7 +1248,8 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     if nextEventType == UserStatus.loggedOut.rawValue {
                        
                     }else{
-                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                      
                         return false
                     }
                 }

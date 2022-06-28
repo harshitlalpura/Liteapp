@@ -32,15 +32,16 @@ class EmployeeOnboardingVCStep1:BaseViewController, StoryboardSceneBased{
     }
     func checkValidation()->Bool{
         if txtFirstName.text!.count < 3{
-            AlertMesage.show(.error, message: "Please Enter Valid First Name")
+            self.showAlert(alertType:.validation, message: "Please Enter Valid First Name")
             return false
         }
         if txtLastName.text!.count < 3{
-            AlertMesage.show(.error, message: "Please Enter Valid Last Name")
+           
+            self.showAlert(alertType:.validation, message: "Please Enter Valid Last Name")
             return false
         }
         if txtJobTitle.text!.count < 3{
-            AlertMesage.show(.error, message: "Please Enter Job Title")
+            self.showAlert(alertType:.validation, message: "Please Enter Job Title")
             return false
         }
         return true

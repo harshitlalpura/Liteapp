@@ -24,19 +24,23 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
     }
     func checkValidation()->Bool{
         if txtBusinessName.text!.count < 3{
-            AlertMesage.show(.error, message: "Please Eneter Business Name")
+          
+            self.showAlert(alertType:.validation, message: "Please Eneter Business Name")
             return false
         }
         if txtEmail.text!.isEmail == false{
-            AlertMesage.show(.error, message: "Please Eneter Valid Email")
+           
+            self.showAlert(alertType:.validation, message: "Please Eneter Valid Email")
             return false
         }
         if txtZipcode.text!.count < 3{
-            AlertMesage.show(.error, message: "Please Eneter Valid Zipcode")
+            
+            self.showAlert(alertType:.validation, message: "Please Eneter Valid Zipcode")
             return false
         }
         if txtTimezone.text! == ""{
-            AlertMesage.show(.error, message: "Please select Timezone")
+           
+            self.showAlert(alertType:.validation, message: "Please select Timezone")
             return false
         }
         return true

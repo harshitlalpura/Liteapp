@@ -75,6 +75,15 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
   
     @IBOutlet weak var picker: MyDatePicker!
     @IBOutlet weak var datePickerView: UIView!
+    
+    @IBOutlet weak var passwordValidationView: UIView!
+    
+    @IBOutlet weak var imgvwminimumCharacter: UIImageView!
+    @IBOutlet weak var imgvwLowercaseLetter: UIImageView!
+    @IBOutlet weak var imgvwCapitalLetter: UIImageView!
+    @IBOutlet weak var imgvwNumber: UIImageView!
+    @IBOutlet weak var imgvwSpecialCharacter: UIImageView!
+    
     @IBOutlet weak var eventTableHeightConstraint: NSLayoutConstraint!
     var weekDates = [CustomDate]()
     var selectedWeekIndex = 0
@@ -88,6 +97,7 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         setupMenu()
         setData()
         setTableview()
+        txtPassword.delegate = self
         tblEvents.addObserver(self, forKeyPath: #keyPath(UITableView.contentSize), options: [NSKeyValueObservingOptions.new], context: &myContext)
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -247,7 +257,8 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
      
         for obj in (self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet ?? [Timesheet]()){
             if obj.date == weekDates[sender.tag - 1].datestring ?? ""{
-                AlertMesage.show(.error, message: "This day already added")
+               
+                self.showAlert(alertType:.validation, message: "This day already added")
                 return
             }
             
@@ -445,7 +456,8 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         self.weekDates = cell.weekDates
         for obj in (self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet ?? [Timesheet]()){
             if obj.date == weekDates[sender.tag - 1].datestring ?? ""{
-                AlertMesage.show(.error, message: "This day already added")
+                self.showAlert(alertType:.validation, message: "This day already added")
+              
                 return
             }
             
@@ -490,23 +502,28 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
    
     func checkValidation()->Bool{
         if txtFirstName.text!.count < 3{
-            AlertMesage.show(.error, message: "Please enter first name")
+            self.showAlert(alertType:.validation, message: "Please enter first name")
+           
             return false
         }
         if txtLastName.text!.count < 3{
-            AlertMesage.show(.error, message: "Please enter valid last name")
+            self.showAlert(alertType:.validation, message: "Please enter valid last name")
+            
             return false
         }
         if txtjobtitle.text!.count < 3{
-            AlertMesage.show(.error, message: "Please enter valid job title")
+            self.showAlert(alertType:.validation, message: "Please enter valid job title")
+            
             return false
         }
         if txtPassword.text!.count < 8{
-            AlertMesage.show(.error, message: "Please enter valid password")
+            self.showAlert(alertType:.validation, message: "Please enter valid password")
+            
             return false
         }
         if txtEmail.text!.isEmail == false{
-            AlertMesage.show(.error, message: "Please enter valid email.")
+            self.showAlert(alertType:.validation, message: "Please enter valid email.")
+           
             return false
         }
         
@@ -557,13 +574,15 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
                     if status == 0{
                         self.saveView.isHidden = false
                         if let message =  res["message"] as? String{
-                            AlertMesage.show(.error, message: message)
+                            self.showAlert(alertType:.validation, message: message)
+                           
                         }
                       
                     }else{
                         self.saveView.isHidden = true
                         if let message =  res["message"] as? String{
                             AlertMesage.show(.success, message: message)
+                           // self.showAlert(alertType:.validation, message: message)
                             self.popVC()
                         }
                     }
@@ -662,28 +681,32 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         return eventTypeMessage
     }
     func submitTimeValidation(currentEvent:Events,timesheet:Timesheet?)->Bool{
-
+        
         var currentEventType = currentEvent.timelineEvent ?? ""
      
         let events = timesheet?.events ?? [Events]()
         for (i,event) in events.enumerated(){
             currentEventType = event.timelineEvent ?? ""
             let currentEventTypeMessage = self.getEventTypeMessage(eventType: currentEventType)
-
+            
+           
+            
             if events.last?.timelineTime ?? "" == ""{
-                AlertMesage.show(.error, message: "Please enter valid time")
+                self.showAlert(alertType:.validation, message: "Please enter valid time")
+               
                 return false
               
             }
-           
             if event == events.first{
                 if event.timelineEvent ?? "" != UserStatus.loggedIN.rawValue{
-                    AlertMesage.show(.error, message: "First event must be \(currentEventTypeMessage)")
+                    self.showAlert(alertType:.validation, message: "First event must be Shift Start")
+                   
                     return false
                 }
             }else if event == events.last{
                 if event.timelineEvent ?? "" != UserStatus.loggedOut.rawValue{
-                    AlertMesage.show(.error, message: "Last event must be \(currentEventTypeMessage)")
+                    self.showAlert(alertType:.validation, message: "Last event must be Shift End")
+                   
                     return false
                 }
             }
@@ -693,18 +716,15 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
                 
                 let eventTypeMessage = self.getEventTypeMessage(eventType: events[i+1].timelineEvent ?? "")
                 
-                if event.timelineTime ?? "" == events[i + 1].timelineEvent ?? ""{
-                    AlertMesage.show(.error, message: "\(eventTypeMessage) and \(currentEventTypeMessage) time can not be same")
-                    return false
-                   
-                }
+                
                 
                 if currentEventType == UserStatus.loggedIN.rawValue{
                     let nextEventType = events[i + 1].timelineEvent ?? ""
                     if nextEventType == UserStatus.loggedOut.rawValue || nextEventType == UserStatus.Inbreak.rawValue{
                        
                     }else{
-                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        
                         return false
                     }
                 }else if currentEventType == UserStatus.loggedOut.rawValue{
@@ -712,7 +732,8 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
                     if nextEventType == UserStatus.loggedIN.rawValue{
                        
                     }else{
-                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                       
                         return false
                     }
                 }else if currentEventType == UserStatus.Inbreak.rawValue{
@@ -720,7 +741,8 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
                     if nextEventType == UserStatus.Endbreak.rawValue{
                        
                     }else{
-                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                       
                         return false
                     }
                 }else if currentEventType == UserStatus.Endbreak.rawValue{
@@ -728,7 +750,8 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
                     if nextEventType == UserStatus.loggedOut.rawValue {
                        
                     }else{
-                        AlertMesage.show(.error, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                      
                         return false
                     }
                 }
@@ -1027,6 +1050,85 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+extension CreateEmployeeVC:UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == txtPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = false
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == txtPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = true
+        }
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtPassword{
+            
+            if let char = string.cString(using: String.Encoding.utf8) {
+                   let isBackSpace = strcmp(char, "\\b")
+                   if (isBackSpace == -92) {
+                       print("Backspace was pressed")
+                       self.updatePasswordValidation(str:String(textField.text?.dropLast() ?? ""))
+                   }else{
+                       self.updatePasswordValidation(str:textField.text! + string)
+                   }
+            }else{
+                self.updatePasswordValidation(str:textField.text! + string)
+            }
+           
+        }
+        return true
+    }
+    func updatePasswordValidation(str:String){
+            if str == ""{
+                imgvwminimumCharacter.image = UIImage.unselectedImage
+                imgvwCapitalLetter.image = UIImage.unselectedImage
+                imgvwLowercaseLetter.image = UIImage.unselectedImage
+                imgvwNumber.image = UIImage.unselectedImage
+                imgvwSpecialCharacter.image = UIImage.unselectedImage
+            }
+         
+            if str.count >= 8{
+                imgvwminimumCharacter.image = UIImage.selectedImage
+            }else{
+                imgvwminimumCharacter.image = UIImage.unselectedImage
+            }
+           let capitalLetterRegEx  = ".*[A-Z]+.*"
+           let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
+            if texttest.evaluate(with: str){
+                imgvwCapitalLetter.image = UIImage.selectedImage
+            }else{
+                imgvwCapitalLetter.image = UIImage.unselectedImage
+            }
+          
+            let lowercaseLetterRegEx  = ".*[a-z]+.*"
+            let texttest3 = NSPredicate(format:"SELF MATCHES %@", lowercaseLetterRegEx)
+             if texttest3.evaluate(with: str){
+                 imgvwLowercaseLetter.image = UIImage.selectedImage
+             }else{
+                 imgvwLowercaseLetter.image = UIImage.unselectedImage
+             }
+
+           let numberRegEx  = ".*[0-9]+.*"
+           let texttest1 = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
+            if texttest1.evaluate(with: str){
+                imgvwNumber.image = UIImage.selectedImage
+            }else{
+                imgvwNumber.image = UIImage.unselectedImage
+            }
+
+           let specialCharacterRegEx  = ".*[!&^%$#@()/_*+-]+.*"
+           let texttest2 = NSPredicate(format:"SELF MATCHES %@", specialCharacterRegEx)
+            if texttest2.evaluate(with: str){
+                imgvwSpecialCharacter.image = UIImage.selectedImage
+            }else{
+                imgvwSpecialCharacter.image = UIImage.unselectedImage
+            }
+        
+    }
+}
 extension Date {
     static func dates(from fromDate: Date, to toDate: Date) -> [CustomDate] {
         var dates: [CustomDate] = []
@@ -1053,12 +1155,7 @@ extension Date {
         return dates
     }
 }
-extension CreateEmployeeVC {
-    
-    func datesBetweenTwoDays(){
-        
-    }
-}
+
 extension CreateEmployeeVC:MenuItemDelegate {
     func MenuItemClicked(menuName: String) {
         print(menuName)

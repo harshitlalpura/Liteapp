@@ -331,16 +331,19 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
                 if let status = res["status"] as? Int{
                     if status == 1{
                         self.fetchTimesheetList()
-                        AlertMesage.show(.success, message:message)
+                        self.showAlert(alertType:.validation, message: message)
+                       
                     }else{
-                        AlertMesage.show(.success, message:message)
+                        self.showAlert(alertType:.validation, message: message)
+                       
                     }
                 }
                
                 
             }else if let err = error{
                 print(err)
-                AlertMesage.show(.error, message: err.localizedDescription)
+                self.showAlert(alertType:.validation, message: err.localizedDescription)
+               
             }
         }
     }

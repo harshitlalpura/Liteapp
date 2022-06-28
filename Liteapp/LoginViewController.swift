@@ -9,20 +9,30 @@ import UIKit
 import SideMenu
 import ObjectMapper
 
+extension UIImage{
+    static let selectedImage = UIImage(named:"ic_selected")
+    static let unselectedImage = UIImage(named:"ic_unselected")
+}
 class LoginViewController: BaseViewController, StoryboardSceneBased{
     static let sceneStoryboard = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil)
     
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    
+    @IBOutlet weak var passwordValidationView: UIView!
+    
+    @IBOutlet weak var imgvwminimumCharacter: UIImageView!
+    @IBOutlet weak var imgvwLowercaseLetter: UIImageView!
+    @IBOutlet weak var imgvwCapitalLetter: UIImageView!
+    @IBOutlet weak var imgvwNumber: UIImageView!
+    @IBOutlet weak var imgvwSpecialCharacter: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
        
-           // txtEmail.text = "hudanavroz@gmail.com"
-          //  txtEmail.text = "navrozhuda29@gmail.com"
-            //txtPassword.text = "Nvrz@336179"
-            txtEmail.text = "davemannn"
-            txtPassword.text = "Mascot@2205"
+       // txtEmail.text = "davemannn"
+       // txtPassword.text = "Mascot@2205"
+        txtPassword.delegate = self
     }
 
     @objc func messageTapped(sender:UIButton){
@@ -46,7 +56,8 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
                 Defaults.shared.currentUser = user?.empData?.first
                 print(Defaults.shared.currentUser?.merchantName ?? "")
                 if user?.status ?? 0 == 0{
-                    AlertMesage.show(.error, message: user?.message ?? "")
+     
+                    self.showAlert(alertType:.validation, message: user?.message ?? "")
                     return
                 }
                 if let empType = Defaults.shared.currentUser?.empType{
@@ -71,15 +82,110 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
     }
     func checkValidation()->Bool{
         if txtEmail.text!.count < 3{
-            AlertMesage.show(.error, message: "Please enter valid username")
+          
+            self.showAlert(alertType:.validation, message: "Please enter valid username")
             return false
         }
-        if txtPassword.text!.count < 3{
-            AlertMesage.show(.error, message: "Please enter valid password.")
+        if txtPassword.text!.isValidPassword == false{
+            
+            self.showAlert(alertType:.validation, message: "Please enter valid password")
             return false
         }
         
         return true
     }
 }
+extension LoginViewController:UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == txtPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = false
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == txtPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = true
+        }
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtPassword{
+            
+            if let char = string.cString(using: String.Encoding.utf8) {
+                   let isBackSpace = strcmp(char, "\\b")
+                   if (isBackSpace == -92) {
+                       print("Backspace was pressed")
+                       self.updatePasswordValidation(str:String(textField.text?.dropLast() ?? ""))
+                   }else{
+                       self.updatePasswordValidation(str:textField.text! + string)
+                   }
+            }else{
+                self.updatePasswordValidation(str:textField.text! + string)
+            }
+           
+        }
+        return true
+    }
+    func updatePasswordValidation(str:String){
+            if str == ""{
+                imgvwminimumCharacter.image = UIImage.unselectedImage
+                imgvwCapitalLetter.image = UIImage.unselectedImage
+                imgvwLowercaseLetter.image = UIImage.unselectedImage
+                imgvwNumber.image = UIImage.unselectedImage
+                imgvwSpecialCharacter.image = UIImage.unselectedImage
+            }
+         
+            if str.count >= 8{
+                imgvwminimumCharacter.image = UIImage.selectedImage
+            }else{
+                imgvwminimumCharacter.image = UIImage.unselectedImage
+            }
+           let capitalLetterRegEx  = ".*[A-Z]+.*"
+           let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
+            if texttest.evaluate(with: str){
+                imgvwCapitalLetter.image = UIImage.selectedImage
+            }else{
+                imgvwCapitalLetter.image = UIImage.unselectedImage
+            }
+          
+            let lowercaseLetterRegEx  = ".*[a-z]+.*"
+            let texttest3 = NSPredicate(format:"SELF MATCHES %@", lowercaseLetterRegEx)
+             if texttest3.evaluate(with: str){
+                 imgvwLowercaseLetter.image = UIImage.selectedImage
+             }else{
+                 imgvwLowercaseLetter.image = UIImage.unselectedImage
+             }
 
+           let numberRegEx  = ".*[0-9]+.*"
+           let texttest1 = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
+            if texttest1.evaluate(with: str){
+                imgvwNumber.image = UIImage.selectedImage
+            }else{
+                imgvwNumber.image = UIImage.unselectedImage
+            }
+
+           let specialCharacterRegEx  = ".*[!&^%$#@()/_*+-]+.*"
+           let texttest2 = NSPredicate(format:"SELF MATCHES %@", specialCharacterRegEx)
+            if texttest2.evaluate(with: str){
+                imgvwSpecialCharacter.image = UIImage.selectedImage
+            }else{
+                imgvwSpecialCharacter.image = UIImage.unselectedImage
+            }
+        
+    }
+}
+extension UIViewController{
+    func showAlert(alertType:AlertType = .success,message:String = "",subTitle:String = ""){
+        let vc = CustomAlertViewController.instantiate()
+        vc.alertType = alertType
+        if alertType == .success{
+            vc.successMessage = message
+        }else if alertType == .validation{
+            vc.validationMessage = message
+        }else if alertType == .failed{
+            vc.failureMessage = message
+        }
+        
+        self.presentVC(controller:vc)
+    }
+}

@@ -11,7 +11,7 @@ import SwiftUI
 enum AlertType:Int{
         case success  = 1
         case failed = 2
-        case pending = 3
+        case validation = 3
 }
 class CustomAlertViewController: BaseViewController, StoryboardSceneBased{
 
@@ -22,12 +22,35 @@ class CustomAlertViewController: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var lblMessage: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var button: UIButton!
+    var validationMessage: String = ""
+    var successMessage: String = ""
+    var failureMessage: String = ""
+    @IBOutlet weak var validationAlert: UIView!
+    @IBOutlet weak var successAlert: UIView!
+    @IBOutlet weak var failedAlert: UIView!
     var alertType:AlertType = .success
-    
+    @IBOutlet weak var lblSuccessMessage: UILabel!
+    @IBOutlet weak var lblValidationMessage: UILabel!
+    @IBOutlet weak var lblFailureMessage: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        lblSuccessMessage.text = successMessage
+        lblValidationMessage.text = validationMessage
+        lblFailureMessage.text = failureMessage
+        if alertType == .success{
+            self.validationAlert.isHidden = true
+            self.successAlert.isHidden = false
+            self.failedAlert.isHidden = true
+        }else if alertType == .validation{
+            self.validationAlert.isHidden = false
+            self.successAlert.isHidden = true
+            self.failedAlert.isHidden = true
+        }else if alertType == .failed{
+            self.validationAlert.isHidden = true
+            self.successAlert.isHidden = true
+            self.failedAlert.isHidden = false
+        }
+       
     }
     func setupUI(){
         if alertType == .success{
@@ -38,7 +61,7 @@ class CustomAlertViewController: BaseViewController, StoryboardSceneBased{
             topBarView.backgroundColor = UIColor.Color.appRedColor
             button.backgroundColor = UIColor.Color.appRedColor
             lblTitle.text = "Delete Employee"
-        }else if alertType == .pending{
+        }else if alertType == .validation{
             topBarView.backgroundColor = UIColor.Color.appYellowColor
             button.backgroundColor = UIColor.Color.appYellowColor
             lblTitle.text = "Delete Employee"

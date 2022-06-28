@@ -15,11 +15,20 @@ class ChangePasswordVC: BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var btnSave: UIButton!
-   
+    
+    @IBOutlet weak var passwordValidationView: UIView!
+    
+    @IBOutlet weak var imgvwminimumCharacter: UIImageView!
+    @IBOutlet weak var imgvwLowercaseLetter: UIImageView!
+    @IBOutlet weak var imgvwCapitalLetter: UIImageView!
+    @IBOutlet weak var imgvwNumber: UIImageView!
+    @IBOutlet weak var imgvwSpecialCharacter: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        txtOldPassword.delegate = self
+        txtNewPassword.delegate = self
+        txtConfirmPassword.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -33,33 +42,40 @@ class ChangePasswordVC: BaseViewController, StoryboardSceneBased{
     }
     private func checkValidation()->Bool{
         if txtOldPassword.text?.count ?? 0 < 8{
-            AlertMesage.show(.error, message: "Password must be atleast 8 characters")
+            self.showAlert(alertType:.validation, message: "Password must be atleast 8 characters")
+            
             return false
         }
         if txtNewPassword.text?.count ?? 0 < 8{
-            AlertMesage.show(.error, message: "Password must be atleast 8 characters")
+            self.showAlert(alertType:.validation, message: "Password must be atleast 8 characters")
+           
             return false
         }
         if txtConfirmPassword.text?.count ?? 0 < 8{
-            AlertMesage.show(.error, message: "Password must be atleast 8 characters")
+            self.showAlert(alertType:.validation, message: "Password must be atleast 8 characters")
+            
             return false
         }
 
         if (txtOldPassword.text?.isValidPassword ?? false == false){
-            AlertMesage.show(.error, message: "Please Enter Valid Password")
+            self.showAlert(alertType:.validation, message: "Please Enter Valid Password")
+           
             
             return false
         }
         if (txtNewPassword.text?.isValidPassword ?? false == false){
-            AlertMesage.show(.error, message: "Please Enter Valid Password")
+            self.showAlert(alertType:.validation, message:"Please Enter Valid Password")
+            
             return false
         }
         if (txtConfirmPassword.text?.isValidPassword ?? false == false){
-            AlertMesage.show(.error, message: "Please Enter Valid Password")
+            self.showAlert(alertType:.validation, message:"Please Enter Valid Password")
+            
             return false
         }
         if txtConfirmPassword.text != txtNewPassword.text{
-            AlertMesage.show(.error, message: "Confirm Password must be same as New Password.")
+            self.showAlert(alertType:.validation, message: "Confirm Password must be same as New Password.")
+            
             return false
         }
         return true
@@ -79,7 +95,8 @@ class ChangePasswordVC: BaseViewController, StoryboardSceneBased{
                 if let status = res["status"] as? Int{
                     if status == 0{
                         if let messagae  = res["message"] as? String{
-                            AlertMesage.show(.error, message: messagae)
+                            self.showAlert(alertType:.validation, message: messagae)
+                            
                         }
                     }else{
                         if let messagae  = res["message"] as? String{
@@ -98,4 +115,122 @@ class ChangePasswordVC: BaseViewController, StoryboardSceneBased{
    
 }
 
+extension ChangePasswordVC:UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == txtOldPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = false
+        }else if textField == txtConfirmPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = false
+        }else if textField == txtNewPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = false
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == txtOldPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = true
+        }else if textField == txtConfirmPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = true
+        }else if textField == txtNewPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = true
+        }
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtOldPassword{
+            
+            if let char = string.cString(using: String.Encoding.utf8) {
+                   let isBackSpace = strcmp(char, "\\b")
+                   if (isBackSpace == -92) {
+                       print("Backspace was pressed")
+                       self.updatePasswordValidation(str:String(textField.text?.dropLast() ?? ""))
+                   }else{
+                       self.updatePasswordValidation(str:textField.text! + string)
+                   }
+            }else{
+                self.updatePasswordValidation(str:textField.text! + string)
+            }
+           
+        }else if textField == txtNewPassword{
+            
+            if let char = string.cString(using: String.Encoding.utf8) {
+                   let isBackSpace = strcmp(char, "\\b")
+                   if (isBackSpace == -92) {
+                       print("Backspace was pressed")
+                       self.updatePasswordValidation(str:String(textField.text?.dropLast() ?? ""))
+                   }else{
+                       self.updatePasswordValidation(str:textField.text! + string)
+                   }
+            }else{
+                self.updatePasswordValidation(str:textField.text! + string)
+            }
+           
+        }else if textField == txtConfirmPassword{
+            
+            if let char = string.cString(using: String.Encoding.utf8) {
+                   let isBackSpace = strcmp(char, "\\b")
+                   if (isBackSpace == -92) {
+                       print("Backspace was pressed")
+                       self.updatePasswordValidation(str:String(textField.text?.dropLast() ?? ""))
+                   }else{
+                       self.updatePasswordValidation(str:textField.text! + string)
+                   }
+            }else{
+                self.updatePasswordValidation(str:textField.text! + string)
+            }
+           
+        }
+        return true
+    }
+    func updatePasswordValidation(str:String){
+            if str == ""{
+                imgvwminimumCharacter.image = UIImage.unselectedImage
+                imgvwCapitalLetter.image = UIImage.unselectedImage
+                imgvwLowercaseLetter.image = UIImage.unselectedImage
+                imgvwNumber.image = UIImage.unselectedImage
+                imgvwSpecialCharacter.image = UIImage.unselectedImage
+            }
+         
+            if str.count >= 8{
+                imgvwminimumCharacter.image = UIImage.selectedImage
+            }else{
+                imgvwminimumCharacter.image = UIImage.unselectedImage
+            }
+           let capitalLetterRegEx  = ".*[A-Z]+.*"
+           let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
+            if texttest.evaluate(with: str){
+                imgvwCapitalLetter.image = UIImage.selectedImage
+            }else{
+                imgvwCapitalLetter.image = UIImage.unselectedImage
+            }
+          
+            let lowercaseLetterRegEx  = ".*[a-z]+.*"
+            let texttest3 = NSPredicate(format:"SELF MATCHES %@", lowercaseLetterRegEx)
+             if texttest3.evaluate(with: str){
+                 imgvwLowercaseLetter.image = UIImage.selectedImage
+             }else{
+                 imgvwLowercaseLetter.image = UIImage.unselectedImage
+             }
 
+           let numberRegEx  = ".*[0-9]+.*"
+           let texttest1 = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
+            if texttest1.evaluate(with: str){
+                imgvwNumber.image = UIImage.selectedImage
+            }else{
+                imgvwNumber.image = UIImage.unselectedImage
+            }
+
+           let specialCharacterRegEx  = ".*[!&^%$#@()/_*+-]+.*"
+           let texttest2 = NSPredicate(format:"SELF MATCHES %@", specialCharacterRegEx)
+            if texttest2.evaluate(with: str){
+                imgvwSpecialCharacter.image = UIImage.selectedImage
+            }else{
+                imgvwSpecialCharacter.image = UIImage.unselectedImage
+            }
+        
+    }
+}
