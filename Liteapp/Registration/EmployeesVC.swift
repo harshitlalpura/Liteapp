@@ -122,7 +122,8 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
     }
     @IBAction func addEmployeeClicked(sender:UIButton){
         let vc = AddEmployeeVC.instantiate()
-        self.pushVC(controller: vc)
+        self.presentVC(controller:vc)
+      //  self.pushVC(controller: vc)
     }
     func setData(){
         logoutView.isHidden = true

@@ -98,6 +98,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     }
     
     @IBAction func menuClicked(sender:UIButton){
+       // self.createBlurOverlay()
         self.present(menu, animated: true, completion: {})
     }
     
@@ -447,18 +448,39 @@ extension DashBoardVC:MenuItemDelegate {
     func MenuItemClicked(menuName: String) {
         print(menuName)
         if menuName == Menuname.settings{
+            self.removeBlurOverlay()
             let vc = SettingsVC.instantiate()
             self.pushVC(controller:vc)
         }else  if menuName == Menuname.logout{
+            self.removeBlurOverlay()
             Defaults.shared.currentUser = nil
             Utility.setRootScreen(isShowAnimation: true)
             logoutView.isHidden = true
+          
         }else  if menuName == Menuname.employee{
+            self.removeBlurOverlay()
             let vc = EmployeesVC.instantiate()
             self.pushVC(controller:vc)
+            
         }else  if menuName == Menuname.timeSheet{
+            self.removeBlurOverlay()
             let vc = TimesheetListVC.instantiate()
             self.pushVC(controller:vc)
+          
+        }
+    }
+    func createBlurOverlay(){
+        let view = UIView(frame:self.view.frame)
+        view.tag = 11111
+        view.backgroundColor = .black.withAlphaComponent(0.5)
+        self.view.addSubview(view)
+    }
+    func removeBlurOverlay(){
+        for view in self.view.allSubViewsOf(type:UIView.self){
+            if view.tag == 11111{
+                view.removeFromSuperview()
+                break
+            }
         }
     }
 }

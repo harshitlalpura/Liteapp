@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "imagedown.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "iconsortDesc.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

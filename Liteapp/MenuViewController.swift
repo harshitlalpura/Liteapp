@@ -43,9 +43,30 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
     var menuItems = ["TimeClock","Employees","TimeSheets","Settings","Logout \n Manager"]
     var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
     
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+    }
+    private lazy var overlayView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .gray
+        view.alpha = 0.0
+
+        return view
+    }()
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        showOverlayView()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        hideOverlayView()
+        super.viewWillDisappear(animated)
     }
     private func setupTableView(){
         if Defaults.shared.currentUser?.empType ?? "" == "S"{
@@ -69,6 +90,38 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
     }
     
 
+}
+extension MenuViewController {
+    private func showOverlayView() {
+        addOverlayView()
+        UIView.animate(withDuration: 0.5) {
+            self.overlayView.alpha = 0.5
+        }
+    }
+
+    private func hideOverlayView() {
+        UIView.animate(withDuration: 0.5) {
+            self.overlayView.alpha = 0.0
+        } completion: { _ in
+            self.removeOverlayView()
+        }
+    }
+
+    private func addOverlayView() {
+        guard let view = presentingViewController?.view else { return }
+        view.addSubview(overlayView)
+
+        NSLayoutConstraint.activate([
+            overlayView.topAnchor.constraint(equalTo: view.topAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+
+    private func removeOverlayView() {
+        overlayView.removeFromSuperview()
+    }
 }
 extension MenuViewController:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
