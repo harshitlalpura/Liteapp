@@ -103,6 +103,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var txtname: UITextField!
     @IBOutlet weak var txtemail: UITextField!
     @IBOutlet weak var txtpassword: UITextField!
+    
+    @IBOutlet weak var selectWeekView: UIView!
    
     var setupMerchant:SetupMerchant!
     var merchantSettings:MerchantSettings?
@@ -315,8 +317,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         
         if merchantSettings?.merchantPayPeriod ?? "" == "B"{
             self.txtselectPayPeriod.text = "Weekly"
+            self.selectWeekView.isHidden = true
         }else if merchantSettings?.merchantPayPeriod ?? "" == "W"{
             self.txtselectPayPeriod.text = "Biweekly"
+            self.selectWeekView.isHidden = false
         }
         
         if merchantSettings?.merchantWeekStart ?? 0 == 1{
@@ -517,8 +521,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                 self.txtselectPayPeriod.text = value
                 if index == 0{
                     self.merchantSettings?.merchantPayPeriod = "W"
+                    self.selectWeekView.isHidden = true
                 }else{
                     self.merchantSettings?.merchantPayPeriod = "B"
+                    self.selectWeekView.isHidden = false
                 }
              }
             self.txtselectWeekStartday.resignFirstResponder()

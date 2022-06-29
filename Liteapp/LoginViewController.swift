@@ -97,33 +97,13 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
 }
 extension LoginViewController:UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == txtPassword{
-            self.updatePasswordValidation(str:textField.text!)
-            self.passwordValidationView.isHidden = false
-        }
+        
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == txtPassword{
-            self.updatePasswordValidation(str:textField.text!)
-            self.passwordValidationView.isHidden = true
-        }
+       
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == txtPassword{
-            
-            if let char = string.cString(using: String.Encoding.utf8) {
-                   let isBackSpace = strcmp(char, "\\b")
-                   if (isBackSpace == -92) {
-                       print("Backspace was pressed")
-                       self.updatePasswordValidation(str:String(textField.text?.dropLast() ?? ""))
-                   }else{
-                       self.updatePasswordValidation(str:textField.text! + string)
-                   }
-            }else{
-                self.updatePasswordValidation(str:textField.text! + string)
-            }
-           
-        }
+        
         return true
     }
     func updatePasswordValidation(str:String){

@@ -117,59 +117,19 @@ class ChangePasswordVC: BaseViewController, StoryboardSceneBased{
 
 extension ChangePasswordVC:UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == txtOldPassword{
-            self.updatePasswordValidation(str:textField.text!)
-            self.passwordValidationView.isHidden = false
-        }else if textField == txtConfirmPassword{
-            self.updatePasswordValidation(str:textField.text!)
-            self.passwordValidationView.isHidden = false
-        }else if textField == txtNewPassword{
+        if textField == txtNewPassword{
             self.updatePasswordValidation(str:textField.text!)
             self.passwordValidationView.isHidden = false
         }
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == txtOldPassword{
-            self.updatePasswordValidation(str:textField.text!)
-            self.passwordValidationView.isHidden = true
-        }else if textField == txtConfirmPassword{
-            self.updatePasswordValidation(str:textField.text!)
-            self.passwordValidationView.isHidden = true
-        }else if textField == txtNewPassword{
+        if textField == txtNewPassword{
             self.updatePasswordValidation(str:textField.text!)
             self.passwordValidationView.isHidden = true
         }
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == txtOldPassword{
-            
-            if let char = string.cString(using: String.Encoding.utf8) {
-                   let isBackSpace = strcmp(char, "\\b")
-                   if (isBackSpace == -92) {
-                       print("Backspace was pressed")
-                       self.updatePasswordValidation(str:String(textField.text?.dropLast() ?? ""))
-                   }else{
-                       self.updatePasswordValidation(str:textField.text! + string)
-                   }
-            }else{
-                self.updatePasswordValidation(str:textField.text! + string)
-            }
-           
-        }else if textField == txtNewPassword{
-            
-            if let char = string.cString(using: String.Encoding.utf8) {
-                   let isBackSpace = strcmp(char, "\\b")
-                   if (isBackSpace == -92) {
-                       print("Backspace was pressed")
-                       self.updatePasswordValidation(str:String(textField.text?.dropLast() ?? ""))
-                   }else{
-                       self.updatePasswordValidation(str:textField.text! + string)
-                   }
-            }else{
-                self.updatePasswordValidation(str:textField.text! + string)
-            }
-           
-        }else if textField == txtConfirmPassword{
+        if textField == txtNewPassword{
             
             if let char = string.cString(using: String.Encoding.utf8) {
                    let isBackSpace = strcmp(char, "\\b")

@@ -175,6 +175,20 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         self.timesheetTimeChange(sender:picker)
         self.datePickerView.isHidden = true
     }
+    @IBAction func datePickerClearClick(){
+        self.clearDate(sender:picker)
+        self.datePickerView.isHidden = true
+    }
+    @objc func clearDate(sender:MyDatePicker){
+        self.payPeriodsData[selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events?[sender.eventIndex].timelineValue = ""
+        self.payPeriodsData[selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events?[sender.eventIndex].timelineTime = ""
+       
+        let indexpathCell = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        tblEvents.reloadRows(at: [indexpathCell], with: .none)
+        
+        let indexpathHeader = IndexPath(row:0, section: sender.weekIndex)
+        tblEvents.reloadRows(at: [indexpathHeader], with: .none)
+    }
     func setData(){
         logoutView.isHidden = true
         lblusername.text = "\(Defaults.shared.currentUser?.empFirstname ?? "") \(Defaults.shared.currentUser?.empLastname ?? "")"
@@ -995,7 +1009,6 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
     }
     func setUpdatedTimesheetData(date:Date,weekIndex:Int,timeSheetIndex:Int,eventIndex:Int){
         let dateFormatter = DateFormatter()
-
         dateFormatter.dateFormat = kMMddYYYYhhmmss
         print(dateFormatter.string(from: date))
         let week = self.selectedPayPeriod?.weeks?[weekIndex]

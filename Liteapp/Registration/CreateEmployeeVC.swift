@@ -601,6 +601,21 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         self.timesheetTimeChange(sender:picker)
         self.datePickerView.isHidden = true
     }
+    @IBAction func datePickerClearClick(){
+        self.clearDate(sender:picker)
+        self.datePickerView.isHidden = true
+    }
+    @objc func clearDate(sender:MyDatePicker){
+        
+        self.payPeriodsData[selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events?[sender.eventIndex].timelineValue = ""
+        self.payPeriodsData[selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events?[sender.eventIndex].timelineTime = ""
+      
+        let indexpathCell = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        tblEvents.reloadRows(at: [indexpathCell], with: .none)
+        
+        let indexpathHeader = IndexPath(row:0, section: sender.weekIndex)
+        tblEvents.reloadRows(at: [indexpathHeader], with: .none)
+    }
     @objc func timesheetTimeChange(sender:MyDatePicker){
         self.datePickerView.isHidden = true
         let dateFormatter = DateFormatter()

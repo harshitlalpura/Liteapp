@@ -61,16 +61,10 @@ extension EmployeeOnboardingVCStep2:UITextFieldDelegate{
         if textField == txtPassword{
             self.updatePasswordValidation(str:textField.text!)
             self.passwordValidationView.isHidden = false
-        }else if textField == txtConfrimPassword{
-            self.updatePasswordValidation(str:textField.text!)
-            self.passwordValidationView.isHidden = false
         }
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == txtPassword{
-            self.updatePasswordValidation(str:textField.text!)
-            self.passwordValidationView.isHidden = true
-        }else if textField == txtConfrimPassword{
             self.updatePasswordValidation(str:textField.text!)
             self.passwordValidationView.isHidden = true
         }
@@ -90,21 +84,7 @@ extension EmployeeOnboardingVCStep2:UITextFieldDelegate{
                 self.updatePasswordValidation(str:textField.text! + string)
             }
            
-        } else if textField == txtConfrimPassword{
-            
-            if let char = string.cString(using: String.Encoding.utf8) {
-                   let isBackSpace = strcmp(char, "\\b")
-                   if (isBackSpace == -92) {
-                       print("Backspace was pressed")
-                       self.updatePasswordValidation(str:String(textField.text?.dropLast() ?? ""))
-                   }else{
-                       self.updatePasswordValidation(str:textField.text! + string)
-                   }
-            }else{
-                self.updatePasswordValidation(str:textField.text! + string)
-            }
-           
-        }
+        } 
         return true
     }
     func updatePasswordValidation(str:String){
