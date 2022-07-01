@@ -122,6 +122,7 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
     }
     @IBAction func addEmployeeClicked(sender:UIButton){
         let vc = AddEmployeeVC.instantiate()
+        vc.delegate = self
         self.presentVC(controller:vc)
       //  self.pushVC(controller: vc)
     }
@@ -164,6 +165,12 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
         }
     }
     
+}
+extension EmployeesVC:AddEmployeeVCDelegate{
+    func didDismiss() {
+        let vc = CreateEmployeeVC.instantiate()
+        self.pushVC(controller:vc)
+    }
 }
 extension EmployeesVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

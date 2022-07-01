@@ -15,32 +15,63 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtZipcode: UITextField!
     @IBOutlet weak var txtTimezone: UITextField!
+    
+    @IBOutlet weak var businessnameTextValidationView: UIView!
+    @IBOutlet weak var emailTextValidationView: UIView!
+    @IBOutlet weak var zipcodeTextValidationView: UIView!
+    @IBOutlet weak var timezoneextValidationView: UIView!
    
     override func viewDidLoad() {
         super.viewDidLoad()
 
        
-        // Do any additional setup after loading the view.
+    }
+    func checkTextValidation(){
+        if txtBusinessName.text!.count < 1{
+            self.businessnameTextValidationView.isHidden = false
+        }else{
+            self.businessnameTextValidationView.isHidden = true
+        }
+        if txtEmail.text!.count < 1{
+            self.emailTextValidationView.isHidden = false
+        }else{
+            self.emailTextValidationView.isHidden = true
+        }
+        if txtZipcode.text!.count < 1{
+            self.zipcodeTextValidationView.isHidden = false
+        }else{
+            self.zipcodeTextValidationView.isHidden = true
+        }
+        if txtTimezone.text!.count < 1{
+            self.timezoneextValidationView.isHidden = false
+        }else{
+            self.timezoneextValidationView.isHidden = true
+        }
+       
     }
     func checkValidation()->Bool{
-        if txtBusinessName.text!.count < 3{
+        checkTextValidation()
+        if txtBusinessName.text!.count < 1{
           
-            self.showAlert(alertType:.validation, message: "Please Eneter Business Name")
+          //  self.showAlert(alertType:.validation, message: "Please Eneter Business Name")
             return false
         }
-        if txtEmail.text!.isEmail == false{
-           
-            self.showAlert(alertType:.validation, message: "Please Eneter Valid Email")
-            return false
+        if txtEmail.text!.count > 1{
+            if txtEmail.text!.isEmail == false{
+               
+                self.showAlert(alertType:.validation, message: "Please Eneter Valid Email")
+                return false
+            }
         }
-        if txtZipcode.text!.count < 3{
+        
+        if txtZipcode.text!.count < 1{
             
-            self.showAlert(alertType:.validation, message: "Please Eneter Valid Zipcode")
+           // self.showAlert(alertType:.validation, message: "Please Eneter Valid Zipcode")
             return false
         }
         if txtTimezone.text! == ""{
            
-            self.showAlert(alertType:.validation, message: "Please select Timezone")
+           // self.showAlert(alertType:.validation, message: "Please select Timezone")
             return false
         }
         return true

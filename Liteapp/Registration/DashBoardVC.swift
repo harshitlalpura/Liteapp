@@ -86,12 +86,14 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     override func viewWillAppear(_ animated: Bool) {
         self.fetchDashboard()
         self.getCurrentTime()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
 
             NotificationCenter.default.removeObserver(self)
         timer.invalidate()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     @objc func appMovedToForeground() {
         self.fetchDashboard()

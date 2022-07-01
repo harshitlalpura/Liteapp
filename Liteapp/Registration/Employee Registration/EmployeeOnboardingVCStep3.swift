@@ -14,6 +14,7 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var txtReferralCode: UITextField!
     @IBOutlet weak var txtCompany: UITextField!
+    @IBOutlet weak var referralCodeTextValidationView: UIView!
     var saveEmployee:SaveEmployee!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,10 +24,19 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
     }
     
     @IBAction func continueClicked(sender:UIButton){
+        checkTextValidation()
         if checkValidation(){
             
             self.saveEmployeeapiCall()
         }
+    }
+    func checkTextValidation(){
+        if txtReferralCode.text!.count < 1{
+            self.referralCodeTextValidationView.isHidden = false
+        }else{
+            self.referralCodeTextValidationView.isHidden = true
+        }
+       
     }
     func checkValidation()->Bool{
        

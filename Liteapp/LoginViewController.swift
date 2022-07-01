@@ -26,6 +26,10 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var imgvwCapitalLetter: UIImageView!
     @IBOutlet weak var imgvwNumber: UIImageView!
     @IBOutlet weak var imgvwSpecialCharacter: UIImageView!
+    
+    @IBOutlet weak var emailTextValidationView: UIView!
+    @IBOutlet weak var passwordTextValidationView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -34,11 +38,24 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
        // txtPassword.text = "Mascot@2205"
         txtPassword.delegate = self
     }
-
+    func checkTextValidation(){
+        if txtEmail.text!.count < 1{
+            self.emailTextValidationView.isHidden = false
+        }else{
+            self.emailTextValidationView.isHidden = true
+        }
+        if txtPassword.text!.count < 1{
+            self.passwordTextValidationView.isHidden = false
+        }else{
+            self.passwordTextValidationView.isHidden = true
+        }
+       
+    }
     @objc func messageTapped(sender:UIButton){
         
     }
     @IBAction func loginClicked(sender:UIButton){
+        checkTextValidation()
         if checkValidation(){
             self.loginAPI()
         }
@@ -81,17 +98,17 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
         }
     }
     func checkValidation()->Bool{
-        if txtEmail.text!.count < 3{
+        if txtEmail.text!.count < 1{
           
-            self.showAlert(alertType:.validation, message: "Please enter valid username")
+           // self.showAlert(alertType:.validation, message: "Please enter valid username")
             return false
         }
-        if txtPassword.text!.isValidPassword == false{
-            
-            self.showAlert(alertType:.validation, message: "Please enter valid password")
-            return false
+        if txtPassword.text!.count > 1{
+            if txtPassword.text!.isValidPassword == false{
+                self.showAlert(alertType:.validation, message: "Please enter valid password")
+                return false
+            }
         }
-        
         return true
     }
 }

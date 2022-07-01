@@ -15,6 +15,11 @@ class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtConfirmPassword: UITextField!
     
+    @IBOutlet weak var nameTextValidationView: UIView!
+    @IBOutlet weak var usernameTextValidationView: UIView!
+    @IBOutlet weak var passwordTextValidationView: UIView!
+    @IBOutlet weak var confirmPasswordTextValidationView: UIView!
+    
     @IBOutlet weak var passwordValidationView: UIView!
     
     @IBOutlet weak var imgvwminimumCharacter: UIImageView!
@@ -44,17 +49,41 @@ class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
         }
       
     }
+    func checkTextValidation(){
+        if txtName.text!.count < 1{
+            self.nameTextValidationView.isHidden = false
+        }else{
+            self.nameTextValidationView.isHidden = true
+        }
+        if txtUsername.text!.count < 1{
+            self.usernameTextValidationView.isHidden = false
+        }else{
+            self.usernameTextValidationView.isHidden = true
+        }
+        if txtPassword.text!.count < 1{
+            self.passwordTextValidationView.isHidden = false
+        }else{
+            self.passwordTextValidationView.isHidden = true
+        }
+        if txtConfirmPassword.text!.count < 1{
+            self.confirmPasswordTextValidationView.isHidden = false
+        }else{
+            self.confirmPasswordTextValidationView.isHidden = true
+        }
+       
+    }
     func checkValidation()->Bool{
-        if txtName.text!.count < 3{
-            self.showAlert(alertType:.validation, message: "Please Eneter Name")
+        checkTextValidation()
+        if txtName.text!.count < 1{
+          //  self.showAlert(alertType:.validation, message: "Please Eneter Name")
             return false
         }
-        if txtUsername.text!.count < 3{
-            self.showAlert(alertType:.validation, message: "Please Eneter Valid Username")
+        if txtUsername.text!.count < 1{
+          //  self.showAlert(alertType:.validation, message: "Please Eneter Valid Username")
             return false
         }
         if txtPassword.text! != txtConfirmPassword.text!{
-            self.showAlert(alertType:.validation, message: "Confirm Password Mismatch")
+           // self.showAlert(alertType:.validation, message: "Confirm Password Mismatch")
             return false
         }
         return true

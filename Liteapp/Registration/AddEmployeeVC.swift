@@ -7,8 +7,18 @@
 
 import UIKit
 
+protocol AddEmployeeVCDelegate : NSObjectProtocol {
+    func didDismiss()
+}
+extension AddEmployeeVCDelegate{
+    func didDismiss(){}
+ 
+}
+
+
 class AddEmployeeVC:BaseViewController, StoryboardSceneBased{
 
+    var delegate:AddEmployeeVCDelegate?
     static let sceneStoryboard = UIStoryboard(name: StoryboardName.merchant.rawValue, bundle: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +34,9 @@ class AddEmployeeVC:BaseViewController, StoryboardSceneBased{
     
     @IBAction func addClick(sender:UIButton){
         if sender.tag == 4{
-            let vc = CreateEmployeeVC.instantiate()
-            self.pushVC(controller:vc)
+            self.dismiss(animated:true) {
+                self.delegate?.didDismiss()
+            }
         }else if sender.tag == 3{
             let vc = InviteViaEmailVC.instantiate()
             self.pushVC(controller:vc)
@@ -36,8 +47,9 @@ class AddEmployeeVC:BaseViewController, StoryboardSceneBased{
             let vc = InviteViaRefferalLinkVC.instantiate()
             self.pushVC(controller:vc)
         }else{
-            let vc = CreateEmployeeVC.instantiate()
-            self.pushVC(controller:vc)
+            self.dismiss(animated:true) {
+                self.delegate?.didDismiss()
+            }
         }
     }
     /*

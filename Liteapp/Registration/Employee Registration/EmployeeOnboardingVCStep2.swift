@@ -22,6 +22,9 @@ class EmployeeOnboardingVCStep2:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var imgvwNumber: UIImageView!
     @IBOutlet weak var imgvwSpecialCharacter: UIImageView!
     
+    @IBOutlet weak var emailTextValidationView: UIView!
+    @IBOutlet weak var passwordTextValidationView: UIView!
+    @IBOutlet weak var confirmPasswordTextValidationView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +34,7 @@ class EmployeeOnboardingVCStep2:BaseViewController, StoryboardSceneBased{
 
     
     @IBAction func continueClicked(sender:UIButton){
+        checkTextValidation()
         if checkValidation(){
             
             saveEmployee.emp_password = txtPassword.text!
@@ -42,12 +46,33 @@ class EmployeeOnboardingVCStep2:BaseViewController, StoryboardSceneBased{
             self.pushVC(controller:vc)
         }
     }
-    func checkValidation()->Bool{
-       
-        if txtEmail.text!.isEmail == false{
-            self.showAlert(alertType:.validation, message: "Please Eneter Valid Email")
-            return false
+    func checkTextValidation(){
+        if txtEmail.text!.count < 1{
+            self.emailTextValidationView.isHidden = false
+        }else{
+            self.emailTextValidationView.isHidden = true
         }
+        if txtPassword.text!.count < 1{
+            self.passwordTextValidationView.isHidden = false
+        }else{
+            self.passwordTextValidationView.isHidden = true
+        }
+        if txtConfrimPassword.text!.count < 1{
+            self.confirmPasswordTextValidationView.isHidden = false
+        }else{
+            self.confirmPasswordTextValidationView.isHidden = true
+        }
+       
+       
+    }
+    func checkValidation()->Bool{
+        if txtEmail.text!.count > 1{
+            if txtEmail.text!.isEmail == false{
+                self.showAlert(alertType:.validation, message: "Please Eneter Valid Email")
+                return false
+            }
+        }
+        
         if txtPassword.text! != txtConfrimPassword.text!{
             self.showAlert(alertType:.validation, message: "Confirm Password Mismatch")
             return false

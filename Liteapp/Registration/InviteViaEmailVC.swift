@@ -21,6 +21,7 @@ class InviteViaEmailVC:BaseViewController, StoryboardSceneBased,MFMailComposeVie
     @IBAction func backClicked(sender:UIButton){
         self.popVC()
     }
+    
     @IBAction func gmailClicked(sender:UIButton){
         let recipientEmail = ""
         let subject = "Join us on TimeClock"
@@ -33,6 +34,25 @@ class InviteViaEmailVC:BaseViewController, StoryboardSceneBased,MFMailComposeVie
         if let gmailUrl = gmailUrl, UIApplication.shared.canOpenURL(gmailUrl) {
            
             UIApplication.shared.open(gmailUrl)
+        }else{
+            self.showAlert(alertType:.validation, message: "Gmail app not installed")
+        }
+        
+    }
+    @IBAction func outlookClicked(sender:UIButton){
+        let recipientEmail = ""
+        let subject = "Join us on TimeClock"
+        let body = "\(self.inviteLink)"
+        let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        
+       
+        let outlookUrl = URL(string: "ms-outlook://compose?to=\(recipientEmail)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+        if let outlookUrl = outlookUrl, UIApplication.shared.canOpenURL(outlookUrl) {
+           
+            UIApplication.shared.open(outlookUrl)
+        }else{
+            self.showAlert(alertType:.validation, message: "Outlook app not installed")
         }
         
     }
