@@ -38,6 +38,11 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
        // txtPassword.text = "Mascot@2205"
         txtPassword.delegate = self
     }
+    override func viewDidAppear(_ animated: Bool) {
+//        if let code = Defaults.shared.referralCode{
+//            self.showToast(message:"\(code)", font: UIFont.RobotoRegular(size:20.0))
+//        }
+    }
     func checkTextValidation(){
         if txtEmail.text!.count < 1{
             self.emailTextValidationView.isHidden = false

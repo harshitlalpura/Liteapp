@@ -21,7 +21,7 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
 
         txtReferralCode.delegate = self
         txtCompany.isUserInteractionEnabled = false
-        if let code =  Utility().referralCode{
+        if let code =  Defaults.shared.referralCode{
             txtReferralCode.text = code
             self.checkRefferalCode(code)
         }

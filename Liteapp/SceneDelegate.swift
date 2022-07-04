@@ -12,12 +12,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+            let universalLink = userActivity.webpageURL else {
+            return
+        }
+       
+        Defaults.shared.referralCode = nil
+        if universalLink.lastPathComponent.count == 4 && universalLink.lastPathComponent != "referral" {
+            Defaults.shared.referralCode =  universalLink.lastPathComponent
+        }
+      
+    }
+    func scene(_ scene: UIScene, willContinueUserActivityWithType userActivityType: String) {
+        
+       
+    }
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
        
-      //  guard let _ = (scene as? UIWindowScene) else { return }
         
-       // let windowScene = UIWindowScene(session: session, connectionOptions: connectionOptions)
-      //  self.window = UIWindow(windowScene: windowScene)
         
         guard let scene = (scene as? UIWindowScene) else { return }
          self.window = UIWindow(windowScene: scene)
@@ -29,18 +42,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.rootViewController = rootNC
         self.window?.makeKeyAndVisible()
         setUpIQKeyboardManager()
-           
+        
+        Defaults.shared.referralCode = nil
+        
+        for userActivity in connectionOptions.userActivities {
+             if let universalLink = userActivity.webpageURL {
+                 if universalLink.lastPathComponent.count == 4 && universalLink.lastPathComponent != "referral" {
+                     Defaults.shared.referralCode =  universalLink.lastPathComponent
+                     break
+                 }
+             }
+            
+        }
+
     }
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>){
-        guard let url = URLContexts.first?.url else { return }
-        print(url)
-        print( url.lastPathComponent)
-    
-        if url.lastPathComponent.count == 4 && url.lastPathComponent != "referral" {
-            Utility().referralCode =  url.lastPathComponent
+        guard let universalLink = URLContexts.first?.url else { return }
+        print(universalLink)
+        Defaults.shared.referralCode = nil
+        if universalLink.lastPathComponent.count == 4 && universalLink.lastPathComponent != "referral" {
+            Defaults.shared.referralCode =  universalLink.lastPathComponent
         }
-    
-       
     }
     private func setUpIQKeyboardManager() {
         IQKeyboardManager.shared.enable = true
@@ -59,6 +81,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
+        
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
     }

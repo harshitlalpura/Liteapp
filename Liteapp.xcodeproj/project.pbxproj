@@ -249,6 +249,7 @@
 		614D2F16284FA08F001E27B2 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		614D2F19284FA794001E27B2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		614D2F1F284FAD32001E27B2 /* OnboardingRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRegisterVC.swift; sourceTree = "<group>"; };
+		61552EBC2873622F00A60971 /* Liteapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Liteapp.entitlements; sourceTree = "<group>"; };
 		615A453A2852695C00CEB7DE /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		616771CF285631E500C26507 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		617308AB2855334F0080552B /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -606,6 +607,7 @@
 		6182F67B284933140006BDF0 /* Liteapp */ = {
 			isa = PBXGroup;
 			children = (
+				61552EBC2873622F00A60971 /* Liteapp.entitlements */,
 				6182F67C284933140006BDF0 /* AppDelegate.swift */,
 				6182F67E284933140006BDF0 /* SceneDelegate.swift */,
 				614D2F19284FA794001E27B2 /* LoginViewController.swift */,
@@ -1799,6 +1801,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Liteapp/Liteapp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = B2E5UW74Q7;
@@ -1833,6 +1836,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Liteapp/Liteapp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = B2E5UW74Q7;

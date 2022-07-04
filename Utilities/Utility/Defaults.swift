@@ -86,6 +86,16 @@ class Defaults {
         }
     } */
     
+    var referralCode: String? {
+       get {
+           return userDefaults.string(forKey:"referralCode")
+       }
+       set {
+           userDefaults.setValue(newValue, forKey: "referralCode")
+           userDefaults.synchronize()
+       }
+    }
+    
     var hasPremium: Bool {
         get {
             return userDefaults.bool(forKey: "hasPremium")

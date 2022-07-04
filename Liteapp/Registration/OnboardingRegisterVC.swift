@@ -13,6 +13,12 @@ class OnboardingRegisterVC: BaseViewController, StoryboardSceneBased{
         super.viewDidLoad()
 
     }
+    override func viewDidAppear(_ animated: Bool) {
+//        if let code = Defaults.shared.referralCode{
+//            self.showToast(message:"\(code)", font: UIFont.RobotoRegular(size:20.0))
+//        }
+    }
+    
     @IBAction func registerAsEmployeeClicked(sender:UIButton){
         let vc = EmployeeOnboardingVCStep1.instantiate()
         self.pushVC(controller:vc)
