@@ -259,10 +259,9 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
                     // self.showSucessMessage(strMessage: Localizable.Clockin.clockedout)
                     self.breakinSuccessPopup.isHidden = false
                     self.lblMessagebreakinPopup.text = "You are on lunch break!"
-                 }else if  event_type == UserStatus.loggedOut.rawValue {
+                 }else if  event_type == UserStatus.Endbreak.rawValue {
                      // self.showSucessMessage(strMessage: Localizable.Clockin.clockedout)
-                     self.lblMessagebreakinPopup.text = ""
-                     self.breakinSuccessPopup.isHidden = false
+                     self.clockInSuccessPopup.isHidden = false
                   }
             }else{
                 if let err = error{

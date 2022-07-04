@@ -26,7 +26,7 @@ class InviteViaTextVC:BaseViewController, StoryboardSceneBased,MFMailComposeView
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        inviteLink = "Hey! Please download our TimeClock App with the link below. \n Your referral code is \(Defaults.shared.currentUser?.merchantReferenceNumber ?? "").\n https://lite.testbryteportal.com/\(Defaults.shared.currentUser?.merchantReferenceNumber ?? "")"
+        inviteLink = "Hey! Please download our TimeClock App with the link below. \n Your referral code is \(Defaults.shared.currentUser?.merchantReferenceNumber ?? "").\n https://lite.testbryteportal.com/referral/\(Defaults.shared.currentUser?.merchantReferenceNumber ?? "")"
        // contacts = self.getContactFromCNContact()
         contactList = ContactsModel.generateModelArray()
         allContactList =  contactList

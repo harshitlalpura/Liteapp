@@ -24,7 +24,7 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var tblview: UITableView!
     var employeeList =  [Employee]()
-    
+    var isFromProfileSetup = false
     @IBOutlet weak var nameSortImageview: UIImageView!
     @IBOutlet weak var jobTitleSortImageview: UIImageView!
   
@@ -52,6 +52,10 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
     }
     override func viewWillAppear(_ animated: Bool) {
         fetchEmployees()
+        if isFromProfileSetup{
+            let vc = CreateEmployeeVC.instantiate()
+            self.pushVC(controller:vc)
+        }
     }
     @IBAction func menuClicked(sender:UIButton){
         self.present(menu, animated: true, completion: {})

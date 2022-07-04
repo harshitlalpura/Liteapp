@@ -16,6 +16,7 @@ public class Utility {
     // MARK: - singleton sharedInstance
     static var sharedInstance = Utility()
     static let synth = AVSpeechSynthesizer()
+    var referralCode:String?
     /// App's name (if applicable).
     public static func TextToSpeech(string:String) {
         

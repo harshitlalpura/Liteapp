@@ -99,13 +99,20 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var saveView: UIView!
     @IBOutlet weak var editView: UIView!
+    @IBOutlet weak var editTooltipView: UIView!
     
     @IBOutlet weak var txtname: UITextField!
     @IBOutlet weak var txtemail: UITextField!
     @IBOutlet weak var txtpassword: UITextField!
     
-    @IBOutlet weak var selectWeekView: UIView!
    
+    @IBOutlet weak var selectWeekView: UIView!
+    
+    @IBOutlet weak var timesheetStackView: UIStackView!
+    @IBOutlet weak var accountStackView: UIStackView!
+   
+    @IBOutlet weak var txtSelectSettings: UITextField!
+    
     var setupMerchant:SetupMerchant!
     var merchantSettings:MerchantSettings?
     var editDaySelected:EditSelectedDay = .monday
@@ -121,6 +128,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         super.viewDidLoad()
         setUI()
         setupMenu()
+        
     }
     func setUI(){
         logoutView.isHidden = true
@@ -202,28 +210,38 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         continueButtonStep3.tag = 30
         continueButtonStep4.tag = 40
         
-        editWeeklyOvertimeHoursView.isUserInteractionEnabled = false
-        editdailyOvertimeHoursView.isUserInteractionEnabled = false
-        selectWeekStartdayView.isUserInteractionEnabled = false
-        selectPayPeriodView.isUserInteractionEnabled = false
-        editWeeklyOvertimeHoursView.isUserInteractionEnabled = false
-        editdailyOvertimeHoursView.isUserInteractionEnabled = false
-        selectWeekStartdayView.isUserInteractionEnabled = false
-        selectPayPeriodView.isUserInteractionEnabled = false
-        selectCurrentPayWeek.isUserInteractionEnabled = false
-        switchWeeklyOvertime.isUserInteractionEnabled = false
-        switchDailyOvertime.isUserInteractionEnabled = false
-        btnWeek1.isUserInteractionEnabled = false
-        btnWeek2.isUserInteractionEnabled = false
+//        editWeeklyOvertimeHoursView.isUserInteractionEnabled = false
+//        editdailyOvertimeHoursView.isUserInteractionEnabled = false
+//        selectWeekStartdayView.isUserInteractionEnabled = false
+//        selectPayPeriodView.isUserInteractionEnabled = false
+//        editWeeklyOvertimeHoursView.isUserInteractionEnabled = false
+//        editdailyOvertimeHoursView.isUserInteractionEnabled = false
+//        selectWeekStartdayView.isUserInteractionEnabled = false
+//        selectPayPeriodView.isUserInteractionEnabled = false
+//        selectCurrentPayWeek.isUserInteractionEnabled = false
+//        switchWeeklyOvertime.isUserInteractionEnabled = false
+//        switchDailyOvertime.isUserInteractionEnabled = false
+//        btnWeek1.isUserInteractionEnabled = false
+//        btnWeek2.isUserInteractionEnabled = false
         
+        txtSelectSettings.isUserInteractionEnabled = true
         self.timesheetSettingView.isHidden = false
         self.accountSettingView.isHidden = true
-        
+        self.timesheetStackView.alpha = 0.5
+        self.accountStackView.alpha = 0.5
         self.saveView.isHidden = true
         
         if self.setupProfile{
             self.congratulationsPopup.isHidden  = false
         }
+        txteditWeeklyOvertimeHours.delegate = self
+        txteditdailyOvertimeHours.delegate = self
+        txtselectWeekStartday.delegate = self
+       // txtselectPayPeriod.delegate = self
+        txtname.delegate = self
+        txtemail.delegate = self
+        txtpassword.delegate = self
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         fetchSettings()
@@ -412,7 +430,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         
         let pickerArray = ["TimeClock Settings","Account Settings"]
         IQKeyboardManager.shared.enable = false
-        PickerView.sharedInstance.addPicker(self, onTextField: txtname, pickerArray: pickerArray) { index, value, isDismiss in
+        PickerView.sharedInstance.addPicker(self, onTextField: txtSelectSettings, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
                 IQKeyboardManager.shared.enable = true
                  print(value)
@@ -426,7 +444,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                     self.accountSettingView.isHidden = false
                 }
              }
-            self.txtname.resignFirstResponder()
+            self.txtSelectSettings.resignFirstResponder()
         }
         
        
@@ -479,7 +497,6 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         self.editPayPeriodStartDayView.isHidden = false
         self.blurOverlayView.isHidden = false
        
-        
     }
     @IBAction func changePasswordClicked(sender:UIButton){
         let vc = ChangePasswordVC.instantiate()
@@ -488,6 +505,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBAction func successPopupContinueSelected(sender:UIButton){
         self.successPopup.isHidden = true
         let vc = EmployeesVC.instantiate()
+        vc.isFromProfileSetup = true
         self.pushVC(controller:vc)
     }
     
@@ -505,7 +523,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         switchDailyOvertime.isUserInteractionEnabled = true
         btnWeek1.isUserInteractionEnabled = true
         btnWeek2.isUserInteractionEnabled = true
-        
+        self.timesheetStackView.alpha = 1.0
+        self.accountStackView.alpha = 1.0
         saveView.isHidden = false
         editView.isUserInteractionEnabled = false
         editView.alpha = 0.5
@@ -532,6 +551,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     }
     
     @IBAction func selectCurrentPayperiodClick(sender:UIButton){
+        if editView.alpha == 1.0{
+            editTooltipView.isHidden = false
+            return
+        }
         if sender.tag == 1{
             btnWeek1.isSelected = true
             btnWeek2.isSelected = false
@@ -544,6 +567,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     }
     
     @IBAction func selectStartWeekdayClick(sender:UIButton){
+        if editView.alpha == 1.0{
+            editTooltipView.isHidden = false
+            return
+        }
         let pickerArray = self.weekDaysArray
         IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField: txtselectWeekStartday, pickerArray: pickerArray) { index, value, isDismiss in
@@ -559,34 +586,38 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     }
     
     @IBAction func saveClick(sender:UIButton){
-        editWeeklyOvertimeHoursView.isUserInteractionEnabled = false
-        editdailyOvertimeHoursView.isUserInteractionEnabled = false
-        selectWeekStartdayView.isUserInteractionEnabled = false
-        selectPayPeriodView.isUserInteractionEnabled = false
-        selectCurrentPayWeek.isUserInteractionEnabled = false
-        switchWeeklyOvertime.isUserInteractionEnabled = false
-        switchDailyOvertime.isUserInteractionEnabled = false
-        btnWeek1.isUserInteractionEnabled = false
-        btnWeek2.isUserInteractionEnabled = false
+//        editWeeklyOvertimeHoursView.isUserInteractionEnabled = false
+//        editdailyOvertimeHoursView.isUserInteractionEnabled = false
+//        selectWeekStartdayView.isUserInteractionEnabled = false
+//        selectPayPeriodView.isUserInteractionEnabled = false
+//        selectCurrentPayWeek.isUserInteractionEnabled = false
+//        switchWeeklyOvertime.isUserInteractionEnabled = false
+//        switchDailyOvertime.isUserInteractionEnabled = false
+//        btnWeek1.isUserInteractionEnabled = false
+//        btnWeek2.isUserInteractionEnabled = false
         saveView.isHidden = true
         editView.isUserInteractionEnabled = true
         editView.alpha = 1.0
+        self.timesheetStackView.alpha = 0.5
+        self.accountStackView.alpha = 0.5
         self.callSaveMerchantSettings()
         //call save api
     }
     @IBAction func cancelClick(sender:UIButton){
-        editWeeklyOvertimeHoursView.isUserInteractionEnabled = false
-        editdailyOvertimeHoursView.isUserInteractionEnabled = false
-        selectWeekStartdayView.isUserInteractionEnabled = false
-        selectPayPeriodView.isUserInteractionEnabled = false
-        selectCurrentPayWeek.isUserInteractionEnabled = false
-        switchWeeklyOvertime.isUserInteractionEnabled = false
-        switchDailyOvertime.isUserInteractionEnabled = false
-        btnWeek1.isUserInteractionEnabled = false
-        btnWeek2.isUserInteractionEnabled = false
+//        editWeeklyOvertimeHoursView.isUserInteractionEnabled = false
+//        editdailyOvertimeHoursView.isUserInteractionEnabled = false
+//        selectWeekStartdayView.isUserInteractionEnabled = false
+//        selectPayPeriodView.isUserInteractionEnabled = false
+//        selectCurrentPayWeek.isUserInteractionEnabled = false
+//        switchWeeklyOvertime.isUserInteractionEnabled = false
+//        switchDailyOvertime.isUserInteractionEnabled = false
+//        btnWeek1.isUserInteractionEnabled = false
+//        btnWeek2.isUserInteractionEnabled = false
         saveView.isHidden = true
         editView.isUserInteractionEnabled = true
         editView.alpha = 1.0
+        self.timesheetStackView.alpha = 0.5
+        self.accountStackView.alpha = 0.5
     }
     @IBAction func closeClick(sender:UIButton){
         editPayPeriodStartDayView.isHidden = true
@@ -598,6 +629,11 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     }
     @IBAction func switchValueDidChange(sender:UISwitch)
     {
+        if editView.alpha == 1.0{
+            editTooltipView.isHidden = false
+            sender.isOn = !sender.isOn
+            return
+        }
         if sender.tag == 1{
             //Weekly
             if (sender.isOn == true){
@@ -618,6 +654,9 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
             }
         }
        
+    }
+    @IBAction func editTooltipOkClicked(){
+        self.editTooltipView.isHidden = true
     }
    
     
@@ -646,6 +685,25 @@ extension SettingsVC:MenuItemDelegate {
         
     }
     
+}
+extension SettingsVC:UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if editView.alpha == 1.0{
+            editTooltipView.isHidden = false
+            textField.resignFirstResponder()
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if editView.alpha == 1.0{
+            //show tooltip
+            return false
+        }
+        return true
+        
+    }
 }
 extension UIButton {
   func setBackgroundColor(_ color: UIColor, forState controlState: UIControl.State) {

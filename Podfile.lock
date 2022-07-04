@@ -148,6 +148,7 @@ PODS:
   - KeychainAccess (4.2.2)
   - Kingfisher (7.0.0)
   - lottie-ios (3.3.0)
+  - MKToolTip (1.0.6)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -187,6 +188,7 @@ DEPENDENCIES:
   - KeychainAccess (= 4.2.2)
   - Kingfisher (= 7.0.0)
   - lottie-ios
+  - MKToolTip
   - ObjectMapper
   - ReachabilitySwift
   - SDWebImage (~> 5.0)
@@ -227,6 +229,7 @@ SPEC REPOS:
     - KeychainAccess
     - Kingfisher
     - lottie-ios
+    - MKToolTip
     - nanopb
     - ObjectMapper
     - PromisesObjC
@@ -278,6 +281,7 @@ SPEC CHECKSUMS:
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: 5efc54fec3980f92354898532e562cc17f31efb4
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
+  MKToolTip: 69509b1cada10f96bd9f4ab559a768e7c6557933
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
@@ -289,6 +293,6 @@ SPEC CHECKSUMS:
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
   ZLImageEditor: eae3fcfa3050b42111d53bd4c611c26637ef604d
 
-PODFILE CHECKSUM: 8506e4f857da35c7721cc18d5a7a61334d008f76
+PODFILE CHECKSUM: 7e99001e5ece242c418fc1c5dc851a2220dedca2
 
 COCOAPODS: 1.11.2

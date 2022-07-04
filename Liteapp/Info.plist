@@ -7,13 +7,18 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.lite.hr</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>lite.testbryteportal</string>
+				<string>navroz</string>
 			</array>
 		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googlegmail</string>
+		<string>ms-outlook</string>
+		<string>readdle-spark</string>
+		<string>ymail</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -34,12 +39,5 @@
 			</array>
 		</dict>
 	</dict>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>googlegmail</string>
-        <string>ms-outlook</string>
-        <string>readdle-spark</string>
-        <string>ymail</string>
-    </array>
 </dict>
 </plist>

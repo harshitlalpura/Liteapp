@@ -17,7 +17,7 @@ target 'Liteapp' do
   pod 'GoogleSignIn'
   pod 'ZLImageEditor'
   pod 'lottie-ios'
- 
+ pod 'MKToolTip'
 
   pod 'KeychainAccess', '4.2.2'
   pod 'Kingfisher', '7.0.0'

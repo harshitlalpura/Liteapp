@@ -31,6 +31,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         setUpIQKeyboardManager()
            
     }
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>){
+        guard let url = URLContexts.first?.url else { return }
+        print(url)
+        print( url.lastPathComponent)
+    
+        if url.lastPathComponent.count == 4 && url.lastPathComponent != "referral" {
+            Utility().referralCode =  url.lastPathComponent
+        }
+    
+       
+    }
     private func setUpIQKeyboardManager() {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = true

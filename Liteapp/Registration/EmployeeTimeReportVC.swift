@@ -11,6 +11,7 @@ import ObjectMapper
 import Alamofire
 import SwiftUI
 import IQKeyboardManagerSwift
+import MKToolTip
 
 class MyButton : UIButton {
     var weekIndex : Int = -1
@@ -80,6 +81,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var userinformationView: UIView!
     @IBOutlet weak var timereportView: UIView!
     
+    @IBOutlet weak var editTooltipView: UIView!
     
     @IBOutlet weak var selectedPayperiodLabel: UILabel!
     @IBOutlet weak var txtselectedPayperiod: UITextField!
@@ -87,6 +89,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var saveView: UIView!
     @IBOutlet weak var editView: UIView!
+    
+    @IBOutlet weak var userinforStackview: UIView!
     
     var isFromEmployee = false
     var weekDates = [CustomDate]()
@@ -116,6 +120,12 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             self.userinformationView.isHidden = true
             self.timereportView.isHidden = false
         }
+        
+        self.txtFirstName.delegate = self
+        self.txtLastName.delegate = self
+        self.txtEmail.delegate = self
+        self.txtjobtitle.delegate = self
+        
         tblEvents.addObserver(self, forKeyPath: #keyPath(UITableView.contentSize), options: [NSKeyValueObservingOptions.new], context: &myContext)
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -193,12 +203,13 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         logoutView.isHidden = true
         lblusername.text = "\(Defaults.shared.currentUser?.empFirstname ?? "") \(Defaults.shared.currentUser?.empLastname ?? "")"
 
-        txtFirstName.isUserInteractionEnabled = false
-        txtLastName.isUserInteractionEnabled = false
-        txtEmail.isUserInteractionEnabled = false
-        txtjobtitle.isUserInteractionEnabled = false
-        tblEvents.isUserInteractionEnabled = false
+//        txtFirstName.isUserInteractionEnabled = false
+//        txtLastName.isUserInteractionEnabled = false
+//        txtEmail.isUserInteractionEnabled = false
+//        txtjobtitle.isUserInteractionEnabled = false
+//        tblEvents.isUserInteractionEnabled = false
        
+        userinforStackview.alpha = 0.5
         
         saveView.isHidden = true
         editView.isUserInteractionEnabled = true
@@ -254,12 +265,19 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     }
     @IBAction func editClick(sender:UIButton){
         
+        
         txtFirstName.isUserInteractionEnabled = true
         txtLastName.isUserInteractionEnabled = true
         txtEmail.isUserInteractionEnabled = true
         txtjobtitle.isUserInteractionEnabled = true
         tblEvents.isUserInteractionEnabled = true
        
+        txtFirstName.alpha = 1.0
+        txtLastName.alpha = 1.0
+        txtEmail.alpha = 1.0
+        txtjobtitle.alpha = 1.0
+        userinforStackview.alpha = 1.0
+        
         
         saveView.isHidden = false
         editView.isUserInteractionEnabled = false
@@ -362,11 +380,11 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     }
     @IBAction func saveClick(sender:UIButton){
 
-        txtFirstName.isUserInteractionEnabled = false
-        txtLastName.isUserInteractionEnabled = false
-        txtEmail.isUserInteractionEnabled = false
-        txtjobtitle.isUserInteractionEnabled = false
-        tblEvents.isUserInteractionEnabled = false
+//        txtFirstName.isUserInteractionEnabled = false
+//        txtLastName.isUserInteractionEnabled = false
+//        txtEmail.isUserInteractionEnabled = false
+//        txtjobtitle.isUserInteractionEnabled = false
+//        tblEvents.isUserInteractionEnabled = false
 
       
        //call save api
@@ -390,17 +408,27 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             txtjobtitle.isUserInteractionEnabled = true
             tblEvents.isUserInteractionEnabled = true
             
+            txtFirstName.alpha = 1.0
+            txtLastName.alpha = 1.0
+            txtEmail.alpha = 1.0
+            txtjobtitle.alpha = 1.0
+            userinforStackview.alpha = 1.0
             saveView.isHidden = false
             editView.isUserInteractionEnabled = false
             editView.alpha = 0.5
+            
         }else{
-            txtFirstName.isUserInteractionEnabled = false
-            txtLastName.isUserInteractionEnabled = false
-            txtEmail.isUserInteractionEnabled = false
-            txtjobtitle.isUserInteractionEnabled = false
-            tblEvents.isUserInteractionEnabled = false
+//            txtFirstName.isUserInteractionEnabled = false
+//            txtLastName.isUserInteractionEnabled = false
+//            txtEmail.isUserInteractionEnabled = false
+//            txtjobtitle.isUserInteractionEnabled = false
+//            tblEvents.isUserInteractionEnabled = false
             
-            
+            txtFirstName.alpha = 0.5
+            txtLastName.alpha = 0.5
+            txtEmail.alpha = 0.5
+            txtjobtitle.alpha = 0.5
+            userinforStackview.alpha = 0.5
             saveView.isHidden = true
             editView.isUserInteractionEnabled = true
             editView.alpha = 1.0
@@ -409,12 +437,12 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
 
     }
     @IBAction func cancelClick(sender:UIButton){
-        txtFirstName.isUserInteractionEnabled = false
-        txtLastName.isUserInteractionEnabled = false
-        txtEmail.isUserInteractionEnabled = false
-        txtjobtitle.isUserInteractionEnabled = false
-        tblEvents.isUserInteractionEnabled = false
-
+//        txtFirstName.isUserInteractionEnabled = false
+//        txtLastName.isUserInteractionEnabled = false
+//        txtEmail.isUserInteractionEnabled = false
+//        txtjobtitle.isUserInteractionEnabled = false
+//        tblEvents.isUserInteractionEnabled = false
+        userinforStackview.alpha = 0.5
         saveView.isHidden = true
         editView.isUserInteractionEnabled = true
         editView.alpha = 1.0
@@ -620,8 +648,31 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         self.weekDaysPopupView.isHidden = true
        
     }
+    @IBAction func editTooltipOkClicked(){
+        self.editTooltipView.isHidden = true
+    }
 }
 
+extension EmployeeTimeReportVC:UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if editView.alpha == 1.0{
+            editTooltipView.isHidden = false
+            textField.resignFirstResponder()
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if editView.alpha == 1.0{
+            //show tooltip
+            return false
+        }
+        return true
+        
+    }
+    
+}
 extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -1293,12 +1344,6 @@ extension EmployeeTimeReportVC:MenuItemDelegate {
             let vc = DashBoardVC.instantiate()
             self.pushVC(controller:vc)
         }
-    }
-}
-
-extension EmployeeTimeReportVC: UITextFieldDelegate{
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.resignFirstResponder()
     }
 }
 extension String{

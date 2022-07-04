@@ -21,6 +21,10 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
 
         txtReferralCode.delegate = self
         txtCompany.isUserInteractionEnabled = false
+        if let code =  Utility().referralCode{
+            txtReferralCode.text = code
+            self.checkRefferalCode(code)
+        }
     }
     
     @IBAction func continueClicked(sender:UIButton){
@@ -84,6 +88,10 @@ extension EmployeeOnboardingVCStep3:UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if textField == self.txtReferralCode{
+            if string.count > 3{
+                //User did copy & paste
+                self.checkRefferalCode(string)
+            }
             if textField.text!.count == 4{
                 return false
             }else if textField.text!.count == 3{
