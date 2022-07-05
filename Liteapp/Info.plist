@@ -14,6 +14,16 @@
 				<string>https://</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.lite.hr</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>http://</string>
+			</array>
+		</dict>
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>

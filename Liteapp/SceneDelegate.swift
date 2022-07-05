@@ -22,6 +22,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if universalLink.lastPathComponent.count == 4 && universalLink.lastPathComponent != "referral" {
             Defaults.shared.referralCode =  universalLink.lastPathComponent
         }
+        guard let scene = (scene as? UIWindowScene) else { return }
+        self.window = UIWindow(windowScene: scene)
+        self.window?.backgroundColor = .white
+        self.setRootViewVC()
       
     }
     func scene(_ scene: UIScene, willContinueUserActivityWithType userActivityType: String) {
@@ -29,19 +33,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        
     }
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-       
-        
-        
-        guard let scene = (scene as? UIWindowScene) else { return }
-         self.window = UIWindow(windowScene: scene)
-        self.window?.backgroundColor = .white
-        let rootVC =  Defaults.shared.currentUser != nil ?  DashBoardVC.instantiate() :  LoginViewController.instantiate()
-
-        let rootNC = UINavigationController(rootViewController: rootVC)
-        rootNC.navigationBar.tintColor = .black
-        self.window?.rootViewController = rootNC
-        self.window?.makeKeyAndVisible()
-        setUpIQKeyboardManager()
         
         Defaults.shared.referralCode = nil
         
@@ -54,7 +45,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              }
             
         }
+        guard let scene = (scene as? UIWindowScene) else { return }
+        self.window = UIWindow(windowScene: scene)
+        self.window?.backgroundColor = .white
+        self.setRootViewVC()
+    }
+    func setRootViewVC(){
+        if Defaults.shared.referralCode != nil{
+           
+            let rootVC =  Defaults.shared.currentUser != nil ?  DashBoardVC.instantiate() :  EmployeeOnboardingVCStep1.instantiate()
+            let rootNC = UINavigationController(rootViewController: rootVC)
+            rootNC.navigationBar.tintColor = .black
+            self.window?.rootViewController = rootNC
+            self.window?.makeKeyAndVisible()
+            setUpIQKeyboardManager()
+        }else{
+            let rootVC =  Defaults.shared.currentUser != nil ?  DashBoardVC.instantiate() :  LoginViewController.instantiate()
 
+            let rootNC = UINavigationController(rootViewController: rootVC)
+            rootNC.navigationBar.tintColor = .black
+            self.window?.rootViewController = rootNC
+            self.window?.makeKeyAndVisible()
+            setUpIQKeyboardManager()
+        }
     }
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>){
         guard let universalLink = URLContexts.first?.url else { return }
