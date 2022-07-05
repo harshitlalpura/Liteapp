@@ -33,6 +33,9 @@ extension UIImage{
     static let checkImage = UIImage(named:"ic_check_box")
     static let uncheckImage = UIImage(named:"ic_uncheck_box")
     
+    static let checkGreyImage = UIImage(named:"ic_check_grey")
+    static let uncheckGreyImage = UIImage(named:"ic_uncheck_grey")
+    
     static let sortAsc = UIImage(named:"iconsortAsc")
     static let sortDesc = UIImage(named:"iconsortDesc")
     static let sortDefault = UIImage(named:"iconsortDefault")
@@ -53,6 +56,8 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var nameSortImageview: UIImageView!
     @IBOutlet weak var totalSortImageview: UIImageView!
     @IBOutlet weak var approvalSortImageview: UIImageView!
+    
+    @IBOutlet weak var btnCheckAll: UIButton!
     
     var sortNameType = Sort.defaultShort
     var sortTotalType = Sort.defaultShort
@@ -75,6 +80,8 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         setTableView()
         setupMenu()
         setData()
+        btnCheckAll.setImage(UIImage.checkGreyImage, for: .selected)
+        btnCheckAll.setImage(UIImage.uncheckGreyImage, for: .normal)
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -311,6 +318,26 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         }
         self.fetchTimesheetList()
     }
+    @IBAction func checkAllClicked(sender:UIButton) {
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected{
+            self.selectedTimesheetList.append(contentsOf:timesheetList)
+        }else{
+            self.selectedTimesheetList.removeAll()
+        }
+        if selectedTimesheetList.count > 0{
+            self.approveMainview.alpha = 1.0
+            self.exportMainView.alpha = 1.0
+            self.approveMainview.isUserInteractionEnabled = true
+            self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
+        }else{
+            self.approveMainview.alpha = 0.5
+            self.exportMainView.alpha = 0.5
+            self.approveMainview.isUserInteractionEnabled = false
+        }
+       
+        tblview.reloadData()
+    }
     func changeStatusAPI(status:TimesheetStatus){
         let array: Array = selectedTimesheetList.map(){"\($0.empId ?? 0)"}
         let joinedString: String  = array.joined(separator:",")
@@ -368,6 +395,8 @@ extension TimesheetListVC:UITableViewDelegate,UITableViewDataSource {
         cell.btnCheck.isSelected = false
         cell.btnCheck.addTarget(self, action:#selector(self.checkClicked(sender:)), for: .touchUpInside)
         cell.btnCheck.tag = indexPath.row
+        cell.btnCheck.isSelected = btnCheckAll.isSelected
+       
         cell.selectionStyle = .none
         return cell
     }
@@ -377,6 +406,7 @@ extension TimesheetListVC:UITableViewDelegate,UITableViewDataSource {
         vc.selectedEmployeeID = timesheetList[indexPath.row].empId?.stringValue ?? ""
         self.pushVC(controller:vc)
     }
+    
     @objc func checkClicked(sender:UIButton) {
         sender.isSelected = !sender.isSelected
         
@@ -390,12 +420,13 @@ extension TimesheetListVC:UITableViewDelegate,UITableViewDataSource {
             self.approveMainview.alpha = 1.0
             self.exportMainView.alpha = 1.0
             self.approveMainview.isUserInteractionEnabled = true
+            self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
         }else{
             self.approveMainview.alpha = 0.5
             self.exportMainView.alpha = 0.5
             self.approveMainview.isUserInteractionEnabled = false
         }
-        self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
+        
         print( self.selectedTimesheetList.count)
     }
     

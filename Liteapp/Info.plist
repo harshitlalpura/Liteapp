@@ -11,7 +11,7 @@
 			<string>com.lite.hr</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>https://</string>
+				<string>https</string>
 			</array>
 		</dict>
 		<dict>
@@ -21,7 +21,7 @@
 			<string>com.lite.hr</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>http://</string>
+				<string>http</string>
 			</array>
 		</dict>
 	</array>

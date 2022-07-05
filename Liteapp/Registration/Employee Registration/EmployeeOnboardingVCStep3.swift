@@ -66,16 +66,30 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
             }
         }
     }
+    
     func checkRefferalCode(_ code:String){
         let header = Defaults.shared.header ?? ["":""]
         let parameter = ["merchant_reference_number":"\(code)"]
         NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.searchMerchantsByRef(), param: parameter, header: header) { success, response, error in
             if let res = response{
-                let data = Mapper<MerchantCodeData>().map(JSONObject:res)
-                print(data?.toJSON() ?? "")
-                self.txtCompany.text = data?.data?.first?.merchantName ?? ""
-                self.saveEmployee.merchant_id = "\(data?.data?.first?.merchantId ?? 0)"
-                print(self.saveEmployee.getParam())
+                if let status = res["status"] as? Int{
+                    if status == 0{
+                        self.showAlert(alertType:.validation, message: "No such merchant available.Please try again.")
+                        self.txtCompany.text = ""
+                        
+                    }else if status == 1{
+                        let data = Mapper<MerchantCodeData>().map(JSONObject:res)
+                        print(data?.toJSON() ?? "")
+                        self.txtCompany.text = data?.data?.first?.merchantName ?? ""
+                        self.saveEmployee.merchant_id = "\(data?.data?.first?.merchantId ?? 0)"
+                        print(self.saveEmployee.getParam())
+                    }
+                }else{
+                    self.showAlert(alertType:.validation, message: "No such merchant available.Please try again.")
+                    self.txtCompany.text = ""
+                    
+                }
+                
             }else if let err = error{
                 print(err)
             }
@@ -83,11 +97,19 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
         }
     }
     
+    
 }
 extension EmployeeOnboardingVCStep3:UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if textField == self.txtReferralCode{
+            if let char = string.cString(using: String.Encoding.utf8) {
+                    let isBackSpace = strcmp(char, "\\b")
+                    if (isBackSpace == -92) {
+                      
+                        return true
+                    }
+            }
             if string.count > 3{
                 //User did copy & paste
                 self.checkRefferalCode(string)
