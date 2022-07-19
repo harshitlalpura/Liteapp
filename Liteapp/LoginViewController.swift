@@ -14,7 +14,7 @@ extension UIImage{
     static let unselectedImage = UIImage(named:"ic_unselected")
 }
 class LoginViewController: BaseViewController, StoryboardSceneBased{
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
     
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!

@@ -29,7 +29,7 @@ enum SelectedOption:Int{
 
 
 class MenuViewController: BaseViewController, StoryboardSceneBased{
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.main.rawValue : StoryboardName.main.rawValue, bundle: nil)
     @IBOutlet weak var menuTableview: UITableView!
     @IBOutlet weak var userImageview: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!

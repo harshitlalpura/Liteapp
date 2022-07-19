@@ -19,7 +19,10 @@ extension AddEmployeeVCDelegate{
 class AddEmployeeVC:BaseViewController, StoryboardSceneBased{
 
     var delegate:AddEmployeeVCDelegate?
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.merchant.rawValue, bundle: nil)
+   
+    
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

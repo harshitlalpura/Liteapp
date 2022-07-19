@@ -9,7 +9,8 @@ import UIKit
 
 class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
     
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
+    
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var txtUsername: UITextField!
     @IBOutlet weak var txtPassword: UITextField!

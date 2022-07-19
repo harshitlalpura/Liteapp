@@ -266,11 +266,11 @@ public class Utility {
 
     }
     
-    static func setupCollectionHorizontalUi(collection: UICollectionView, cellHeight: CGFloat) {
+    static func setupCollectionHorizontalUi(collection: UICollectionView, cellHeight: CGFloat,numberofColumn:Double = 2.0,scrollDirection:Int = UICollectionView.ScrollDirection.horizontal.rawValue) {
         let fllowLayout = UICollectionViewFlowLayout()
-        fllowLayout.itemSize = CGSize(width: (Constant.DEVICE_SCREEN_WIDTH/2.0)-24, height: cellHeight)
+        fllowLayout.itemSize = CGSize(width: (Constant.DEVICE_SCREEN_WIDTH/numberofColumn)-24, height: cellHeight)
         fllowLayout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        fllowLayout.scrollDirection = UICollectionView.ScrollDirection.horizontal
+        fllowLayout.scrollDirection = UICollectionView.ScrollDirection(rawValue: scrollDirection)!
         fllowLayout.minimumInteritemSpacing = 0.0
         collection.collectionViewLayout = fllowLayout
     }

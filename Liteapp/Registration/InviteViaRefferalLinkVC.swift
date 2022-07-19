@@ -9,7 +9,8 @@ import UIKit
 
 class InviteViaRefferalLinkVC:BaseViewController,StoryboardSceneBased{
 
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.merchant.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
+    
     var inviteLink = ""
     @IBOutlet weak var lblCode: UILabel!
        

@@ -18,7 +18,7 @@ enum EmployeeSortType:Int{
 }
 class EmployeesVC:BaseViewController, StoryboardSceneBased{
     
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.merchant.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     var menu:SideMenuNavigationController!
     @IBOutlet weak var lblusername: UILabel!
     @IBOutlet weak var logoutView: UIView!

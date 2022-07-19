@@ -21,7 +21,7 @@ struct CustomDate{
 private var myContext = 0
 class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.merchant.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     var menu:SideMenuNavigationController!
     
     @IBOutlet weak var lblweekDay1: UILabel!

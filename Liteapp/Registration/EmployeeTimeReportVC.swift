@@ -31,9 +31,10 @@ class DatePickerTextField : UIButton {
 
 }
 private var myContext = 0
+private var collectionviewContext = 0
 class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.merchant.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     var menu:SideMenuNavigationController!
     
     @IBOutlet weak var lblweekDay1: UILabel!
@@ -71,7 +72,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var lblname: UILabel!
     @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var tblEvents: UITableView!
-    
+    @IBOutlet weak var collectionViewEvents: UICollectionView!
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
@@ -86,7 +87,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var selectedPayperiodLabel: UILabel!
     @IBOutlet weak var txtselectedPayperiod: UITextField!
     @IBOutlet weak var eventTableHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var eventCollectionviewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var saveView: UIView!
     @IBOutlet weak var editView: UIView!
     
@@ -127,6 +128,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         self.txtjobtitle.delegate = self
         
         tblEvents.addObserver(self, forKeyPath: #keyPath(UITableView.contentSize), options: [NSKeyValueObservingOptions.new], context: &myContext)
+        collectionViewEvents.addObserver(self, forKeyPath: #keyPath(UICollectionView.contentSize), options: [NSKeyValueObservingOptions.new], context: &collectionviewContext)
     }
     override func viewWillAppear(_ animated: Bool) {
         fetchEmployeeDetails()
@@ -139,7 +141,14 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             print("contentSize:", contentSize)
             eventTableHeightConstraint.constant = tblEvents.contentSize.height
         }
+        if context == &collectionviewContext,
+            keyPath == #keyPath(UITextView.contentSize),
+            let contentSize = change?[NSKeyValueChangeKey.newKey] as? CGSize {
+            print("contentSize:", contentSize)
+            eventCollectionviewHeightConstraint.constant = collectionViewEvents.contentSize.height
+        }
     }
+    
     deinit {
         tblEvents.removeObserver(self, forKeyPath: #keyPath(UITextView.contentSize))
     }
@@ -195,6 +204,9 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
        
         let indexpathCell = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
         tblEvents.reloadRows(at: [indexpathCell], with: .none)
+        let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
+        collectionViewEvents.reloadItems(at: [indexpathCVCell])
+        
         
         let indexpathHeader = IndexPath(row:0, section: sender.weekIndex)
         tblEvents.reloadRows(at: [indexpathHeader], with: .none)
@@ -256,7 +268,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         
        // self.selectedPayPeriod?.weeks?[self.selectedWeekIndex].timesheet?.append(timesheet)
         self.tblEvents.reloadData()
-        
+        self.collectionViewEvents.reloadData()
         self.weekDaysPopupView.isHidden = true
        
     }
@@ -319,7 +331,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                 let str = "\(self.selectedPayPeriod?.payperiodFrom1 ?? "") - \(self.selectedPayPeriod?.payperiodTo1 ?? "")"
                 self.selectedPayperiodLabel.text = str
                 self.tblEvents.reloadData()
-              
+                self.collectionViewEvents.reloadData()
                 print(self.selectedPayPeriod?.toJSON() ?? "")
              }
            // self.txtselectedPayperiod.isUserInteractionEnabled = false
@@ -349,8 +361,29 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         tblEvents.delegate = self
         tblEvents.dataSource = self
         tblEvents.separatorStyle = .none
-     
+        
+        
+        tblEvents.register(cellType: TimeReportCell.self)
+        
+        collectionViewEvents.delegate = self
+        collectionViewEvents.dataSource = self
+        collectionViewEvents.register(cellType: TimeReportCVCell.self)
+        collectionViewEvents.register(cellType: TimeReportCVHeaderCell.self)
+        let TimeReportVCFooterCellnib = UINib(nibName: "TimeReportFooterCell", bundle: nil)
+    //    collectionViewEvents.register(TimeReportVCFooterCellnib, forCellWithReuseIdentifier: "TimeReportFooterCell")
+        let numberOfColumn = 3
+        
+        let layout = UICollectionViewFlowLayout()
+        
+        layout.scrollDirection = .vertical //depending upon direction of collection view
+
+        self.collectionViewEvents?.setCollectionViewLayout(layout, animated: true)
+        
+     //   Utility.setupCollectionHorizontalUi(collection:collectionViewEvents, cellHeight: 350.0,numberofColumn:3.0,scrollDirection: UICollectionView.ScrollDirection.vertical.rawValue)
+        
+        
        
+
         
     }
     func fetchEmployeeTimesheet(){
@@ -373,6 +406,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                 let str = "\(self.selectedPayPeriod?.payperiodFrom1 ?? "") - \(self.selectedPayPeriod?.payperiodTo1 ?? "")"
                 self.selectedPayperiodLabel.text = str
                 self.tblEvents.reloadData()
+                self.collectionViewEvents.reloadData()
             }else if let err = error{
                 print(err)
             }
@@ -546,67 +580,107 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.tag].timesheet?.append(timesheet)
         
         self.tblEvents.reloadData()
+        self.collectionViewEvents.reloadData()
         selectedWeekIndex = sender.tag
     }
     @objc func changeDateSelected(sender:MyButton) {
 
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
+        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
         cell.weekDaysPopupView.isHidden = false
         cell.isChangeDate = true
 
+        item.weekDaysPopupView.isHidden = false
+        item.isChangeDate = true
     }
     @objc func moreOptionClicked(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
+        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
        // cell.mainView.isHidden = true
         cell.addshiftMainView.isHidden = false
+        item.addshiftMainView.isHidden = false
     }
     
     @objc func addShiftClicked(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
+        
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
+        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
       //  cell.mainView.isHidden = false
         cell.addshiftMainView.isHidden = true
+        item.addshiftMainView.isHidden = true
         
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].addShiftForDay()
         self.tblEvents.reloadRows(at:[indexpath], with: .none)
+        collectionViewEvents.reloadItems(at: [indexpathCVCell])
     }
     @objc func addBreakClicked(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
+        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
       //  cell.mainView.isHidden = false
         cell.addshiftMainView.isHidden = true
+        item.addshiftMainView.isHidden = true
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].addBreaksForDay()
        
         self.tblEvents.reloadRows(at:[indexpath], with: .none)
+        collectionViewEvents.reloadItems(at: [indexpathCVCell])
     }
     @objc func deleteSheetClicked(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
-      //  cell.mainView.isHidden = false
+        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
         cell.addshiftMainView.isHidden = true
+        item.addshiftMainView.isHidden = true
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?.remove(at:sender.timeSheetIndex)
        
         self.tblEvents.reloadData()
+        collectionViewEvents.reloadData()
     }
     @objc func addShiftMainViewBack(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
-     //   cell.mainView.isHidden = false
+
         cell.addshiftMainView.isHidden = true
+        
+        let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
+        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
+        item.addshiftMainView.isHidden = true
     }
     @objc func selectWeekdayViewBack(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
-        let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
-        
-        cell.weekDaysPopupView.isHidden = true
-        
-        if cell.isChangeDate == false{
-            self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.remove(at:sender.timeSheetIndex)
+        if let cell = tblEvents.cellForRow(at: indexpath) as? TimeReportCell{
+            cell.weekDaysPopupView.isHidden = true
+            if cell.isChangeDate == false{
+                self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.remove(at:sender.timeSheetIndex)
+                
+            }
+            self.tblEvents.reloadData()
         }
+      
         
-        self.tblEvents.reloadData()
+        
+        let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
+        if let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as? TimeReportCVCell{
+            item.weekDaysPopupView.isHidden = true
+            
+           
+            
+            if item.isChangeDate == false{
+                self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.remove(at:sender.timeSheetIndex)
+            }
+            
+          
+            collectionViewEvents.reloadData()
+        }
+       
        
     }
     @objc func weekDaySelectClicked(sender:MyButton){
@@ -637,14 +711,12 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             }
             
         }
-       // print(weekDates[sender.tag - 1])
+     
         let timesheet = Timesheet().addEventsForDay(date: weekDates[sender.tag - 1])
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?[sender.timeSheetIndex] = timesheet
-     //   self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.append(timesheet)
-        
-       // self.selectedPayPeriod?.weeks?[self.selectedWeekIndex].timesheet?.append(timesheet)
+    
         self.tblEvents.reloadData()
-        
+        self.collectionViewEvents.reloadData()
         self.weekDaysPopupView.isHidden = true
        
     }
@@ -673,6 +745,272 @@ extension EmployeeTimeReportVC:UITextFieldDelegate{
     }
     
 }
+extension EmployeeTimeReportVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if let weeks = self.selectedPayPeriod?.weeks{
+            let count = weeks.count
+           
+            return count
+            
+        }else{
+            return 0
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return  (selectedPayPeriod?.weeks?[section].timesheet?.count ?? 0) + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.row == 0{
+            let week =  self.selectedPayPeriod?.weeks?[indexPath.section]
+            let cell: TimeReportCVHeaderCell = collectionViewEvents.dequeueReusableCell(for: indexPath)
+            let weekFrom = "\(week?.weekFrom ?? "")".toDate()
+            let weekTo = "\(week?.weekTo ?? "")".toDate()
+            let startweek =  weekFrom.getString(formatter:DateTimeFormat.MMM_dd_yyyy.rawValue)
+            let endweek =  weekTo.getString(formatter:DateTimeFormat.MMM_dd_yyyy.rawValue)
+            cell.timeLabel.text = "\(startweek) - \(endweek)"
+            
+            cell.overTimeLabel.text = "0.00 hrs"
+            let tuple = self.calculateTotalTimeForWeek(sectionIndex:indexPath.section)
+           // print("Total Time \(tuple.hours).\(tuple.leftMinutes) hrs")
+        
+            
+            cell.totalTimeLabel.text = "\(tuple.hours)." + String(format: "%02d hrs", ((tuple.leftMinutes * 100)/60 ))
+            let totalWeeklyMinutes:Int = (self.merchantData?.merchantWeeklyOvertime as! Int * 60)
+           
+            //regular Hours
+            if tuple.totalMinutes > totalWeeklyMinutes{
+                //overtime
+                let overtimeMinutes = tuple.totalMinutes - totalWeeklyMinutes
+                let overtimetuple = minutesToHoursAndMinutes(overtimeMinutes)
+                cell.overTimeLabel.text = "\(overtimetuple.hours)." + String(format: "%02d hrs", ((overtimetuple.leftMinutes * 100)/60 ))
+                
+                //regularhours
+                let regularMinutes = tuple.totalMinutes - overtimeMinutes
+                let regulartuple = minutesToHoursAndMinutes(regularMinutes)
+                
+                cell.regularHoursLabel.text = "\(regulartuple.hours)." + String(format: "%02d hrs", ((regulartuple.leftMinutes * 100)/60 ))
+               
+            }else{
+                //regularhours
+                let regularMinutes = tuple.totalMinutes
+                let regulartuple = minutesToHoursAndMinutes(regularMinutes)
+                cell.regularHoursLabel.text =  "\(regulartuple.hours)." + String(format: "%02d hrs", ((regulartuple.leftMinutes * 100)/60 ))
+               
+            }
+            cell.btnAddTimesheet.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
+            cell.btnAddTimesheet.tag = indexPath.section
+            if merchantData?.merchantWeeklyOvertimeEnabled ?? "" == "Y"{
+                cell.weeklyOverTimeView.isHidden = false
+            }else{
+                cell.weeklyOverTimeView.isHidden = true
+            }
+           
+           
+            return cell
+
+        }else{
+            let cell: TimeReportCVCell = collectionViewEvents.dequeueReusableCell(for: indexPath)
+            let timesheet =  selectedPayPeriod?.weeks?[indexPath.section].timesheet?[indexPath.row - 1]
+          
+            let date = (timesheet?.date ?? "").toDate()
+            let weekday = date.getTodayWeekDay()
+            let dateString = date.getString()
+            cell.dateLabel.text = dateString
+            cell.dayLabel.text = weekday
+            
+            cell.btnDate.addTarget(self, action:#selector(self.changeDateSelected(sender:)), for: .touchUpInside)
+            cell.btnDate.timeSheetIndex = indexPath.row - 1
+            cell.btnDate.weekIndex = indexPath.section
+            
+           
+            for subview in cell.stackView.subviews{
+                subview.removeFromSuperview()
+            }
+           
+            for (i,event) in (timesheet?.events ?? [Events]()).enumerated(){
+                let timeReportViewNew = TimesheetView()
+                
+                cell.stackView.addArrangedSubview(timeReportViewNew)
+                timeReportViewNew.translatesAutoresizingMaskIntoConstraints = false
+                let heightConstraint = NSLayoutConstraint(item: timeReportViewNew, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 40)
+                timeReportViewNew.addConstraints([heightConstraint])
+              
+              
+              let timeLineEvent = event.timelineEvent ?? ""
+              
+                
+              if timeLineEvent == "I"{
+                  timeReportViewNew.titleLabel.text = "Shift Start:"
+                  timeReportViewNew.barView.backgroundColor = UIColor.startShiftColor
+                  
+                
+              }else if timeLineEvent == "O"{
+                  timeReportViewNew.titleLabel.text = "Shift End:"
+                  timeReportViewNew.barView.backgroundColor = UIColor.endShiftColor
+                 
+              }else if timeLineEvent == "B"{
+                  timeReportViewNew.titleLabel.text = "Break Start:"
+                  timeReportViewNew.barView.backgroundColor = UIColor.breakStartColor
+                
+              }else if timeLineEvent == "S"{
+                  timeReportViewNew.titleLabel.text = "Break End:"
+                  timeReportViewNew.barView.backgroundColor = UIColor.breakEndColor
+                 
+              }
+             timeReportViewNew.btnTimeEdit.addTarget(self, action:#selector(self.changeTimeClick(sender:)), for: .touchUpInside)
+             timeReportViewNew.btnTimeEdit.timeSheetIndex = indexPath.row - 1
+             timeReportViewNew.btnTimeEdit.weekIndex = indexPath.section
+             timeReportViewNew.btnTimeEdit.eventIndex = i
+             timeReportViewNew.timeLabel.text = event.timelineValue
+             timeReportViewNew.timeLabel.tag = i
+            if timeReportViewNew.timeLabel.text == ""{
+                timeReportViewNew.timeLabel.text = "--:-- --"
+            }
+         }
+            
+            let workTime = self.calculateTotalTime(events:timesheet?.events ?? [Events]())
+            let tuple = minutesToHoursAndMinutes(workTime)
+            
+            cell.totalTimeLabel.text = "\(tuple.hours)." + String(format: "%02d hrs", ((tuple.leftMinutes * 100)/60 ))
+            
+            //regular Hours
+            let totalDailyMinutes:Int = (self.merchantData?.merchantDailyOvertime as! Int * 60)
+            if merchantData?.merchantDailyOvertimeEnabled ?? "" == "Y"{
+            }else{
+                
+            }
+            cell.regularHoursLabel.text = "0.00 hrs"
+            cell.overTimeLabel.text = "0.00 hrs"
+           
+            if workTime > totalDailyMinutes{
+                //overtime
+                if merchantData?.merchantDailyOvertimeEnabled ?? "" == "Y"{
+                    let overtimeMinutes = workTime - totalDailyMinutes
+                    let overtimetuple = minutesToHoursAndMinutes(overtimeMinutes)
+                   
+                    cell.overTimeLabel.text =  "\(overtimetuple.hours)." + String(format: "%02d hrs", ((overtimetuple.leftMinutes * 100)/60 ))
+                    
+                    let regularMinutes = workTime - overtimeMinutes
+                    let regulartuple = minutesToHoursAndMinutes(regularMinutes)
+                   
+                    cell.regularHoursLabel.text =  "\(regulartuple.hours)." + String(format: "%02d hrs", ((regulartuple.leftMinutes * 100)/60 ))
+                }else{
+                    let regularMinutes = workTime
+                    let regulartuple = minutesToHoursAndMinutes(regularMinutes)
+                    
+                    cell.regularHoursLabel.text = "\(regulartuple.hours)." + String(format: "%02d hrs", ((regulartuple.leftMinutes * 100)/60 ))
+                }
+                
+            }else{
+                let regularMinutes = workTime
+                let regulartuple = minutesToHoursAndMinutes(regularMinutes)
+                
+                cell.regularHoursLabel.text = "\(regulartuple.hours)." + String(format: "%02d hrs", ((regulartuple.leftMinutes * 100)/60 ))
+            }
+            
+            cell.btnMore.addTarget(self, action:#selector(self.moreOptionClicked(sender:)), for: .touchUpInside)
+            cell.btnMore.timeSheetIndex = indexPath.row - 1
+            cell.btnMore.weekIndex = indexPath.section
+            
+            cell.btnAddShift.addTarget(self, action:#selector(self.addShiftClicked(sender:)), for: .touchUpInside)
+            cell.btnAddShift.tag = indexPath.section
+            cell.btnAddShift.timeSheetIndex = indexPath.row - 1
+            cell.btnAddShift.weekIndex = indexPath.section
+            
+            cell.btnAddbreak.addTarget(self, action:#selector(self.addBreakClicked(sender:)), for: .touchUpInside)
+            cell.btnAddbreak.tag = indexPath.section
+            cell.btnAddbreak.timeSheetIndex = indexPath.row - 1
+            cell.btnAddbreak.weekIndex = indexPath.section
+            
+            cell.btnDeleteTimesheet.addTarget(self, action:#selector(self.deleteSheetClicked(sender:)), for: .touchUpInside)
+            cell.btnDeleteTimesheet.tag = indexPath.section
+            cell.btnDeleteTimesheet.timeSheetIndex = indexPath.row - 1
+            cell.btnDeleteTimesheet.weekIndex = indexPath.section
+            
+            cell.btnBack.addTarget(self, action:#selector(self.addShiftMainViewBack(sender:)), for: .touchUpInside)
+            cell.btnBack.tag = indexPath.section
+            cell.btnBack.timeSheetIndex = indexPath.row - 1
+            cell.btnBack.weekIndex = indexPath.section
+            
+            cell.btncloseWeekday.addTarget(self, action:#selector(self.selectWeekdayViewBack(sender:)), for: .touchUpInside)
+            cell.btncloseWeekday.tag = indexPath.section
+            cell.btncloseWeekday.timeSheetIndex = indexPath.row - 1
+            cell.btncloseWeekday.weekIndex = indexPath.section
+            
+            cell.btnBackWeekday.addTarget(self, action:#selector(self.selectWeekdayViewBack(sender:)), for: .touchUpInside)
+            cell.btnBackWeekday.tag = indexPath.section
+            cell.btnBackWeekday.timeSheetIndex = indexPath.row - 1
+            cell.btnBackWeekday.weekIndex = indexPath.section
+            
+            
+            
+            let selectedWeek = selectedPayPeriod?.weeks?[indexPath.section]
+            let dateFormatter = DateFormatter()
+
+            dateFormatter.dateFormat = kDateGetFormat
+            let fromDate = dateFormatter.date(from:selectedWeek?.weekFrom ??
+                                              "") ?? Date()
+            let toDate = dateFormatter.date(from:selectedWeek?.weekTo ??
+            "") ?? Date()
+            let dates = (Date.dates(from:fromDate, to: toDate))
+            print(dates)
+            cell.setWeekDays(days:dates)
+            self.weekDates = dates
+            cell.weekDates = dates
+            if timesheet?.date == ""{
+                cell.weekDaysPopupView.isHidden = false
+            }else{
+                cell.weekDaysPopupView.isHidden = true
+            }
+            cell.btnWeekDay1.timeSheetIndex = indexPath.row - 1
+            cell.btnWeekDay1.weekIndex = indexPath.section
+           
+            cell.btnWeekDay2.timeSheetIndex = indexPath.row - 1
+            cell.btnWeekDay2.weekIndex = indexPath.section
+           
+            cell.btnWeekDay3.timeSheetIndex = indexPath.row - 1
+            cell.btnWeekDay3.weekIndex = indexPath.section
+           
+            cell.btnWeekDay4.timeSheetIndex = indexPath.row - 1
+            cell.btnWeekDay4.weekIndex = indexPath.section
+           
+            cell.btnWeekDay5.timeSheetIndex = indexPath.row - 1
+            cell.btnWeekDay5.weekIndex = indexPath.section
+           
+            cell.btnWeekDay6.timeSheetIndex = indexPath.row - 1
+            cell.btnWeekDay6.weekIndex = indexPath.section
+           
+            cell.btnWeekDay7.timeSheetIndex = indexPath.row - 1
+            cell.btnWeekDay7.weekIndex = indexPath.section
+           
+            
+            cell.btnWeekDay1.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+            cell.btnWeekDay2.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+            cell.btnWeekDay3.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+            cell.btnWeekDay4.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+            cell.btnWeekDay5.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+            cell.btnWeekDay6.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+            cell.btnWeekDay7.addTarget(self, action: #selector(self.weekDaySelectClicked(sender:)), for: .touchUpInside)
+            if merchantData?.merchantDailyOvertimeEnabled ?? "" == "Y"{
+                cell.dailyOverTimeView.isHidden = false
+            }else{
+                cell.dailyOverTimeView.isHidden = true
+            }
+            return cell
+        }
+        
+    
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.row == 0{
+            return CGSize(width: (self.collectionViewEvents.width ) - 24.0, height: 270.0)
+        }else{
+            return CGSize(width: (self.collectionViewEvents.width / 3.0 ) - 24.0, height: 425.0)
+        }
+    }
+}
 extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -692,52 +1030,9 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return  (selectedPayPeriod?.weeks?[section].timesheet?.count ?? 0) + 1
-      
-
     }
    
-    func calculateTotalTimeForWeek(sectionIndex:Int)->(hours: Int , leftMinutes: Int , totalMinutes:Int ){
-      
-        let week =  selectedPayPeriod?.weeks?[sectionIndex]
-        var TotalWorkTime = 0
-        for timesheet in week?.timesheet ?? [Timesheet](){
-            
-            var startTime:Date!
-            var breakstartTime:Date!
-            var breakEndTime:Date!
-            var endTime:Date!
-            
-            for event in timesheet.events ?? [Events](){
-                    
-                     let timeLineEvent = event.timelineEvent ?? ""
-                     if timeLineEvent == "I"{
-                        startTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
-                    }else if timeLineEvent == "O"{
-                        endTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
-                    }else if timeLineEvent == "B"{
-                        breakstartTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
-                    }else if timeLineEvent == "S"{
-                        breakEndTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
-                    }
-               
-            }
-            var breakTime = 0
-            var totalWorkTime = 0
-            if breakstartTime != nil && breakEndTime != nil{
-                breakTime = self.differenceBetweenDates(from:breakstartTime, toDate: breakEndTime)
-            }
-            if startTime != nil && endTime != nil{
-                totalWorkTime = self.differenceBetweenDates(from:startTime, toDate: endTime)
-            }
-           // let workTime = totalWorkTime - breakTime
-            let workTime = self.calculateTotalTime(events:timesheet.events ?? [Events]())
-            TotalWorkTime = TotalWorkTime + workTime
-           
-        }
-        let tuple = minutesToHoursAndMinutes(TotalWorkTime)
-        return (tuple.hours, tuple.leftMinutes ,TotalWorkTime)
-       
-    }
+   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
             if indexPath.row == 0{
@@ -980,6 +1275,48 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
             }
        
     }
+    func calculateTotalTimeForWeek(sectionIndex:Int)->(hours: Int , leftMinutes: Int , totalMinutes:Int ){
+      
+        let week =  selectedPayPeriod?.weeks?[sectionIndex]
+        var TotalWorkTime = 0
+        for timesheet in week?.timesheet ?? [Timesheet](){
+            
+            var startTime:Date!
+            var breakstartTime:Date!
+            var breakEndTime:Date!
+            var endTime:Date!
+            
+            for event in timesheet.events ?? [Events](){
+                    
+                     let timeLineEvent = event.timelineEvent ?? ""
+                     if timeLineEvent == "I"{
+                        startTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                    }else if timeLineEvent == "O"{
+                        endTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                    }else if timeLineEvent == "B"{
+                        breakstartTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                    }else if timeLineEvent == "S"{
+                        breakEndTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
+                    }
+               
+            }
+            var breakTime = 0
+            var totalWorkTime = 0
+            if breakstartTime != nil && breakEndTime != nil{
+                breakTime = self.differenceBetweenDates(from:breakstartTime, toDate: breakEndTime)
+            }
+            if startTime != nil && endTime != nil{
+                totalWorkTime = self.differenceBetweenDates(from:startTime, toDate: endTime)
+            }
+           // let workTime = totalWorkTime - breakTime
+            let workTime = self.calculateTotalTime(events:timesheet.events ?? [Events]())
+            TotalWorkTime = TotalWorkTime + workTime
+           
+        }
+        let tuple = minutesToHoursAndMinutes(TotalWorkTime)
+        return (tuple.hours, tuple.leftMinutes ,TotalWorkTime)
+       
+    }
     func calculateTotalTime(events:[Events])->Int{
         var totalMinutes = 0
         for (i,event) in events.enumerated(){
@@ -1097,7 +1434,9 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         let indexpathCell = IndexPath(row:timeSheetIndex + 1, section: weekIndex)
+        let indexpathCVCell = IndexPath(item: timeSheetIndex + 1, section: weekIndex)
         tblEvents.reloadRows(at: [indexpathCell], with: .none)
+        collectionViewEvents.reloadItems(at: [indexpathCVCell])
         
         let indexpathHeader = IndexPath(row:0, section: weekIndex)
         tblEvents.reloadRows(at: [indexpathHeader], with: .none)

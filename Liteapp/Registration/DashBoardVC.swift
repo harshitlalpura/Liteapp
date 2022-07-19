@@ -12,7 +12,10 @@ import Alamofire
 
 class DashBoardVC:BaseViewController, StoryboardSceneBased{
     
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.timesheet.rawValue, bundle: nil)
+    
+    
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.timesheetiPad.rawValue : StoryboardName.timesheet.rawValue, bundle: nil)
+    
     var menu:SideMenuNavigationController!
     @IBOutlet weak var calanderCollectionView: UICollectionView!
     @IBOutlet weak var lblDate: UILabel!
@@ -430,6 +433,7 @@ extension DashBoardVC:UICollectionViewDataSource, UICollectionViewDelegate, UICo
         let cell = calanderCollectionView.dequeueReusableCell(withReuseIdentifier: CalendarCell.reuseIdentifier, for: indexPath as IndexPath) as! CalendarCell
         cell.TitleLabel.text = self.itemsDate[indexPath.section][indexPath.row].string(format:DateTimeFormat.EEEE.rawValue)
         cell.dateLabel.text = self.itemsDate[indexPath.section][indexPath.row].string(format:DateTimeFormat.dd.rawValue)
+        cell.dateLabel.textColor = .darkGray
         return cell
     }
     // MARK: - UICollectionViewDelegate protocol

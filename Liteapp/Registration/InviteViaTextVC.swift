@@ -13,7 +13,7 @@ import ContactsUI
 
 class InviteViaTextVC:BaseViewController, StoryboardSceneBased,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate{
     
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.merchant.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     var inviteLink = ""
    // var contacts = [CNContact]()
     var contactList = [ContactsModel]()

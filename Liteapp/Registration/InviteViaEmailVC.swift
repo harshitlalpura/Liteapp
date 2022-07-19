@@ -10,7 +10,7 @@ import MessageUI
 
 class InviteViaEmailVC:BaseViewController, StoryboardSceneBased,MFMailComposeViewControllerDelegate{
 
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.merchant.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     var inviteLink = ""
     override func viewDidLoad() {
         super.viewDidLoad()

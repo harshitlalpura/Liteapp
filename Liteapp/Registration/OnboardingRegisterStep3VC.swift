@@ -9,7 +9,7 @@ import UIKit
 
 class OnboardingRegisterStep3VC: BaseViewController, StoryboardSceneBased{
     
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
     var saveMerchent:SaveMerchant!
 
     @IBOutlet weak var txtBusinessURL: UITextField!

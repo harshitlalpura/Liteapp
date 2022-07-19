@@ -23,7 +23,7 @@ struct RadioButton{
 
 class OnboardingRegisterStep4VC: BaseViewController, StoryboardSceneBased{
     
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
     
     
     @IBOutlet weak var imgViewRange1to4: UIImageView!

@@ -15,7 +15,7 @@ enum AlertType:Int{
 }
 class CustomAlertViewController: BaseViewController, StoryboardSceneBased{
 
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.main.rawValue : StoryboardName.main.rawValue, bundle: nil)
     
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var lblTitle: UILabel!

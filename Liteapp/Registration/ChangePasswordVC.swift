@@ -8,7 +8,8 @@
 import UIKit
 
 class ChangePasswordVC: BaseViewController, StoryboardSceneBased{
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.main.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.main.rawValue : StoryboardName.main.rawValue, bundle: nil)
+    
     @IBOutlet weak var txtOldPassword:UITextField!
     @IBOutlet weak var txtNewPassword: UITextField!
     @IBOutlet weak var txtConfirmPassword: UITextField!

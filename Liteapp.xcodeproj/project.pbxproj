@@ -8,11 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		47D76446DB6D8B546C056094 /* Pods_Liteapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900C9CDEA89A1DFAF57CEBCB /* Pods_Liteapp.framework */; };
+		612D437B2884081600C84522 /* TimeReportCVHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612D43792884081500C84522 /* TimeReportCVHeaderCell.swift */; };
+		612D437C2884081600C84522 /* TimeReportCVHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 612D437A2884081500C84522 /* TimeReportCVHeaderCell.xib */; };
+		6144E85C287DC6ED0036D73E /* MerchantiPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6144E859287DC6EC0036D73E /* MerchantiPad.storyboard */; };
+		6144E85D287DC6ED0036D73E /* TimesheetiPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6144E85A287DC6EC0036D73E /* TimesheetiPad.storyboard */; };
+		6144E85E287DC6ED0036D73E /* MainiPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6144E85B287DC6EC0036D73E /* MainiPad.storyboard */; };
 		614D2F17284FA08F001E27B2 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614D2F16284FA08F001E27B2 /* MenuViewController.swift */; };
 		614D2F1A284FA794001E27B2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614D2F19284FA794001E27B2 /* LoginViewController.swift */; };
 		614D2F20284FAD32001E27B2 /* OnboardingRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614D2F1F284FAD32001E27B2 /* OnboardingRegisterVC.swift */; };
 		615A453B2852695C00CEB7DE /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A453A2852695C00CEB7DE /* CustomAlertViewController.swift */; };
 		616771D0285631E500C26507 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616771CF285631E500C26507 /* UITextFieldExtension.swift */; };
+		616E32EC28807B0500762E5F /* TimeReportCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616E32EA28807B0500762E5F /* TimeReportCVCell.swift */; };
+		616E32ED28807B0500762E5F /* TimeReportCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 616E32EB28807B0500762E5F /* TimeReportCVCell.xib */; };
 		617308AC2855334F0080552B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617308AB2855334F0080552B /* SettingsVC.swift */; };
 		6177FA83285EF1A200C4A44F /* TimesheetListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6177FA82285EF1A200C4A44F /* TimesheetListVC.swift */; };
 		6177FA85285F227900C4A44F /* InviteViaEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6177FA84285F227900C4A44F /* InviteViaEmailVC.swift */; };
@@ -246,12 +253,19 @@
 
 /* Begin PBXFileReference section */
 		20EF40F49A12D1A17C5A6168 /* Pods-Liteapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Liteapp.debug.xcconfig"; path = "Target Support Files/Pods-Liteapp/Pods-Liteapp.debug.xcconfig"; sourceTree = "<group>"; };
+		612D43792884081500C84522 /* TimeReportCVHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeReportCVHeaderCell.swift; sourceTree = "<group>"; };
+		612D437A2884081500C84522 /* TimeReportCVHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeReportCVHeaderCell.xib; sourceTree = "<group>"; };
+		6144E859287DC6EC0036D73E /* MerchantiPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MerchantiPad.storyboard; sourceTree = "<group>"; };
+		6144E85A287DC6EC0036D73E /* TimesheetiPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TimesheetiPad.storyboard; sourceTree = "<group>"; };
+		6144E85B287DC6EC0036D73E /* MainiPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainiPad.storyboard; sourceTree = "<group>"; };
 		614D2F16284FA08F001E27B2 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		614D2F19284FA794001E27B2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		614D2F1F284FAD32001E27B2 /* OnboardingRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRegisterVC.swift; sourceTree = "<group>"; };
 		61552EBC2873622F00A60971 /* Liteapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Liteapp.entitlements; sourceTree = "<group>"; };
 		615A453A2852695C00CEB7DE /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		616771CF285631E500C26507 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
+		616E32EA28807B0500762E5F /* TimeReportCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeReportCVCell.swift; sourceTree = "<group>"; };
+		616E32EB28807B0500762E5F /* TimeReportCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeReportCVCell.xib; sourceTree = "<group>"; };
 		617308AB2855334F0080552B /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		6177FA82285EF1A200C4A44F /* TimesheetListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesheetListVC.swift; sourceTree = "<group>"; };
 		6177FA84285F227900C4A44F /* InviteViaEmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViaEmailVC.swift; sourceTree = "<group>"; };
@@ -618,6 +632,9 @@
 				6182F682284933140006BDF0 /* Main.storyboard */,
 				61A2977F28535D5D0015777F /* Timesheet.storyboard */,
 				61D8D69D285D13ED0065B19C /* Merchant.storyboard */,
+				6144E85B287DC6EC0036D73E /* MainiPad.storyboard */,
+				6144E859287DC6EC0036D73E /* MerchantiPad.storyboard */,
+				6144E85A287DC6EC0036D73E /* TimesheetiPad.storyboard */,
 				6182F685284933170006BDF0 /* Assets.xcassets */,
 				6182F687284933170006BDF0 /* LaunchScreen.storyboard */,
 				6186809028607A2D00CCE8DC /* Info.plist */,
@@ -1232,10 +1249,14 @@
 				61EA238428560E9300CB0891 /* EmployeeCell.swift */,
 				61E151692861825C0017D02F /* TimeReportCell.swift */,
 				61D14B192859A27F00E8F735 /* TimeReportCell.xib */,
+				616E32EA28807B0500762E5F /* TimeReportCVCell.swift */,
+				616E32EB28807B0500762E5F /* TimeReportCVCell.xib */,
 				61D14B0728597C0700E8F735 /* TimeReportFooterCell.swift */,
 				61D14B0A28597C0800E8F735 /* TimeReportFooterCell.xib */,
 				61D14B0928597C0800E8F735 /* TimeReportHeaderCell.swift */,
 				61D14B0B28597C0800E8F735 /* TimeReportHeaderCell.xib */,
+				612D43792884081500C84522 /* TimeReportCVHeaderCell.swift */,
+				612D437A2884081500C84522 /* TimeReportCVHeaderCell.xib */,
 				61D8D69F285D1B110065B19C /* TimeSheetCell.swift */,
 				61D8D6A0285D1B110065B19C /* TimeSheetCell.xib */,
 				61D8D6A3285D1DAC0065B19C /* TimesheetHeaderCell.swift */,
@@ -1355,10 +1376,12 @@
 				61A297AE285373370015777F /* Poppins-Bold.ttf in Resources */,
 				61D8D6A2285D1B110065B19C /* TimeSheetCell.xib in Resources */,
 				61A297B6285373370015777F /* Poppins-Thin.ttf in Resources */,
+				6144E85D287DC6ED0036D73E /* TimesheetiPad.storyboard in Resources */,
 				61A29797285372A20015777F /* Roboto-Italic.ttf in Resources */,
 				61A2979A285372A20015777F /* Roboto-Thin.ttf in Resources */,
 				61A29792285372A20015777F /* Roboto-MediumItalic.ttf in Resources */,
 				6182F686284933170006BDF0 /* Assets.xcassets in Resources */,
+				616E32ED28807B0500762E5F /* TimeReportCVCell.xib in Resources */,
 				61A297BA285373370015777F /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				61A297BE285373370015777F /* Poppins-Regular.ttf in Resources */,
 				61A297B0285373370015777F /* Poppins-ExtraLight.ttf in Resources */,
@@ -1368,9 +1391,11 @@
 				6182F7C7284933FB0006BDF0 /* README_StringHelper.md.rtf in Resources */,
 				61A297BB285373370015777F /* Poppins-BlackItalic.ttf in Resources */,
 				6182F684284933140006BDF0 /* Main.storyboard in Resources */,
+				6144E85C287DC6ED0036D73E /* MerchantiPad.storyboard in Resources */,
 				61A297BD285373370015777F /* Poppins-LightItalic.ttf in Resources */,
 				61A29798285372A20015777F /* Roboto-BlackItalic.ttf in Resources */,
 				61A297BC285373370015777F /* Poppins-MediumItalic.ttf in Resources */,
+				612D437C2884081600C84522 /* TimeReportCVHeaderCell.xib in Resources */,
 				61A29794285372A20015777F /* Roboto-ThinItalic.ttf in Resources */,
 				61A297B2285373370015777F /* Poppins-Italic.ttf in Resources */,
 				61A29793285372A20015777F /* .keep in Resources */,
@@ -1383,6 +1408,7 @@
 				61D14B0F28597C0800E8F735 /* TimeReportFooterCell.xib in Resources */,
 				6182F7FD284933FB0006BDF0 /* TOCropViewControllerLocalizable.strings in Resources */,
 				61A2978F285372A20015777F /* Roboto-Medium.ttf in Resources */,
+				6144E85E287DC6ED0036D73E /* MainiPad.storyboard in Resources */,
 				61D14B1028597C0800E8F735 /* TimeReportHeaderCell.xib in Resources */,
 				61D14B0628597BC900E8F735 /* TimesheetView.xib in Resources */,
 			);
@@ -1520,6 +1546,7 @@
 				6182F7D5284933FB0006BDF0 /* ConstraintMakerPriortizable.swift in Sources */,
 				6182F7FF284933FB0006BDF0 /* TOCropViewControllerTransitioning.m in Sources */,
 				6182F784284933FB0006BDF0 /* VibrationFeedback.swift in Sources */,
+				612D437B2884081600C84522 /* TimeReportCVHeaderCell.swift in Sources */,
 				6182F7A0284933FB0006BDF0 /* UIFontExtensions.swift in Sources */,
 				6182F7E2284933FB0006BDF0 /* UILayoutSupport+Extensions.swift in Sources */,
 				6182F7F0284933FB0006BDF0 /* Debugging.swift in Sources */,
@@ -1534,6 +1561,7 @@
 				6182F801284933FB0006BDF0 /* TOCropViewController.m in Sources */,
 				6182F7F8284933FB0006BDF0 /* OnlyHorizontalPictures.swift in Sources */,
 				6182F778284933FB0006BDF0 /* PickerView.swift in Sources */,
+				616E32EC28807B0500762E5F /* TimeReportCVCell.swift in Sources */,
 				6182F791284933FB0006BDF0 /* BaseUIControl.swift in Sources */,
 				6177FA87285F2CAC00C4A44F /* InviteViaTextVC.swift in Sources */,
 				6182F7EF284933FB0006BDF0 /* Constraint.swift in Sources */,

@@ -13,10 +13,13 @@ enum StoryboardName: String {
     case homeiPad = "HomeiPad"
     case signin = "Signin"
     case main = "Main"
+    case mainiPad = "MainiPad"
     case sideMenu = "SideMenu"
     case settings = "Settings"
     case timesheet = "Timesheet"
+    case timesheetiPad = "TimesheetiPad"
     case merchant = "Merchant"
+    case merchantipad = "MerchantiPad"
     var instance: UIStoryboard {
         return UIStoryboard(name: rawValue, bundle: MAIN_BUNDLE)
     }

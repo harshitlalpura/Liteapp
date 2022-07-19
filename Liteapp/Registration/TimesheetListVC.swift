@@ -42,7 +42,7 @@ extension UIImage{
 }
 class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         
-    static let sceneStoryboard = UIStoryboard(name: StoryboardName.timesheet.rawValue, bundle: nil)
+    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.timesheetiPad.rawValue : StoryboardName.timesheet.rawValue, bundle: nil)
     var menu:SideMenuNavigationController!
     @IBOutlet weak var lblusername: UILabel!
     @IBOutlet weak var logoutView: UIView!
