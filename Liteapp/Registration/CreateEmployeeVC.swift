@@ -83,7 +83,8 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var imgvwCapitalLetter: UIImageView!
     @IBOutlet weak var imgvwNumber: UIImageView!
     @IBOutlet weak var imgvwSpecialCharacter: UIImageView!
-    
+    @IBOutlet weak var eventCollectionviewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewEvents: UICollectionView!
     @IBOutlet weak var eventTableHeightConstraint: NSLayoutConstraint!
     var weekDates = [CustomDate]()
     var selectedWeekIndex = 0

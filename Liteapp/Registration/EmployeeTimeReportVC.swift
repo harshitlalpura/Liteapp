@@ -72,7 +72,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var lblname: UILabel!
     @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var tblEvents: UITableView!
-    @IBOutlet weak var collectionViewEvents: UICollectionView!
+  
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
@@ -88,6 +88,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var txtselectedPayperiod: UITextField!
     @IBOutlet weak var eventTableHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var eventCollectionviewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewEvents: UICollectionView!
     @IBOutlet weak var saveView: UIView!
     @IBOutlet weak var editView: UIView!
     
@@ -759,7 +760,19 @@ extension EmployeeTimeReportVC: UICollectionViewDelegate,UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return  (selectedPayPeriod?.weeks?[section].timesheet?.count ?? 0) + 1
     }
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.item == 0{
+            return CGSize(width: (self.collectionViewEvents.width ), height: 270.0)
+        }else{
+            return CGSize(width: (self.collectionViewEvents.width / 3.0 ) - 8.0, height: 425.0)
+            if indexPath.item == 6{
+               
+            }else{
+                return CGSize(width: (self.collectionViewEvents.width / 3.0 ) - 5, height: 425.0)
+            }
+           
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.row == 0{
@@ -998,18 +1011,13 @@ extension EmployeeTimeReportVC: UICollectionViewDelegate,UICollectionViewDataSou
             }else{
                 cell.dailyOverTimeView.isHidden = true
             }
+           // cell.backgroundColor = .green
             return cell
         }
         
     
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row == 0{
-            return CGSize(width: (self.collectionViewEvents.width ) - 24.0, height: 270.0)
-        }else{
-            return CGSize(width: (self.collectionViewEvents.width / 3.0 ) - 24.0, height: 425.0)
-        }
-    }
+    
 }
 extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
     
