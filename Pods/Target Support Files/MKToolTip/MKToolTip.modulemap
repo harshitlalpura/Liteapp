@@ -1,0 +1,6 @@
+framework module MKToolTip {
+  umbrella header "MKToolTip-umbrella.h"
+
+  export *
+  module * { export * }
+}
