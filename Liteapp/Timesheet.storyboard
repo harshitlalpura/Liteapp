@@ -1459,7 +1459,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydx-DG-RnK">
-                                                                <rect key="frame" x="32" y="0.0" width="24" height="55"/>
+                                                                <rect key="frame" x="32" y="0.0" width="117.5" height="55"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
                                                                 <connections>
@@ -1570,7 +1570,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.8392156959" green="0.85490196939999996" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="backgroundColor" red="0.92941176470588238" green="0.94901960784313721" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstItem="y1l-Ay-wt6" firstAttribute="width" secondItem="Ncn-WB-i1J" secondAttribute="width" multiplier="0.3" id="0DW-E8-Q4K"/>
                                                     <constraint firstItem="0XK-z7-pzF" firstAttribute="leading" secondItem="UG6-wF-Tu7" secondAttribute="trailing" id="0Lz-AN-mAK"/>

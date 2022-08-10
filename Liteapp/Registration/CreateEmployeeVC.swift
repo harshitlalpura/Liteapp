@@ -228,6 +228,11 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     @IBAction func saveClick(sender:UIButton){
         
         var validationSucceess = true
+        if txtEmail.text!.isEmail == false{
+            validationSucceess = false
+            AlertMesage.show(.warning, title: "Invalid Email", message: nil)
+            return
+        }
         for week in self.selectedPayPeriod?.weeks ?? [Weeks](){
             for timeLine in week.timesheet ?? [Timesheet](){
                 for event in timeLine.events ?? [Events](){

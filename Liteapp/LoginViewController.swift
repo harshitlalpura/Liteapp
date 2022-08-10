@@ -34,8 +34,8 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
         super.viewDidLoad()
         // Do any additional setup after loading the view.
        
-       // txtEmail.text = "davemannn"
-       // txtPassword.text = "Mascot@2205"
+        txtEmail.text = "davemannn"
+        txtPassword.text = "Mascot@2205"
         txtPassword.delegate = self
     }
     override func viewDidAppear(_ animated: Bool) {

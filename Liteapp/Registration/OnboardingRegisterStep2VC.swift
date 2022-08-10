@@ -93,7 +93,7 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
    
     @IBAction func selectTimezoneClick(sender:UIButton){
         
-        let pickerArray = ["Atlantic Standard Time(AST)","Eastern Standard Time(AST)","Central Standard Time(AST)","Mountain Standard Time(AST)","Pacific Standard Time(AST)"]
+        let pickerArray = ["Atlantic Standard Time(AST)","Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)"]
         IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField: txtTimezone, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
