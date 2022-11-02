@@ -186,7 +186,7 @@ class Merchant: Mappable {
 } 
 
 class Payperiods: Mappable { 
-
+    var payperiodEmpId : NSNumber?
 	var payperiodId: NSNumber? 
 	var payperiodStatus: String? 
 	var payperiodFrom: String? 
@@ -199,6 +199,7 @@ class Payperiods: Mappable {
 	} 
 
 	func mapping(map: Map) {
+        payperiodEmpId <- map["payperiod_emp_id"]
 		payperiodId <- map["payperiod_id"] 
 		payperiodStatus <- map["payperiod_status"] 
 		payperiodFrom <- map["payperiod_from"] 

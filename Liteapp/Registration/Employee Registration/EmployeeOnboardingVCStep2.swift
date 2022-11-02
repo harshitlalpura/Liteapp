@@ -25,9 +25,10 @@ class EmployeeOnboardingVCStep2:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var emailTextValidationView: UIView!
     @IBOutlet weak var passwordTextValidationView: UIView!
     @IBOutlet weak var confirmPasswordTextValidationView: UIView!
+    @IBOutlet weak var vwGradiantContainer: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        vwGradiantContainer.setGradientBackground()
         txtPassword.delegate = self
         txtConfrimPassword.delegate = self
     }
@@ -68,13 +69,19 @@ class EmployeeOnboardingVCStep2:BaseViewController, StoryboardSceneBased{
     func checkValidation()->Bool{
         if txtEmail.text!.count > 1{
             if txtEmail.text!.isEmail == false{
-                self.showAlert(alertType:.validation, message: "Please Eneter Valid Email")
+                self.showAlert(alertType:.validation, message: "Invalid E-mail. Please Try Again.")
                 return false
             }
         }
+        if txtPassword.text!.count < 1{
+            return false
+        }
+        if txtConfrimPassword.text!.count < 1{
+            return false
+        }
         
         if txtPassword.text! != txtConfrimPassword.text!{
-            self.showAlert(alertType:.validation, message: "Confirm Password Mismatch")
+            self.showAlert(alertType:.validation, message: "Passwords do not match.")
             return false
         }
         return true

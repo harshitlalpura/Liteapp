@@ -12,15 +12,17 @@ class TimeLineData: Mappable {
 
     var status: NSNumber?
     var timeline: [Timeline]?
-    var totalHours: String?
-
+//    var totalHours: String?
+    var totalHoursF: Float?
+    
     required init?(map: Map){
     }
 
     func mapping(map: Map) {
         status <- map["status"]
         timeline <- map["timeline"]
-        totalHours <- map["total_hours"]
+//        totalHours <- map["total_hours"]
+        totalHoursF <- map["total_hours"]
     }
 }
 
@@ -89,7 +91,9 @@ class MerchantSettings: Mappable {
 
     var empFirstname: String?
     var empLastname: String?
+    var empUserName: String?
     var empWorkEmail: String?
+    var merchantCompanySize: String?
     var merchantWeeklyOvertimeEnabled: String?
     var merchantWeeklyOvertime: NSNumber?
     var merchantDailyOvertimeEnabled: String?
@@ -97,6 +101,11 @@ class MerchantSettings: Mappable {
     var merchantPayPeriod: String = "B"
     var merchantWeekStart: NSNumber?
     var merchantCurrentPayWeek: NSNumber?
+    var merchantName: String?
+    var merchantSplitEnabled: String?
+    var merchantTimezone: String?
+    var merchantWeb: String?
+    var merchantZip: String?
 
     required init?(map: Map){
     }
@@ -104,7 +113,9 @@ class MerchantSettings: Mappable {
     func mapping(map: Map) {
         empFirstname <- map["emp_firstname"]
         empLastname <- map["emp_lastname"]
+        empUserName <- map["emp_username"]
         empWorkEmail <- map["emp_work_email"]
+        merchantCompanySize <- map["merchant_company_size"]
         merchantWeeklyOvertimeEnabled <- map["merchant_weekly_overtime_enabled"]
         merchantWeeklyOvertime <- map["merchant_weekly_overtime"]
         merchantDailyOvertimeEnabled <- map["merchant_daily_overtime_enabled"]
@@ -112,7 +123,11 @@ class MerchantSettings: Mappable {
         merchantPayPeriod <- map["merchant_pay_period"]
         merchantWeekStart <- map["merchant_week_start"]
         merchantCurrentPayWeek <- map["merchant_current_pay_week"]
-        
+        merchantName <- map["merchant_name"]
+        merchantSplitEnabled <- map["merchant_split_enabled"]
+        merchantTimezone <- map["merchant_timezone"]
+        merchantWeb <- map["merchant_web"]
+        merchantZip <- map["merchant_zip"]
     }
 }
 class TimesheetData: Mappable {

@@ -70,7 +70,7 @@ struct SaveEmployee{
     var merchant_id:String?
     var emp_firstname:String?
     var emp_lastname:String?
-    var emp_job_title:String?
+//    var emp_job_title:String?
     var emp_work_email:String?
     
     var emp_password:String?
@@ -82,7 +82,8 @@ struct SaveEmployee{
         let parameters = ["merchant_id":self.merchant_id ?? "",
                           "emp_firstname":self.emp_firstname ?? "",
                           "emp_lastname":self.emp_lastname ?? "",
-                          "emp_job_title":self.emp_job_title ?? "",
+//                          "emp_job_title":self.emp_job_title ?? "",
+                          "emp_job_title":"",
                           "emp_work_email":self.emp_work_email ?? "",
                           "emp_password":emp_password ?? ""]
         return parameters

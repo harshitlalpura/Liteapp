@@ -11,16 +11,17 @@ class EmployeeOnboardingVCStep1:BaseViewController, StoryboardSceneBased{
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
-    @IBOutlet weak var txtJobTitle: UITextField!
+//    @IBOutlet weak var txtJobTitle: UITextField!
    
     @IBOutlet weak var firstnameTextValidationView: UIView!
     @IBOutlet weak var lastnameTextValidationView: UIView!
-    @IBOutlet weak var jobtitleTextValidationView: UIView!
-  
+//    @IBOutlet weak var jobtitleTextValidationView: UIView!
+    @IBOutlet weak var vwGradiantContainer: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        vwGradiantContainer.setGradientBackground()
         // Do any additional setup after loading the view.
     }
     @IBAction func continueClicked(sender:UIButton){
@@ -29,7 +30,7 @@ class EmployeeOnboardingVCStep1:BaseViewController, StoryboardSceneBased{
             var saveEmployee = SaveEmployee()
             saveEmployee.emp_firstname = txtFirstName.text!
             saveEmployee.emp_lastname = txtLastName.text!
-            saveEmployee.emp_job_title = txtJobTitle.text!
+//            saveEmployee.emp_job_title = txtJobTitle.text!
             
             let vc = EmployeeOnboardingVCStep2.instantiate()
             vc.saveEmployee = saveEmployee
@@ -47,11 +48,11 @@ class EmployeeOnboardingVCStep1:BaseViewController, StoryboardSceneBased{
         }else{
             self.lastnameTextValidationView.isHidden = true
         }
-        if txtJobTitle.text!.count < 1{
-            self.jobtitleTextValidationView.isHidden = false
-        }else{
-            self.jobtitleTextValidationView.isHidden = true
-        }
+//        if txtJobTitle.text!.count < 1{
+//            self.jobtitleTextValidationView.isHidden = false
+//        }else{
+//            self.jobtitleTextValidationView.isHidden = true
+//        }
        
        
     }
@@ -65,10 +66,19 @@ class EmployeeOnboardingVCStep1:BaseViewController, StoryboardSceneBased{
            // self.showAlert(alertType:.validation, message: "Please Enter Valid Last Name")
             return false
         }
-        if txtJobTitle.text!.count < 1{
-          //  self.showAlert(alertType:.validation, message: "Please Enter Job Title")
+        if (txtFirstName.text?.hasNumbers == true){
+            self.showAlert(alertType:.validation, message: "Name can only contain alphabets")
             return false
         }
+        if (txtLastName.text?.hasNumbers == true){
+            self.showAlert(alertType:.validation, message: "Name can only contain alphabets")
+            return false
+        }
+        
+//        if txtJobTitle.text!.count < 1{
+//          //  self.showAlert(alertType:.validation, message: "Please Enter Job Title")
+//            return false
+//        }
         return true
     }
 }

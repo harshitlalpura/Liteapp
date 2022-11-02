@@ -77,6 +77,24 @@ struct UpdateEmployee{
     }
     
 }
+
+struct DeleteEmployee{
+    var merchantId:String = "\(Defaults.shared.currentUser?.merchantId ?? 0)"
+    var empToken:String = Defaults.shared.currentUser?.empToken ?? ""
+    var empId:String = "\(Defaults.shared.currentUser?.empId ?? 0)"
+    var empID:String?
+  
+    func getParam()->[String:Any]{
+        
+        let parameters = ["merchant_id":"\(self.merchantId)" ,
+                          "emp_token":"\(self.empToken)",
+                          "emp_id":"\(self.empId)",
+                          "empID":"\(self.empID ?? "")"]
+        return parameters
+    }
+    
+}
+
 struct CreateEmployee{
 
     var merchantId:String = "\(Defaults.shared.currentUser?.merchantId ?? 0)"

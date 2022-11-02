@@ -16,6 +16,7 @@ extension UIImage{
 class LoginViewController: BaseViewController, StoryboardSceneBased{
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
     
+    @IBOutlet weak var vwGradiantContainer: UIView!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
@@ -29,14 +30,28 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var emailTextValidationView: UIView!
     @IBOutlet weak var passwordTextValidationView: UIView!
+    @IBOutlet weak var lblTermsAndPrivacy: UILabel!
     
+    @IBOutlet weak var btnForgotPassword: UIButton!
+    
+    var privacyText : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        DispatchQueue.main.async {
+            self.vwGradiantContainer.setGradientBackground()
+        }
         // Do any additional setup after loading the view.
-       
-        txtEmail.text = "davemannn"
-        txtPassword.text = "Mascot@2205"
+        if let forgotPasswordEmpId = Defaults.shared.forgotPasswordEmpId{
+            //Open Reset Password Screen
+            let vc = ResetPasswordVC.instantiate(fromStoryboard: StoryboardName(rawValue: StoryboardName.main.rawValue)!)
+            vc.empId = forgotPasswordEmpId
+            self.pushVC(controller:vc)
+        }
+        
+//        txtEmail.text = "davemannn"
+//        txtPassword.text = "Mascot@2205"
         txtPassword.delegate = self
+        setupTermsAndPrivacyLabel()
     }
     override func viewDidAppear(_ animated: Bool) {
 //        if let code = Defaults.shared.referralCode{
@@ -56,6 +71,47 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
         }
        
     }
+    
+    func setupTermsAndPrivacyLabel(){
+        
+        privacyText = "By signing up, you agree to our End User License Agreement and Privacy Policy."
+        lblTermsAndPrivacy.text = privacyText
+        lblTermsAndPrivacy.textColor =  UIColor.white
+        let underlineAttriString = NSMutableAttributedString(string: privacyText)
+        let range1 = (privacyText as NSString).range(of: "End User License Agreement")
+        let range2 = (privacyText as NSString).range(of: "Privacy Policy")
+        let rangeFull = (privacyText as NSString).range(of: privacyText)
+        let fontSize = lblTermsAndPrivacy.font.pointSize
+        underlineAttriString.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: fontSize), range: range1)
+        underlineAttriString.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: fontSize), range: range2)
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        underlineAttriString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraph, range: rangeFull)
+        lblTermsAndPrivacy.attributedText = underlineAttriString
+        lblTermsAndPrivacy.isUserInteractionEnabled = true
+        lblTermsAndPrivacy.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(tapLabel(gesture:))))
+    
+    }
+    
+    @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
+        let termsRange = (privacyText as NSString).range(of: "End User License Agreement")
+        let privacyRange = (privacyText as NSString).range(of: "Privacy Policy")
+        
+        if gesture.didTapAttributedTextInLabel(label: lblTermsAndPrivacy, inRange: termsRange) {
+            print("Tapped terms")
+            let vc = TermsPrivacyStaticPagesVC.instantiate(fromStoryboard: StoryboardName(rawValue: StoryboardName.main.rawValue)!)
+            vc.isForTerms = true
+            self.pushVC(controller:vc)
+        } else if gesture.didTapAttributedTextInLabel(label: lblTermsAndPrivacy, inRange: privacyRange) {
+            print("Tapped privacy")
+            let vc = TermsPrivacyStaticPagesVC.instantiate(fromStoryboard: StoryboardName(rawValue: StoryboardName.main.rawValue)!)
+            vc.isForTerms = false
+            self.pushVC(controller:vc)
+        } else {
+            print("Tapped none")
+        }
+    }
+    
     @objc func messageTapped(sender:UIButton){
         
     }
@@ -116,6 +172,13 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
         }
         return true
     }
+    
+    @IBAction func btnForgotPasswordTapped(_ sender: Any) {
+        let vc = ForgotPasswordVC.instantiate(fromStoryboard: StoryboardName(rawValue: StoryboardName.main.rawValue)!)
+        self.pushVC(controller:vc)
+    }
+    
+    
 }
 extension LoginViewController:UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {

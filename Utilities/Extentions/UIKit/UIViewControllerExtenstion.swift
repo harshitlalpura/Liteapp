@@ -23,10 +23,10 @@ extension UIViewController {
 
     /// presentcontroller with navigation as root
     /// - Parameter controller: UIViewController
-    func presentVC(controller: UIViewController, presentStyle: UIModalPresentationStyle = .overFullScreen) {
+    func presentVC(controller: UIViewController, presentStyle: UIModalPresentationStyle = .overFullScreen, animated : Bool = true ) {
         let navigationController = BaseNavigationController(rootViewController: controller)
         navigationController.modalPresentationStyle = presentStyle
-        self.present(navigationController, animated: true, completion: nil)
+        self.present(navigationController, animated: animated, completion: nil)
     }
     
     /// presentcontroller with navigation as pop up

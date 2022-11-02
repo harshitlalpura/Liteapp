@@ -52,6 +52,9 @@ class APIEndPoints {
     static func updateEmployees() -> String {
         return APIConstants.baseURL + "employees/update"
     }
+    static func deleteEmployees() -> String {
+        return APIConstants.baseURL + "employees/delete"
+    }
     static func dashboard() -> String {
         return APIConstants.baseURL + "dashboard"
     }
@@ -69,6 +72,18 @@ class APIEndPoints {
     }
     static func timelineByDate() -> String {
         return APIConstants.baseURL + "timelineByDate"
+    }
+    static func forgotPassword() -> String {
+        return APIConstants.baseURL + "forgotPassword"
+    }
+    static func resetPassword() -> String {
+        return APIConstants.baseURL + "resetPassword"
+    }
+    static func privacyPolicy() -> String {
+        return APIConstants.baseURL + "privacyPolicy"
+    }
+    static func termsOfService() -> String {
+        return APIConstants.baseURL + "termsOfService"
     }
     
     

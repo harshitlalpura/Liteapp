@@ -42,17 +42,20 @@ public extension UIColor {
         static let graylight = UIColor(hex: "DEE3E9")
         static let black =  UIColor(hex: "32383D")  // UIColor(named: "32383D")!
         static let blue = UIColor(hex: "4B93D2")
+        static let blueDash = UIColor(hex: "1072BA")
         static let darkblack = UIColor(hex: "485560")
         static let grayblack = UIColor(hex: "B6C2D0")
         static let darkblacklight = UIColor(hex: "75838F")
         static let green = UIColor(hex:"33D271")
         static let themebg = UIColor(hex:"404040")
+        static let supportGrey = UIColor(hex:"2F3740")
         
         
         static let appGreenColor = UIColor(hex:"#6EC45C")
         static let appRedColor = UIColor(hex:"#D25E5E")
         static let appYellowColor = UIColor(hex:"FFE45E")
         static let appBlueColor = UIColor(hex:"#4B93D2")
+        static let appBlueColor2 = UIColor(hex:"#1072BA")
         static let appThemeBGColor = UIColor(hex:"#F1F5F6")
         
     }

@@ -21,6 +21,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Defaults.shared.referralCode = nil
         if universalLink.lastPathComponent.count == 4 && universalLink.lastPathComponent != "referral" {
             Defaults.shared.referralCode =  universalLink.lastPathComponent
+            guard let scene = (scene as? UIWindowScene) else { return }
+            self.window = UIWindow(windowScene: scene)
+            self.window?.backgroundColor = .white
+            self.setRootViewVC()
+        }
+        else if universalLink.path.contains("forgot") {
+            let strEmpId = universalLink.lastPathComponent
+            Defaults.shared.forgotPasswordEmpId =  strEmpId
         }
         guard let scene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: scene)
@@ -42,6 +50,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                      Defaults.shared.referralCode =  universalLink.lastPathComponent
                      break
                  }
+                 if universalLink.path.contains("forgot") {
+                     let strEmpId = universalLink.lastPathComponent
+                     Defaults.shared.forgotPasswordEmpId =  strEmpId
+                 }
              }
             
         }
@@ -59,7 +71,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window?.rootViewController = rootNC
             self.window?.makeKeyAndVisible()
             setUpIQKeyboardManager()
-        }else{
+        }
+        else if Defaults.shared.forgotPasswordEmpId != nil{
+            let rootVC = LoginViewController.instantiate()
+            let rootNC = UINavigationController(rootViewController: rootVC)
+            rootNC.navigationBar.tintColor = .black
+            self.window?.rootViewController = rootNC
+            self.window?.makeKeyAndVisible()
+            setUpIQKeyboardManager()
+        }
+        else{
             let rootVC =  Defaults.shared.currentUser != nil ?  DashBoardVC.instantiate() :  LoginViewController.instantiate()
 
             let rootNC = UINavigationController(rootViewController: rootVC)
@@ -72,9 +93,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>){
         guard let universalLink = URLContexts.first?.url else { return }
         print(universalLink)
-        Defaults.shared.referralCode = nil
         if universalLink.lastPathComponent.count == 4 && universalLink.lastPathComponent != "referral" {
+            Defaults.shared.referralCode = nil
             Defaults.shared.referralCode =  universalLink.lastPathComponent
+        }
+        if universalLink.path.contains("forgot") {
+            Defaults.shared.forgotPasswordEmpId = nil
+            let strEmpId = universalLink.lastPathComponent
+            Defaults.shared.forgotPasswordEmpId =  strEmpId
         }
     }
     private func setUpIQKeyboardManager() {

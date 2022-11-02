@@ -35,7 +35,6 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     var menu:SideMenuNavigationController!
     @IBOutlet weak var lblusername: UILabel!
-    @IBOutlet weak var logoutView: UIView!
     
     //Popups
     @IBOutlet weak var accountSettingView: UIView!
@@ -63,6 +62,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var switchWeeklyOvertime: UISwitch!
     @IBOutlet weak var switchDailyOvertime: UISwitch!
+    @IBOutlet weak var switchSplitShift: UISwitch!
     
     @IBOutlet weak var continueButtonStep1: UIButton!
     @IBOutlet weak var continueButtonStep2: UIButton!
@@ -101,7 +101,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var editView: UIView!
     @IBOutlet weak var editTooltipView: UIView!
     
-    @IBOutlet weak var txtname: UITextField!
+    
+    @IBOutlet weak var txtFirstName: UITextField!
+    @IBOutlet weak var txtLastName: UITextField!
+    @IBOutlet weak var txtUserName: UITextField!
     @IBOutlet weak var txtemail: UITextField!
     @IBOutlet weak var txtpassword: UITextField!
     
@@ -111,19 +114,36 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var timesheetStackView: UIStackView!
     @IBOutlet weak var accountStackView: UIStackView!
    
-    @IBOutlet weak var txtSelectSettings: UITextField!
+//    @IBOutlet weak var txtSelectSettings: UITextField!
+    
+    //Business Settings
+    @IBOutlet var businessSettingsView: UIView!
+    @IBOutlet weak var txtBusinessName: UITextField!
+    @IBOutlet weak var txtZipCode: UITextField!
+    @IBOutlet weak var txtBusinessTimezone: UITextField!
+    @IBOutlet weak var txtBusinessWebsite: UITextField!
+    @IBOutlet weak var txtTotalEmployee: UITextField!
+    
+    //Selection View
+    @IBOutlet var viewSelection: UIView!
+    @IBOutlet weak var tblSelection: UITableView!
+    
     
     var setupMerchant:SetupMerchant!
     var merchantSettings:MerchantSettings?
-    var editDaySelected:EditSelectedDay = .monday
-    var editDurationSelected:EditDuration = .weekly
+    var editDaySelected:EditSelectedDay?
+    var editDurationSelected:EditDuration?
     var setupProfile:Bool = false
+    var isForAccountSettings : Bool = false
     
     var weekDaysArray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
     var durationOptions = ["Weekly","Biweekly"]
+    var arrNoOfEmps = ["1 - 4","5 - 19","20 - 99","100 - 499","100 - 499","500+"]
     var settingsArray = ["TimeClock Settings","Account Settings"]
     
     var selectedSettings:Settings = .timeclock
+    var arrSettings : [[String : String]] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -131,8 +151,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         
     }
     func setUI(){
-        logoutView.isHidden = true
-        lblusername.text = "\(Defaults.shared.currentUser?.empFirstname ?? "") \(Defaults.shared.currentUser?.empLastname ?? "")"
+        editdailyOvertimeView.dropShadow()
+        lblusername.text = Utility.getNameInitials()
         
         btnSunday.tag = 1
         btnMonday.tag = 2
@@ -194,7 +214,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         btnWeek2.setBackgroundColor(UIColor.Color.appThemeBGColor, forState: .selected)
         btnWeek2.setBackgroundColor(.white, forState: .normal)
         
-        btnWeekly.isSelected = true
+//        btnWeekly.isSelected = true
         
         btnWeekly.tag = 1
         btnBiWeekly.tag = 2
@@ -204,6 +224,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         
         switchWeeklyOvertime.tag = 1
         switchDailyOvertime.tag = 2
+        switchSplitShift.tag = 3
         
         continueButtonStep1.tag = 10
         continueButtonStep2.tag = 20
@@ -224,11 +245,15 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
 //        btnWeek1.isUserInteractionEnabled = false
 //        btnWeek2.isUserInteractionEnabled = false
         
-        txtSelectSettings.isUserInteractionEnabled = true
-        self.timesheetSettingView.isHidden = false
-        self.accountSettingView.isHidden = true
-        self.timesheetStackView.alpha = 0.5
-        self.accountStackView.alpha = 0.5
+//        txtSelectSettings.isUserInteractionEnabled = true
+//        self.timesheetSettingView.isHidden = false
+        showSettingsView(showAccount: isForAccountSettings)
+        
+//        self.timesheetStackView.alpha = 0.5
+        changeTimesheetAppearance(toEdit: false)
+        changeBusinessAppearance(toEdit: false)
+//        self.accountStackView.alpha = 0.5
+        changeAccountTextfieldsAppearance(toEdit: false)
         self.saveView.isHidden = true
         
         if self.setupProfile{
@@ -238,9 +263,21 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         txteditdailyOvertimeHours.delegate = self
         txtselectWeekStartday.delegate = self
        // txtselectPayPeriod.delegate = self
-        txtname.delegate = self
+        
+        txtFirstName.delegate = self
+        txtLastName.delegate = self
+        txtUserName.delegate = self
         txtemail.delegate = self
         txtpassword.delegate = self
+        
+        txtBusinessName.delegate = self
+        txtZipCode.delegate = self
+        txtTotalEmployee.delegate = self
+        txtBusinessWebsite.delegate = self
+        txtBusinessTimezone.delegate = self
+        
+        
+        arrSettings = [["title":"Account Settings","subtitle":"General account info","icon":"account_settings"],["title":"Business Settings","subtitle":"Info about your business","icon":"bussiness_settings"],["title":"Timeclock Settings","subtitle":"Settings that affect employees","icon":"timesheet_settings"]]
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -253,10 +290,24 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         menu = SideMenuNavigationController(rootViewController:controller)
         menu.navigationBar.isHidden = true
         menu.leftSide = true
+        menu.menuWidth = Utility.getMenuWidth()
         SideMenuManager.default.addPanGestureToPresent(toView:view)
         SideMenuManager.default.leftMenuNavigationController = menu
         
     }
+    
+    func showSettingsView(showAccount : Bool = false){
+        self.viewSelection.isHidden = false
+        self.businessSettingsView.isHidden = true
+        self.timesheetSettingView.isHidden = true
+        //        self.businessSettingsView.isHidden = false
+        self.accountSettingView.isHidden = true
+        if showAccount == true {
+            self.accountSettingView.isHidden = false
+            self.viewSelection.isHidden = true
+        }
+    }
+    
     @IBAction func menuClicked(sender:UIButton){
         self.present(menu, animated: true, completion: {})
     }
@@ -266,7 +317,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                 print(res)
                 self.editPayPeriodStartDayView.isHidden = true
                 self.editPayPeriodDurationView.isHidden = true
-                self.editWeeklyOvertimeView.isHidden = true
+//                self.editWeeklyOvertimeView.isHidden = true
                 self.editdailyOvertimeView.isHidden = true
                 self.blurOverlayView.isHidden = true
                 if let status = res["status"] as? Int{
@@ -278,11 +329,84 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                 print(err)
                 self.editPayPeriodStartDayView.isHidden = true
                 self.editPayPeriodDurationView.isHidden = true
-                self.editWeeklyOvertimeView.isHidden = true
+//                self.editWeeklyOvertimeView.isHidden = true
                 self.editdailyOvertimeView.isHidden = true
                 self.blurOverlayView.isHidden = true
             }
         }
+    }
+    
+    func setSelectedDetailsToMerchantSettings(){
+        merchantSettings?.empFirstname = self.txtFirstName.text
+        merchantSettings?.empLastname = self.txtLastName.text
+        merchantSettings?.empUserName = self.txtUserName.text
+        merchantSettings?.empWorkEmail = self.txtemail.text
+        
+      
+        if let intOvertimeDaily = Int(self.txteditdailyOvertimeHours.text ?? "") {
+            merchantSettings?.merchantDailyOvertime = NSNumber(value:intOvertimeDaily)
+        }
+        
+        if let intOvertimeWeekly = Int(self.txteditWeeklyOvertimeHours.text ?? "") {
+            merchantSettings?.merchantWeeklyOvertime = NSNumber(value:intOvertimeWeekly)
+        }
+        
+//        merchantSettings?.merchantPayPeriod = self.txtselectPayPeriod.text?.first?.uppercased() ?? ""
+        
+//        if self.txtselectWeekStartday.text == "Sunday"{
+//            merchantSettings?.merchantWeekStart = 1
+//        }else if self.txtselectWeekStartday.text == "Monday"{
+//            merchantSettings?.merchantWeekStart = 2
+//        }else if self.txtselectWeekStartday.text == "Tuesday"{
+//            merchantSettings?.merchantWeekStart = 3
+//        }else if self.txtselectWeekStartday.text == "Wednesday"{
+//            merchantSettings?.merchantWeekStart = 4
+//        }else if self.txtselectWeekStartday.text == "Thursday"{
+//            merchantSettings?.merchantWeekStart = 5
+//        }else if self.txtselectWeekStartday.text == "Friday"{
+//            merchantSettings?.merchantWeekStart = 6
+//        }else if self.txtselectWeekStartday.text == "Saturday"{
+//            merchantSettings?.merchantWeekStart = 7
+//        }
+        
+        if self.switchWeeklyOvertime.isOn {
+            self.merchantSettings?.merchantWeeklyOvertimeEnabled = "Y"
+        }
+        else{
+            self.merchantSettings?.merchantWeeklyOvertimeEnabled = "N"
+        }
+        
+        if self.switchDailyOvertime.isOn {
+            self.merchantSettings?.merchantDailyOvertimeEnabled = "Y"
+        }
+        else{
+            self.merchantSettings?.merchantDailyOvertimeEnabled = "N"
+        }
+
+        if self.switchSplitShift.isOn {
+            self.merchantSettings?.merchantSplitEnabled = "Y"
+        }
+        else{
+            self.merchantSettings?.merchantSplitEnabled = "N"
+        }
+        
+//        if self.btnWeek1.isSelected {
+//            self.merchantSettings?.merchantCurrentPayWeek = 1
+//        }else{
+//            self.merchantSettings?.merchantCurrentPayWeek = 0
+//        }
+        
+        self.merchantSettings?.merchantName = txtBusinessName.text
+        self.merchantSettings?.merchantWeb = txtBusinessWebsite.text
+        self.merchantSettings?.merchantZip = txtZipCode.text
+        let timezone = txtBusinessTimezone.text!.components(separatedBy:" ")[0]
+        if timezone != "Test" {
+            merchantSettings?.merchantTimezone = "US/\(timezone)"
+        }
+        else{
+            merchantSettings?.merchantTimezone = "Asia/Kolkata"
+        }
+        merchantSettings?.merchantCompanySize = self.txtTotalEmployee.text
     }
     
     func callSaveMerchantSettings(){
@@ -295,7 +419,17 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
           "merchant_daily_overtime":"\(merchantSettings?.merchantDailyOvertime ?? 0)",
           "emp_firstname": "\(merchantSettings?.empFirstname ?? "")",
           "emp_lastname": "\(merchantSettings?.empLastname ?? "")",
-          "emp_work_email": "\(merchantSettings?.empWorkEmail ?? "")"
+          "emp_work_email": "\(merchantSettings?.empWorkEmail ?? "")",
+          "merchant_name": "\(merchantSettings?.merchantName ?? "")",
+          "merchant_zip": "\(merchantSettings?.merchantZip ?? "")",
+          "merchant_web": "\(merchantSettings?.merchantWeb ?? "")",
+          "merchant_company_size": "\(merchantSettings?.merchantCompanySize ?? "")",
+          "merchant_timezone": "\(merchantSettings?.merchantTimezone ?? "")",
+          "merchant_split_enabled": "\(merchantSettings?.merchantSplitEnabled ?? "")",
+          "emp_username": "\(merchantSettings?.empUserName ?? "")",
+          "merchant_pay_period" :"\(merchantSettings?.merchantPayPeriod ?? "")",
+          "merchant_current_pay_week" : "\(merchantSettings?.merchantCurrentPayWeek ?? 0)",
+          "merchant_week_start" : "\(merchantSettings?.merchantWeekStart ?? 0)"
         ] as [String : Any]
         
         NetworkLayer.sharedNetworkLayer.postWebApiCallWithHeader(apiEndPoints: APIEndPoints.saveSettings(), param: param, header: ["":""]) { success, response, error in
@@ -327,33 +461,35 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         }
     }
     func setSettingsData(){
-        self.txtname.text = (merchantSettings?.empFirstname ?? "") + " " + (merchantSettings?.empLastname ?? "")
+        self.txtFirstName.text = (merchantSettings?.empFirstname ?? "")
+        self.txtLastName.text = (merchantSettings?.empLastname ?? "")
+        self.txtUserName.text = (merchantSettings?.empUserName ?? "")
         self.txtemail.text = (merchantSettings?.empWorkEmail ?? "")
         self.txtpassword.text = Defaults.shared.currentUser?.empPassword ?? ""
         self.txteditdailyOvertimeHours.text = "\(merchantSettings?.merchantDailyOvertime ?? 8)"
         self.txteditWeeklyOvertimeHours.text = "\(merchantSettings?.merchantWeeklyOvertime ?? 32)"
         
-        if merchantSettings?.merchantPayPeriod ?? "" == "B"{
+        if merchantSettings?.merchantPayPeriod ?? "" == "W"{
             self.txtselectPayPeriod.text = "Weekly"
             self.selectWeekView.isHidden = true
-        }else if merchantSettings?.merchantPayPeriod ?? "" == "W"{
+        }else if merchantSettings?.merchantPayPeriod ?? "" == "B"{
             self.txtselectPayPeriod.text = "Biweekly"
             self.selectWeekView.isHidden = false
         }
         
-        if merchantSettings?.merchantWeekStart ?? 0 == 1{
+        if merchantSettings?.merchantWeekStart ?? 0 == 0{
             self.txtselectWeekStartday.text = "Sunday"
-        }else if merchantSettings?.merchantWeekStart ?? 0 == 2{
+        }else if merchantSettings?.merchantWeekStart ?? 0 == 1{
             self.txtselectWeekStartday.text = "Monday"
-        }else if merchantSettings?.merchantWeekStart ?? 0 == 3{
+        }else if merchantSettings?.merchantWeekStart ?? 0 == 2{
             self.txtselectWeekStartday.text = "Tuesday"
-        }else if merchantSettings?.merchantWeekStart ?? 0 == 4{
+        }else if merchantSettings?.merchantWeekStart ?? 0 == 3{
             self.txtselectWeekStartday.text = "Wednesday"
-        }else if merchantSettings?.merchantWeekStart ?? 0 == 5{
+        }else if merchantSettings?.merchantWeekStart ?? 0 == 4{
             self.txtselectWeekStartday.text = "Thursday"
-        }else if merchantSettings?.merchantWeekStart ?? 0 == 6{
+        }else if merchantSettings?.merchantWeekStart ?? 0 == 5{
             self.txtselectWeekStartday.text = "Friday"
-        }else if merchantSettings?.merchantWeekStart ?? 0 == 7{
+        }else if merchantSettings?.merchantWeekStart ?? 0 == 6{
             self.txtselectWeekStartday.text = "Saturday"
         }
         
@@ -368,6 +504,12 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
             self.switchDailyOvertime.isOn = false
         }
         
+        if self.merchantSettings?.merchantSplitEnabled ?? "N" == "Y"{
+            self.switchSplitShift.isOn = true
+        }else{
+            self.switchSplitShift.isOn = false
+        }
+        
         if self.merchantSettings?.merchantCurrentPayWeek ?? 0 == 1{
             self.btnWeek1.isSelected = true
             self.btnWeek2.isSelected = false
@@ -376,79 +518,156 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
             self.btnWeek2.isSelected = true
         }
         
+        txtBusinessName.text = self.merchantSettings?.merchantName
+        txtBusinessWebsite.text = self.merchantSettings?.merchantWeb
+        txtZipCode.text = self.merchantSettings?.merchantZip
+
+//        if merchantSettings?.merchantTimezone ?? "" == "US/Atlantic"{
+//            self.txtBusinessTimezone.text = "Atlantic Standard Time(AST)"
+//        }else
+        if merchantSettings?.merchantTimezone ?? "" == "US/Eastern"{
+            self.txtBusinessTimezone.text = "Eastern Standard Time(EST)"
+        }else if merchantSettings?.merchantTimezone ?? "" == "US/Central"{
+            self.txtBusinessTimezone.text = "Central Standard Time(CST)"
+        }else if merchantSettings?.merchantTimezone ?? "" == "US/Mountain"{
+            self.txtBusinessTimezone.text = "Mountain Standard Time(MST)"
+        }else if merchantSettings?.merchantTimezone ?? "" == "US/Pacific"{
+            self.txtBusinessTimezone.text = "Pacific Standard Time(PST)"
+        }else if merchantSettings?.merchantTimezone ?? "" == "Asia/Kolkata"{
+            self.txtBusinessTimezone.text = "Test Timezone(Don't Choose)"
+        }
+        
+        self.txtTotalEmployee.text = merchantSettings?.merchantCompanySize ?? ""
+        
+        
     }
     @IBAction func rightBarButtonClicked(sender:UIButton){
-        if logoutView.isHidden == true{
-            logoutView.isHidden = false
-        }else{
-            logoutView.isHidden = true
+        PopupMenuVC.showPopupMenu(prevVC: self) { selectedItem in
+            if let menuItem = selectedItem{
+                if menuItem == .logout{
+                    print("Logout")
+                    Defaults.shared.currentUser = nil
+                    Utility.setRootScreen(isShowAnimation: true)
+                }
+                else{
+                    //Account
+                    print("Account")
+                    self.showSettingsView(showAccount: true)
+                }
+            }
         }
-    }
-    @IBAction func logoutClicked(sender:UIButton){
-        Defaults.shared.currentUser = nil
-        Utility.setRootScreen(isShowAnimation: true)
-        logoutView.isHidden = true
     }
     @IBAction func editContinueClick(sender:UIButton){
         
-        editPayPeriodStartDayView.isHidden = true
-        editPayPeriodDurationView.isHidden = true
-        editWeeklyOvertimeView.isHidden = true
-        editdailyOvertimeView.isHidden = true
         
         if sender.tag == 10{
-            setupMerchant.merchant_week_start = "\(self.editDaySelected.rawValue)"
-            editPayPeriodDurationView.isHidden = false
-        }else if sender.tag == 20{
-            if (self.editDurationSelected.rawValue == 1){
-                setupMerchant.merchant_pay_period = "W"
-            }else if (self.editDurationSelected.rawValue == 2){
-                setupMerchant.merchant_pay_period = "B"
+            if let selectedDay = self.editDaySelected{
+                hideAllSettingProfileSetupViews()
+                setupMerchant.merchant_week_start = "\(selectedDay.rawValue)"
+                editPayPeriodDurationView.isHidden = false
             }
-            editWeeklyOvertimeView.isHidden = false
+            else{
+                self.showAlert(alertType:.validation, message: "Please select pay period start on.")
+            }
+        }else if sender.tag == 20{
+            if let selectedDuration = self.editDurationSelected{
+                hideAllSettingProfileSetupViews()
+                if (selectedDuration.rawValue == 1){
+                    setupMerchant.merchant_pay_period = "W"
+                }else if (selectedDuration.rawValue == 2){
+                    setupMerchant.merchant_pay_period = "B"
+                }
+//                editWeeklyOvertimeView.isHidden = false
+                editdailyOvertimeView.isHidden = false
+            }
+            else{
+                self.showAlert(alertType:.validation, message: "Please select Pay Period duration.")
+            }
         }else if sender.tag == 30{
-            setupMerchant.merchant_weekly_overtime = txtEditPopupWeeklyOvertimeHours.text
-            editdailyOvertimeView.isHidden = false
+            if let weeklyOvertimeHours = txtEditPopupWeeklyOvertimeHours.text , weeklyOvertimeHours.count > 0{
+                hideAllSettingProfileSetupViews()
+                setupMerchant.merchant_weekly_overtime = weeklyOvertimeHours
+                editdailyOvertimeView.isHidden = false
+            }
+            else{
+                self.showAlert(alertType:.validation, message: "Please enter weekly overtime.")
+            }
         }else if sender.tag == 40{
-            setupMerchant.merchant_daily_overtime = txtEditPopupDailyOvertimeHours.text
-            setupMerchant.merchant_timezone = Defaults.shared.currentUser?.merchantTimezone ?? ""
-            setupMerchant.merchant_current_pay_week = "1"
-            
-            callSetupMerchangtAPI()
-            print(setupMerchant ?? "")
-            //callSetupAPI
+            if checkDailyWeeklyOvertimeValidation(){
+                if let weeklyOvertimeHours = txtEditPopupWeeklyOvertimeHours.text , let dailyOvertimeHours = txtEditPopupDailyOvertimeHours.text{
+                    hideAllSettingProfileSetupViews()
+                    setupMerchant.merchant_weekly_overtime = weeklyOvertimeHours
+                    setupMerchant.merchant_daily_overtime = dailyOvertimeHours
+                    setupMerchant.merchant_timezone = Defaults.shared.currentUser?.merchantTimezone ?? ""
+                    setupMerchant.merchant_current_pay_week = "1"
+                    
+                    callSetupMerchangtAPI()
+                    print(setupMerchant ?? "")
+                    //callSetupAPI
+                }
+            }
         }
     }
+        
+        func checkDailyWeeklyOvertimeValidation() -> Bool{
+            if txtEditPopupWeeklyOvertimeHours.text!.count < 1{
+                
+                self.showAlert(alertType:.validation, message: "Please enter weekly overtime.")
+                return false
+            }
+            if txtEditPopupDailyOvertimeHours.text!.count < 1{
+                
+                self.showAlert(alertType:.validation, message: "Please Enter Daily Overtime.")
+                return false
+            }
+            return true
+        }
+    
+    func hideAllSettingProfileSetupViews(){
+        editPayPeriodStartDayView.isHidden = true
+        editPayPeriodDurationView.isHidden = true
+//        editWeeklyOvertimeView.isHidden = true
+        editdailyOvertimeView.isHidden = true
+    }
+    
     @IBAction func skipEditWeeklyHoursClick(sender:UIButton){
-       
+        setupMerchant.merchant_weekly_overtime = ""
+        editdailyOvertimeView.isHidden = false
     }
     @IBAction func skipEditDailyHoursClick(sender:UIButton){
+        setupMerchant.merchant_weekly_overtime = ""
+        setupMerchant.merchant_daily_overtime = ""
+        setupMerchant.merchant_timezone = Defaults.shared.currentUser?.merchantTimezone ?? ""
+        setupMerchant.merchant_current_pay_week = "1"
         
+        callSetupMerchangtAPI()
        
     }
-    @IBAction func selectSettingType(sender:UIButton){
-        
-        let pickerArray = ["TimeClock Settings","Account Settings"]
-        IQKeyboardManager.shared.enable = false
-        PickerView.sharedInstance.addPicker(self, onTextField: txtSelectSettings, pickerArray: pickerArray) { index, value, isDismiss in
-            if !isDismiss {
-                IQKeyboardManager.shared.enable = true
-                 print(value)
-                if value == Settings.timeclock.rawValue{
-                    self.selectedSettings = .timeclock
-                    self.timesheetSettingView.isHidden = false
-                    self.accountSettingView.isHidden = true
-                }else if value == Settings.account.rawValue{
-                    self.selectedSettings = .account
-                    self.timesheetSettingView.isHidden = true
-                    self.accountSettingView.isHidden = false
-                }
-             }
-            self.txtSelectSettings.resignFirstResponder()
-        }
-        
-       
-    }
+//    @IBAction func selectSettingType(sender:UIButton){
+//
+//        let pickerArray = ["TimeClock Settings","Account Settings"]
+//        IQKeyboardManager.shared.enable = false
+//        PickerView.sharedInstance.addPicker(self, onTextField: txtSelectSettings, pickerArray: pickerArray) { index, value, isDismiss in
+//            if !isDismiss {
+//                IQKeyboardManager.shared.enable = true
+//                 print(value)
+//                if value == Settings.timeclock.rawValue{
+//                    self.selectedSettings = .timeclock
+//                    self.timesheetSettingView.isHidden = false
+////                    self.businessSettingsView.isHidden = false
+//                    self.accountSettingView.isHidden = true
+//                }else if value == Settings.account.rawValue{
+//                    self.selectedSettings = .account
+//                    self.timesheetSettingView.isHidden = true
+////                    self.businessSettingsView.isHidden = true
+//                    self.accountSettingView.isHidden = false
+//                }
+//             }
+//            self.txtSelectSettings.resignFirstResponder()
+//        }
+//
+//
+//    }
     
     @IBAction func editDaySelected(sender:UIButton){
         btnSunday.isSelected = false
@@ -521,19 +740,27 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         selectCurrentPayWeek.isUserInteractionEnabled = true
         switchWeeklyOvertime.isUserInteractionEnabled = true
         switchDailyOvertime.isUserInteractionEnabled = true
+        switchSplitShift.isUserInteractionEnabled = true
         btnWeek1.isUserInteractionEnabled = true
         btnWeek2.isUserInteractionEnabled = true
-        self.timesheetStackView.alpha = 1.0
-        self.accountStackView.alpha = 1.0
+//        self.timesheetStackView.alpha = 1.0
+        changeTimesheetAppearance(toEdit: true)
+//        self.accountStackView.alpha = 1.0
+        changeAccountTextfieldsAppearance(toEdit: true)
+        changeBusinessAppearance(toEdit: true)
         saveView.isHidden = false
         editView.isUserInteractionEnabled = false
         editView.alpha = 0.5
     }
     
     @IBAction func selectPayPeriodClick(sender:UIButton){
+        if editView.alpha == 1.0{
+            editTooltipView.isHidden = false
+            return
+        }
         let pickerArray = self.durationOptions
         IQKeyboardManager.shared.enable = false
-        PickerView.sharedInstance.addPicker(self, onTextField: txtselectWeekStartday, pickerArray: pickerArray) { index, value, isDismiss in
+        PickerView.sharedInstance.addPicker(self, onTextField: txtselectPayPeriod, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
                 IQKeyboardManager.shared.enable = true
                  print(value)
@@ -546,7 +773,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                     self.selectWeekView.isHidden = false
                 }
              }
-            self.txtselectWeekStartday.resignFirstResponder()
+            self.txtselectPayPeriod.resignFirstResponder()
         }
     }
     
@@ -578,7 +805,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                 IQKeyboardManager.shared.enable = true
                  print(value)
                 self.txtselectWeekStartday.text = value
-                self.merchantSettings?.merchantWeekStart = ((index + 1) as NSNumber)
+                self.merchantSettings?.merchantWeekStart = ((index) as NSNumber)
                
              }
             self.txtselectWeekStartday.resignFirstResponder()
@@ -595,14 +822,95 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
 //        switchDailyOvertime.isUserInteractionEnabled = false
 //        btnWeek1.isUserInteractionEnabled = false
 //        btnWeek2.isUserInteractionEnabled = false
-        saveView.isHidden = true
-        editView.isUserInteractionEnabled = true
-        editView.alpha = 1.0
-        self.timesheetStackView.alpha = 0.5
-        self.accountStackView.alpha = 0.5
-        self.callSaveMerchantSettings()
-        //call save api
+        SettingsSavePopupVC.showSettingsSavePopup(prevVC: self) { isSaveTapped in
+            if isSaveTapped{
+                if self.validateSettings(){
+                    self.saveView.isHidden = true
+                    self.editView.isUserInteractionEnabled = true
+                    self.editView.alpha = 1.0
+        //            self.timesheetStackView.alpha = 0.5
+                    self.changeTimesheetAppearance(toEdit: false)
+        //            self.accountStackView.alpha = 0.5
+                    self.changeAccountTextfieldsAppearance(toEdit: false)
+                    self.changeBusinessAppearance(toEdit: false)
+                    self.setSelectedDetailsToMerchantSettings()
+                    self.callSaveMerchantSettings()
+                }
+            }
+        }
     }
+    
+    func validateSettings() -> Bool{
+        var isValidated = true
+        if txtFirstName.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter First Name")
+            return false
+        }
+        if txtFirstName.text!.hasNumbers{
+            self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+            return false
+        }
+        
+        if txtLastName.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Last Name")
+            return false
+        }
+        if txtLastName.text!.hasNumbers{
+            self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+            return false
+        }
+        if txtUserName.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Username")
+            return false
+        }
+        if let email = txtemail.text{
+            if !(email.count > 0 && email.isEmail){
+                self.showAlert(alertType:.validation, message: "Please Enter Valid Email")
+                isValidated = false
+            }
+        }
+        if txtBusinessName.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Business Name")
+            return false
+        }
+        if txtBusinessName.text!.hasNumbers{
+            self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+            return false
+        }
+        if txtBusinessName.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Business Name")
+            return false
+        }
+        if txtZipCode.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Zipcode")
+            return false
+        }
+        if txtBusinessTimezone.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Timezone")
+            return false
+        }
+        if let url = txtBusinessWebsite.text{
+            if !(url.count > 0 && url.isValidUrl()){
+                self.showAlert(alertType:.validation, message: "Invalid Website. Please Try Again.")
+                isValidated = false
+            }
+        }
+        if txtTotalEmployee.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Select how many people do you employ.")
+            return false
+        }
+        
+        if txteditWeeklyOvertimeHours.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Weekly Overtime.")
+            return false
+        }
+        if txteditdailyOvertimeHours.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Daily Overtime.")
+            return false
+        }
+        return isValidated
+    }
+    
     @IBAction func cancelClick(sender:UIButton){
 //        editWeeklyOvertimeHoursView.isUserInteractionEnabled = false
 //        editdailyOvertimeHoursView.isUserInteractionEnabled = false
@@ -616,17 +924,48 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         saveView.isHidden = true
         editView.isUserInteractionEnabled = true
         editView.alpha = 1.0
-        self.timesheetStackView.alpha = 0.5
-        self.accountStackView.alpha = 0.5
+//        self.timesheetStackView.alpha = 0.5
+        changeTimesheetAppearance(toEdit: false)
+//        self.accountStackView.alpha = 0.5
+        changeAccountTextfieldsAppearance(toEdit: false)
+        changeBusinessAppearance(toEdit: false)
+        fetchSettings()
     }
     @IBAction func closeClick(sender:UIButton){
         editPayPeriodStartDayView.isHidden = true
         editPayPeriodDurationView.isHidden = true
-        editWeeklyOvertimeView.isHidden = true
+//        editWeeklyOvertimeView.isHidden = true
         editdailyOvertimeView.isHidden = true
         
         self.blurOverlayView.isHidden = true
     }
+    
+    @IBAction func btnSelectBusinessTimezoneTapped(_ sender: Any) {
+//        let pickerArray = ["Atlantic Standard Time(AST)","Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)","Test Timezone(Don't Choose)"]
+        let pickerArray = ["Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)","Test Timezone(Don't Choose)"]
+        IQKeyboardManager.shared.enable = false
+        PickerView.sharedInstance.addPicker(self, onTextField: txtBusinessTimezone, pickerArray: pickerArray) { index, value, isDismiss in
+            if !isDismiss {
+                IQKeyboardManager.shared.enable = true
+                 self.txtBusinessTimezone.text = value
+                 print(value)
+             }
+            self.txtBusinessTimezone.resignFirstResponder()
+        }
+    }
+
+    @IBAction func btnBusinessNoOfEmp(_ sender: Any) {
+        IQKeyboardManager.shared.enable = false
+        PickerView.sharedInstance.addPicker(self, onTextField: txtTotalEmployee, pickerArray: arrNoOfEmps) { index, value, isDismiss in
+            if !isDismiss {
+                IQKeyboardManager.shared.enable = true
+                 self.txtTotalEmployee.text = value
+                 print(value)
+             }
+            self.txtTotalEmployee.resignFirstResponder()
+        }
+    }
+    
     @IBAction func switchValueDidChange(sender:UISwitch)
     {
         if editView.alpha == 1.0{
@@ -658,8 +997,71 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBAction func editTooltipOkClicked(){
         self.editTooltipView.isHidden = true
     }
-   
     
+    @IBAction func btnBackToSelectionTapped(_ sender: Any) {
+        self.viewSelection.isHidden = false
+        self.timesheetSettingView.isHidden = true
+        self.businessSettingsView.isHidden = true
+        self.accountSettingView.isHidden = true
+    }
+    
+   
+    func changeAccountTextfieldsAppearance(toEdit mode: Bool){
+        if mode{
+            txtFirstName.backgroundColor = UIColor.white
+            txtLastName.backgroundColor = UIColor.white
+            txtUserName.backgroundColor = UIColor.white
+            txtemail.backgroundColor = UIColor.white
+            txtpassword.backgroundColor = UIColor.white
+        }
+        else{
+            txtFirstName.backgroundColor = UIColor.Color.appThemeBGColor
+            txtLastName.backgroundColor = UIColor.Color.appThemeBGColor
+            txtUserName.backgroundColor = UIColor.Color.appThemeBGColor
+            txtemail.backgroundColor = UIColor.Color.appThemeBGColor
+            txtpassword.backgroundColor = UIColor.Color.appThemeBGColor
+        }
+    }
+    
+    func changeTimesheetAppearance(toEdit mode: Bool){
+        if mode{
+            editWeeklyOvertimeHoursView.backgroundColor = UIColor.white
+            editdailyOvertimeHoursView.backgroundColor = UIColor.white
+            selectPayPeriodView.backgroundColor = UIColor.white
+            selectWeekStartdayView.backgroundColor = UIColor.white
+            switchDailyOvertime.isEnabled = true
+            switchWeeklyOvertime.isEnabled = true
+            switchSplitShift.isEnabled = true
+            
+        }
+        else{
+            editWeeklyOvertimeHoursView.backgroundColor = UIColor.Color.appThemeBGColor
+            editdailyOvertimeHoursView.backgroundColor = UIColor.Color.appThemeBGColor
+            selectPayPeriodView.backgroundColor = UIColor.Color.appThemeBGColor
+            selectWeekStartdayView.backgroundColor = UIColor.Color.appThemeBGColor
+            switchDailyOvertime.isEnabled = false
+            switchWeeklyOvertime.isEnabled = false
+            switchSplitShift.isEnabled = false
+            
+        }
+    }
+    
+    func changeBusinessAppearance(toEdit mode: Bool){
+        if mode{
+            txtBusinessName.backgroundColor = UIColor.white
+            txtZipCode.backgroundColor = UIColor.white
+            txtBusinessTimezone.backgroundColor = UIColor.white
+            txtBusinessWebsite.backgroundColor = UIColor.white
+            txtTotalEmployee.backgroundColor = UIColor.white
+        }
+        else{
+            txtBusinessName.backgroundColor = UIColor.Color.appThemeBGColor
+            txtZipCode.backgroundColor = UIColor.Color.appThemeBGColor
+            txtBusinessTimezone.backgroundColor = UIColor.Color.appThemeBGColor
+            txtBusinessWebsite.backgroundColor = UIColor.Color.appThemeBGColor
+            txtTotalEmployee.backgroundColor = UIColor.Color.appThemeBGColor
+        }
+    }
 }
 extension SettingsVC:MenuItemDelegate {
     func MenuItemClicked(menuName: String) {
@@ -671,7 +1073,6 @@ extension SettingsVC:MenuItemDelegate {
         }else  if menuName == Menuname.logout{
             Defaults.shared.currentUser = nil
             Utility.setRootScreen(isShowAnimation: true)
-            logoutView.isHidden = true
         }else  if menuName == Menuname.employee{
             let vc = EmployeesVC.instantiate()
             self.pushVC(controller:vc)
@@ -705,6 +1106,47 @@ extension SettingsVC:UITextFieldDelegate {
         
     }
 }
+
+extension SettingsVC : UITableViewDataSource, UITableViewDelegate{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        arrSettings.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"SettingsSelectionCell",for:indexPath) as! SettingsSelectionCell
+        let dictSetting = arrSettings[indexPath.row]
+        cell.lblSettingTitle.text = dictSetting["title"]
+        cell.lblSettingDetails.text = dictSetting["subtitle"]
+        cell.imgSettings.image = UIImage.init(named: dictSetting["icon"]!)
+        cell.selectionStyle = .none
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0{
+            //Account
+            self.viewSelection.isHidden = true
+            self.timesheetSettingView.isHidden = true
+            self.businessSettingsView.isHidden = true
+            self.accountSettingView.isHidden = false
+        }
+        else if indexPath.row == 1{
+            //Bussiness
+            self.viewSelection.isHidden = true
+            self.timesheetSettingView.isHidden = true
+            self.businessSettingsView.isHidden = false
+            self.accountSettingView.isHidden = true
+        }
+        else if indexPath.row == 2{
+            //Timesheet
+            self.viewSelection.isHidden = true
+            self.timesheetSettingView.isHidden = false
+            self.businessSettingsView.isHidden = true
+            self.accountSettingView.isHidden = true
+        }
+    }
+}
+
 extension UIButton {
   func setBackgroundColor(_ color: UIColor, forState controlState: UIControl.State) {
     let colorImage = UIGraphicsImageRenderer(size: CGSize(width: 1, height: 1)).image { _ in
@@ -713,4 +1155,13 @@ extension UIButton {
     }
     setBackgroundImage(colorImage, for: controlState)
   }
+}
+
+class SettingsSelectionCell : UITableViewCell{
+ 
+    @IBOutlet weak var imgSettings: UIImageView!
+    @IBOutlet weak var lblSettingTitle: UILabel!
+    @IBOutlet weak var lblSettingDetails: UILabel!
+    
+    
 }

@@ -19,25 +19,36 @@ extension AddEmployeeVCDelegate{
 class AddEmployeeVC:BaseViewController, StoryboardSceneBased{
 
     var delegate:AddEmployeeVCDelegate?
-   
+    @IBOutlet weak var viewPopup: UIView!
+    
     
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        viewPopup.alpha = 0.0
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.25) {
+            self.viewPopup.alpha = 1.0
+        }
+    }
+    
     @IBAction func closeClicked(sender:UIButton){
-        self.dismiss(animated:true)
-        self.popVC()
+        UIView.animate(withDuration: 0.25) {
+            self.viewPopup.alpha = 0.0
+            self.dismiss(animated:false)
+            self.popVC()
+        }
         
     }
     
     @IBAction func addClick(sender:UIButton){
         if sender.tag == 4{
-            self.dismiss(animated:true) {
+            self.dismiss(animated:false) {
                 self.delegate?.didDismiss()
             }
         }else if sender.tag == 3{

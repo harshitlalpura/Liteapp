@@ -70,13 +70,13 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var lblusername: UILabel!
     @IBOutlet weak var lblname: UILabel!
-    @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var tblEvents: UITableView!
   
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtjobtitle: UITextField!
+    @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var btnDeleteEmployee: UIButton!
     
     @IBOutlet weak var userinformationView: UIView!
@@ -94,7 +94,26 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var userinforStackview: UIView!
     
+    //Selection VIew
+    @IBOutlet var employeeProfileSelectionView: UIView!
+    
+    
+    @IBOutlet weak var passwordValidationView: UIView!
+    
+    @IBOutlet weak var imgvwminimumCharacter: UIImageView!
+    @IBOutlet weak var imgvwLowercaseLetter: UIImageView!
+    @IBOutlet weak var imgvwCapitalLetter: UIImageView!
+    @IBOutlet weak var imgvwNumber: UIImageView!
+    @IBOutlet weak var imgvwSpecialCharacter: UIImageView!
+    
+    var isPasswordValidTotalCount : Bool = false
+    var isPasswordValidCapitalChar : Bool = false
+    var isPasswordValidSmallChar : Bool = false
+    var isPasswordValidSpecialChar : Bool = false
+    var isPasswordValidNumberChar : Bool = false
+    
     var isFromEmployee = false
+    var isFromTimesheet = false
     var weekDates = [CustomDate]()
     var selectedWeekIndex = 0
     var selectedSettings:Settings = .userInfo
@@ -106,6 +125,9 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     var selectedPayPeriod:Payperiods?
     var selectedPayPeriodIndex:Int = 0
     var editedTimeSheet = [Weeks]()
+    var isEditMode : Bool = false
+    var btnApproveUnApprove : UIButton?
+    var approvalFooterView : UIView?
     @IBOutlet weak var picker: MyDatePicker!
     @IBOutlet weak var datePickerView: UIView!
     override func viewDidLoad() {
@@ -113,23 +135,34 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         setData()
         setTableview()
         setupMenu()
+
         if isFromEmployee{
-            self.selectedSettings = .userInfo
-            self.userinformationView.isHidden = false
+            self.employeeProfileSelectionView.isHidden = false
+            self.userinformationView.isHidden = true
             self.timereportView.isHidden = true
-        }else{
-            self.selectedSettings = .timeSheet
+            editView.isHidden = true
+        }
+        else if isFromTimesheet{
+            self.employeeProfileSelectionView.isHidden = true
             self.userinformationView.isHidden = true
             self.timereportView.isHidden = false
+            editView.isHidden = false
+        }
+        else{
+            self.employeeProfileSelectionView.isHidden = false
+            self.userinformationView.isHidden = true
+            self.timereportView.isHidden = true
+            editView.isHidden = true
         }
         
         self.txtFirstName.delegate = self
         self.txtLastName.delegate = self
         self.txtEmail.delegate = self
         self.txtjobtitle.delegate = self
+        self.txtPassword.delegate = self
         
         tblEvents.addObserver(self, forKeyPath: #keyPath(UITableView.contentSize), options: [NSKeyValueObservingOptions.new], context: &myContext)
-        collectionViewEvents.addObserver(self, forKeyPath: #keyPath(UICollectionView.contentSize), options: [NSKeyValueObservingOptions.new], context: &collectionviewContext)
+//        collectionViewEvents.addObserver(self, forKeyPath: #keyPath(UICollectionView.contentSize), options: [NSKeyValueObservingOptions.new], context: &collectionviewContext)
     }
     override func viewWillAppear(_ animated: Bool) {
         fetchEmployeeDetails()
@@ -142,12 +175,12 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             print("contentSize:", contentSize)
             eventTableHeightConstraint.constant = tblEvents.contentSize.height
         }
-        if context == &collectionviewContext,
-            keyPath == #keyPath(UITextView.contentSize),
-            let contentSize = change?[NSKeyValueChangeKey.newKey] as? CGSize {
-            print("contentSize:", contentSize)
-            eventCollectionviewHeightConstraint.constant = collectionViewEvents.contentSize.height
-        }
+//        if context == &collectionviewContext,
+//            keyPath == #keyPath(UITextView.contentSize),
+//            let contentSize = change?[NSKeyValueChangeKey.newKey] as? CGSize {
+//            print("contentSize:", contentSize)
+//            eventCollectionviewHeightConstraint.constant = collectionViewEvents.contentSize.height
+//        }
     }
     
     deinit {
@@ -160,6 +193,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     override func updateViewConstraints() {
         eventTableHeightConstraint.constant = tblEvents.contentSize.height
         super.updateViewConstraints()
+        self.view.layoutSubviews()
     }
     private func setupMenu(){
         let controller = MenuViewController.instantiate()
@@ -168,22 +202,105 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         menu = SideMenuNavigationController(rootViewController:controller)
         menu.navigationBar.isHidden = true
         menu.leftSide = true
+        menu.menuWidth = Utility.getMenuWidth()
         SideMenuManager.default.addPanGestureToPresent(toView:view)
         SideMenuManager.default.leftMenuNavigationController = menu
         
     }
    
-    @IBAction func rightBarButtonClicked(sender:UIButton){
-        if logoutView.isHidden == true{
-            logoutView.isHidden = false
-        }else{
-            logoutView.isHidden = true
+    func setupTableViewHeightWithReload(){
+        eventTableHeightConstraint.constant = CGFloat.greatestFiniteMagnitude
+        tblEvents.reloadData()
+        tblEvents.layoutIfNeeded()
+//        eventTableHeightConstraint.constant = tblEvents.contentSize.height
+        self.updateViewConstraints()
+    }
+    
+    func setApproveUnApproveTableFooterView(){
+        approvalFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tblEvents.frame.width, height: 90))
+        approvalFooterView?.backgroundColor = UIColor.clear
+        btnApproveUnApprove = UIButton(frame: CGRect(x: 15, y: 30, width: tblEvents.frame.width - 30, height: 40))
+        btnApproveUnApprove?.roundCorners(UIRectCorner.allCorners, radius: 8.0)
+        setTitleForApproveUnApproveBtn(isForApprove: true)
+        btnApproveUnApprove?.addTarget(self, action: #selector(btnApproveUnApproveTapped), for: .touchUpInside)
+        approvalFooterView?.addSubview(btnApproveUnApprove!)
+    }
+    
+    func setTitleForApproveUnApproveBtn(isForApprove : Bool){
+        if !isForApprove{
+            btnApproveUnApprove!.setTitle("Approve Timesheet", for: .normal)
+            btnApproveUnApprove!.setBackgroundColor(UIColor.Color.appGreenColor, forState: .normal)
+        }
+        else{
+            btnApproveUnApprove!.setTitle("Unapprove Timesheet", for: .normal)
+            btnApproveUnApprove!.setBackgroundColor(UIColor.Color.appYellowColor, forState: .normal)
         }
     }
-    @IBAction func logoutClicked(sender:UIButton){
-        Defaults.shared.currentUser = nil
-        Utility.setRootScreen(isShowAnimation: true)
-        logoutView.isHidden = true
+    
+    @objc func btnApproveUnApproveTapped(_ sender: UIButton!) {
+        print("Button tapped")
+        if selectedPayPeriodIndex == 0 {
+            self.showAlert(alertType:.validation, message: "Status of currunt pay period can't be changed.")
+        }
+        else{
+            if self.selectedPayPeriod?.payperiodStatus == "A"{
+                changeStatusAPI(payperiodStatus: TimesheetStatus.unapproved)
+            }
+            else{
+                changeStatusAPI(payperiodStatus: TimesheetStatus.approved)
+            }
+        }
+    }
+    
+    func changeStatusAPI(payperiodStatus:TimesheetStatus){
+        let payperiodId = "\(self.selectedPayPeriod?.payperiodEmpId ?? 0)"
+        let parameters = ["merchant_id":Defaults.shared.currentUser?.merchantId ?? 0,
+            "emp_token":Defaults.shared.currentUser?.empToken ?? "",
+            "emp_id":Defaults.shared.currentUser?.empId ?? 0,
+            "status":payperiodStatus.rawValue,
+            "ids":payperiodId
+        ] as [String : Any]
+        
+        NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.changeStatus(), param: parameters, header: Defaults.shared.header ?? ["":""]) { success, response, error in
+            if let res = response{
+                print(res)
+                if let status = res["status"] as? Int{
+                    if status == 1{
+                        var isApproved = false
+                        if payperiodStatus == .approved{
+                            isApproved = true
+                        }
+                        self.selectedPayPeriod?.payperiodStatus = payperiodStatus.rawValue
+                        self.tblEvents.reloadData()
+                        self.setTitleForApproveUnApproveBtn(isForApprove: isApproved)
+                    }
+                }
+            }
+            else if let err = error{
+                print(err)
+                self.showAlert(alertType:.validation, message: err.localizedDescription)
+                
+            }
+        }
+    }
+    
+    @IBAction func rightBarButtonClicked(sender:UIButton){
+        PopupMenuVC.showPopupMenu(prevVC: self) { selectedItem in
+            if let menuItem = selectedItem{
+                if menuItem == .logout{
+                    print("Logout")
+                    Defaults.shared.currentUser = nil
+                    Utility.setRootScreen(isShowAnimation: true)
+                }
+                else{
+                    //Account
+                    print("Account")
+                    let vc = SettingsVC.instantiate()
+                    vc.isForAccountSettings = true
+                    self.pushVC(controller:vc)
+                }
+            }
+        }
     }
     @IBAction func menuClicked(sender:UIButton){
         self.present(menu, animated: true, completion: {})
@@ -204,17 +321,18 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         self.payPeriodsData[selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events?[sender.eventIndex].timelineTime = ""
        
         let indexpathCell = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
-        tblEvents.reloadRows(at: [indexpathCell], with: .none)
+//        tblEvents.reloadRows(at: [indexpathCell], with: .none)
+        self.setupTableViewHeightWithReload()
         let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
-        collectionViewEvents.reloadItems(at: [indexpathCVCell])
+//        collectionViewEvents.reloadItems(at: [indexpathCVCell])
         
         
         let indexpathHeader = IndexPath(row:0, section: sender.weekIndex)
-        tblEvents.reloadRows(at: [indexpathHeader], with: .none)
+//        tblEvents.reloadRows(at: [indexpathHeader], with: .none)
+        self.setupTableViewHeightWithReload()
     }
     func setData(){
-        logoutView.isHidden = true
-        lblusername.text = "\(Defaults.shared.currentUser?.empFirstname ?? "") \(Defaults.shared.currentUser?.empLastname ?? "")"
+        lblusername.text = Utility.getNameInitials()
 
 //        txtFirstName.isUserInteractionEnabled = false
 //        txtLastName.isUserInteractionEnabled = false
@@ -222,7 +340,9 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
 //        txtjobtitle.isUserInteractionEnabled = false
 //        tblEvents.isUserInteractionEnabled = false
        
-        userinforStackview.alpha = 0.5
+//        userinforStackview.alpha = 0.5
+        changeEmployeeAccountTextfieldsAppearance(toEdit: false)
+        tblEvents.tableFooterView = nil
         
         saveView.isHidden = true
         editView.isUserInteractionEnabled = true
@@ -247,6 +367,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                 self.txtLastName.text = "\(self.employeeDetails?.empLastname ?? "")"
                 self.txtEmail.text = "\(self.employeeDetails?.empWorkEmail ?? "")"
                 self.txtjobtitle.text = "\(self.employeeDetails?.empJobTitle ?? "")"
+                self.txtPassword.text = "\(self.employeeDetails?.empPassword ?? "")"
                 self.fetchEmployeeTimesheet()
             }else if let err = error{
                 print(err)
@@ -268,8 +389,9 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.append(timesheet)
         
        // self.selectedPayPeriod?.weeks?[self.selectedWeekIndex].timesheet?.append(timesheet)
-        self.tblEvents.reloadData()
-        self.collectionViewEvents.reloadData()
+//        self.tblEvents.reloadData()
+        self.setupTableViewHeightWithReload()
+//        self.collectionViewEvents.reloadData()
         self.weekDaysPopupView.isHidden = true
        
     }
@@ -283,18 +405,24 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         txtLastName.isUserInteractionEnabled = true
         txtEmail.isUserInteractionEnabled = true
         txtjobtitle.isUserInteractionEnabled = true
+        txtPassword.isUserInteractionEnabled = true
         tblEvents.isUserInteractionEnabled = true
        
         txtFirstName.alpha = 1.0
         txtLastName.alpha = 1.0
         txtEmail.alpha = 1.0
         txtjobtitle.alpha = 1.0
-        userinforStackview.alpha = 1.0
+        txtPassword.alpha = 1.0
+//        userinforStackview.alpha = 1.0
+        changeEmployeeAccountTextfieldsAppearance(toEdit: true)
         
         
         saveView.isHidden = false
         editView.isUserInteractionEnabled = false
         editView.alpha = 0.5
+//        tblEvents.reloadData()
+        tblEvents.tableFooterView = self.approvalFooterView
+        self.setupTableViewHeightWithReload()
     }
     @IBAction func selectSettingType(sender:UIButton){
         
@@ -331,8 +459,16 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                  self.selectedPayPeriodIndex = index
                 let str = "\(self.selectedPayPeriod?.payperiodFrom1 ?? "") - \(self.selectedPayPeriod?.payperiodTo1 ?? "")"
                 self.selectedPayperiodLabel.text = str
-                self.tblEvents.reloadData()
-                self.collectionViewEvents.reloadData()
+                
+                var isPayperiodApproved = false
+                if self.selectedPayPeriod?.payperiodStatus == "A"{
+                    isPayperiodApproved = true
+                }
+                self.setTitleForApproveUnApproveBtn(isForApprove: isPayperiodApproved)
+                
+//                self.tblEvents.reloadData()
+                self.setupTableViewHeightWithReload()
+//                self.collectionViewEvents.reloadData()
                 print(self.selectedPayPeriod?.toJSON() ?? "")
              }
            // self.txtselectedPayperiod.isUserInteractionEnabled = false
@@ -351,6 +487,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         
     }
     func setTableview(){
+        tblEvents.bounces = false
+        tblEvents.bouncesZoom = false
         tblEvents.register(cellType: TimeReportCell.self)
      
         tblEvents.register(cellType: TimeReportHeaderCell.self)
@@ -365,6 +503,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         
         
         tblEvents.register(cellType: TimeReportCell.self)
+        
+        setApproveUnApproveTableFooterView()
         
         collectionViewEvents.delegate = self
         collectionViewEvents.dataSource = self
@@ -406,13 +546,82 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                 self.selectedPayPeriodIndex = 0
                 let str = "\(self.selectedPayPeriod?.payperiodFrom1 ?? "") - \(self.selectedPayPeriod?.payperiodTo1 ?? "")"
                 self.selectedPayperiodLabel.text = str
-                self.tblEvents.reloadData()
+                var isPayperiodApproved = false
+                if self.selectedPayPeriod?.payperiodStatus == "A"{
+                    isPayperiodApproved = true
+                }
+                self.setTitleForApproveUnApproveBtn(isForApprove: isPayperiodApproved)
+//                self.tblEvents.reloadData()
+                self.setupTableViewHeightWithReload()
                 self.collectionViewEvents.reloadData()
             }else if let err = error{
                 print(err)
             }
         }
     }
+    
+    func validateSettings() -> Bool{
+        let isValidated = true
+        if txtFirstName.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter First Name")
+            return false
+        }
+        if txtFirstName.text!.hasNumbers{
+            self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+            return false
+        }
+        
+        if txtLastName.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Last Name")
+            return false
+        }
+        if txtLastName.text!.hasNumbers{
+            self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+            return false
+        }
+        if txtEmail.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Email")
+            return false
+        }
+        if let email = txtEmail.text{
+            if !(email.count > 0 && email.isEmail){
+//                self.showAlert(alertType:.validation, message: "Please Enter Valid Email")
+                self.showAlert(alertType:.validation, message: "Invalid E-Mail. Please Try Again.")
+                return false
+            }
+        }
+        if txtPassword.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Password")
+            return false
+        }
+        return isValidated
+    }
+    
+    func changeEmployeeAccountTextfieldsAppearance(toEdit mode: Bool){
+        isEditMode = mode
+        if mode{
+            txtFirstName.backgroundColor = UIColor.white
+            txtLastName.backgroundColor = UIColor.white
+            txtjobtitle.backgroundColor = UIColor.white
+            txtEmail.backgroundColor = UIColor.white
+            txtPassword.backgroundColor = UIColor.white
+            btnDeleteEmployee.isEnabled = true
+            btnDeleteEmployee.alpha = 1.0
+        }
+        else{
+            txtFirstName.backgroundColor = UIColor.Color.appThemeBGColor
+            txtLastName.backgroundColor = UIColor.Color.appThemeBGColor
+            txtjobtitle.backgroundColor = UIColor.Color.appThemeBGColor
+            txtEmail.backgroundColor = UIColor.Color.appThemeBGColor
+            txtPassword.backgroundColor = UIColor.Color.appThemeBGColor
+            btnDeleteEmployee.isEnabled = false
+            btnDeleteEmployee.alpha = 0.5
+        }
+//        tblEvents.reloadData()
+        self.setupTableViewHeightWithReload()
+        collectionViewEvents.reloadData()
+    }
+    
     @IBAction func saveClick(sender:UIButton){
 
 //        txtFirstName.isUserInteractionEnabled = false
@@ -441,16 +650,20 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             txtLastName.isUserInteractionEnabled = true
             txtEmail.isUserInteractionEnabled = true
             txtjobtitle.isUserInteractionEnabled = true
+            txtPassword.isUserInteractionEnabled = true
             tblEvents.isUserInteractionEnabled = true
             
             txtFirstName.alpha = 1.0
             txtLastName.alpha = 1.0
             txtEmail.alpha = 1.0
             txtjobtitle.alpha = 1.0
-            userinforStackview.alpha = 1.0
+            txtPassword.alpha = 1.0
+//            userinforStackview.alpha = 1.0
+            changeEmployeeAccountTextfieldsAppearance(toEdit: true)
             saveView.isHidden = false
             editView.isUserInteractionEnabled = false
             editView.alpha = 0.5
+            tblEvents.tableFooterView = self.approvalFooterView
             
         }else{
 //            txtFirstName.isUserInteractionEnabled = false
@@ -463,7 +676,10 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             txtLastName.alpha = 0.5
             txtEmail.alpha = 0.5
             txtjobtitle.alpha = 0.5
-            userinforStackview.alpha = 0.5
+            txtPassword.alpha = 0.5
+//            userinforStackview.alpha = 0.5
+            changeEmployeeAccountTextfieldsAppearance(toEdit: false)
+            tblEvents.tableFooterView = nil
             saveView.isHidden = true
             editView.isUserInteractionEnabled = true
             editView.alpha = 1.0
@@ -477,7 +693,9 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
 //        txtEmail.isUserInteractionEnabled = false
 //        txtjobtitle.isUserInteractionEnabled = false
 //        tblEvents.isUserInteractionEnabled = false
-        userinforStackview.alpha = 0.5
+//        userinforStackview.alpha = 0.5
+        changeEmployeeAccountTextfieldsAppearance(toEdit: false)
+        tblEvents.tableFooterView = nil
         saveView.isHidden = true
         editView.isUserInteractionEnabled = true
         editView.alpha = 1.0
@@ -487,9 +705,10 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         
         for (i,week) in (self.selectedPayPeriod?.weeks ?? [Weeks]()).enumerated(){
             for (j,_) in (week.timesheet ?? [Timesheet]()).enumerated(){
-                let events = self.selectedPayPeriod?.weeks?[i].timesheet?[i].events?.filter({$0.timelineTime != ""})
+//                let events = self.selectedPayPeriod?.weeks?[i].timesheet?[i].events?.filter({$0.timelineTime != ""})
+                let events = self.selectedPayPeriod?.weeks?[i].timesheet?[j].events?.filter({$0.timelineTime != ""})
                 self.selectedPayPeriod?.weeks?[i].timesheet?[j].events = events
-                print(self.selectedPayPeriod?.weeks?[i].timesheet?[i].events?.toJSON() ?? "")
+                print(self.selectedPayPeriod?.weeks?[i].timesheet?[j].events?.toJSON() ?? "")
             }
         }
         if let weeks = self.selectedPayPeriod?.weeks{
@@ -512,10 +731,11 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         employee.empFirstname = txtFirstName.text!
         employee.empLastname = txtLastName.text!
         employee.empJobTitle = txtjobtitle.text!
+        employee.empPassword = txtPassword.text!
         employee.empWorkEmail = txtEmail.text!
         employee.empID = self.employeeDetails?.empId?.stringValue ?? ""
         employee.timezone = Defaults.shared.currentUser?.merchantTimezone ?? ""
-        employee.empPassword =  self.employeeDetails?.empPassword ?? ""
+//        employee.empPassword =  self.employeeDetails?.empPassword ?? ""
         updateEmployeeAPI(employee:employee)
     }
     
@@ -529,6 +749,32 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             }
         }
     }
+    
+    func deleteEmployeeAPI(){
+        var employee = DeleteEmployee()
+        employee.empID = self.employeeDetails?.empId?.stringValue ?? ""
+        NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.deleteEmployees(), param: employee.getParam(), header: Defaults.shared.header ?? ["":""]) { success, response, error in
+            
+            if let res = response{
+                if let status = res["status"] as? Int{
+                    if status == 0{
+                        //Fail
+                        self.showAlert(alertType:.validation, message: "There was some error while deleting employee, Please try again.")
+                    }else{
+                        //Success
+                        SucessPopupVC.showSuccessPopup(prevVC: self) { done in
+                            //Go to previous scree
+                            self.popVC()
+                        }
+                    }
+                }
+                print(res)
+            }else if let err = error{
+                print(err)
+            }
+        }
+    }
+    
     func setWeekDays(days:[CustomDate]){
         self.weekDates = days
         for (i,weekDay) in days.enumerated(){
@@ -580,7 +826,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         let timesheet = Timesheet().addEventsForDay(date:nil)
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.tag].timesheet?.append(timesheet)
         
-        self.tblEvents.reloadData()
+//        self.tblEvents.reloadData()
+        self.setupTableViewHeightWithReload()
         self.collectionViewEvents.reloadData()
         selectedWeekIndex = sender.tag
     }
@@ -589,21 +836,21 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
         let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
-        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
+//        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
         cell.weekDaysPopupView.isHidden = false
         cell.isChangeDate = true
 
-        item.weekDaysPopupView.isHidden = false
-        item.isChangeDate = true
+//        item.weekDaysPopupView.isHidden = false
+//        item.isChangeDate = true
     }
     @objc func moreOptionClicked(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
         let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
-        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
+//        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
        // cell.mainView.isHidden = true
         cell.addshiftMainView.isHidden = false
-        item.addshiftMainView.isHidden = false
+//        item.addshiftMainView.isHidden = false
     }
     
     @objc func addShiftClicked(sender:MyButton) {
@@ -611,39 +858,42 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
         
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
-        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
+//        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
       //  cell.mainView.isHidden = false
         cell.addshiftMainView.isHidden = true
-        item.addshiftMainView.isHidden = true
+//        item.addshiftMainView.isHidden = true
         
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].addShiftForDay()
-        self.tblEvents.reloadRows(at:[indexpath], with: .none)
-        collectionViewEvents.reloadItems(at: [indexpathCVCell])
+//        self.tblEvents.reloadRows(at:[indexpath], with: .none)
+        self.setupTableViewHeightWithReload()
+//        collectionViewEvents.reloadItems(at: [indexpathCVCell])
     }
     @objc func addBreakClicked(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
         let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
-        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
+//        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
       //  cell.mainView.isHidden = false
         cell.addshiftMainView.isHidden = true
-        item.addshiftMainView.isHidden = true
+//        item.addshiftMainView.isHidden = true
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].addBreaksForDay()
        
-        self.tblEvents.reloadRows(at:[indexpath], with: .none)
-        collectionViewEvents.reloadItems(at: [indexpathCVCell])
+//        self.tblEvents.reloadRows(at:[indexpath], with: .none)
+        self.setupTableViewHeightWithReload()
+//        collectionViewEvents.reloadItems(at: [indexpathCVCell])
     }
     @objc func deleteSheetClicked(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
         let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
         let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
-        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
+//        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
         cell.addshiftMainView.isHidden = true
-        item.addshiftMainView.isHidden = true
+//        item.addshiftMainView.isHidden = true
         self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?.remove(at:sender.timeSheetIndex)
        
-        self.tblEvents.reloadData()
-        collectionViewEvents.reloadData()
+//        self.tblEvents.reloadData()
+        self.setupTableViewHeightWithReload()
+//        collectionViewEvents.reloadData()
     }
     @objc func addShiftMainViewBack(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
@@ -652,35 +902,48 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         cell.addshiftMainView.isHidden = true
         
         let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
-        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
-        item.addshiftMainView.isHidden = true
+//        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
+//        item.addshiftMainView.isHidden = true
     }
+    
+    @objc func addShiftMainViewCancel(sender:MyButton) {
+        let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
+        let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
+
+        cell.addshiftMainView.isHidden = true
+        
+        let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
+//        let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as! TimeReportCVCell
+//        item.addshiftMainView.isHidden = true
+    }
+    
     @objc func selectWeekdayViewBack(sender:MyButton) {
         let indexpath = IndexPath(row:sender.timeSheetIndex + 1, section: sender.weekIndex)
         if let cell = tblEvents.cellForRow(at: indexpath) as? TimeReportCell{
             cell.weekDaysPopupView.isHidden = true
             if cell.isChangeDate == false{
-                self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.remove(at:sender.timeSheetIndex)
-                
+//                self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.remove(at:sender.timeSheetIndex)
+                self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?.remove(at:sender.timeSheetIndex)
             }
-            self.tblEvents.reloadData()
+//            self.tblEvents.reloadData()
+            self.setupTableViewHeightWithReload()
         }
       
         
         
         let indexpathCVCell = IndexPath(item: sender.timeSheetIndex + 1, section: sender.weekIndex)
-        if let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as? TimeReportCVCell{
-            item.weekDaysPopupView.isHidden = true
-            
-           
-            
-            if item.isChangeDate == false{
-                self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.remove(at:sender.timeSheetIndex)
-            }
-            
-          
-            collectionViewEvents.reloadData()
-        }
+//        if let item = collectionViewEvents.cellForItem(at: indexpathCVCell) as? TimeReportCVCell{
+//            item.weekDaysPopupView.isHidden = true
+//
+//
+//
+//            if item.isChangeDate == false{
+//                self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?.remove(at:sender.timeSheetIndex)
+//            }
+//
+//
+//            collectionViewEvents.reloadData()
+//        }
        
        
     }
@@ -698,7 +961,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                 self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events = events
                 print(self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex].events ?? [Events]())
                 cell.weekDaysPopupView.isHidden = true
-                self.tblEvents.reloadRows(at: [indexpath], with: .none)
+//                self.tblEvents.reloadRows(at: [indexpath], with: .none)
+                self.setupTableViewHeightWithReload()
                 return
             }
         }
@@ -714,15 +978,54 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         }
      
         let timesheet = Timesheet().addEventsForDay(date: weekDates[sender.tag - 1])
-        self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?[sender.timeSheetIndex] = timesheet
-    
-        self.tblEvents.reloadData()
-        self.collectionViewEvents.reloadData()
+//        self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet?[sender.timeSheetIndex] = timesheet
+        self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.weekIndex].timesheet?[sender.timeSheetIndex] = timesheet
+
+//        self.tblEvents.reloadData()
+        self.setupTableViewHeightWithReload()
+//        self.collectionViewEvents.reloadData()
         self.weekDaysPopupView.isHidden = true
        
     }
     @IBAction func editTooltipOkClicked(){
         self.editTooltipView.isHidden = true
+    }
+    
+    //SelectionButtons
+    @IBAction func btnBackProfileSelectionTapped(_ sender: Any) {
+        if employeeProfileSelectionView.isHidden == false{
+            self.popVC()
+        }
+        else{
+            editView.isHidden =  true
+            employeeProfileSelectionView.isHidden = false
+            userinformationView.isHidden = true
+            timereportView.isHidden = true
+        }
+        
+    }
+    
+    @IBAction func btnUserInfoTapped(_ sender: Any) {
+        editView.isHidden = false
+        employeeProfileSelectionView.isHidden = true
+        userinformationView.isHidden = false
+        timereportView.isHidden = true
+    }
+    
+    @IBAction func btnTimesheetTapped(_ sender: Any) {
+        editView.isHidden = false
+        employeeProfileSelectionView.isHidden = true
+        userinformationView.isHidden = true
+        timereportView.isHidden = false
+    }
+    
+    @IBAction func btnDeleteEmployeeTapped(_ sender: Any) {
+        DeleteEmployeePopupVC.showDeleteEmployeePopup(prevVC: self) { isDeleteTapped in
+            if isDeleteTapped{
+                //Call Delete API
+                self.deleteEmployeeAPI()
+            }
+        }
     }
 }
 
@@ -732,16 +1035,100 @@ extension EmployeeTimeReportVC:UITextFieldDelegate{
             editTooltipView.isHidden = false
             textField.resignFirstResponder()
         }
+        else{
+            if textField == txtPassword{
+                self.updatePasswordValidation(str:textField.text!)
+                self.passwordValidationView.isHidden = false
+            }
+        }
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == txtPassword{
+            self.updatePasswordValidation(str:textField.text!)
+            self.passwordValidationView.isHidden = true
+        }
         textField.resignFirstResponder()
+        
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if editView.alpha == 1.0{
             //show tooltip
             return false
         }
+        if textField == txtPassword{
+            
+            if let char = string.cString(using: String.Encoding.utf8) {
+                   let isBackSpace = strcmp(char, "\\b")
+                   if (isBackSpace == -92) {
+                       print("Backspace was pressed")
+                       self.updatePasswordValidation(str:String(textField.text?.dropLast() ?? ""))
+                   }else{
+                       self.updatePasswordValidation(str:textField.text! + string)
+                   }
+            }else{
+                self.updatePasswordValidation(str:textField.text! + string)
+            }
+           
+        }
         return true
+        
+    }
+    
+    func updatePasswordValidation(str:String){
+            if str == ""{
+                imgvwminimumCharacter.image = UIImage.unselectedImage
+                imgvwCapitalLetter.image = UIImage.unselectedImage
+                imgvwLowercaseLetter.image = UIImage.unselectedImage
+                imgvwNumber.image = UIImage.unselectedImage
+                imgvwSpecialCharacter.image = UIImage.unselectedImage
+            }
+         
+            if str.count >= 8{
+                imgvwminimumCharacter.image = UIImage.selectedImage
+                isPasswordValidTotalCount = true
+            }else{
+                imgvwminimumCharacter.image = UIImage.unselectedImage
+                isPasswordValidTotalCount = false
+            }
+           let capitalLetterRegEx  = ".*[A-Z]+.*"
+           let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
+            if texttest.evaluate(with: str){
+                imgvwCapitalLetter.image = UIImage.selectedImage
+                isPasswordValidCapitalChar = true
+            }else{
+                imgvwCapitalLetter.image = UIImage.unselectedImage
+                isPasswordValidCapitalChar = false
+            }
+          
+            let lowercaseLetterRegEx  = ".*[a-z]+.*"
+            let texttest3 = NSPredicate(format:"SELF MATCHES %@", lowercaseLetterRegEx)
+             if texttest3.evaluate(with: str){
+                 imgvwLowercaseLetter.image = UIImage.selectedImage
+                 isPasswordValidSmallChar = true
+             }else{
+                 imgvwLowercaseLetter.image = UIImage.unselectedImage
+                 isPasswordValidSmallChar = false
+             }
+
+           let numberRegEx  = ".*[0-9]+.*"
+           let texttest1 = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
+            if texttest1.evaluate(with: str){
+                imgvwNumber.image = UIImage.selectedImage
+                isPasswordValidNumberChar = true
+            }else{
+                imgvwNumber.image = UIImage.unselectedImage
+                isPasswordValidNumberChar = false
+            }
+
+           let specialCharacterRegEx  = ".*[!&^%$#@()/_*+-]+.*"
+           let texttest2 = NSPredicate(format:"SELF MATCHES %@", specialCharacterRegEx)
+            if texttest2.evaluate(with: str){
+                imgvwSpecialCharacter.image = UIImage.selectedImage
+                isPasswordValidSpecialChar = true
+            }else{
+                imgvwSpecialCharacter.image = UIImage.unselectedImage
+                isPasswordValidSpecialChar = false
+            }
         
     }
     
@@ -780,9 +1167,10 @@ extension EmployeeTimeReportVC: UICollectionViewDelegate,UICollectionViewDataSou
             let cell: TimeReportCVHeaderCell = collectionViewEvents.dequeueReusableCell(for: indexPath)
             let weekFrom = "\(week?.weekFrom ?? "")".toDate()
             let weekTo = "\(week?.weekTo ?? "")".toDate()
+            let weekToBefore = Calendar.current.date(byAdding: .day, value: -1, to: weekTo)!
             let startweek =  weekFrom.getString(formatter:DateTimeFormat.MMM_dd_yyyy.rawValue)
-            let endweek =  weekTo.getString(formatter:DateTimeFormat.MMM_dd_yyyy.rawValue)
-            cell.timeLabel.text = "\(startweek) - \(endweek)"
+            let endweek =  weekToBefore.getString(formatter:DateTimeFormat.MMM_dd_yyyy.rawValue)
+                cell.timeLabel.text = "\(startweek) - \(endweek)"
             
             cell.overTimeLabel.text = "0.00 hrs"
             let tuple = self.calculateTotalTimeForWeek(sectionIndex:indexPath.section)
@@ -812,13 +1200,15 @@ extension EmployeeTimeReportVC: UICollectionViewDelegate,UICollectionViewDataSou
                 cell.regularHoursLabel.text =  "\(regulartuple.hours)." + String(format: "%02d hrs", ((regulartuple.leftMinutes * 100)/60 ))
                
             }
-            cell.btnAddTimesheet.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
-            cell.btnAddTimesheet.tag = indexPath.section
-            if merchantData?.merchantWeeklyOvertimeEnabled ?? "" == "Y"{
-                cell.weeklyOverTimeView.isHidden = false
-            }else{
-                cell.weeklyOverTimeView.isHidden = true
-            }
+//            cell.btnAddTimesheet.tag = indexPath.section
+//            cell.btnAddTimesheet.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
+            
+            cell.weeklyOverTimeView.isHidden = true
+//            if merchantData?.merchantWeeklyOvertimeEnabled ?? "" == "Y"{
+//                cell.weeklyOverTimeView.isHidden = false
+//            }else{
+//                cell.weeklyOverTimeView.isHidden = true
+//            }
            
            
             return cell
@@ -947,15 +1337,15 @@ extension EmployeeTimeReportVC: UICollectionViewDelegate,UICollectionViewDataSou
             cell.btnBack.timeSheetIndex = indexPath.row - 1
             cell.btnBack.weekIndex = indexPath.section
             
-            cell.btncloseWeekday.addTarget(self, action:#selector(self.selectWeekdayViewBack(sender:)), for: .touchUpInside)
-            cell.btncloseWeekday.tag = indexPath.section
-            cell.btncloseWeekday.timeSheetIndex = indexPath.row - 1
-            cell.btncloseWeekday.weekIndex = indexPath.section
-            
-            cell.btnBackWeekday.addTarget(self, action:#selector(self.selectWeekdayViewBack(sender:)), for: .touchUpInside)
-            cell.btnBackWeekday.tag = indexPath.section
-            cell.btnBackWeekday.timeSheetIndex = indexPath.row - 1
-            cell.btnBackWeekday.weekIndex = indexPath.section
+//            cell.btncloseWeekday.addTarget(self, action:#selector(self.selectWeekdayViewBack(sender:)), for: .touchUpInside)
+//            cell.btncloseWeekday.tag = indexPath.section
+//            cell.btncloseWeekday.timeSheetIndex = indexPath.row - 1
+//            cell.btncloseWeekday.weekIndex = indexPath.section
+//
+//            cell.btnBackWeekday.addTarget(self, action:#selector(self.selectWeekdayViewBack(sender:)), for: .touchUpInside)
+//            cell.btnBackWeekday.tag = indexPath.section
+//            cell.btnBackWeekday.timeSheetIndex = indexPath.row - 1
+//            cell.btnBackWeekday.weekIndex = indexPath.section
             
             
             
@@ -1048,8 +1438,9 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 let cell: TimeReportHeaderCell = tableView.dequeueReusableCell(for: indexPath)
                 let weekFrom = "\(week?.weekFrom ?? "")".toDate()
                 let weekTo = "\(week?.weekTo ?? "")".toDate()
-                let startweek =  weekFrom.getString(formatter:DateTimeFormat.MMM_dd_yyyy.rawValue)
-                let endweek =  weekTo.getString(formatter:DateTimeFormat.MMM_dd_yyyy.rawValue)
+                let weekToBefore = Calendar.current.date(byAdding: .day, value: -1, to: weekTo)!
+                let startweek =  weekFrom.getString(formatter:DateTimeFormat.MMMM_dd_yyyy.rawValue)
+                let endweek =  weekToBefore.getString(formatter:DateTimeFormat.MMMM_dd_yyyy.rawValue)
                 cell.timeLabel.text = "\(startweek) - \(endweek)"
                 
                 cell.overTimeLabel.text = "0.00 hrs"
@@ -1080,14 +1471,21 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     cell.regularHoursLabel.text =  "\(regulartuple.hours)." + String(format: "%02d hrs", ((regulartuple.leftMinutes * 100)/60 ))
                    
                 }
-                cell.btnAddTimesheet.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
                 cell.btnAddTimesheet.tag = indexPath.section
-                if merchantData?.merchantWeeklyOvertimeEnabled ?? "" == "Y"{
-                    cell.weeklyOverTimeView.isHidden = false
-                }else{
-                    cell.weeklyOverTimeView.isHidden = true
+                cell.btnAddTimesheet.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
+                cell.weeklyOverTimeView.isHidden = true
+//                if merchantData?.merchantWeeklyOvertimeEnabled ?? "" == "Y"{
+//                    cell.weeklyOverTimeView.isHidden = false
+//                }else{
+//                    cell.weeklyOverTimeView.isHidden = true
+//                }
+                cell.showAddDayOption(needToShow: isEditMode)
+                if self.selectedPayPeriod?.payperiodStatus == "A" {
+                    cell.button.setTitle("APPROVED", for: .normal)
                 }
-               
+                else{
+                    cell.button.setTitle("UNAPPROVED", for: .normal)
+                }
                 cell.selectionStyle = .none
                 return cell
 
@@ -1194,6 +1592,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 cell.btnMore.addTarget(self, action:#selector(self.moreOptionClicked(sender:)), for: .touchUpInside)
                 cell.btnMore.timeSheetIndex = indexPath.row - 1
                 cell.btnMore.weekIndex = indexPath.section
+                cell.setMoreButtonStatus(needToEnable: self.isEditMode)
                 
                 cell.btnAddShift.addTarget(self, action:#selector(self.addShiftClicked(sender:)), for: .touchUpInside)
                 cell.btnAddShift.tag = indexPath.section
@@ -1215,6 +1614,11 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 cell.btnBack.timeSheetIndex = indexPath.row - 1
                 cell.btnBack.weekIndex = indexPath.section
                 
+                cell.btnCancel.addTarget(self, action:#selector(self.addShiftMainViewCancel(sender:)), for: .touchUpInside)
+                cell.btnCancel.tag = indexPath.section
+                cell.btnCancel.timeSheetIndex = indexPath.row - 1
+                cell.btnCancel.weekIndex = indexPath.section
+                
                 cell.btncloseWeekday.addTarget(self, action:#selector(self.selectWeekdayViewBack(sender:)), for: .touchUpInside)
                 cell.btncloseWeekday.tag = indexPath.section
                 cell.btncloseWeekday.timeSheetIndex = indexPath.row - 1
@@ -1231,15 +1635,25 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 let dateFormatter = DateFormatter()
 
                 dateFormatter.dateFormat = kDateGetFormat
+                dateFormatter.timeZone = TimeZone.current
                 let fromDate = dateFormatter.date(from:selectedWeek?.weekFrom ??
                                                   "") ?? Date()
                 let toDate = dateFormatter.date(from:selectedWeek?.weekTo ??
                 "") ?? Date()
+                
+                var excludeDates : [Date] = []
+                for timesheet in selectedWeek?.timesheet ?? [] {
+                    let addedDate = dateFormatter.date(from:timesheet.date ??
+                                                      "") ?? Date()
+                    excludeDates.append(addedDate)
+                }
+                
                 let dates = (Date.dates(from:fromDate, to: toDate))
-                print(dates)
-                cell.setWeekDays(days:dates)
-                self.weekDates = dates
-                cell.weekDates = dates
+                let datesWithExcluded = (Date.dates(from:fromDate, to: toDate ,excludeDates: excludeDates))
+                print("AAA:",datesWithExcluded)
+                cell.setWeekDays(days:datesWithExcluded)
+                self.weekDates = datesWithExcluded
+                cell.weekDates = datesWithExcluded
                 if timesheet?.date == ""{
                     cell.weekDaysPopupView.isHidden = false
                 }else{
@@ -1283,6 +1697,11 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
             }
        
     }
+    
+    func getPendingDaysOfWeek(){
+        
+    }
+    
     func calculateTotalTimeForWeek(sectionIndex:Int)->(hours: Int , leftMinutes: Int , totalMinutes:Int ){
       
         let week =  selectedPayPeriod?.weeks?[sectionIndex]
@@ -1371,12 +1790,14 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
         
         let time = "\(event?.timelineTime ?? "")"
       
+        let eventDate = event?.timelineDate?.toDate()
+        
         picker.datePickerMode = UIDatePicker.Mode.time
     
         let dateFormatter = DateFormatter()
       
         dateFormatter.dateFormat = kMMddYYYYhhmmss
-        picker.setDate(dateFormatter.date(from:time) ?? Date(), animated: true)
+        picker.setDate(dateFormatter.date(from:time) ?? eventDate!, animated: true)
         picker.eventIndex = sender.eventIndex
         picker.timeSheetIndex = sender.timeSheetIndex
         picker.weekIndex = sender.weekIndex
@@ -1404,50 +1825,62 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
        
     }
     func setUpdatedTimesheetData(date:Date,weekIndex:Int,timeSheetIndex:Int,eventIndex:Int){
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = kMMddYYYYhhmmss
-        print(dateFormatter.string(from: date))
-        let week = self.selectedPayPeriod?.weeks?[weekIndex]
-        let timesheet = week?.timesheet?[timeSheetIndex]
-        var event = timesheet?.events?[eventIndex]
-        print(event?.timelineValue ?? "")
-        let timeLineTime = dateFormatter.string(from: date)
-        dateFormatter.dateFormat = timeFormat
-        let timeLineValue = dateFormatter.string(from: date)
-        print(event?.toJSON() ?? "")
-       
-        self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex].timelineValue = timeLineValue
-        self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex].timelineTime = timeLineTime
-       
-        event = self.selectedPayPeriod?.weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex]
-        
-        let eventArray = self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events ?? [Events]()
-        
-        let emptyArray = eventArray.filter{$0.timelineValue == ""}
-        let filledArray = eventArray.filter{$0.timelineValue != ""}
-        let timesortedArray = filledArray.sorted { ($0.timelineValue ?? "").toFullTime().localizedStandardCompare(($1.timelineValue ?? "").toFullTime()) == .orderedAscending }
-        
-        var finalEvents:[Events] = timesortedArray
-        finalEvents.append(contentsOf:emptyArray)
-        
-        self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events = finalEvents
-        
-        self.selectedPayPeriod = self.payPeriodsData[selectedPayPeriodIndex]
-        
-        let indexpath = IndexPath(row:timeSheetIndex + 1, section: weekIndex)
-        let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
-        for subview in cell.allSubViewsOf(type:UILabel.self){
-            if subview.tag == eventIndex{
-                subview.text = event?.timelineValue
-            }
+        let cal = Calendar.gregorian
+        let order = cal.compare(Date.now, to: date, toGranularity: .minute)
+        if order == .orderedAscending{
+            self.showAlert(alertType:.validation, message: "Time cannot be in future.")
         }
-        let indexpathCell = IndexPath(row:timeSheetIndex + 1, section: weekIndex)
-        let indexpathCVCell = IndexPath(item: timeSheetIndex + 1, section: weekIndex)
-        tblEvents.reloadRows(at: [indexpathCell], with: .none)
-        collectionViewEvents.reloadItems(at: [indexpathCVCell])
-        
-        let indexpathHeader = IndexPath(row:0, section: weekIndex)
-        tblEvents.reloadRows(at: [indexpathHeader], with: .none)
+        else{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = kMMddYYYYhhmmss
+            print(dateFormatter.string(from: date))
+            let week = self.selectedPayPeriod?.weeks?[weekIndex]
+            let timesheet = week?.timesheet?[timeSheetIndex]
+            var event = timesheet?.events?[eventIndex]
+            print(event?.timelineValue ?? "")
+            let timeLineTime = dateFormatter.string(from: date)
+            dateFormatter.dateFormat = timeFormat
+            let timeLineValue = dateFormatter.string(from: date)
+            print(event?.toJSON() ?? "")
+            
+            self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex].timelineValue = timeLineValue
+            self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex].timelineTime = timeLineTime
+            
+            event = self.selectedPayPeriod?.weeks?[weekIndex].timesheet?[timeSheetIndex].events?[eventIndex]
+            
+            let eventArray = self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events ?? [Events]()
+            
+            let emptyArray = eventArray.filter{$0.timelineValue == ""}
+            let filledArray = eventArray.filter{$0.timelineValue != ""}
+            let timesortedArray = filledArray.sorted { ($0.timelineValue ?? "").toFullTime().localizedStandardCompare(($1.timelineValue ?? "").toFullTime()) == .orderedAscending }
+            
+            var finalEvents:[Events] = timesortedArray
+            finalEvents.append(contentsOf:emptyArray)
+            
+            self.payPeriodsData[selectedPayPeriodIndex].weeks?[weekIndex].timesheet?[timeSheetIndex].events = finalEvents
+            
+            self.selectedPayPeriod = self.payPeriodsData[selectedPayPeriodIndex]
+            
+            let indexpath = IndexPath(row:timeSheetIndex + 1, section: weekIndex)
+            let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
+            for subview in cell.allSubViewsOf(type:UILabel.self){
+                if subview.tag == eventIndex{
+                    if subview.text != "Select Date"{
+                        subview.text = event?.timelineValue
+                        
+                    }
+                }
+            }
+            let indexpathCell = IndexPath(row:timeSheetIndex + 1, section: weekIndex)
+            let indexpathCVCell = IndexPath(item: timeSheetIndex + 1, section: weekIndex)
+            //        tblEvents.reloadRows(at: [indexpathCell], with: .none)
+            self.setupTableViewHeightWithReload()
+            //        collectionViewEvents.reloadItems(at: [indexpathCVCell])
+            
+            let indexpathHeader = IndexPath(row:0, section: weekIndex)
+            //        tblEvents.reloadRows(at: [indexpathHeader], with: .none)
+            self.setupTableViewHeightWithReload()
+        }
         
     }
     func timeValidation(time:String,weekIndex:Int,timeSheetIndex:Int,eventIndex:Int)->Bool{
@@ -1598,27 +2031,64 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
             currentEventType = event.timelineEvent ?? ""
             let currentEventTypeMessage = self.getEventTypeMessage(eventType: currentEventType)
             
-           
+            let currentDate =  events.last?.timelineDate?.toDate()
+            let strCurrentDate = currentDate?.toString(format: DateTimeFormat.MM_DD_YYYY.rawValue)
+                
             
-            if events.last?.timelineTime ?? "" == ""{
-                self.showAlert(alertType:.validation, message: "Please enter valid time")
-               
-                return false
-              
-            }
+//            if events.last?.timelineTime ?? "" == ""{
+//                if (strCurrentDate != nil){
+//                    //                self.showAlert(alertType:.validation, message: "Please enter valid time")
+//                    self.showAlert(alertType:.validation, message: "Please select events for date \(strCurrentDate ?? "")")
+//                }
+//                else{
+//                    self.showAlert(alertType:.validation, message: "Please select events")
+//                }
+//                return false
+//
+//            }
             if event == events.first{
                 if event.timelineEvent ?? "" != UserStatus.loggedIN.rawValue{
-                    self.showAlert(alertType:.validation, message: "First event must be Shift Start")
+                    if (strCurrentDate != nil){
+                        self.showAlert(alertType:.validation, message: "First event must be Shift Start on date : \(strCurrentDate ?? "")")
+                    }
+                    else{
+                        self.showAlert(alertType:.validation, message: "First event must be Shift Start")
+                    }
                    
                     return false
-                }
-            }else if event == events.last{
-                if event.timelineEvent ?? "" != UserStatus.loggedOut.rawValue{
-                    self.showAlert(alertType:.validation, message: "Last event must be Shift End")
-                   
-                    return false
+                }else {
+                    if event.timelineTime ?? "" == ""{
+                        if (strCurrentDate != nil){
+                            self.showAlert(alertType:.validation, message: "Please select events for date \(strCurrentDate ?? "")")
+                        }
+                        else{
+                            self.showAlert(alertType:.validation, message: "Please select events")
+                        }
+                        return false
+                    }
                 }
             }
+            
+            if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue && event.timelineTime ?? "" == ""{
+                if (strCurrentDate != nil){
+                    self.showAlert(alertType:.validation, message: "Please select events for date \(strCurrentDate ?? "")")
+                }
+                else{
+                    self.showAlert(alertType:.validation, message: "Please select events")
+                }
+                return false
+            }
+//            else if event == events.last{
+//                if event.timelineEvent ?? "" != UserStatus.loggedOut.rawValue{
+//                    if (strCurrentDate != nil){
+//                        self.showAlert(alertType:.validation, message: "Last event must be Shift End on date : \(strCurrentDate ?? "")")
+//                    }
+//                    else{
+//                        self.showAlert(alertType:.validation, message: "Last event must be Shift End")
+//                    }
+//                    return false
+//                }
+//            }
             
             if events.count > i + 1{
                 
@@ -1632,7 +2102,12 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     if nextEventType == UserStatus.loggedOut.rawValue || nextEventType == UserStatus.Inbreak.rawValue{
                        
                     }else{
-                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        if (strCurrentDate != nil){
+                            self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage) on date : \(strCurrentDate ?? "")")
+                        }
+                        else{
+                            self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                        }
                         
                         return false
                     }
@@ -1641,27 +2116,47 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     if nextEventType == UserStatus.loggedIN.rawValue{
                        
                     }else{
-                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
-                       
-                        return false
+                        if events[i + 1].timelineTime ?? "" != ""{
+                            if (strCurrentDate != nil){
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage) on date : \(strCurrentDate ?? "")")
+                            }
+                            else{
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                            }
+                            return false
+                        }
                     }
                 }else if currentEventType == UserStatus.Inbreak.rawValue{
                     let nextEventType = events[i + 1].timelineEvent ?? ""
                     if nextEventType == UserStatus.Endbreak.rawValue{
                        
                     }else{
-                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
-                       
-                        return false
+                        if events[i + 1].timelineTime ?? "" != ""{
+                            if (strCurrentDate != nil){
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage) on date : \(strCurrentDate ?? "")")
+                            }
+                            else{
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                            }
+                            
+                            return false
+                        }
                     }
                 }else if currentEventType == UserStatus.Endbreak.rawValue{
                     let nextEventType = events[i + 1].timelineEvent ?? ""
                     if nextEventType == UserStatus.loggedOut.rawValue {
                        
                     }else{
-                        self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
-                      
-                        return false
+                        if events[i + 1].timelineTime ?? "" != ""{
+                            if (strCurrentDate != nil){
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage) on date : \(strCurrentDate ?? "")")
+                            }
+                            else{
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                            }
+                            
+                            return false
+                        }
                     }
                 }
             }
@@ -1680,7 +2175,6 @@ extension EmployeeTimeReportVC:MenuItemDelegate {
         }else  if menuName == Menuname.logout{
             Defaults.shared.currentUser = nil
             Utility.setRootScreen(isShowAnimation: true)
-            logoutView.isHidden = true
         }else  if menuName == Menuname.employee{
             let vc = EmployeesVC.instantiate()
             self.pushVC(controller:vc)

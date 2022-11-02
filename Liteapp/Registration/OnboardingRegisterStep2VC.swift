@@ -12,18 +12,17 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
     var saveMerchent:SaveMerchant!
     @IBOutlet weak var txtBusinessName: UITextField!
-    @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtZipcode: UITextField!
     @IBOutlet weak var txtTimezone: UITextField!
     
     @IBOutlet weak var businessnameTextValidationView: UIView!
-    @IBOutlet weak var emailTextValidationView: UIView!
     @IBOutlet weak var zipcodeTextValidationView: UIView!
     @IBOutlet weak var timezoneextValidationView: UIView!
-   
+    @IBOutlet weak var vwGradiantContainer: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        vwGradiantContainer.setGradientBackground()
        
     }
     func checkTextValidation(){
@@ -31,11 +30,6 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
             self.businessnameTextValidationView.isHidden = false
         }else{
             self.businessnameTextValidationView.isHidden = true
-        }
-        if txtEmail.text!.count < 1{
-            self.emailTextValidationView.isHidden = false
-        }else{
-            self.emailTextValidationView.isHidden = true
         }
         if txtZipcode.text!.count < 1{
             self.zipcodeTextValidationView.isHidden = false
@@ -56,10 +50,9 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
           //  self.showAlert(alertType:.validation, message: "Please Eneter Business Name")
             return false
         }
-        if txtEmail.text!.count > 1{
-            if txtEmail.text!.isEmail == false{
-               
-                self.showAlert(alertType:.validation, message: "Please Eneter Valid Email")
+        if let bname = txtBusinessName.text, bname.count > 0{
+            if bname.hasNumbers{
+                self.showAlert(alertType:.validation, message: "Business name can only contain alphabets.")
                 return false
             }
         }
@@ -69,6 +62,11 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
            // self.showAlert(alertType:.validation, message: "Please Eneter Valid Zipcode")
             return false
         }
+        if txtZipcode.text!.count < 5{
+            self.showAlert(alertType:.validation, message: "Zipcode must be of minimum 5 characters.")
+            return false
+        }
+        
         if txtTimezone.text! == ""{
            
            // self.showAlert(alertType:.validation, message: "Please select Timezone")
@@ -80,10 +78,14 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
         
         if checkValidation(){
             saveMerchent.merchant_name = txtBusinessName.text!
-            saveMerchent.emp_work_email = txtEmail.text!
             saveMerchent.merchant_zip = txtZipcode.text!
             let timezone = txtTimezone.text!.components(separatedBy:" ")[0]
-            saveMerchent.merchant_timezone = "US/\(timezone)"
+            if timezone == "Test"{
+                saveMerchent.merchant_timezone = "Asia/Kolkata"
+            }
+            else{
+                saveMerchent.merchant_timezone = "US/\(timezone)"
+            }
             let vc = OnboardingRegisterStep3VC.instantiate()
             vc.saveMerchent = saveMerchent
             self.pushVC(controller:vc)
@@ -93,7 +95,8 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
    
     @IBAction func selectTimezoneClick(sender:UIButton){
         
-        let pickerArray = ["Atlantic Standard Time(AST)","Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)"]
+//        let pickerArray = ["Atlantic Standard Time(AST)","Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)"]
+        let pickerArray = ["Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)","Test Timezone(Don't Choose)"]
         IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField: txtTimezone, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {

@@ -10,10 +10,12 @@ import ObjectMapper
 
 class OnboardingRegisterStep5VC:BaseViewController, StoryboardSceneBased{
     
+    @IBOutlet weak var vwGradiantContainer: UIView!
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
     var saveMerchent:SaveMerchant!
     override func viewDidLoad() {
         super.viewDidLoad()
+        vwGradiantContainer.setGradientBackground()
         print(saveMerchent ?? "")
         saveMerchant()
     }

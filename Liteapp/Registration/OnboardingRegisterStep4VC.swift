@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import ObjectMapper
 enum EmployeeRange:Int{
         case employee1to4  = 1
         case employee5to19 = 2
@@ -37,12 +37,13 @@ class OnboardingRegisterStep4VC: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var btnViewRange20to99: UIButton!
     @IBOutlet weak var btnViewRange100to499: UIButton!
     @IBOutlet weak var btnViewRange500Plus: UIButton!
+    @IBOutlet weak var vwGradiantContainer: UIView!
     var saveMerchent:SaveMerchant!
     var selectedEmployeeRange:EmployeeRange = .employee1to4
     var selectedEmployees = "1 to 4"
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        vwGradiantContainer.setGradientBackground()
         btnViewRange1to4.tag = 1
         btnViewRange5to19.tag = 2
         btnViewRange20to99.tag = 3
@@ -104,8 +105,38 @@ class OnboardingRegisterStep4VC: BaseViewController, StoryboardSceneBased{
     
     @IBAction func continueClicked(sender:UIButton){
         self.saveMerchent.merchant_company_size = self.selectedEmployees
-        let vc = OnboardingRegisterStep5VC.instantiate()
-        vc.saveMerchent = saveMerchent
-        self.pushVC(controller:vc)
+        saveMerchant()
+//        let vc = OnboardingRegisterStep5VC.instantiate()
+//        vc.saveMerchent = saveMerchent
+//        self.pushVC(controller:vc)
+    }
+    
+    func saveMerchant(){
+        print(self.saveMerchent.getParam())
+        NetworkLayer.sharedNetworkLayer.postWebApiCall(apiEndPoints:APIEndPoints.saveMerchants(), param: self.saveMerchent.getParam()) { success, response, error in
+            if let res = response{
+                print(res)
+                let user = Mapper<EmployeeData>().map(JSONObject:res)
+                Defaults.shared.currentUser = user?.empData?.first
+                print(Defaults.shared.currentUser?.merchantName ?? "")
+                if let empType = Defaults.shared.currentUser?.empType{
+                    if empType == "E"{
+                        let vc = DashBoardVC.instantiate()
+                        self.pushVC(controller:vc)
+                    }else if empType == "S"{
+                        if user?.empData?.first?.merchantProfileCompleted == "Y"{
+                            let vc = DashBoardVC.instantiate()
+                            self.pushVC(controller:vc)
+                        }else{
+                            let vc = SettingsVC.instantiate()
+                            vc.setupProfile = true
+                            self.pushVC(controller:vc)
+                        }
+                    }
+                }
+            }else if let err = error{
+                print(err)
+            }
+        }
     }
 }

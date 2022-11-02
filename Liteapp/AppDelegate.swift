@@ -34,7 +34,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if let scheme = url.scheme,
+            scheme.localizedCaseInsensitiveCompare("com.lite.hr") == .orderedSame,
+            let view = url.host {
+            
+            var parameters: [String: String] = [:]
+            URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
+                parameters[$0.name] = $0.value
+            }
+            
+            print(parameters)
+        }
+        return true
+    }
+    
+    public func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
 
+        if let url = userActivity.webpageURL {
+            var view = url.lastPathComponent
+            var parameters: [String: String] = [:]
+            URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
+                parameters[$0.name] = $0.value
+            }
+            
+            print(parameters)
+        }
+        return true
+    }
 
 }
 extension AppDelegate {

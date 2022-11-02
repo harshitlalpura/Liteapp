@@ -39,7 +39,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var lblampm: UILabel!
     
     @IBOutlet weak var lblusername: UILabel!
-    @IBOutlet weak var logoutView: UIView!
+//    @IBOutlet weak var logoutView: UIView!
     
     @IBOutlet weak var clockInSuccessPopup: UIView!
     @IBOutlet weak var lbltimeClockInPopup: UILabel!
@@ -74,7 +74,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
 
         setupMenu()
         setData()
-        self.logoutView.dropShadow()
+//        self.logoutView.dropShadow()
         NotificationCenter.default.addObserver(self, selector:#selector(appMovedToForeground),name: UIApplication.willEnterForegroundNotification, object: nil)
 
     }
@@ -110,20 +110,32 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     }
     
     @IBAction func rightBarButtonClicked(sender:UIButton){
-        if logoutView.isHidden == true{
-            logoutView.isHidden = false
-        }else{
-            logoutView.isHidden = true
+//        if logoutView.isHidden == true{
+//            logoutView.isHidden = false
+//        }else{
+//            logoutView.isHidden = true
+//        }
+        PopupMenuVC.showPopupMenu(prevVC: self) { selectedItem in
+            if let menuItem = selectedItem{
+                if menuItem == .logout{
+                    print("Logout")
+                    Defaults.shared.currentUser = nil
+                    Utility.setRootScreen(isShowAnimation: true)
+                }
+                else{
+                    //Account
+                    print("Account")
+                    let vc = SettingsVC.instantiate()
+                    vc.isForAccountSettings = true
+                    self.pushVC(controller:vc)
+                    
+                }
+            }
         }
     }
-    @IBAction func logoutClicked(sender:UIButton){
-        Defaults.shared.currentUser = nil
-        Utility.setRootScreen(isShowAnimation: true)
-        logoutView.isHidden = true
-    }
     func setData(){
-        logoutView.isHidden = true
-        lblusername.text = "\(Defaults.shared.currentUser?.empFirstname ?? "") \(Defaults.shared.currentUser?.empLastname ?? "")"
+//        logoutView.isHidden = true
+        lblusername.text = Utility.getNameInitials()
         let currenttitme = Date().string(format: DateTimeFormat.h_mm.rawValue)
         lblTime.text = currenttitme
         lblampm.text = (Date().string(format: DateTimeFormat.a.rawValue)).lowercased()
@@ -137,6 +149,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
         menu = SideMenuNavigationController(rootViewController:controller)
         menu.navigationBar.isHidden = true
         menu.leftSide = true
+        menu.menuWidth = Utility.getMenuWidth()
         SideMenuManager.default.addPanGestureToPresent(toView:view)
         SideMenuManager.default.leftMenuNavigationController = menu
         
@@ -161,46 +174,62 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
                 let currenttitme = Date().string(format: DateTimeFormat.h_mm.rawValue)
                 self.lblTime.text = currenttitme
                 self.lblampm.text = (Date().string(format: DateTimeFormat.a.rawValue)).lowercased()
+                self.calanderCollectionView.reloadData()
             }else if let err = error{
                 print(err)
             }
         }
     }
     func setDashBoardData(dashBoardData:DashBoardData?){
-        switch dashBoardData?.currentStatus ?? "" {
         
-        case UserStatus.loggedOut.rawValue:
-           // imgStatus.tintColor = UIColor.Color.red
-            lblClockinStatus.text = Localizable.Clockin.clockedoutAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
+        if dashBoardData?.todayMinutes == 0{
+            // imgStatus.tintColor = UIColor.Color.red
+            imageviewClockinStatus.tintColor = UIColor.Color.red
+            lblClockinStatus.text = Localizable.Clockin.notClockedIn
             btnClockin.backgroundColor = UIColor.Color.green
-          //  btnClockin.cornerRadius = 0.0
+            //  btnClockin.cornerRadius = 0.0
             btnClockin.setTitle(Localizable.Clockin.btnCheckin, for: .normal)
-            
-        case UserStatus.loggedIN.rawValue:
-           // imgStatus.tintColor = UIColor.Color.green
-            lblClockinStatus.text = Localizable.Clockin.clockedinAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
-            btnClockin.backgroundColor = UIColor.Color.red
-          //  btnClockin.cornerRadius = btnClockin.frame.height / 2
-            btnClockin.setTitle(Localizable.Clockin.btnCheckout, for: .normal)
-            
-        case UserStatus.Inbreak.rawValue:
-           // imgStatus.tintColor = UIColor.Color.yellow
-            lblClockinStatus.text = Localizable.Clockin.btnInAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
-            btnClockin.backgroundColor = UIColor.Color.red
-            btnClockin.setTitle(Localizable.Clockin.btnCheckout, for: .normal)
-            
-            btnStartBreak.setTitle(Localizable.Clockin.btnEndreak, for: .normal)
-            
-        case UserStatus.Endbreak.rawValue:
-           // imgStatus.tintColor = UIColor.Color.green
-            lblClockinStatus.text = Localizable.Clockin.clockedinAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
-            btnClockin.backgroundColor = UIColor.Color.red
-            btnClockin.setTitle(Localizable.Clockin.btnCheckout, for: .normal)
-
-            btnStartBreak.setTitle(Localizable.Clockin.btnStartBreak, for: .normal)
-            
-        default:
-            break
+        }
+        else{
+            switch dashBoardData?.currentStatus ?? "" {
+                
+            case UserStatus.loggedOut.rawValue:
+                // imgStatus.tintColor = UIColor.Color.red
+                imageviewClockinStatus.tintColor = UIColor.Color.red
+                lblClockinStatus.text = Localizable.Clockin.clockedoutAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
+                btnClockin.backgroundColor = UIColor.Color.green
+                //  btnClockin.cornerRadius = 0.0
+                btnClockin.setTitle(Localizable.Clockin.btnCheckin, for: .normal)
+                
+            case UserStatus.loggedIN.rawValue:
+                // imgStatus.tintColor = UIColor.Color.green
+                imageviewClockinStatus.tintColor = UIColor.Color.green
+                lblClockinStatus.text = Localizable.Clockin.clockedinAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
+                btnClockin.backgroundColor = UIColor.Color.red
+                //  btnClockin.cornerRadius = btnClockin.frame.height / 2
+                btnClockin.setTitle(Localizable.Clockin.btnCheckout, for: .normal)
+                
+            case UserStatus.Inbreak.rawValue:
+                // imgStatus.tintColor = UIColor.Color.yellow
+                imageviewClockinStatus.tintColor = UIColor.Color.yellow
+                lblClockinStatus.text = Localizable.Clockin.btnInAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
+                btnClockin.backgroundColor = UIColor.Color.red
+                btnClockin.setTitle(Localizable.Clockin.btnCheckout, for: .normal)
+                
+                btnStartBreak.setTitle(Localizable.Clockin.btnEndreak, for: .normal)
+                
+            case UserStatus.Endbreak.rawValue:
+                // imgStatus.tintColor = UIColor.Color.green
+                imageviewClockinStatus.tintColor = UIColor.Color.green
+                lblClockinStatus.text = Localizable.Clockin.clockedinAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
+                btnClockin.backgroundColor = UIColor.Color.red
+                btnClockin.setTitle(Localizable.Clockin.btnCheckout, for: .normal)
+                
+                btnStartBreak.setTitle(Localizable.Clockin.btnStartBreak, for: .normal)
+                
+            default:
+                break
+            }
         }
     }
     func fetchTimeLineByDate(date:String){
@@ -216,6 +245,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
                 let timeLineData = Mapper<TimeLineData>().map(JSONObject:res)
                 print(timeLineData ?? "")
                 self.setTimeLineData(timelineData:timeLineData)
+                self.calanderCollectionView.reloadData()
             }else if let err = error{
                 print(err)
             }
@@ -319,11 +349,13 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
           
            timeReportViewNew.timeLabel.text = event.timelineValue
             
-            let totalHoursMins = (timelineData?.totalHours ?? "0.0").components(separatedBy:".")
-            let touple = self.minutesToHoursAndMinutes(Int(totalHoursMins[0]) ?? 0)
-            self.lblTotalHr.text = "\(touple.hours)"
-            self.lblTotalMin.text = "\(touple.leftMinutes)"
           }
+        let strTotalMins = NSString(format: "%.1f", timelineData?.totalHoursF ?? 0.0)
+        
+        let totalHoursMins = (strTotalMins).components(separatedBy:".")
+        let touple = self.minutesToHoursAndMinutes(Int(totalHoursMins[0]) ?? 0)
+        self.lblTotalHr.text = "\(touple.hours)"
+        self.lblTotalMin.text = "\(touple.leftMinutes)"
     }
     func minutesToHoursAndMinutes(_ minutes: Int) -> (hours: Int , leftMinutes: Int) {
         return (minutes / 60, (minutes % 60))
@@ -373,7 +405,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
       //  let date = self.itemsDate[indexPath.section][indexPath.row]
        // selectedDate = date
         selectedDate = Date()
-        lblDate.text = (selectedDate.toString(format: .custom(DateTimeFormat.MMMM_dd_yyyy.rawValue)))
+        lblDate.text = (selectedDate.toString(format: .custom(DateTimeFormat.MMM_dd_yyyy.rawValue)))
         strCurrentDate = selectedDate.string(format: DateTimeFormat.yyyy_MM_dd.rawValue)
         fetchTimeLineByDate(date: strCurrentDate)
            
@@ -385,6 +417,9 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
        
         } else if self.dashboardData?.currentStatus ?? "" == UserStatus.loggedOut.rawValue || self.dashboardData?.currentStatus ?? "" == UserStatus.Endbreak.rawValue{
             changeStatus(event_type: UserStatus.loggedIN.rawValue)
+        }
+        else{
+            self.showAlert(alertType:.validation, message: "Plese end lunch break first.")
         }
     }
     
@@ -400,6 +435,9 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
       
         } else if self.dashboardData?.currentStatus ?? "" == UserStatus.Endbreak.rawValue {
             changeStatus(event_type: UserStatus.Inbreak.rawValue)
+        }
+        else{
+            self.showAlert(alertType:.validation, message: "You have to clock in first.")
         }
     }
     @IBAction func calenderNextClick(sender:UIButton){
@@ -431,9 +469,20 @@ extension DashBoardVC:UICollectionViewDataSource, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = calanderCollectionView.dequeueReusableCell(withReuseIdentifier: CalendarCell.reuseIdentifier, for: indexPath as IndexPath) as! CalendarCell
-        cell.TitleLabel.text = self.itemsDate[indexPath.section][indexPath.row].string(format:DateTimeFormat.EEEE.rawValue)
-        cell.dateLabel.text = self.itemsDate[indexPath.section][indexPath.row].string(format:DateTimeFormat.dd.rawValue)
+        let date = self.itemsDate[indexPath.section][indexPath.row]
+        cell.TitleLabel.text = date.string(format:DateTimeFormat.EEEE.rawValue)
+        cell.dateLabel.text = date.string(format:DateTimeFormat.dd.rawValue)
         cell.dateLabel.textColor = .darkGray
+        
+        if Calendar.current.isDate(selectedDate, equalTo: date, toGranularity: .day){
+//        if selectedDate == date{
+            cell.isSelected = true
+        }
+        else{
+            cell.isSelected = false
+        }
+        cell.setCellUIForSelection()
+
         return cell
     }
     // MARK: - UICollectionViewDelegate protocol
@@ -442,7 +491,7 @@ extension DashBoardVC:UICollectionViewDataSource, UICollectionViewDelegate, UICo
         // handle tap events
         let date = self.itemsDate[indexPath.section][indexPath.row]
         selectedDate = date
-        lblDate.text = (selectedDate.toString(format: .custom(DateTimeFormat.MMMM_dd_yyyy.rawValue)))
+//        lblDate.text = (selectedDate.toString(format: .custom(DateTimeFormat.MMM_dd_yyyy.rawValue)))
         strCurrentDate = selectedDate.string(format: DateTimeFormat.yyyy_MM_dd.rawValue)
         fetchTimeLineByDate(date: strCurrentDate)
     }
@@ -462,7 +511,7 @@ extension DashBoardVC:MenuItemDelegate {
             self.removeBlurOverlay()
             Defaults.shared.currentUser = nil
             Utility.setRootScreen(isShowAnimation: true)
-            logoutView.isHidden = true
+//            logoutView.isHidden = true
           
         }else  if menuName == Menuname.employee{
             self.removeBlurOverlay()
@@ -492,10 +541,14 @@ extension DashBoardVC:MenuItemDelegate {
     }
 }
 extension UIColor{
-    static let startShiftColor = UIColor(hex:"81C469")
-    static let breakStartColor = UIColor(hex:"F1A25B")
-    static let breakEndColor = UIColor(hex:"78828D")
-    static let endShiftColor = UIColor(hex:"C46561")
+//    static let startShiftColor = UIColor(hex:"81C469")
+//    static let breakStartColor = UIColor(hex:"F1A25B")
+//    static let breakEndColor = UIColor(hex:"78828D")
+//    static let endShiftColor = UIColor(hex:"C46561")
+    static let startShiftColor = UIColor(hex:"5EA426")
+    static let breakStartColor = UIColor(hex:"F0C42F")
+    static let breakEndColor = UIColor(hex:"F0C42F")
+    static let endShiftColor = UIColor(hex:"D13024")
                                    
 }
 extension UIView {

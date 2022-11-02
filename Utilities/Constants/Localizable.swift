@@ -28,10 +28,10 @@ struct Localizable {
         static let totalHours = "Total".localized
         static let clockedout = "You are clocked out".localized
         static let clockedin  = "You are clocked in".localized
-        static  let btnCheckin = "CLOCK IN".localized
-        static  let btnCheckout = "CLOCK OUT".localized
-        static  let btnStartBreak = "START BREAK".localized
-        static  let btnEndreak = "END BREAK".localized
+        static  let btnCheckin = "Clock In".localized
+        static  let btnCheckout = "Clock Out".localized
+        static  let btnStartBreak = "Start Lunch Break".localized
+        static  let btnEndreak = "End Lunch Break".localized
         
         static  let clokcin = "You are clocked in!".localized
         static  let clokcout = "You are clocked out!".localized
@@ -43,10 +43,16 @@ struct Localizable {
         static  let shiftend = "Shift End".localized
         static  let totalHoursTimesheet = "Total Hours:".localized
         
-        static let clockedoutAt = "You are clocked out at".localized
-        static let clockedinAt = "You are clocked in at".localized
+//        static let clockedoutAt = "You are clocked out at".localized
+//        static let clockedinAt = "You are clocked in at".localized
+//
+//        static let btnInAt = "You are on break at".localized
+        static let clockedoutAt = "Out at".localized
+        static let clockedinAt = "In at".localized
+        static let notClockedIn = "Not Clocked In".localized
         
-        static let btnInAt = "You are on break at".localized
+        static let btnInAt = "Break at".localized
+        
         
         
     }

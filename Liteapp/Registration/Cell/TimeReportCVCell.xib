@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -471,10 +471,10 @@
                                 </attributedString>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sZq-vj-Gri" userLabel="Select Week Day" customClass="MyButton" customModule="Liteapp" customModuleProvider="target">
-                                <rect key="frame" x="15" y="5" width="220" height="410"/>
+                                <rect key="frame" x="0.0" y="5" width="250" height="410"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IlR-qJ-uBV">
-                                        <rect key="frame" x="0.0" y="15" width="220" height="30"/>
+                                        <rect key="frame" x="0.0" y="15" width="250" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKR-0X-1FG" customClass="MyButton" customModule="Liteapp" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="7.5" width="15" height="15"/>
@@ -488,7 +488,7 @@
                                                 </state>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQy-Fe-8Lv">
-                                                <rect key="frame" x="70.5" y="5.5" width="79.5" height="19"/>
+                                                <rect key="frame" x="85.5" y="5.5" width="79.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -504,25 +504,25 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bdx-es-jgx">
-                                        <rect key="frame" x="15" y="85" width="190" height="261"/>
+                                        <rect key="frame" x="12" y="85" width="226" height="261"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ha5-8b-Uvb">
-                                                <rect key="frame" x="0.0" y="0.0" width="190" height="33"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="226" height="33"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ct-MV-Ohy">
-                                                        <rect key="frame" x="3" y="9" width="43" height="15.5"/>
+                                                        <rect key="frame" x="15" y="9" width="43" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19/06/2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJ9-RD-KvT">
-                                                        <rect key="frame" x="117.5" y="9" width="69.5" height="15.5"/>
+                                                        <rect key="frame" x="141.5" y="9" width="69.5" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6C-yc-x4J" customClass="MyButton" customModule="Liteapp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="33"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="226" height="33"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <userDefinedRuntimeAttributes>
@@ -543,8 +543,8 @@
                                                     <constraint firstAttribute="bottom" secondItem="S6C-yc-x4J" secondAttribute="bottom" id="4CL-YW-xm9"/>
                                                     <constraint firstItem="S6C-yc-x4J" firstAttribute="leading" secondItem="ha5-8b-Uvb" secondAttribute="leading" id="7vW-yg-gsG"/>
                                                     <constraint firstAttribute="trailing" secondItem="S6C-yc-x4J" secondAttribute="trailing" id="9eT-ne-Dru"/>
-                                                    <constraint firstAttribute="trailing" secondItem="NJ9-RD-KvT" secondAttribute="trailing" constant="3" id="ccl-k9-gVY"/>
-                                                    <constraint firstItem="0ct-MV-Ohy" firstAttribute="leading" secondItem="ha5-8b-Uvb" secondAttribute="leading" constant="3" id="eXf-mC-eaJ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="NJ9-RD-KvT" secondAttribute="trailing" constant="15" id="ccl-k9-gVY"/>
+                                                    <constraint firstItem="0ct-MV-Ohy" firstAttribute="leading" secondItem="ha5-8b-Uvb" secondAttribute="leading" constant="15" id="eXf-mC-eaJ"/>
                                                     <constraint firstItem="0ct-MV-Ohy" firstAttribute="centerY" secondItem="ha5-8b-Uvb" secondAttribute="centerY" id="fS8-YZ-a37"/>
                                                     <constraint firstItem="S6C-yc-x4J" firstAttribute="top" secondItem="ha5-8b-Uvb" secondAttribute="top" id="h3U-Nd-GmS"/>
                                                     <constraint firstAttribute="height" constant="33" id="plC-Vz-65V"/>
@@ -563,22 +563,22 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hke-xP-CAS">
-                                                <rect key="frame" x="0.0" y="38" width="190" height="33"/>
+                                                <rect key="frame" x="0.0" y="38" width="226" height="33"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G66-e8-oOc">
-                                                        <rect key="frame" x="3" y="12" width="43" height="15.5"/>
+                                                        <rect key="frame" x="15" y="12" width="43" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19/06/2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4O-2T-4Ot">
-                                                        <rect key="frame" x="119.5" y="9" width="69.5" height="15.5"/>
+                                                        <rect key="frame" x="141.5" y="9" width="69.5" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="58K-87-rIf" customClass="MyButton" customModule="Liteapp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="33"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="226" height="33"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <userDefinedRuntimeAttributes>
@@ -598,9 +598,9 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="33" id="Ezz-nT-VUg"/>
                                                     <constraint firstItem="58K-87-rIf" firstAttribute="top" secondItem="Hke-xP-CAS" secondAttribute="top" id="J5S-gi-w27"/>
-                                                    <constraint firstAttribute="trailing" secondItem="F4O-2T-4Ot" secondAttribute="trailing" constant="1" id="Oeo-jL-zvI"/>
+                                                    <constraint firstAttribute="trailing" secondItem="F4O-2T-4Ot" secondAttribute="trailing" constant="15" id="Oeo-jL-zvI"/>
                                                     <constraint firstAttribute="trailing" secondItem="58K-87-rIf" secondAttribute="trailing" id="Uq8-x6-FSq"/>
-                                                    <constraint firstItem="G66-e8-oOc" firstAttribute="leading" secondItem="Hke-xP-CAS" secondAttribute="leading" constant="3" id="br8-8p-lvQ"/>
+                                                    <constraint firstItem="G66-e8-oOc" firstAttribute="leading" secondItem="Hke-xP-CAS" secondAttribute="leading" constant="15" id="br8-8p-lvQ"/>
                                                     <constraint firstAttribute="bottom" secondItem="58K-87-rIf" secondAttribute="bottom" id="evm-SA-KMb"/>
                                                     <constraint firstItem="G66-e8-oOc" firstAttribute="centerY" secondItem="Hke-xP-CAS" secondAttribute="centerY" constant="3" id="iPU-Pg-fHf"/>
                                                     <constraint firstItem="F4O-2T-4Ot" firstAttribute="centerY" secondItem="Hke-xP-CAS" secondAttribute="centerY" id="ncN-1s-ewI"/>
@@ -619,22 +619,22 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LxE-A7-QeJ">
-                                                <rect key="frame" x="0.0" y="76" width="190" height="33"/>
+                                                <rect key="frame" x="0.0" y="76" width="226" height="33"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kDM-oW-OcM">
-                                                        <rect key="frame" x="3" y="9" width="43" height="15.5"/>
+                                                        <rect key="frame" x="15" y="9" width="43" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19/06/2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SjH-b5-9H1">
-                                                        <rect key="frame" x="117.5" y="9" width="69.5" height="15.5"/>
+                                                        <rect key="frame" x="141.5" y="9" width="69.5" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVz-B2-U3l" customClass="MyButton" customModule="Liteapp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="33"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="226" height="33"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <userDefinedRuntimeAttributes>
@@ -654,13 +654,13 @@
                                                 <constraints>
                                                     <constraint firstItem="nVz-B2-U3l" firstAttribute="top" secondItem="LxE-A7-QeJ" secondAttribute="top" id="61u-3O-cQn"/>
                                                     <constraint firstItem="nVz-B2-U3l" firstAttribute="leading" secondItem="LxE-A7-QeJ" secondAttribute="leading" id="FJ3-k1-fL9"/>
-                                                    <constraint firstAttribute="trailing" secondItem="SjH-b5-9H1" secondAttribute="trailing" constant="3" id="NaU-Gr-Wid"/>
+                                                    <constraint firstAttribute="trailing" secondItem="SjH-b5-9H1" secondAttribute="trailing" constant="15" id="NaU-Gr-Wid"/>
                                                     <constraint firstItem="kDM-oW-OcM" firstAttribute="centerY" secondItem="LxE-A7-QeJ" secondAttribute="centerY" id="Oda-2L-bVz"/>
                                                     <constraint firstAttribute="bottom" secondItem="nVz-B2-U3l" secondAttribute="bottom" id="fUA-Pt-SEg"/>
                                                     <constraint firstAttribute="height" constant="33" id="mCu-1L-ElL"/>
                                                     <constraint firstItem="SjH-b5-9H1" firstAttribute="centerY" secondItem="LxE-A7-QeJ" secondAttribute="centerY" id="n7U-AO-vd7"/>
                                                     <constraint firstAttribute="trailing" secondItem="nVz-B2-U3l" secondAttribute="trailing" id="pHb-Gj-RmY"/>
-                                                    <constraint firstItem="kDM-oW-OcM" firstAttribute="leading" secondItem="LxE-A7-QeJ" secondAttribute="leading" constant="3" id="zsA-hP-a4s"/>
+                                                    <constraint firstItem="kDM-oW-OcM" firstAttribute="leading" secondItem="LxE-A7-QeJ" secondAttribute="leading" constant="15" id="zsA-hP-a4s"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -675,22 +675,22 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="peL-ng-854">
-                                                <rect key="frame" x="0.0" y="114" width="190" height="33"/>
+                                                <rect key="frame" x="0.0" y="114" width="226" height="33"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAA-yz-bJY">
-                                                        <rect key="frame" x="3" y="9" width="43" height="15.5"/>
+                                                        <rect key="frame" x="15" y="9" width="43" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19/06/2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iok-pW-SxZ">
-                                                        <rect key="frame" x="117.5" y="9" width="69.5" height="15.5"/>
+                                                        <rect key="frame" x="141.5" y="9" width="69.5" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liH-Yf-OpM" customClass="MyButton" customModule="Liteapp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="33"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="226" height="33"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <userDefinedRuntimeAttributes>
@@ -713,10 +713,10 @@
                                                     <constraint firstItem="iok-pW-SxZ" firstAttribute="centerY" secondItem="peL-ng-854" secondAttribute="centerY" id="OTi-Fo-OQt"/>
                                                     <constraint firstAttribute="trailing" secondItem="liH-Yf-OpM" secondAttribute="trailing" id="SsV-ae-CqD"/>
                                                     <constraint firstAttribute="height" constant="33" id="TEO-oY-1fJ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="iok-pW-SxZ" secondAttribute="trailing" constant="3" id="UqJ-hz-vjh"/>
+                                                    <constraint firstAttribute="trailing" secondItem="iok-pW-SxZ" secondAttribute="trailing" constant="15" id="UqJ-hz-vjh"/>
                                                     <constraint firstItem="cAA-yz-bJY" firstAttribute="centerY" secondItem="peL-ng-854" secondAttribute="centerY" id="XR6-AT-v4B"/>
                                                     <constraint firstAttribute="bottom" secondItem="liH-Yf-OpM" secondAttribute="bottom" id="ZkD-aj-ing"/>
-                                                    <constraint firstItem="cAA-yz-bJY" firstAttribute="leading" secondItem="peL-ng-854" secondAttribute="leading" constant="3" id="vVT-ds-3bB"/>
+                                                    <constraint firstItem="cAA-yz-bJY" firstAttribute="leading" secondItem="peL-ng-854" secondAttribute="leading" constant="15" id="vVT-ds-3bB"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -731,22 +731,22 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tkg-Yj-Kbj">
-                                                <rect key="frame" x="0.0" y="152" width="190" height="33"/>
+                                                <rect key="frame" x="0.0" y="152" width="226" height="33"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ZR-4h-fOn">
-                                                        <rect key="frame" x="3" y="9" width="43" height="15.5"/>
+                                                        <rect key="frame" x="15" y="9" width="43" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19/06/2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wmb-q6-Xst">
-                                                        <rect key="frame" x="117.5" y="9" width="69.5" height="15.5"/>
+                                                        <rect key="frame" x="141.5" y="9" width="69.5" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgU-MJ-0RJ" customClass="MyButton" customModule="Liteapp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="33"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="226" height="33"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <userDefinedRuntimeAttributes>
@@ -769,9 +769,9 @@
                                                     <constraint firstItem="wmb-q6-Xst" firstAttribute="centerY" secondItem="tkg-Yj-Kbj" secondAttribute="centerY" id="HYy-b8-kOi"/>
                                                     <constraint firstAttribute="bottom" secondItem="RgU-MJ-0RJ" secondAttribute="bottom" id="LvO-as-hkS"/>
                                                     <constraint firstItem="RgU-MJ-0RJ" firstAttribute="leading" secondItem="tkg-Yj-Kbj" secondAttribute="leading" id="Uji-9v-pyZ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="wmb-q6-Xst" secondAttribute="trailing" constant="3" id="gTb-lK-FgQ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="wmb-q6-Xst" secondAttribute="trailing" constant="15" id="gTb-lK-FgQ"/>
                                                     <constraint firstAttribute="trailing" secondItem="RgU-MJ-0RJ" secondAttribute="trailing" id="rOh-a5-Xc8"/>
-                                                    <constraint firstItem="6ZR-4h-fOn" firstAttribute="leading" secondItem="tkg-Yj-Kbj" secondAttribute="leading" constant="3" id="rTz-4i-Hhi"/>
+                                                    <constraint firstItem="6ZR-4h-fOn" firstAttribute="leading" secondItem="tkg-Yj-Kbj" secondAttribute="leading" constant="15" id="rTz-4i-Hhi"/>
                                                     <constraint firstAttribute="height" constant="33" id="sE4-eh-l9B"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -787,22 +787,22 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2WA-st-aP5">
-                                                <rect key="frame" x="0.0" y="190" width="190" height="33"/>
+                                                <rect key="frame" x="0.0" y="190" width="226" height="33"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLC-pL-fYi">
-                                                        <rect key="frame" x="3" y="9" width="43" height="15.5"/>
+                                                        <rect key="frame" x="15" y="9" width="43" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19/06/2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cb4-qL-NUP">
-                                                        <rect key="frame" x="117.5" y="9" width="69.5" height="15.5"/>
+                                                        <rect key="frame" x="141.5" y="9" width="69.5" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zd9-4y-f5Q" customClass="MyButton" customModule="Liteapp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="33"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="226" height="33"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <userDefinedRuntimeAttributes>
@@ -821,14 +821,14 @@
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="Zd9-4y-f5Q" secondAttribute="bottom" id="A9p-3c-Jg0"/>
-                                                    <constraint firstItem="aLC-pL-fYi" firstAttribute="leading" secondItem="2WA-st-aP5" secondAttribute="leading" constant="3" id="ENE-8U-7X5"/>
+                                                    <constraint firstItem="aLC-pL-fYi" firstAttribute="leading" secondItem="2WA-st-aP5" secondAttribute="leading" constant="15" id="ENE-8U-7X5"/>
                                                     <constraint firstItem="Zd9-4y-f5Q" firstAttribute="leading" secondItem="2WA-st-aP5" secondAttribute="leading" id="NxY-Zl-Pp5"/>
                                                     <constraint firstAttribute="height" constant="33" id="elz-le-2wt"/>
                                                     <constraint firstItem="Zd9-4y-f5Q" firstAttribute="top" secondItem="2WA-st-aP5" secondAttribute="top" id="iTW-QG-VgP"/>
                                                     <constraint firstItem="aLC-pL-fYi" firstAttribute="centerY" secondItem="2WA-st-aP5" secondAttribute="centerY" id="jiu-kM-ng1"/>
                                                     <constraint firstItem="Cb4-qL-NUP" firstAttribute="centerY" secondItem="2WA-st-aP5" secondAttribute="centerY" id="jwJ-3d-uAe"/>
                                                     <constraint firstAttribute="trailing" secondItem="Zd9-4y-f5Q" secondAttribute="trailing" id="rYg-6D-i3x"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Cb4-qL-NUP" secondAttribute="trailing" constant="3" id="vGA-HM-NSD"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Cb4-qL-NUP" secondAttribute="trailing" constant="15" id="vGA-HM-NSD"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -843,22 +843,22 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xqs-Xg-JRN">
-                                                <rect key="frame" x="0.0" y="228" width="190" height="33"/>
+                                                <rect key="frame" x="0.0" y="228" width="226" height="33"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfH-7K-WEj">
-                                                        <rect key="frame" x="3" y="9" width="43" height="15.5"/>
+                                                        <rect key="frame" x="15" y="9" width="43" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19/06/2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fc-qK-BH8">
-                                                        <rect key="frame" x="117.5" y="9" width="69.5" height="15.5"/>
+                                                        <rect key="frame" x="141.5" y="9" width="69.5" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jaE-id-Yrb" customClass="MyButton" customModule="Liteapp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="33"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="226" height="33"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <userDefinedRuntimeAttributes>
@@ -878,10 +878,10 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="33" id="8Gn-yX-cuP"/>
                                                     <constraint firstItem="jaE-id-Yrb" firstAttribute="top" secondItem="Xqs-Xg-JRN" secondAttribute="top" id="9cC-Au-4n9"/>
-                                                    <constraint firstItem="OfH-7K-WEj" firstAttribute="leading" secondItem="Xqs-Xg-JRN" secondAttribute="leading" constant="3" id="E1x-OB-4xC"/>
+                                                    <constraint firstItem="OfH-7K-WEj" firstAttribute="leading" secondItem="Xqs-Xg-JRN" secondAttribute="leading" constant="15" id="E1x-OB-4xC"/>
                                                     <constraint firstItem="OfH-7K-WEj" firstAttribute="centerY" secondItem="Xqs-Xg-JRN" secondAttribute="centerY" id="Srr-tS-2fO"/>
                                                     <constraint firstItem="jaE-id-Yrb" firstAttribute="leading" secondItem="Xqs-Xg-JRN" secondAttribute="leading" id="TGa-JN-RQn"/>
-                                                    <constraint firstAttribute="trailing" secondItem="7fc-qK-BH8" secondAttribute="trailing" constant="3" id="W3e-st-YU1"/>
+                                                    <constraint firstAttribute="trailing" secondItem="7fc-qK-BH8" secondAttribute="trailing" constant="15" id="W3e-st-YU1"/>
                                                     <constraint firstAttribute="trailing" secondItem="jaE-id-Yrb" secondAttribute="trailing" id="eVo-E1-ee1"/>
                                                     <constraint firstItem="7fc-qK-BH8" firstAttribute="centerY" secondItem="Xqs-Xg-JRN" secondAttribute="centerY" id="pPF-Cu-vHm"/>
                                                     <constraint firstAttribute="bottom" secondItem="jaE-id-Yrb" secondAttribute="bottom" id="vWA-IC-1dp"/>
@@ -901,7 +901,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMH-cT-wEh" customClass="MyButton" customModule="Liteapp" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="370" width="190" height="30"/>
+                                        <rect key="frame" x="12" y="370" width="226" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Oib-fJ-Vfl"/>
                                         </constraints>
@@ -923,10 +923,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="IlR-qJ-uBV" firstAttribute="top" secondItem="sZq-vj-Gri" secondAttribute="top" constant="15" id="9mb-4v-45j"/>
-                                    <constraint firstAttribute="trailing" secondItem="bdx-es-jgx" secondAttribute="trailing" constant="15" id="FiC-FM-hY4"/>
+                                    <constraint firstAttribute="trailing" secondItem="bdx-es-jgx" secondAttribute="trailing" constant="12" id="FiC-FM-hY4"/>
                                     <constraint firstItem="bdx-es-jgx" firstAttribute="top" secondItem="IlR-qJ-uBV" secondAttribute="bottom" constant="40" id="JBB-9A-OJU"/>
                                     <constraint firstAttribute="height" constant="420" id="JcO-7P-bMN"/>
-                                    <constraint firstItem="bdx-es-jgx" firstAttribute="leading" secondItem="sZq-vj-Gri" secondAttribute="leading" constant="15" id="RW5-9D-Vfs"/>
+                                    <constraint firstItem="bdx-es-jgx" firstAttribute="leading" secondItem="sZq-vj-Gri" secondAttribute="leading" constant="12" id="RW5-9D-Vfs"/>
                                     <constraint firstAttribute="trailing" secondItem="IlR-qJ-uBV" secondAttribute="trailing" id="Rf7-IS-opX"/>
                                     <constraint firstAttribute="bottom" secondItem="MMH-cT-wEh" secondAttribute="bottom" constant="10" id="c5L-we-qaP"/>
                                     <constraint firstItem="IlR-qJ-uBV" firstAttribute="centerX" secondItem="sZq-vj-Gri" secondAttribute="centerX" id="fUI-Wn-4hh"/>
@@ -965,9 +965,9 @@
                             <constraint firstItem="vJQ-Z7-xhE" firstAttribute="leading" secondItem="NZN-kc-tGf" secondAttribute="leading" constant="20" id="X3o-BR-1zV"/>
                             <constraint firstItem="GDJ-Ws-Atu" firstAttribute="centerX" secondItem="NZN-kc-tGf" secondAttribute="centerX" id="XIT-AD-VFU"/>
                             <constraint firstItem="Brj-oY-lyZ" firstAttribute="top" secondItem="vJQ-Z7-xhE" secondAttribute="bottom" constant="20" id="Z4L-ET-hsm"/>
-                            <constraint firstAttribute="trailing" secondItem="sZq-vj-Gri" secondAttribute="trailing" constant="15" id="ZtM-Ch-TBn"/>
+                            <constraint firstAttribute="trailing" secondItem="sZq-vj-Gri" secondAttribute="trailing" id="ZtM-Ch-TBn"/>
                             <constraint firstAttribute="trailing" secondItem="SXf-nu-DPB" secondAttribute="trailing" constant="10" id="b3Q-n3-guG"/>
-                            <constraint firstItem="sZq-vj-Gri" firstAttribute="leading" secondItem="NZN-kc-tGf" secondAttribute="leading" constant="15" id="eZL-mT-eK1"/>
+                            <constraint firstItem="sZq-vj-Gri" firstAttribute="leading" secondItem="NZN-kc-tGf" secondAttribute="leading" id="eZL-mT-eK1"/>
                             <constraint firstAttribute="bottom" secondItem="SXf-nu-DPB" secondAttribute="bottom" id="f9R-Ix-JUz"/>
                             <constraint firstAttribute="trailing" secondItem="vJQ-Z7-xhE" secondAttribute="trailing" constant="20" id="hLc-AJ-kfj"/>
                             <constraint firstItem="sZq-vj-Gri" firstAttribute="top" secondItem="NZN-kc-tGf" secondAttribute="top" constant="5" id="rXc-cx-gK9"/>

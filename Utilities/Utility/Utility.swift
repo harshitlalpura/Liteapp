@@ -448,6 +448,24 @@ public class Utility {
         return "\(sign)\(Int(roundedNum))\(units[exp-1])"
     }
     
+    static func getMenuWidth() -> CGFloat{
+        let appScreenRect = UIApplication.shared.keyWindow?.bounds ?? UIWindow().bounds
+        let minimumSize = min(appScreenRect.width, appScreenRect.height)
+        let wid = minimumSize * 0.75
+        return wid
+    }
+    
+    static func getNameInitials() -> String{
+        if let firstName = Defaults.shared.currentUser?.empFirstname, let lastname = Defaults.shared.currentUser?.empLastname{
+            let firstNameInitialsIndex = firstName.index(firstName.startIndex, offsetBy: 0)
+            let firstNameInitials = firstName[firstNameInitialsIndex]
+            let lastNameInitialsIndex = lastname.index(lastname.startIndex, offsetBy: 0)
+            let lastNameInitials = lastname[lastNameInitialsIndex]
+            return firstNameInitials.uppercased() + lastNameInitials.uppercased()
+        }
+        return ""
+    }
+    
 }
 
 extension Array {

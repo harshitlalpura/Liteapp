@@ -16,6 +16,8 @@ class TimeReportHeaderCell: UITableViewCell , NibReusable {
     @IBOutlet weak var regularHoursLabel: UILabel!
     @IBOutlet weak var overTimeLabel: UILabel!
     @IBOutlet weak var weeklyOverTimeView: UIView!
+    @IBOutlet weak var constBtnAddDayHeight: NSLayoutConstraint!
+    @IBOutlet weak var constMainViewBottom: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,4 +30,15 @@ class TimeReportHeaderCell: UITableViewCell , NibReusable {
         // Configure the view for the selected state
     }
     
+    func showAddDayOption(needToShow : Bool){
+        if needToShow{
+            constBtnAddDayHeight.constant = 35.0
+            constMainViewBottom.constant = 63.0
+        }
+        else{
+            constBtnAddDayHeight.constant = 0.0
+            constMainViewBottom.constant = 15.0
+        }
+        self.layoutIfNeeded()
+    }
 }

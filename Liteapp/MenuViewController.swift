@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
 enum Menuname{
     static let timeClock = "TimeClock"
@@ -38,16 +39,22 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var premiumView: UIView!
     @IBOutlet weak var upgradePremiumView: UIView!
+    @IBOutlet weak var btnSupport: UIButton!
+    @IBOutlet weak var lblSupportText: UILabel!
+    @IBOutlet weak var constvwSupportHeight: NSLayoutConstraint!
     var selectedOption:SelectedOption = .TimeClock
     weak public var delegate: MenuItemDelegate?
     var menuItems = ["TimeClock","Employees","TimeSheets","Settings","Logout \n Manager"]
-    var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
+//    var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
+    var menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
     
-   
-    
+    var supportText : String = ""
+    var supportEmail = "help@bryteps.com"
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.constvwSupportHeight.constant = 0.0
         setupTableView()
+        setupSupportLabel()
     }
     private lazy var overlayView: UIView = {
         let view = UIView()
@@ -71,14 +78,17 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
     private func setupTableView(){
         if Defaults.shared.currentUser?.empType ?? "" == "S"{
             menuItems = ["TimeClock","Employees","TimeSheets","Settings","Logout \n Manager"]
-            menuImages = ["ic_timeclock","ic_employee","ic_timesheets","ic_settings","ic_logout"]
+//            menuImages = ["ic_timeclock","ic_employee","ic_timesheets","ic_settings","ic_logout"]
+            menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
         }else{
            menuItems = ["TimeClock","Logout \n Manager"]
-            menuImages = ["ic_timeclock","ic_logout"]
+//            menuImages = ["ic_timeclock","ic_logout"]
+            menuImages = ["ic_timeclock_tint","ic_logout_tint"]
         }
         menuTableview.delegate = self
         menuTableview.dataSource = self
-        menuTableview.rowHeight = 50.0
+        menuTableview.estimatedRowHeight = 65.0
+        menuTableview.rowHeight = UITableView.automaticDimension
         menuTableview.separatorStyle = .none
         menuTableview.bouncesZoom = false
         menuTableview.bounces = false
@@ -88,8 +98,57 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
        
             
     }
+    func setupSupportLabel(){
+        
+        supportText = "Need support? We’re happy to help! Email our team at help@bryteps.com and we’ll get back to you as soon as possible."
+        lblSupportText.text = supportText
+        lblSupportText.textColor =  UIColor.Color.supportGrey
+        let underlineAttriString = NSMutableAttributedString(string: supportText)
+        let range1 = (supportText as NSString).range(of: supportEmail)
+        let rangeFull = (supportText as NSString).range(of: supportText)
+        underlineAttriString.addAttributes([ NSAttributedString.Key.foregroundColor: UIColor.Color.appBlueColor2, NSAttributedString.Key.font: UIFont.RobotoMedium(size: 14.0),NSAttributedString.Key.underlineStyle: NSUnderlineStyle.thick.rawValue], range: range1)
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .natural
+        underlineAttriString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraph, range: rangeFull)
+        lblSupportText.attributedText = underlineAttriString
+        lblSupportText.lineBreakMode = .byWordWrapping
+        lblSupportText.isUserInteractionEnabled = true
+        lblSupportText.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(tapLabel(gesture:))))
     
-
+    }
+    
+    @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
+        let emailRange = (supportText as NSString).range(of: supportEmail)
+        
+        if gesture.didTapAttributedTextInLabel(label: lblSupportText, inRange: emailRange) {
+            print("Tapped Email")
+            if MFMailComposeViewController.canSendMail() {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self
+                mail.setToRecipients([supportEmail])
+                mail.setSubject("")
+                mail.setMessageBody("", isHTML: true)
+                present(mail, animated: true)
+            } else {
+                print("Application is not able to send an email")
+            }
+            
+        } else {
+            print("Tapped none")
+        }
+    }
+    
+    @IBAction func btnSupportClicked(_ sender: Any) {
+        UIView.animate(withDuration: 0.25) {
+            if self.constvwSupportHeight.constant == 100.0{
+                self.constvwSupportHeight.constant = 0.0
+            }else{
+                self.constvwSupportHeight.constant = 100.0
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+    
 }
 extension MenuViewController {
     private func showOverlayView() {
@@ -128,39 +187,85 @@ extension MenuViewController:UITableViewDataSource,UITableViewDelegate {
         return menuItems.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:"cell",for:indexPath) as! MenuCell
-        cell.label.text = menuItems[indexPath.row]
-        cell.label.textAlignment = .left
-      
-        cell.label.textColor = .black
-        cell.imageview.image = UIImage(named:menuImages[indexPath.row])
-        cell.selectionStyle = .none
-        cell.backgroundColor = UIColor.Color.white
-        
-        if indexPath.row == self.selectedOption.rawValue{
-            cell.label.textColor = UIColor.Color.appBlueColor
-         //   cell.label.font = UIFont.Robotobold(size:20)
-            
-        }else{
-          //  cell.label.font = UIFont.Robotobold(size:20)
+        if indexPath.row == menuItems.count - 1{
+            let cell = tableView.dequeueReusableCell(withIdentifier:"cellLogout",for:indexPath) as! MenuLogoutCell
+            cell.label.text = menuItems[indexPath.row]
+            cell.label.textAlignment = .left
+          
             cell.label.textColor = .black
+            cell.imageview.image = UIImage(named:menuImages[indexPath.row])
+            cell.selectionStyle = .none
+            cell.backgroundColor = UIColor.Color.white
+            
+            if indexPath.row == self.selectedOption.rawValue{
+                cell.label.textColor = UIColor.Color.appBlueColor2
+                cell.imageview.tintColor = UIColor.Color.appBlueColor2.withAlphaComponent(0.5)
+             //   cell.label.font = UIFont.Robotobold(size:20)
+                
+            }else{
+              //  cell.label.font = UIFont.Robotobold(size:20)
+                cell.label.textColor = UIColor.Color.black
+                cell.imageview.tintColor = UIColor.Color.grayblack
+            }
+            cell.selectedBar.isHidden = true
+            if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .TimeClock{
+    //            cell.imageview.image = UIImage(named:"ic_timeclock_selected")
+                cell.selectedBar.isHidden = false
+            }else if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .Employee{
+    //            cell.imageview.image = UIImage(named:"ic_employee_selected")
+                cell.selectedBar.isHidden = false
+            }else if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .TimeSheet{
+    //            cell.imageview.image = UIImage(named:"ic_timesheets_selected")
+                cell.selectedBar.isHidden = false
+            }else if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .Settings{
+    //            cell.imageview.image = UIImage(named:"ic_settings_selected")
+                cell.selectedBar.isHidden = false
+            }
+            if let firstName = Defaults.shared.currentUser?.empFirstname, let lastname = Defaults.shared.currentUser?.empLastname{
+                cell.lblUserName.text = firstName + " " + lastname
+            }
+            else{
+                cell.lblUserName.text = ""
+            }
+            return cell
         }
-        cell.selectedBar.isHidden = true
-        if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .TimeClock{
-            cell.imageview.image = UIImage(named:"ic_timeclock_selected")
-            cell.selectedBar.isHidden = false
-        }else if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .Employee{
-            cell.imageview.image = UIImage(named:"ic_employee_selected")
-            cell.selectedBar.isHidden = false
-        }else if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .TimeSheet{
-            cell.imageview.image = UIImage(named:"ic_timesheets_selected")
-            cell.selectedBar.isHidden = false
-        }else if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .Settings{
-            cell.imageview.image = UIImage(named:"ic_settings_selected")
-            cell.selectedBar.isHidden = false
+        else{
+            let cell = tableView.dequeueReusableCell(withIdentifier:"cell",for:indexPath) as! MenuCell
+             cell.label.text = menuItems[indexPath.row]
+             cell.label.textAlignment = .left
+           
+             cell.label.textColor = .black
+             cell.imageview.image = UIImage(named:menuImages[indexPath.row])
+             cell.selectionStyle = .none
+             cell.backgroundColor = UIColor.Color.white
+             
+             if indexPath.row == self.selectedOption.rawValue{
+                 cell.label.textColor = UIColor.Color.appBlueColor2
+                 cell.imageview.tintColor = UIColor.Color.appBlueColor2.withAlphaComponent(0.5)
+              //   cell.label.font = UIFont.Robotobold(size:20)
+                 
+             }else{
+               //  cell.label.font = UIFont.Robotobold(size:20)
+                 cell.label.textColor = UIColor.Color.black
+                 cell.imageview.tintColor = UIColor.Color.grayblack
+             }
+             cell.selectedBar.isHidden = true
+             if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .TimeClock{
+     //            cell.imageview.image = UIImage(named:"ic_timeclock_selected")
+                 cell.selectedBar.isHidden = false
+             }else if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .Employee{
+     //            cell.imageview.image = UIImage(named:"ic_employee_selected")
+                 cell.selectedBar.isHidden = false
+             }else if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .TimeSheet{
+     //            cell.imageview.image = UIImage(named:"ic_timesheets_selected")
+                 cell.selectedBar.isHidden = false
+             }else if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .Settings{
+     //            cell.imageview.image = UIImage(named:"ic_settings_selected")
+                 cell.selectedBar.isHidden = false
+             }
+             
+             return cell
         }
-        
-        return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if menuItems[indexPath.row] == Menuname.Exams{
@@ -173,11 +278,26 @@ extension MenuViewController:UITableViewDataSource,UITableViewDelegate {
     }
 
 }
+extension MenuViewController : MFMailComposeViewControllerDelegate{
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+}
+
 class MenuCell : UITableViewCell {
     @IBOutlet weak var imageview: UIImageView!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var selectedBar: UIView!
 }
+
+class MenuLogoutCell : UITableViewCell {
+    @IBOutlet weak var imageview: UIImageView!
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var selectedBar: UIView!
+}
+
+
 protocol MenuItemDelegate : NSObjectProtocol {
     func MenuItemClicked(menuName:String)
 }

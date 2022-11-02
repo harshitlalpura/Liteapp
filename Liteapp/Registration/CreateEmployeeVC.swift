@@ -57,7 +57,6 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var lblusername: UILabel!
     @IBOutlet weak var lblname: UILabel!
-    @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var tblEvents: UITableView!
     
     @IBOutlet weak var txtFirstName: UITextField!
@@ -86,6 +85,10 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var eventCollectionviewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewEvents: UICollectionView!
     @IBOutlet weak var eventTableHeightConstraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var employeeProfileSelectionView: UIView!
+    
     var weekDates = [CustomDate]()
     var selectedWeekIndex = 0
     var selectedSettings:Settings = .userInfo
@@ -130,17 +133,18 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         menu = SideMenuNavigationController(rootViewController:controller)
         menu.navigationBar.isHidden = true
         menu.leftSide = true
+        menu.menuWidth = Utility.getMenuWidth()
         SideMenuManager.default.addPanGestureToPresent(toView:view)
         SideMenuManager.default.leftMenuNavigationController = menu
         
     }
     func setData(){
-        logoutView.isHidden = true
-        lblusername.text = "\(Defaults.shared.currentUser?.empFirstname ?? "") \(Defaults.shared.currentUser?.empLastname ?? "")"
-        self.saveView.isHidden = false
+        lblusername.text = Utility.getNameInitials()
+        self.saveView.isHidden = true
         
-        self.userinformationView.isHidden = false
+        self.userinformationView.isHidden = true
         self.timereportView.isHidden = true
+        self.employeeProfileSelectionView.isHidden = false
         
     }
     func setTableview(){
@@ -158,16 +162,22 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
 
     }
     @IBAction func rightBarButtonClicked(sender:UIButton){
-        if logoutView.isHidden == true{
-            logoutView.isHidden = false
-        }else{
-            logoutView.isHidden = true
+        PopupMenuVC.showPopupMenu(prevVC: self) { selectedItem in
+            if let menuItem = selectedItem{
+                if menuItem == .logout{
+                    print("Logout")
+                    Defaults.shared.currentUser = nil
+                    Utility.setRootScreen(isShowAnimation: true)
+                }
+                else{
+                    //Account
+                    print("Account")
+                    let vc = SettingsVC.instantiate()
+                    vc.isForAccountSettings = true
+                    self.pushVC(controller:vc)
+                }
+            }
         }
-    }
-    @IBAction func logoutClicked(sender:UIButton){
-        Defaults.shared.currentUser = nil
-        Utility.setRootScreen(isShowAnimation: true)
-        logoutView.isHidden = true
     }
     @IBAction func menuClicked(sender:UIButton){
         self.present(menu, animated: true, completion: {})
@@ -212,9 +222,39 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
              }
            // self.txtselectedPayperiod.isUserInteractionEnabled = false
             self.txtselectedPayperiod.resignFirstResponder()
+            self.tblEvents.reloadData()
         }
         
     }
+    
+    @IBAction func btnUserInfoTapped(_ sender: Any) {
+        self.saveView.isHidden = false
+        
+        self.userinformationView.isHidden = false
+        self.timereportView.isHidden = true
+        self.employeeProfileSelectionView.isHidden = true
+    }
+    
+    @IBAction func btnTimesheetsTapped(_ sender: Any) {
+        self.saveView.isHidden = false
+        
+        self.userinformationView.isHidden = true
+        self.timereportView.isHidden = false
+        self.employeeProfileSelectionView.isHidden = true
+    }
+    
+    @IBAction func btnBackToSelectionTapped(_ sender: Any) {
+        if employeeProfileSelectionView.isHidden == false{
+            self.popVC()
+        }
+        else{
+            self.saveView.isHidden = true
+            self.userinformationView.isHidden = true
+            self.timereportView.isHidden = true
+            self.employeeProfileSelectionView.isHidden = false
+        }
+    }
+    
     func createPickerArray(payPereods:[Payperiods])->[String]{
     
         var pickerArray = [String]()
@@ -542,7 +582,8 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
        
         for (i,week) in (self.selectedPayPeriod?.weeks ?? [Weeks]()).enumerated(){
             for (j,_) in (week.timesheet ?? [Timesheet]()).enumerated(){
-                let events = self.selectedPayPeriod?.weeks?[i].timesheet?[i].events?.filter({$0.timelineTime != ""})
+//                let events = self.selectedPayPeriod?.weeks?[i].timesheet?[i].events?.filter({$0.timelineTime != ""})
+                let events = self.selectedPayPeriod?.weeks?[i].timesheet?[j].events?.filter({$0.timelineTime != ""})
                 self.selectedPayPeriod?.weeks?[i].timesheet?[j].events = events
                 print(self.selectedPayPeriod?.weeks?[i].timesheet?[i].events?.toJSON() ?? "")
             }
@@ -854,8 +895,8 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                 let cell: TimesheetHeaderCell = tableView.dequeueReusableCell(for: indexPath)
                 let weekFrom = "\(week?.weekFrom ?? "")".toDate()
                 let weekTo = "\(week?.weekTo ?? "")".toDate()
-                let startweek =  weekFrom.getString(formatter:DateTimeFormat.MMM_dd_yyyy.rawValue)
-                let endweek =  weekTo.getString(formatter:DateTimeFormat.MMM_dd_yyyy.rawValue)
+                let startweek =  weekFrom.getString(formatter:DateTimeFormat.MMMM_dd_yyyy.rawValue)
+                let endweek =  weekTo.getString(formatter:DateTimeFormat.MMMM_dd_yyyy.rawValue)
                 cell.timeLabel.text = "\(startweek) - \(endweek)"
                 
                 let tuple = self.calculateTotalTimeForWeek(sectionIndex:indexPath.section)
@@ -1156,19 +1197,68 @@ extension Date {
         var date = fromDate
         
         while date <= toDate {
-            let dateFormatter = DateFormatter()
-            //2022-03-30 06:00:00
-            dateFormatter.dateFormat = DateTimeFormat.MM_DD_YYYY.rawValue
-            let dateString = dateFormatter.string(from:date)
-            dateFormatter.dateFormat = DateTimeFormat.EEEE.rawValue
-            let dayString = dateFormatter.string(from:date)
-            
-            dateFormatter.dateFormat = DateTimeFormat.yyyy_MM_dd.rawValue
-            let str = dateFormatter.string(from:date)
+            var cal = Calendar.gregorian
+            cal.timeZone = NSTimeZone(forSecondsFromGMT: 0) as TimeZone
+            let order = Calendar.current.compare(now, to: date, toGranularity: .day)
+            if order != .orderedAscending{
+                
+                let dateFormatter = DateFormatter()
+                //2022-03-30 06:00:00
+                dateFormatter.dateFormat = DateTimeFormat.MM_DD_YYYY.rawValue
+                let dateString = dateFormatter.string(from:date)
+                dateFormatter.dateFormat = DateTimeFormat.EEEE.rawValue
+                let dayString = dateFormatter.string(from:date)
+                
+                dateFormatter.dateFormat = DateTimeFormat.yyyy_MM_dd.rawValue
+                let str = dateFormatter.string(from:date)
+                
+                
+                let customDate = CustomDate(date: date, datestringForDisplay: dateString, datestring: str, dayName: dayString)
+                dates.append(customDate)
+            }
+            guard let newDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { break }
+            date = newDate
+        }
+        
+        return dates
+    }
+    
+    static func dates(from fromDate: Date, to toDate: Date , excludeDates : [Date]) -> [CustomDate] {
+        var dates: [CustomDate] = []
+        var date = fromDate
+        
+        while date <= toDate {
+            var needToAdd : Bool = true
+            for eDate in excludeDates {
+                if date == eDate {
+                    needToAdd = false
+                    break
+                }
 
-         
-            let customDate = CustomDate(date: date, datestringForDisplay: dateString, datestring: str, dayName: dayString)
-            dates.append(customDate)
+                var cal = Calendar.gregorian
+                cal.timeZone = NSTimeZone(forSecondsFromGMT: 0) as TimeZone
+                let order = cal.compare(Date.now, to: date, toGranularity: .day)
+                if order == .orderedAscending{
+                    needToAdd = false
+                    break
+                }
+                
+            }
+            if needToAdd{
+                let dateFormatter = DateFormatter()
+                //2022-03-30 06:00:00
+                dateFormatter.dateFormat = DateTimeFormat.MM_DD_YYYY.rawValue
+                let dateString = dateFormatter.string(from:date)
+                dateFormatter.dateFormat = DateTimeFormat.EEEE.rawValue
+                let dayString = dateFormatter.string(from:date)
+                
+                dateFormatter.dateFormat = DateTimeFormat.yyyy_MM_dd.rawValue
+                let str = dateFormatter.string(from:date)
+                
+                
+                let customDate = CustomDate(date: date, datestringForDisplay: dateString, datestring: str, dayName: dayString)
+                dates.append(customDate)
+            }
             guard let newDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { break }
             date = newDate
         }
@@ -1186,7 +1276,6 @@ extension CreateEmployeeVC:MenuItemDelegate {
         }else  if menuName == Menuname.logout{
             Defaults.shared.currentUser = nil
             Utility.setRootScreen(isShowAnimation: true)
-            logoutView.isHidden = true
         }else  if menuName == Menuname.employee{
             let vc = EmployeesVC.instantiate()
             self.pushVC(controller:vc)
@@ -1241,4 +1330,20 @@ extension CreateEmployeeVC{
     }
 
    
+}
+
+extension Date {
+    var onlyDate: Date {
+        get {
+            let calender = Calendar.current
+            let dateComponents = calender.dateComponents([.year, .month, .day], from: self)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy:MM:dd"
+            let date = calender.date(from: dateComponents)
+            let stringDate = dateFormatter.string(from: date!)
+            print(stringDate)
+            print(dateFormatter.date(from: stringDate))
+            return dateFormatter.date(from: stringDate)!
+        }
+    }
 }

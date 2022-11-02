@@ -45,12 +45,13 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.timesheetiPad.rawValue : StoryboardName.timesheet.rawValue, bundle: nil)
     var menu:SideMenuNavigationController!
     @IBOutlet weak var lblusername: UILabel!
-    @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var tblview: UITableView!
     @IBOutlet weak var selectedPayperiodLabel: UILabel!
     @IBOutlet weak var txtselectedPayperiod: UITextField!
     
-    @IBOutlet weak var exportMainView: UIView!
+//    @IBOutlet weak var exportMainView: UIView!
+    
+    @IBOutlet weak var exportMainView: UIButton!
     @IBOutlet weak var approveMainview: UIView!
     
     @IBOutlet weak var nameSortImageview: UIImageView!
@@ -101,16 +102,14 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         menu = SideMenuNavigationController(rootViewController:controller)
         menu.navigationBar.isHidden = true
         menu.leftSide = true
+        menu.menuWidth = Utility.getMenuWidth()
         SideMenuManager.default.addPanGestureToPresent(toView:view)
         SideMenuManager.default.leftMenuNavigationController = menu
         
     }
     func setData(){
-        logoutView.isHidden = true
-        lblusername.text = "\(Defaults.shared.currentUser?.empFirstname ?? "") \(Defaults.shared.currentUser?.empLastname ?? "")"
-        
-        self.approveMainview.alpha = 0.5
-        self.exportMainView.alpha = 0.5
+        lblusername.text = Utility.getNameInitials()
+        disableApproveUnapproveOptions()
         
         nameSortImageview.image = UIImage.sortDefault
         totalSortImageview.image = UIImage.sortDefault
@@ -121,17 +120,32 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         tblview.delegate = self
         tblview.dataSource = self
     }
-    @IBAction func rightBarButtonClicked(sender:UIButton){
-        if logoutView.isHidden == true{
-            logoutView.isHidden = false
-        }else{
-            logoutView.isHidden = true
-        }
+    
+    func disableApproveUnapproveOptions(){
+        self.approveMainview.alpha = 0.5
+        self.approveMainview.isUserInteractionEnabled = false
+        self.exportMainView.alpha = 0.5
+        self.exportMainView.isUserInteractionEnabled = false
+        self.exportMainView.isEnabled = false
     }
-    @IBAction func logoutClicked(sender:UIButton){
-        Defaults.shared.currentUser = nil
-        Utility.setRootScreen(isShowAnimation: true)
-        logoutView.isHidden = true
+    
+    @IBAction func rightBarButtonClicked(sender:UIButton){
+        PopupMenuVC.showPopupMenu(prevVC: self) { selectedItem in
+            if let menuItem = selectedItem{
+                if menuItem == .logout{
+                    print("Logout")
+                    Defaults.shared.currentUser = nil
+                    Utility.setRootScreen(isShowAnimation: true)
+                }
+                else{
+                    //Account
+                    print("Account")
+                    let vc = SettingsVC.instantiate()
+                    vc.isForAccountSettings = true
+                    self.pushVC(controller:vc)
+                }
+            }
+        }
     }
     func fetchTimesheetList(){
         
@@ -149,7 +163,7 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         print(parameters)
         NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.fetchTimesheetsById(), param: parameters, header: Defaults.shared.header ?? ["":""]){ success, response, error in
             if let res = response{
-               // print(res)
+                print(res)
                 let data = Mapper<TimesheetData>().map(JSONObject:res)
                self.timesheetList = data?.timesheets ?? [PayPeriodTimesheet]()
                 self.tblview.reloadData()
@@ -175,7 +189,7 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
                 self.selectedPayPeriod = self.payPeriodsData.first
                 self.selectedPayPeriodIndex = 0
                 let str = "\(self.selectedPayPeriod?.payperiodFrom1 ?? "") - \(self.selectedPayPeriod?.payperiodTo1 ?? "")"
-               self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
+//               self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
                 self.selectedPayperiodLabel.text = str
                //call timesheet by id
                 self.fetchTimesheetList()
@@ -211,9 +225,13 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
                  self.selectedPayPeriod = self.payPeriodsData[index]
                  self.selectedPayPeriodIndex = index
                 let str = "\(self.selectedPayPeriod?.payperiodFrom1 ?? "") - \(self.selectedPayPeriod?.payperiodTo1 ?? "")"
-                self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
+//                self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
                 self.selectedPayperiodLabel.text = str
               
+                //Remove Existing Selections
+                self.selectedTimesheetList.removeAll()
+                self.disableApproveUnapproveOptions()
+                
                 self.fetchTimesheetList()
                 print(self.selectedPayPeriod?.toJSON() ?? "")
              }
@@ -233,14 +251,59 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         
     }
     @IBAction func unaprooveClick(sender:UIButton){
-        self.changeStatusAPI(status:TimesheetStatus.unapproved)
-    }
-    @IBAction func aprooveClick(sender:UIButton){
-        self.changeStatusAPI(status:TimesheetStatus.approved)
-    }
-    @IBAction func exportClick(sender:UIButton){
+        if selectedPayPeriodIndex != 0{
+            if self.selectedTimesheetList.count > 0 {
+                self.changeStatusAPI(status:TimesheetStatus.unapproved)
+            }
+            else{
+                //Show Alert
+                CustomAdvanceAlertVC.showAlert(prevVC: self, title: "No Timesheets Selected.", subTitle: "Please select atleast one timesheet.", type: .validation) { done in
+                    
+                }
+            }
+        }
+        else{
+            //Show Alert
+            CustomAdvanceAlertVC.showAlert(prevVC: self, title: "Only Previous Pay Periods Can Have Their Status Edited.", subTitle: "You can only change the approval status of timesheets from previous pay periods.", type: .validation) { done in
+                
+            }
+        }
         
     }
+    @IBAction func aprooveClick(sender:UIButton){
+        if selectedPayPeriodIndex != 0{
+            if self.selectedTimesheetList.count > 0 {
+                self.changeStatusAPI(status:TimesheetStatus.approved)
+            }
+            else{
+                //Show Alert
+                CustomAdvanceAlertVC.showAlert(prevVC: self, title: "No Timesheets Selected.", subTitle: "Please select atleast one timesheet.", type: .validation) { done in
+                    
+                }
+            }
+        }
+        else{
+            //Show Alert
+            CustomAdvanceAlertVC.showAlert(prevVC: self, title: "Only Previous Pay Periods Can Have Their Status Edited.", subTitle: "You can only change the approval status of timesheets from previous pay periods.", type: .validation) { done in
+                
+            }
+        }
+    }
+    @IBAction func exportClick(sender:UIButton){
+        if self.selectedTimesheetList.count > 0 {
+            let payPeriod = "\(self.selectedPayperiodLabel.text ?? "")"
+            ExportTimesheetPopupVC.showExportPopup(prevVC: self, selectedTimesheetArr: self.selectedTimesheetList, payPeriodString:payPeriod ) { done in
+                
+            }
+        }
+        else{
+            //Show Alert
+            CustomAdvanceAlertVC.showAlert(prevVC: self, title: "No Timesheets Selected.", subTitle: "Please select atleast one timesheet.", type: .validation) { done in
+                
+            }
+        }
+    }
+    
     @IBAction func sortNameClicked(sender:UIButton){
         sortColumn = ""
         
@@ -329,21 +392,28 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
             self.approveMainview.alpha = 1.0
             self.exportMainView.alpha = 1.0
             self.approveMainview.isUserInteractionEnabled = true
-            self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
+            self.exportMainView.isUserInteractionEnabled = true
+            self.exportMainView.isEnabled = true
+//            self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
         }else{
             self.approveMainview.alpha = 0.5
             self.exportMainView.alpha = 0.5
             self.approveMainview.isUserInteractionEnabled = false
+            self.exportMainView.isUserInteractionEnabled = false
+            self.exportMainView.isEnabled = false
         }
        
         tblview.reloadData()
     }
     func changeStatusAPI(status:TimesheetStatus){
-        let array: Array = selectedTimesheetList.map(){"\($0.empId ?? 0)"}
+//        let array: Array = selectedTimesheetList.map(){"\($0.empId ?? 0)"}
+        let array: Array = selectedTimesheetList.map(){"\($0.payperiodEmpId ?? 0)"}
         let joinedString: String  = array.joined(separator:",")
         print(joinedString)
         let employeeIDs = joinedString
       //  let ids = "\(self.selectedTimesheetList.first?.empId ?? 0)"
+        let titleAlert = (status == TimesheetStatus.unapproved) ? "Timesheets Unapproved" : "Timesheets Approved"
+        let alertType : advAlertType = (status == TimesheetStatus.unapproved) ? .validation : .success
         let message = (status == TimesheetStatus.unapproved) ? "The selected timesheets were successfully unapproved" : "The selected timesheets were successfully approved"
         let parameters = ["merchant_id":Defaults.shared.currentUser?.merchantId ?? 0,
             "emp_token":Defaults.shared.currentUser?.empToken ?? "",
@@ -357,12 +427,23 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
                 print(res)
                 if let status = res["status"] as? Int{
                     if status == 1{
+                        
+                        if self.btnCheckAll.isSelected == true{
+                            self.btnCheckAll.isSelected = false
+                        }
+                        self.selectedTimesheetList.removeAll()
+                        self.disableApproveUnapproveOptions()
+                        
                         self.fetchTimesheetList()
-                        self.showAlert(alertType:.validation, message: message)
+//                        self.showAlert(alertType:.validation, message: message)
                        
-                    }else{
-                        self.showAlert(alertType:.validation, message: message)
+                    }
+//                    else{
+//                        self.showAlert(alertType:.validation, message: message)
                        
+//                    }
+                    CustomAdvanceAlertVC.showAlert(prevVC: self, title: titleAlert, subTitle: message, type: alertType) { done in
+                        
                     }
                 }
                
@@ -386,33 +467,40 @@ extension TimesheetListVC:UITableViewDelegate,UITableViewDataSource {
         cell.lblName.text = (employee.empFirstname ?? "") + " " + (employee.empLastname ?? "")
         cell.lbltotal.text = (employee.total ?? "")
         if employee.payperiodStatus ?? "" == "U"{
-            cell.lblapprove.text = "Unapprove"
+            cell.lblapprove.text = "Unapproved"
             cell.lblapprove.textColor = UIColor.Color.appYellowColor
         }else if employee.payperiodStatus ?? "" == "A"{
-            cell.lblapprove.text = "Approve"
+            cell.lblapprove.text = "Approved"
             cell.lblapprove.textColor = UIColor.Color.appGreenColor
         }
         cell.btnCheck.isSelected = false
         cell.btnCheck.addTarget(self, action:#selector(self.checkClicked(sender:)), for: .touchUpInside)
         cell.btnCheck.tag = indexPath.row
-        cell.btnCheck.isSelected = btnCheckAll.isSelected
-       
+//        cell.btnCheck.isSelected = btnCheckAll.isSelected
+        cell.btnCheck.isSelected = self.checkIfEmployeeIsSelected(employee: employee)
         cell.selectionStyle = .none
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = EmployeeTimeReportVC.instantiate()
-        vc.isFromEmployee = false
+        vc.isFromTimesheet = true
         vc.selectedEmployeeID = timesheetList[indexPath.row].empId?.stringValue ?? ""
         self.pushVC(controller:vc)
+    }
+    
+    func checkIfEmployeeIsSelected(employee : PayPeriodTimesheet) -> Bool{
+        let results = self.selectedTimesheetList.filter { $0.payperiodEmpId == employee.payperiodEmpId }
+        let exists = results.isEmpty == false
+        return exists
     }
     
     @objc func checkClicked(sender:UIButton) {
         sender.isSelected = !sender.isSelected
         
         if sender.isSelected{
-            self.selectedTimesheetList.append(timesheetList[sender.tag])
-           
+            if sender.tag < timesheetList.count{
+                self.selectedTimesheetList.append(timesheetList[sender.tag])
+            }
         }else{
             self.selectedTimesheetList = self.selectedTimesheetList.filter({$0.empId != timesheetList[sender.tag].empId})
         }
@@ -420,11 +508,15 @@ extension TimesheetListVC:UITableViewDelegate,UITableViewDataSource {
             self.approveMainview.alpha = 1.0
             self.exportMainView.alpha = 1.0
             self.approveMainview.isUserInteractionEnabled = true
-            self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
+            self.exportMainView.isUserInteractionEnabled = true
+            self.exportMainView.isEnabled = true
+//            self.compareDate("\(self.selectedPayPeriod?.payperiodTo1 ?? "")")
         }else{
             self.approveMainview.alpha = 0.5
             self.exportMainView.alpha = 0.5
             self.approveMainview.isUserInteractionEnabled = false
+            self.exportMainView.isUserInteractionEnabled = false
+            self.exportMainView.isEnabled = false
         }
         
         print( self.selectedTimesheetList.count)
@@ -441,7 +533,6 @@ extension TimesheetListVC:MenuItemDelegate {
         }else  if menuName == Menuname.logout{
             Defaults.shared.currentUser = nil
             Utility.setRootScreen(isShowAnimation: true)
-            logoutView.isHidden = true
         }else  if menuName == Menuname.employee{
             let vc = EmployeesVC.instantiate()
             self.pushVC(controller:vc)

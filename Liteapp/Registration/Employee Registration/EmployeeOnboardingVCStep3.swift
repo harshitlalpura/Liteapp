@@ -15,10 +15,11 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var txtReferralCode: UITextField!
     @IBOutlet weak var txtCompany: UITextField!
     @IBOutlet weak var referralCodeTextValidationView: UIView!
+    @IBOutlet weak var vwGradiantContainer: UIView!
     var saveEmployee:SaveEmployee!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        vwGradiantContainer.setGradientBackground()
         txtReferralCode.delegate = self
         txtCompany.isUserInteractionEnabled = false
         if let code =  Defaults.shared.referralCode{
@@ -35,15 +36,22 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
         }
     }
     func checkTextValidation(){
-        if txtReferralCode.text!.count < 1{
-            self.referralCodeTextValidationView.isHidden = false
-        }else{
-            self.referralCodeTextValidationView.isHidden = true
-        }
+//        if txtReferralCode.text!.count < 1{
+//            self.referralCodeTextValidationView.isHidden = false
+//        }else{
+//            self.referralCodeTextValidationView.isHidden = true
+//        }
        
     }
     func checkValidation()->Bool{
-       
+        if txtReferralCode.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Referral Code.")
+            return false
+        }
+        if txtReferralCode.text!.count < 4{
+            self.showAlert(alertType:.validation, message: "Please Enter Valid Referral Code.")
+            return false
+        }
         return true
     }
     func saveEmployeeapiCall(){

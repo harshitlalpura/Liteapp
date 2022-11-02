@@ -96,6 +96,16 @@ class Defaults {
        }
     }
     
+    var forgotPasswordEmpId: String? {
+       get {
+           return userDefaults.string(forKey:"forgotPasswordEmpId")
+       }
+       set {
+           userDefaults.setValue(newValue, forKey: "forgotPasswordEmpId")
+           userDefaults.synchronize()
+       }
+    }
+    
     var hasPremium: Bool {
         get {
             return userDefaults.bool(forKey: "hasPremium")

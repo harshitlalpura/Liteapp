@@ -249,6 +249,19 @@
 		61EA23872856112700CB0891 /* Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EA23862856112700CB0891 /* Employees.swift */; };
 		61F67BF52869C91E005E9622 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F67BF42869C91D005E9622 /* ChangePasswordVC.swift */; };
 		61FBCBBA285A6B7000D7BBC5 /* AddEmployeeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBCBB9285A6B7000D7BBC5 /* AddEmployeeVC.swift */; };
+		AF0571F528B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0571F428B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift */; };
+		AF0571F728B25AAB00D807F6 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0571F628B25AA900D807F6 /* ForgotPasswordVC.swift */; };
+		AF1104FA28BD2E3B0044DE37 /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1104F928BD2E3B0044DE37 /* ResetPasswordVC.swift */; };
+		AF1104FC28BD36070044DE37 /* ResetPasswordSuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1104FB28BD36070044DE37 /* ResetPasswordSuccessVC.swift */; };
+		AF40E92828C7467C0048164E /* SettingsSavePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF40E92728C7467C0048164E /* SettingsSavePopupVC.swift */; };
+		AF4F5D7628CE6638008A9E6D /* ExportTimesheetPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4F5D7528CE6638008A9E6D /* ExportTimesheetPopupVC.swift */; };
+		AF6255B228B29D7200E36CB9 /* ForgotPasswordCheckMailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6255B128B29D7000E36CB9 /* ForgotPasswordCheckMailVC.swift */; };
+		AF6E8BF728F4854400430879 /* Illuminate_Terms_of_Service.pdf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E8BF528F4854300430879 /* Illuminate_Terms_of_Service.pdf */; };
+		AF6E8BF828F4854400430879 /* Illuminate_Privacy_Policy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E8BF628F4854300430879 /* Illuminate_Privacy_Policy.pdf */; };
+		AFA52FB828CA56E000931563 /* DeleteEmployeePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA52FB728CA56E000931563 /* DeleteEmployeePopupVC.swift */; };
+		AFB5EBEB28D0E7A70086C32D /* CustomAdvanceAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB5EBEA28D0E7A70086C32D /* CustomAdvanceAlertVC.swift */; };
+		AFC60B0B28CBBD3E00946F44 /* SucessPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC60B0A28CBBD3D00946F44 /* SucessPopupVC.swift */; };
+		AFC70CCF28B5F9000040B3B2 /* PopupMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC70CCE28B5F8FF0040B3B2 /* PopupMenuVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -533,6 +546,19 @@
 		61F67BF42869C91D005E9622 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		61FBCBB9285A6B7000D7BBC5 /* AddEmployeeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmployeeVC.swift; sourceTree = "<group>"; };
 		900C9CDEA89A1DFAF57CEBCB /* Pods_Liteapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Liteapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF0571F428B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPrivacyStaticPagesVC.swift; sourceTree = "<group>"; };
+		AF0571F628B25AA900D807F6 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
+		AF1104F928BD2E3B0044DE37 /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
+		AF1104FB28BD36070044DE37 /* ResetPasswordSuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordSuccessVC.swift; sourceTree = "<group>"; };
+		AF40E92728C7467C0048164E /* SettingsSavePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSavePopupVC.swift; sourceTree = "<group>"; };
+		AF4F5D7528CE6638008A9E6D /* ExportTimesheetPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTimesheetPopupVC.swift; sourceTree = "<group>"; };
+		AF6255B128B29D7000E36CB9 /* ForgotPasswordCheckMailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordCheckMailVC.swift; sourceTree = "<group>"; };
+		AF6E8BF528F4854300430879 /* Illuminate_Terms_of_Service.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Illuminate_Terms_of_Service.pdf; sourceTree = "<group>"; };
+		AF6E8BF628F4854300430879 /* Illuminate_Privacy_Policy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Illuminate_Privacy_Policy.pdf; sourceTree = "<group>"; };
+		AFA52FB728CA56E000931563 /* DeleteEmployeePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteEmployeePopupVC.swift; sourceTree = "<group>"; };
+		AFB5EBEA28D0E7A70086C32D /* CustomAdvanceAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAdvanceAlertVC.swift; sourceTree = "<group>"; };
+		AFC60B0A28CBBD3D00946F44 /* SucessPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SucessPopupVC.swift; sourceTree = "<group>"; };
+		AFC70CCE28B5F8FF0040B3B2 /* PopupMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMenuVC.swift; sourceTree = "<group>"; };
 		F698F00D4EDAB0A3A10A1B1C /* Pods-Liteapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Liteapp.release.xcconfig"; path = "Target Support Files/Pods-Liteapp/Pods-Liteapp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -588,6 +614,13 @@
 				61F67BF42869C91D005E9622 /* ChangePasswordVC.swift */,
 				61A297C728549A650015777F /* CustomView */,
 				61A297C628549A4D0015777F /* Cell */,
+				AF0571F428B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift */,
+				AF0571F628B25AA900D807F6 /* ForgotPasswordVC.swift */,
+				AF6255B128B29D7000E36CB9 /* ForgotPasswordCheckMailVC.swift */,
+				AF1104F928BD2E3B0044DE37 /* ResetPasswordVC.swift */,
+				AF1104FB28BD36070044DE37 /* ResetPasswordSuccessVC.swift */,
+				AF40E92728C7467C0048164E /* SettingsSavePopupVC.swift */,
+				AFA52FB728CA56E000931563 /* DeleteEmployeePopupVC.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -596,6 +629,10 @@
 			isa = PBXGroup;
 			children = (
 				615A453A2852695C00CEB7DE /* CustomAlertViewController.swift */,
+				AFC70CCE28B5F8FF0040B3B2 /* PopupMenuVC.swift */,
+				AFC60B0A28CBBD3D00946F44 /* SucessPopupVC.swift */,
+				AF4F5D7528CE6638008A9E6D /* ExportTimesheetPopupVC.swift */,
+				AFB5EBEA28D0E7A70086C32D /* CustomAdvanceAlertVC.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -621,6 +658,7 @@
 		6182F67B284933140006BDF0 /* Liteapp */ = {
 			isa = PBXGroup;
 			children = (
+				AF6E8BF428F484FC00430879 /* Resources */,
 				61552EBC2873622F00A60971 /* Liteapp.entitlements */,
 				6182F67C284933140006BDF0 /* AppDelegate.swift */,
 				6182F67E284933140006BDF0 /* SceneDelegate.swift */,
@@ -1276,6 +1314,15 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		AF6E8BF428F484FC00430879 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AF6E8BF628F4854300430879 /* Illuminate_Privacy_Policy.pdf */,
+				AF6E8BF528F4854300430879 /* Illuminate_Terms_of_Service.pdf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1404,8 +1451,10 @@
 				61A297AF285373370015777F /* Poppins-ThinItalic.ttf in Resources */,
 				61A297B5285373370015777F /* Poppins-Light.ttf in Resources */,
 				61D8D69E285D13ED0065B19C /* Merchant.storyboard in Resources */,
+				AF6E8BF828F4854400430879 /* Illuminate_Privacy_Policy.pdf in Resources */,
 				61A297B9285373370015777F /* Poppins-Black.ttf in Resources */,
 				61D14B0F28597C0800E8F735 /* TimeReportFooterCell.xib in Resources */,
+				AF6E8BF728F4854400430879 /* Illuminate_Terms_of_Service.pdf in Resources */,
 				6182F7FD284933FB0006BDF0 /* TOCropViewControllerLocalizable.strings in Resources */,
 				61A2978F285372A20015777F /* Roboto-Medium.ttf in Resources */,
 				6144E85E287DC6ED0036D73E /* MainiPad.storyboard in Resources */,
@@ -1472,6 +1521,7 @@
 				6182F7FC284933FB0006BDF0 /* OnlyPictureImageView.swift in Sources */,
 				6182F8192849369D0006BDF0 /* BaseNavigationController.swift in Sources */,
 				6182F7EC284933FB0006BDF0 /* ConstraintLayoutGuideDSL.swift in Sources */,
+				AF1104FC28BD36070044DE37 /* ResetPasswordSuccessVC.swift in Sources */,
 				6182F780284933FB0006BDF0 /* MonthYearPickerView.swift in Sources */,
 				614D2F1A284FA794001E27B2 /* LoginViewController.swift in Sources */,
 				6182F7AA284933FB0006BDF0 /* StoryboardName.swift in Sources */,
@@ -1495,6 +1545,7 @@
 				6182F792284933FB0006BDF0 /* BaseButton.swift in Sources */,
 				6182F7E8284933FB0006BDF0 /* ConstraintOffsetTarget.swift in Sources */,
 				6182F78D284933FB0006BDF0 /* PageControl.swift in Sources */,
+				AF40E92828C7467C0048164E /* SettingsSavePopupVC.swift in Sources */,
 				61A2977C28532EAD0015777F /* MerchantCode.swift in Sources */,
 				6182F796284933FB0006BDF0 /* VideoCropView.swift in Sources */,
 				6182F786284933FB0006BDF0 /* SoundEffect.swift in Sources */,
@@ -1560,6 +1611,7 @@
 				61EA23872856112700CB0891 /* Employees.swift in Sources */,
 				6182F801284933FB0006BDF0 /* TOCropViewController.m in Sources */,
 				6182F7F8284933FB0006BDF0 /* OnlyHorizontalPictures.swift in Sources */,
+				AFC60B0B28CBBD3E00946F44 /* SucessPopupVC.swift in Sources */,
 				6182F778284933FB0006BDF0 /* PickerView.swift in Sources */,
 				616E32EC28807B0500762E5F /* TimeReportCVCell.swift in Sources */,
 				6182F791284933FB0006BDF0 /* BaseUIControl.swift in Sources */,
@@ -1572,6 +1624,7 @@
 				6182F7E7284933FB0006BDF0 /* ConstraintConstantTarget.swift in Sources */,
 				61A29773285305EE0015777F /* EmployeeOnboardingVCStep1.swift in Sources */,
 				6182F8182849369D0006BDF0 /* BaseViewController.swift in Sources */,
+				AF4F5D7628CE6638008A9E6D /* ExportTimesheetPopupVC.swift in Sources */,
 				6182F67F284933140006BDF0 /* SceneDelegate.swift in Sources */,
 				6182F7CF284933FB0006BDF0 /* EmptyDataSetSource.swift in Sources */,
 				6182F7B4284933FB0006BDF0 /* NSAttributedStringExtenstion.swift in Sources */,
@@ -1590,10 +1643,12 @@
 				616771D0285631E500C26507 /* UITextFieldExtension.swift in Sources */,
 				6182F7D6284933FB0006BDF0 /* ConstraintAttributes.swift in Sources */,
 				6182F7A7284933FB0006BDF0 /* Constant.swift in Sources */,
+				AFB5EBEB28D0E7A70086C32D /* CustomAdvanceAlertVC.swift in Sources */,
 				6182F7D8284933FB0006BDF0 /* ConstraintPriorityTarget.swift in Sources */,
 				6182F805284933FB0006BDF0 /* TOCropToolbar.m in Sources */,
 				6182F7DD284933FB0006BDF0 /* ConstraintPriority.swift in Sources */,
 				6182F787284933FB0006BDF0 /* MessageTone.swift in Sources */,
+				AF1104FA28BD2E3B0044DE37 /* ResetPasswordVC.swift in Sources */,
 				6182F7A9284933FB0006BDF0 /* Segue+Identifires.swift in Sources */,
 				614D2F20284FAD32001E27B2 /* OnboardingRegisterVC.swift in Sources */,
 				6182F7F1284933FB0006BDF0 /* ConstraintRelatableTarget.swift in Sources */,
@@ -1605,6 +1660,8 @@
 				6182F7B6284933FB0006BDF0 /* UINavigationBarExtensions.swift in Sources */,
 				617308AC2855334F0080552B /* SettingsVC.swift in Sources */,
 				6182F7FE284933FB0006BDF0 /* TOActivityCroppedImageProvider.m in Sources */,
+				AF0571F528B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift in Sources */,
+				AFC70CCF28B5F9000040B3B2 /* PopupMenuVC.swift in Sources */,
 				6182F7EB284933FB0006BDF0 /* ConstraintRelation.swift in Sources */,
 				61D14B0C28597C0800E8F735 /* TimeReportFooterCell.swift in Sources */,
 				6182F7B5284933FB0006BDF0 /* URL+Extension.swift in Sources */,
@@ -1645,11 +1702,14 @@
 				6182F7B2284933FB0006BDF0 /* UIViewControllerExtenstion.swift in Sources */,
 				6182F777284933FB0006BDF0 /* DatePicker.swift in Sources */,
 				6182F793284933FB0006BDF0 /* AssetVideoScrollView.swift in Sources */,
+				AF0571F728B25AAB00D807F6 /* ForgotPasswordVC.swift in Sources */,
+				AF6255B228B29D7200E36CB9 /* ForgotPasswordCheckMailVC.swift in Sources */,
 				6182F7DE284933FB0006BDF0 /* ConstraintInsetTarget.swift in Sources */,
 				6182F7D4284933FB0006BDF0 /* ConstraintDescription.swift in Sources */,
 				6182F7D7284933FB0006BDF0 /* ConstraintViewDSL.swift in Sources */,
 				6182F807284933FB0006BDF0 /* Defaults.swift in Sources */,
 				61A297C5285472390015777F /* CalendarCell.swift in Sources */,
+				AFA52FB828CA56E000931563 /* DeleteEmployeePopupVC.swift in Sources */,
 				6182F7E5284933FB0006BDF0 /* ConstraintLayoutSupport.swift in Sources */,
 				6182F7EE284933FB0006BDF0 /* ConstraintItem.swift in Sources */,
 			);
@@ -1830,8 +1890,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Liteapp/Liteapp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = B2E5UW74Q7;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=*]" = "";
@@ -1845,6 +1906,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1852,6 +1914,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lite.hr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1865,8 +1928,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Liteapp/Liteapp.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0;
+				CODE_SIGN_IDENTITY = "Apple Distribution: Bryte Innovative Technologies, LLC (B2E5UW74Q7)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = B2E5UW74Q7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Liteapp/Info.plist;
@@ -1878,6 +1942,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1886,6 +1951,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lite.hr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Lite App Appstore";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

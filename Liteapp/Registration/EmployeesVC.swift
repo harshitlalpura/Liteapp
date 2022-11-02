@@ -21,13 +21,15 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     var menu:SideMenuNavigationController!
     @IBOutlet weak var lblusername: UILabel!
-    @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var tblview: UITableView!
     var employeeList =  [Employee]()
     var isFromProfileSetup = false
     @IBOutlet weak var nameSortImageview: UIImageView!
     @IBOutlet weak var jobTitleSortImageview: UIImageView!
   
+    @IBOutlet weak var lblCreateEmployee: UILabel!
+    @IBOutlet weak var btnCreateEmployeeNoEmployeeView: UIButton!
+    @IBOutlet weak var viewNoEmployeesAdded: UIView!
     
     var sortNameType = Sort.defaultShort
     var sortJobTitleType = Sort.defaultShort
@@ -42,7 +44,6 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
 
         setupMenu()
         setData()
-        self.logoutView.dropShadow()
         setTableView()
     }
     func setTableView(){
@@ -61,16 +62,22 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
         self.present(menu, animated: true, completion: {})
     }
     @IBAction func rightBarButtonClicked(sender:UIButton){
-        if logoutView.isHidden == true{
-            logoutView.isHidden = false
-        }else{
-            logoutView.isHidden = true
+        PopupMenuVC.showPopupMenu(prevVC: self) { selectedItem in
+            if let menuItem = selectedItem{
+                if menuItem == .logout{
+                    print("Logout")
+                    Defaults.shared.currentUser = nil
+                    Utility.setRootScreen(isShowAnimation: true)
+                }
+                else{
+                    //Account
+                    print("Account")
+                    let vc = SettingsVC.instantiate()
+                    vc.isForAccountSettings = true
+                    self.pushVC(controller:vc)
+                }
+            }
         }
-    }
-    @IBAction func logoutClicked(sender:UIButton){
-        Defaults.shared.currentUser = nil
-        Utility.setRootScreen(isShowAnimation: true)
-        logoutView.isHidden = true
     }
     @IBAction func sortNameClicked(sender:UIButton){
         sortColumn = ""
@@ -125,14 +132,35 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
         fetchEmployees()
     }
     @IBAction func addEmployeeClicked(sender:UIButton){
+        showAddEmployeeScreen()
+    }
+    
+    func showAddEmployeeScreen(){
         let vc = AddEmployeeVC.instantiate()
         vc.delegate = self
-        self.presentVC(controller:vc)
+        self.presentVC(controller: vc, animated: false)
       //  self.pushVC(controller: vc)
     }
+    
     func setData(){
-        logoutView.isHidden = true
-        lblusername.text = "\(Defaults.shared.currentUser?.empFirstname ?? "") \(Defaults.shared.currentUser?.empLastname ?? "")"
+        lblusername.text = Utility.getNameInitials()
+        viewNoEmployeesAdded.isHidden = true
+        
+        
+//        let font1 = UIFont.Robotolight(size: 16.0)
+//        let font2 = UIFont.Robotobold(size: 16.0)
+        
+        let lightFont = [ NSAttributedString.Key.foregroundColor: UIColor.white,
+                          NSAttributedString.Key.font: UIFont.Robotolight(size: 16.0)]
+        let boldFont = [ NSAttributedString.Key.foregroundColor: UIColor.white,
+                         NSAttributedString.Key.font: UIFont.Robotobold(size: 16.0)]
+        
+        let attString = NSMutableAttributedString()
+        attString.append(NSAttributedString(string: "Create your employees ", attributes: lightFont))
+        attString.append(NSAttributedString(string: "here ", attributes: boldFont))
+        
+        
+        lblCreateEmployee.attributedText = attString
     }
     private func setupMenu(){
         let controller = MenuViewController.instantiate()
@@ -141,6 +169,7 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
         menu = SideMenuNavigationController(rootViewController:controller)
         menu.navigationBar.isHidden = true
         menu.leftSide = true
+        menu.menuWidth = Utility.getMenuWidth()
         SideMenuManager.default.addPanGestureToPresent(toView:view)
         SideMenuManager.default.leftMenuNavigationController = menu
         
@@ -162,11 +191,21 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
                 let data = Mapper<EmployeesData>().map(JSONObject:res)
                 self.employeeList = data?.employeeList ?? [Employee]()
                 self.tblview.reloadData()
+                if self.employeeList.count > 0 {
+                    self.viewNoEmployeesAdded.isHidden = true
+                }
+                else{
+                    self.viewNoEmployeesAdded.isHidden = false
+                }
                 
             }else if let err = error{
                 print(err)
             }
         }
+    }
+    
+    @IBAction func btnCreateNewEmployeeTapped(_ sender: Any) {
+        showAddEmployeeScreen()
     }
     
 }
@@ -207,7 +246,6 @@ extension EmployeesVC:MenuItemDelegate {
         }else  if menuName == Menuname.logout{
             Defaults.shared.currentUser = nil
             Utility.setRootScreen(isShowAnimation: true)
-            logoutView.isHidden = true
         }else  if menuName == Menuname.employee{
             let vc = EmployeesVC.instantiate()
             self.pushVC(controller:vc)

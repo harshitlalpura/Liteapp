@@ -68,5 +68,5 @@ target 'Liteapp' do
   #Text filed Effext
   #https://github.com/raulriera/TextFieldEffects
   pod 'TextFieldEffects', '1.6.0'
-
+  pod 'libxlsxwriter'
 end
