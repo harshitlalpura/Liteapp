@@ -155,6 +155,26 @@ class Defaults {
             userDefaults.synchronize()
         }
     }
+    
+    var passLen: Int? {
+       get {
+           return userDefaults.integer(forKey:"passLen")
+       }
+       set {
+           userDefaults.setValue(newValue, forKey: "passLen")
+           userDefaults.synchronize()
+       }
+    }
+    
+    var settingsPopupStatus: Int? {
+       get {
+           return userDefaults.integer(forKey:"settingsPopupStatus")
+       }
+       set {
+           userDefaults.setValue(newValue, forKey: "settingsPopupStatus")
+           userDefaults.synchronize()
+       }
+    }
 }
 extension UserDefaults {
 

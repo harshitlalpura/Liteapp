@@ -11,16 +11,23 @@ class SucessPopupVC: UIViewController,StoryboardSceneBased {
 
     // MARK: - Outlets
     @IBOutlet weak var viewPopup: UIView!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblSubtitle: UILabel!
     
     // MARK: - Variables
     var completion: ((Bool) -> ())?
+    var strTitle : String = ""
+    var strSubTitle : String = ""
+    
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
    
     // MARK: - View Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewPopup.alpha = 0.0
-        // Do any additional setup after loading the view.
+        
+        lblTitle.text = strTitle
+        lblSubtitle.text = strSubTitle
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -49,10 +56,12 @@ class SucessPopupVC: UIViewController,StoryboardSceneBased {
 }
 
 extension SucessPopupVC {
-    class func showSuccessPopup(prevVC : UIViewController , completion: @escaping (Bool) -> () ) {
+    class func showSuccessPopup(prevVC : UIViewController, titleStr : String, strSubTitle : String , completion: @escaping (Bool) -> () ) {
         
         let vc = SucessPopupVC.instantiate()
         vc.completion = completion
+        vc.strTitle = titleStr
+        vc.strSubTitle = strSubTitle
         vc.modalPresentationStyle = .overCurrentContext
         prevVC.present(vc, animated: false, completion: nil)
     }

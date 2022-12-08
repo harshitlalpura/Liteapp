@@ -60,6 +60,10 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var btnCheckAll: UIButton!
     
+    @IBOutlet weak var customNavView: UIView!
+    
+    var menuV : CustomMenuView!
+    
     var sortNameType = Sort.defaultShort
     var sortTotalType = Sort.defaultShort
     var sortApprovalType = Sort.defaultShort
@@ -93,20 +97,52 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         selectedTimesheetList =  [PayPeriodTimesheet]()
     }
     @IBAction func menuClicked(sender:UIButton){
-        self.present(menu, animated: true, completion: {})
+//        self.present(menu, animated: true, completion: {})
+        menuV.showHideMenu()
     }
     private func setupMenu(){
-        let controller = MenuViewController.instantiate()
-        controller.delegate = self
-        controller.selectedOption = .TimeSheet
-        menu = SideMenuNavigationController(rootViewController:controller)
-        menu.navigationBar.isHidden = true
-        menu.leftSide = true
-        menu.menuWidth = Utility.getMenuWidth()
-        SideMenuManager.default.addPanGestureToPresent(toView:view)
-        SideMenuManager.default.leftMenuNavigationController = menu
+//        let controller = MenuViewController.instantiate()
+//        controller.delegate = self
+//        controller.selectedOption = .TimeSheet
+//        menu = SideMenuNavigationController(rootViewController:controller)
+//        menu.navigationBar.isHidden = true
+//        menu.leftSide = true
+//        menu.menuWidth = Utility.getMenuWidth()
+//        SideMenuManager.default.addPanGestureToPresent(toView:view)
+//        SideMenuManager.default.leftMenuNavigationController = menu
+        
+        let topMargin = self.customNavView.frame.origin.y + self.customNavView.frame.size.height
+        menuV = CustomMenuView.init(frame: CGRect.init(x: 0, y: topMargin, width: self.view.frame.width, height: self.view.frame.height - topMargin))
+        menuV.isHidden = true
+        menuV.delegate = self
+        menuV.selectedOption = .TimeSheet
+        self.view.addSubview(menuV)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+        self.view.addGestureRecognizer(swipeLeft)
         
     }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizer.Direction.right:
+                print("Swiped right")
+                menuV.swipedRight()
+            case UISwipeGestureRecognizer.Direction.left:
+                print("Swiped left")
+                menuV.swipedLeft()
+            default:
+                break
+            }
+        }
+    }
+    
     func setData(){
         lblusername.text = Utility.getNameInitials()
         disableApproveUnapproveOptions()
@@ -130,6 +166,9 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
     }
     
     @IBAction func rightBarButtonClicked(sender:UIButton){
+        if menuV.isHidden == false{
+            return
+        }
         PopupMenuVC.showPopupMenu(prevVC: self) { selectedItem in
             if let menuItem = selectedItem{
                 if menuItem == .logout{
@@ -140,9 +179,12 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
                 else{
                     //Account
                     print("Account")
-                    let vc = SettingsVC.instantiate()
-                    vc.isForAccountSettings = true
-                    self.pushVC(controller:vc)
+                    let vc = EmployeeTimeReportVC.instantiate()
+                    vc.isForUserAccount = true
+                    if let empId = Defaults.shared.currentUser?.empId{
+                        vc.selectedEmployeeID = "\(empId)"
+                        self.pushVC(controller:vc)
+                    }
                 }
             }
         }
@@ -526,6 +568,28 @@ extension TimesheetListVC:UITableViewDelegate,UITableViewDataSource {
 }
 extension TimesheetListVC:MenuItemDelegate {
     func MenuItemClicked(menuName: String) {
+        print(menuName)
+        if menuName == Menuname.settings{
+            let vc = SettingsVC.instantiate()
+            self.pushVC(controller:vc)
+        }else  if menuName == Menuname.logout{
+            Defaults.shared.currentUser = nil
+            Utility.setRootScreen(isShowAnimation: true)
+        }else  if menuName == Menuname.employee{
+            let vc = EmployeesVC.instantiate()
+            self.pushVC(controller:vc)
+        }else  if menuName == Menuname.timeSheet{
+            let vc = TimesheetListVC.instantiate()
+            self.pushVC(controller:vc)
+        }else  if menuName == Menuname.timeClock{
+            let vc = DashBoardVC.instantiate()
+            self.pushVC(controller:vc)
+        }
+    }
+}
+
+extension TimesheetListVC: CustomMenuItemDelegate {
+    func customMenuItemClicked(menuName: String) {
         print(menuName)
         if menuName == Menuname.settings{
             let vc = SettingsVC.instantiate()

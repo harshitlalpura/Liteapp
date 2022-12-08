@@ -144,10 +144,10 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FJA-RA-D2Z">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Wkc-QG-xoX">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -657,10 +657,10 @@ Let's get started</string>
                                 <rect key="frame" x="0.0" y="44" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="z0q-7n-emx">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="JDi-FF-V07">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -1701,10 +1701,10 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                                 <rect key="frame" x="0.0" y="44" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fRX-hZ-7Km">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="E05-st-LU2">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -1926,10 +1926,10 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                                                 <rect key="frame" x="0.0" y="44" width="414" height="136"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qxx-Hw-8g6">
-                                                        <rect key="frame" x="0.0" y="7.5" width="414" height="121"/>
+                                                        <rect key="frame" x="0.0" y="15.5" width="414" height="105"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="gKu-6Q-nR7">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                                             </imageView>
                                                         </subviews>
                                                     </stackView>
@@ -2363,10 +2363,10 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                                                 <rect key="frame" x="0.0" y="44" width="414" height="132.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wz2-XA-Mxp">
-                                                        <rect key="frame" x="0.0" y="6" width="414" height="121"/>
+                                                        <rect key="frame" x="0.0" y="14" width="414" height="105"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="SUA-xG-jVe">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                                             </imageView>
                                                         </subviews>
                                                     </stackView>
@@ -2491,7 +2491,7 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                                                                         <color key="textColor" systemColor="systemBackgroundColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="e.g. 113321" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fkM-6i-Zi5">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="e.g. 11332" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fkM-6i-Zi5">
                                                                         <rect key="frame" x="20" y="45" width="334" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <constraints>
@@ -2507,6 +2507,9 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                                                                                 <real key="value" value="10"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="U1f-UM-SYH" id="cte-NE-fKE"/>
+                                                                        </connections>
                                                                     </textField>
                                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6F-hj-CO6">
                                                                         <rect key="frame" x="114" y="10" width="240" height="20"/>
@@ -2848,8 +2851,9 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VDf-NR-yAF">
                                 <rect key="frame" x="0.0" y="762" width="414" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Need support? We’re happy to help! Email our team at help@bryteps.com and we’ll get back to you as soon as possible." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jB-AB-otW">
-                                        <rect key="frame" x="8" y="33.5" width="398" height="33"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jB-AB-otW">
+                                        <rect key="frame" x="8" y="25.5" width="398" height="49.5"/>
+                                        <string key="text">Having trouble? We've got your back! Contact our support team at support@getilluminate.io and we'll respond as soon as possible.</string>
                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
                                         <color key="textColor" name="appDarkGrey"/>
                                         <nil key="highlightedColor"/>
@@ -3165,10 +3169,10 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                                 <rect key="frame" x="0.0" y="44" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sDu-VU-M8c">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="360-gy-tWy">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -3550,10 +3554,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="135.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="kyq-jc-lBf">
-                                                        <rect key="frame" x="0.0" y="7" width="414" height="121"/>
+                                                        <rect key="frame" x="0.0" y="15" width="414" height="105"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="VkS-wN-m0T">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                                             </imageView>
                                                         </subviews>
                                                     </stackView>
@@ -3852,10 +3856,10 @@ this should only take about
                                 <rect key="frame" x="0.0" y="44" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Gv3-CY-YGh">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="LwJ-vE-j8b">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -4370,10 +4374,10 @@ this should only take about
                                 <rect key="frame" x="0.0" y="44" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4y3-fn-ZyW">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="oFf-2U-uSV">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -4613,10 +4617,10 @@ this should only take about
                                 <rect key="frame" x="0.0" y="44" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lCC-i7-6ap">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="vqd-u5-Jnn">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -5323,10 +5327,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                 <rect key="frame" x="0.0" y="44" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uCv-GB-DId">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="VMb-c7-LMo">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -5524,10 +5528,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                 <rect key="frame" x="0.0" y="44" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YUS-KT-vDw">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="rCY-Jb-PWJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -5658,10 +5662,10 @@ instructions to</string>
                                 <rect key="frame" x="0.0" y="44" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SNd-Kr-0WK">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ghm-ZO-9hb">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -6150,10 +6154,10 @@ both passwords must match</string>
                                 <rect key="frame" x="0.0" y="44" width="414" height="163"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="V3Q-ch-Nmv">
-                                        <rect key="frame" x="0.0" y="21" width="414" height="121"/>
+                                        <rect key="frame" x="0.0" y="29" width="414" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6eI-la-VqH">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -6257,7 +6261,7 @@ both passwords must match</string>
         <image name="ic_validationAlert" width="237" height="237"/>
         <image name="ic_visibility" width="48" height="48"/>
         <image name="img_success" width="237" height="237"/>
-        <image name="luuminateLogo" width="267" height="121"/>
+        <image name="luuminateLogo" width="275" height="105"/>
         <image name="onboarding" width="600" height="673"/>
         <image name="premium" width="225" height="225"/>
         <namedColor name="404040">

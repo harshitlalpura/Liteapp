@@ -1,103 +1,109 @@
 //
-//  MenuViewController.swift
+//  CustomMenuView.swift
 //  Liteapp
 //
-//  Created by Navroz Huda on 07/06/22.
+//  Created by Apurv Soni on 27/11/22.
 //
 
-import Foundation
 import UIKit
 import MessageUI
 
-enum Menuname{
-    static let timeClock = "TimeClock"
-    static let employee = "Employees"
-    static let timeSheet = "TimeSheets"
-    static let Exams = "Exams"
-    static let settings = "Settings"
-    static let logout = "Logout \n Manager"
-    
-    
+protocol CustomMenuItemDelegate : NSObjectProtocol {
+    func customMenuItemClicked(menuName:String)
 }
 
-enum SelectedOption:Int{
-    case TimeClock = 0
-    case Employee = 1
-    case TimeSheet = 2
-    case Settings = 3
-    case Logout = 4
-}
-
-
-class MenuViewController: BaseViewController, StoryboardSceneBased{
-    static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.main.rawValue : StoryboardName.main.rawValue, bundle: nil)
-    @IBOutlet weak var menuTableview: UITableView!
-    @IBOutlet weak var userImageview: UIImageView!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var bottomView: UIView!
+class CustomMenuView: UIView {
     
-    @IBOutlet weak var premiumView: UIView!
-    @IBOutlet weak var upgradePremiumView: UIView!
+    let kCONTENT_XIB_NAME = "CustomMenuView"
+    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var constViewMenuLeading: NSLayoutConstraint!
     @IBOutlet weak var btnSupport: UIButton!
     @IBOutlet weak var lblSupportText: UILabel!
+    @IBOutlet weak var tblView: UITableView!
+    
+    weak public var delegate: CustomMenuItemDelegate?
     @IBOutlet weak var constvwSupportHeight: NSLayoutConstraint!
+    
     var selectedOption:SelectedOption = .TimeClock
-    weak public var delegate: MenuItemDelegate?
     var menuItems = ["TimeClock","Employees","TimeSheets","Settings","Logout \n Manager"]
 //    var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
     var menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
     
     var supportText : String = "Having trouble? We've got your back! Contact our support team at support@getilluminate.io and we'll respond as soon as possible."
     var supportEmail = "support@getilluminate.io"
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.constvwSupportHeight.constant = 0.0
-        setupTableView()
-        setupSupportLabel()
-    }
-    private lazy var overlayView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray
-        view.alpha = 0.0
-
-        return view
-    }()
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        showOverlayView()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        hideOverlayView()
-        super.viewWillDisappear(animated)
-    }
-    private func setupTableView(){
-        if Defaults.shared.currentUser?.empType ?? "" == "S"{
-            menuItems = ["TimeClock","Employees","TimeSheets","Settings","Logout \n Manager"]
-//            menuImages = ["ic_timeclock","ic_employee","ic_timesheets","ic_settings","ic_logout"]
-            menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
-        }else{
-           menuItems = ["TimeClock","Logout \n Manager"]
-//            menuImages = ["ic_timeclock","ic_logout"]
-            menuImages = ["ic_timeclock_tint","ic_logout_tint"]
+    
+    override init(frame: CGRect) {
+            super.init(frame: frame)
+            commonInit()
         }
-        menuTableview.delegate = self
-        menuTableview.dataSource = self
-        menuTableview.estimatedRowHeight = 65.0
-        menuTableview.rowHeight = UITableView.automaticDimension
-        menuTableview.separatorStyle = .none
-        menuTableview.bouncesZoom = false
-        menuTableview.bounces = false
         
-    }
-    func setSelected(selectedOption:SelectedOption,index:Int){
-       
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+            commonInit()
+        }
+        
+        func commonInit() {
+            Bundle.main.loadNibNamed(kCONTENT_XIB_NAME, owner: self, options: nil)
+            contentView.fixInView(self)
+            self.constvwSupportHeight.constant = 0.0
+            self.constViewMenuLeading.constant = -277.0
+            tblView.register(UINib(nibName: "CustomMenuCell", bundle: nil), forCellReuseIdentifier: "cell")
+            tblView.register(UINib(nibName: "CustomMenuLogoutCell", bundle: nil), forCellReuseIdentifier: "cellLogout")
             
+            DispatchQueue.main.async {
+                self.setupSupportLabel()
+            }
+        }
+    
+    @IBAction func btnOutsideClicked(_ sender: Any) {
+        self.showHideMenu()
     }
+    
+    func swipedLeft(){
+        if self.isHidden == false{
+            showHideMenu()
+        }
+    }
+    
+    func swipedRight(){
+        if self.isHidden == true{
+            showHideMenu()
+        }
+    }
+    
+    func showHideMenu(){
+        if self.constViewMenuLeading.constant != 0{
+            self.isHidden = false
+        }
+        UIView.animate(withDuration: 0.25) {
+            if self.constViewMenuLeading.constant == 0{
+                self.constViewMenuLeading.constant = -277
+            }
+            else{
+                self.constViewMenuLeading.constant = 0
+            }
+            self.layoutIfNeeded()
+        } completion: { completed in
+            if self.constViewMenuLeading.constant == 0{
+                
+            }
+            else{
+                self.isHidden = true
+            }
+        }
+    }
+    
+    @IBAction func btnSupportClicked(_ sender: Any) {
+        UIView.animate(withDuration: 0.25) {
+            if self.constvwSupportHeight.constant == 100.0{
+                self.constvwSupportHeight.constant = 0.0
+            }else{
+                self.constvwSupportHeight.constant = 100.0
+            }
+            self.layoutIfNeeded()
+        }
+    }
+    
     func setupSupportLabel(){
         DispatchQueue.main.async {
             self.lblSupportText.text = self.supportText
@@ -128,7 +134,10 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
                 mail.setToRecipients([supportEmail])
                 mail.setSubject("")
                 mail.setMessageBody("", isHTML: true)
-                present(mail, animated: true)
+                if let parentVC = self.parentViewController{
+                    parentVC.present(mail, animated: true)
+                }
+                
             } else {
                 print("Application is not able to send an email")
             }
@@ -138,57 +147,15 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
         }
     }
     
-    @IBAction func btnSupportClicked(_ sender: Any) {
-        UIView.animate(withDuration: 0.25) {
-            if self.constvwSupportHeight.constant == 100.0{
-                self.constvwSupportHeight.constant = 0.0
-            }else{
-                self.constvwSupportHeight.constant = 100.0
-            }
-            self.view.layoutIfNeeded()
-        }
-    }
-    
 }
-extension MenuViewController {
-    private func showOverlayView() {
-        addOverlayView()
-        UIView.animate(withDuration: 0.5) {
-            self.overlayView.alpha = 0.5
-        }
-    }
 
-    private func hideOverlayView() {
-        UIView.animate(withDuration: 0.5) {
-            self.overlayView.alpha = 0.0
-        } completion: { _ in
-            self.removeOverlayView()
-        }
-    }
-
-    private func addOverlayView() {
-        guard let view = presentingViewController?.view else { return }
-        view.addSubview(overlayView)
-
-        NSLayoutConstraint.activate([
-            overlayView.topAnchor.constraint(equalTo: view.topAnchor),
-            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-    }
-
-    private func removeOverlayView() {
-        overlayView.removeFromSuperview()
-    }
-}
-extension MenuViewController:UITableViewDataSource,UITableViewDelegate {
+extension CustomMenuView:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuItems.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == menuItems.count - 1{
-            let cell = tableView.dequeueReusableCell(withIdentifier:"cellLogout",for:indexPath) as! MenuLogoutCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"cellLogout",for:indexPath) as! CustomMenuLogoutCell
             cell.label.text = menuItems[indexPath.row]
             cell.label.textAlignment = .left
           
@@ -230,7 +197,7 @@ extension MenuViewController:UITableViewDataSource,UITableViewDelegate {
             return cell
         }
         else{
-            let cell = tableView.dequeueReusableCell(withIdentifier:"cell",for:indexPath) as! MenuCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"cell",for:indexPath) as! CustomMenuCell
              cell.label.text = menuItems[indexPath.row]
              cell.label.textAlignment = .left
            
@@ -272,35 +239,41 @@ extension MenuViewController:UITableViewDataSource,UITableViewDelegate {
            
             return
         }
-        self.dismiss(animated:true) { [self] in
-            delegate?.MenuItemClicked(menuName: menuItems[indexPath.row])
-        }
+        
+        delegate?.customMenuItemClicked(menuName: menuItems[indexPath.row])
+        showHideMenu()
     }
 
 }
-extension MenuViewController : MFMailComposeViewControllerDelegate{
+
+extension UIView
+{
+    func fixInView(_ container: UIView!) -> Void{
+        self.translatesAutoresizingMaskIntoConstraints = false;
+        self.frame = container.frame;
+        container.addSubview(self);
+        NSLayoutConstraint(item: self, attribute: .leading, relatedBy: .equal, toItem: container, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: self, attribute: .trailing, relatedBy: .equal, toItem: container, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
+    }
+    
+    var parentViewController: UIViewController? {
+        // Starts from next (As we know self is not a UIViewController).
+        var parentResponder: UIResponder? = self.next
+        while parentResponder != nil {
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+            parentResponder = parentResponder?.next
+        }
+        return nil
+    }
+    
+}
+
+extension CustomMenuView : MFMailComposeViewControllerDelegate{
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
-}
-
-class MenuCell : UITableViewCell {
-    @IBOutlet weak var imageview: UIImageView!
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var selectedBar: UIView!
-}
-
-class MenuLogoutCell : UITableViewCell {
-    @IBOutlet weak var imageview: UIImageView!
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var lblUserName: UILabel!
-    @IBOutlet weak var selectedBar: UIView!
-}
-
-
-protocol MenuItemDelegate : NSObjectProtocol {
-    func MenuItemClicked(menuName:String)
-}
-extension MenuItemDelegate{
-    func MenuItemClicked(menuName:String){}
 }

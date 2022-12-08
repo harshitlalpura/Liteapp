@@ -118,6 +118,8 @@ class OnboardingRegisterStep4VC: BaseViewController, StoryboardSceneBased{
                 print(res)
                 let user = Mapper<EmployeeData>().map(JSONObject:res)
                 Defaults.shared.currentUser = user?.empData?.first
+                Defaults.shared.passLen = self.saveMerchent.emp_password?.length
+                
                 print(Defaults.shared.currentUser?.merchantName ?? "")
                 if let empType = Defaults.shared.currentUser?.empType{
                     if empType == "E"{

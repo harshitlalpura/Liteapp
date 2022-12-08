@@ -1298,6 +1298,7 @@
                         <outlet property="calanderCollectionView" destination="cKa-hN-wTH" id="UCa-ok-nOm"/>
                         <outlet property="clockInSuccessPopup" destination="4Gm-Av-A1e" id="wjJ-Gm-6e1"/>
                         <outlet property="clockOutSuccessPopup" destination="bXw-td-geD" id="z5r-tQ-s6t"/>
+                        <outlet property="customNavView" destination="CiX-ra-P30" id="m5W-wV-M5v"/>
                         <outlet property="imageviewClockinStatus" destination="Muh-tm-HAX" id="PfH-wc-hID"/>
                         <outlet property="lblClockinStatus" destination="ggZ-Xw-f3U" id="L0N-lj-9oV"/>
                         <outlet property="lblDailyHours" destination="dlV-rf-mgs" id="BwJ-or-E49"/>
@@ -1611,7 +1612,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydx-DG-RnK">
-                                                                <rect key="frame" x="32" y="0.0" width="361.5" height="55"/>
+                                                                <rect key="frame" x="32" y="0.0" width="24" height="55"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
                                                                 <connections>
@@ -1968,6 +1969,7 @@
                         <outlet property="approvalSortImageview" destination="eWf-pJ-k4E" id="Ge3-Jg-Nlg"/>
                         <outlet property="approveMainview" destination="qUy-LD-mf1" id="GUK-dQ-cIY"/>
                         <outlet property="btnCheckAll" destination="cen-g1-mVI" id="9W6-vX-VA6"/>
+                        <outlet property="customNavView" destination="C5X-NU-e36" id="1tJ-J4-wSW"/>
                         <outlet property="exportMainView" destination="4cL-gx-zxh" id="Lkz-7p-B2P"/>
                         <outlet property="lblusername" destination="4OJ-yK-h6F" id="fCE-WN-Ani"/>
                         <outlet property="nameSortImageview" destination="0X0-dV-Mbc" id="WP9-Hs-FtJ"/>
@@ -2140,7 +2142,7 @@
         <image name="ic_timesheets" width="54" height="54"/>
         <image name="ic_updown" width="24" height="48"/>
         <image name="ic_yellow_watch" width="232" height="232"/>
-        <image name="luuminateLogo" width="267" height="121"/>
+        <image name="luuminateLogo" width="275" height="105"/>
         <image name="menuHemburger" width="21" height="17.5"/>
         <namedColor name="75838F">
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>

@@ -128,6 +128,9 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet var viewSelection: UIView!
     @IBOutlet weak var tblSelection: UITableView!
     
+    @IBOutlet weak var customNavView: UIView!
+    var menuV : CustomMenuView!
+    
     
     var setupMerchant:SetupMerchant!
     var merchantSettings:MerchantSettings?
@@ -143,6 +146,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     var selectedSettings:Settings = .timeclock
     var arrSettings : [[String : String]] = []
+    
+    var wasAppKilledWhenSettingsIncomplete : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,11 +213,19 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         btnBiWeekly.setTitleColor(.darkGray, for: .selected)
         btnBiWeekly.setTitleColor(.white, for: .selected)
        
-        btnWeek1.setBackgroundColor(UIColor.Color.appThemeBGColor, forState: .selected)
+        btnWeek1.setBackgroundColor(UIColor.Color.appBlueColor2, forState: .selected)
         btnWeek1.setBackgroundColor(.white, forState: .normal)
+        btnWeek1.setTitleColor(UIColor(hex:"#393F45"), for: .normal)
+        btnWeek1.setTitleColor(UIColor.white, for: .selected)
         
-        btnWeek2.setBackgroundColor(UIColor.Color.appThemeBGColor, forState: .selected)
+
+        btnWeek2.setBackgroundColor(UIColor.Color.appBlueColor2, forState: .selected)
         btnWeek2.setBackgroundColor(.white, forState: .normal)
+        btnWeek2.setTitleColor(UIColor(hex:"#393F45"), for: .normal)
+        btnWeek2.setTitleColor(UIColor.white, for: .selected)
+        
+        
+        
         
 //        btnWeekly.isSelected = true
         
@@ -250,13 +263,15 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         showSettingsView(showAccount: isForAccountSettings)
         
 //        self.timesheetStackView.alpha = 0.5
-        changeTimesheetAppearance(toEdit: false)
-        changeBusinessAppearance(toEdit: false)
+        changeTimesheetAppearance(toEdit: true)
+        changeBusinessAppearance(toEdit: true)
 //        self.accountStackView.alpha = 0.5
-        changeAccountTextfieldsAppearance(toEdit: false)
+        changeAccountTextfieldsAppearance(toEdit: true)
         self.saveView.isHidden = true
+        editView.alpha = 0.0
         
         if self.setupProfile{
+            Defaults.shared.settingsPopupStatus = 1
             self.congratulationsPopup.isHidden  = false
         }
         txteditWeeklyOvertimeHours.delegate = self
@@ -277,42 +292,81 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         txtBusinessTimezone.delegate = self
         
         
-        arrSettings = [["title":"Account Settings","subtitle":"General account info","icon":"account_settings"],["title":"Business Settings","subtitle":"Info about your business","icon":"bussiness_settings"],["title":"Timeclock Settings","subtitle":"Settings that affect employees","icon":"timesheet_settings"]]
-        
+//        arrSettings = [["title":"Account Settings","subtitle":"General account info","icon":"account_settings"],["title":"Business Settings","subtitle":"Info about your business","icon":"bussiness_settings"],["title":"Timeclock Settings","subtitle":"Settings that affect employees","icon":"timesheet_settings"]]
+        arrSettings = [["title":"Business Settings","subtitle":"Info about your business","icon":"bussiness_settings"],["title":"Timeclock Settings","subtitle":"Settings that affect employees","icon":"timesheet_settings"]]
+        accountSettingView.isHidden = true
     }
     override func viewWillAppear(_ animated: Bool) {
         fetchSettings()
+        if wasAppKilledWhenSettingsIncomplete == true{
+            wasAppKilledWhenSettingsIncomplete = false
+            self.setupMerchant = SetupMerchant()
+            self.setupMerchant.merchant_id = "\(Defaults.shared.currentUser?.merchantId ?? 0)"
+            self.editPayPeriodStartDayView.isHidden = false
+            self.blurOverlayView.isHidden = false
+        }
     }
     private func setupMenu(){
-        let controller = MenuViewController.instantiate()
-        controller.delegate = self
-        controller.selectedOption = .Settings
-        menu = SideMenuNavigationController(rootViewController:controller)
-        menu.navigationBar.isHidden = true
-        menu.leftSide = true
-        menu.menuWidth = Utility.getMenuWidth()
-        SideMenuManager.default.addPanGestureToPresent(toView:view)
-        SideMenuManager.default.leftMenuNavigationController = menu
+//        let controller = MenuViewController.instantiate()
+//        controller.delegate = self
+//        controller.selectedOption = .Settings
+//        menu = SideMenuNavigationController(rootViewController:controller)
+//        menu.navigationBar.isHidden = true
+//        menu.leftSide = true
+//        menu.menuWidth = Utility.getMenuWidth()
+//        SideMenuManager.default.addPanGestureToPresent(toView:view)
+//        SideMenuManager.default.leftMenuNavigationController = menu
+        
+        let topMargin = self.customNavView.frame.origin.y + self.customNavView.frame.size.height
+        menuV = CustomMenuView.init(frame: CGRect.init(x: 0, y: topMargin, width: self.view.frame.width, height: self.view.frame.height - topMargin))
+        menuV.isHidden = true
+        menuV.delegate = self
+        menuV.selectedOption = .Settings
+        self.view.addSubview(menuV)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+        self.view.addGestureRecognizer(swipeLeft)
         
     }
     
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizer.Direction.right:
+                print("Swiped right")
+                menuV.swipedRight()
+            case UISwipeGestureRecognizer.Direction.left:
+                print("Swiped left")
+                menuV.swipedLeft()
+            default:
+                break
+            }
+        }
+    }
     func showSettingsView(showAccount : Bool = false){
         self.viewSelection.isHidden = false
         self.businessSettingsView.isHidden = true
         self.timesheetSettingView.isHidden = true
         //        self.businessSettingsView.isHidden = false
-        self.accountSettingView.isHidden = true
-        if showAccount == true {
-            self.accountSettingView.isHidden = false
-            self.viewSelection.isHidden = true
-        }
+//        self.accountSettingView.isHidden = true
+//        if showAccount == true {
+//            self.accountSettingView.isHidden = false
+//            self.viewSelection.isHidden = true
+//        }
     }
     
     @IBAction func menuClicked(sender:UIButton){
-        self.present(menu, animated: true, completion: {})
+//        self.present(menu, animated: true, completion: {})
+        menuV.showHideMenu()
     }
     func callSetupMerchangtAPI(){
         NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.setupMerchants(), param: setupMerchant.getParam(), header: Defaults.shared.header ?? ["":""]) { success, response, error in
+            Defaults.shared.settingsPopupStatus = nil
             if let res = response{
                 print(res)
                 self.editPayPeriodStartDayView.isHidden = true
@@ -400,12 +454,12 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         self.merchantSettings?.merchantWeb = txtBusinessWebsite.text
         self.merchantSettings?.merchantZip = txtZipCode.text
         let timezone = txtBusinessTimezone.text!.components(separatedBy:" ")[0]
-        if timezone != "Test" {
+//        if timezone != "Test" {
             merchantSettings?.merchantTimezone = "US/\(timezone)"
-        }
-        else{
-            merchantSettings?.merchantTimezone = "Asia/Kolkata"
-        }
+//        }
+//        else{
+//            merchantSettings?.merchantTimezone = "Asia/Kolkata"
+//        }
         merchantSettings?.merchantCompanySize = self.txtTotalEmployee.text
     }
     
@@ -435,7 +489,12 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         NetworkLayer.sharedNetworkLayer.postWebApiCallWithHeader(apiEndPoints: APIEndPoints.saveSettings(), param: param, header: ["":""]) { success, response, error in
             if let res = response{
                 print(res)
-               
+                if let status = res["status"] as? Int , status == 1{
+                    SucessPopupVC.showSuccessPopup(prevVC: self,titleStr: "Success" , strSubTitle: "Your changes were saved!") { done in
+                        self.fetchSettings()
+                }
+                    
+                }
             }else if let err = error{
                 print(err)
             }
@@ -465,7 +524,14 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         self.txtLastName.text = (merchantSettings?.empLastname ?? "")
         self.txtUserName.text = (merchantSettings?.empUserName ?? "")
         self.txtemail.text = (merchantSettings?.empWorkEmail ?? "")
-        self.txtpassword.text = Defaults.shared.currentUser?.empPassword ?? ""
+        
+        if let passwordLength = Defaults.shared.passLen{
+            self.txtpassword.text = Utility.randomString(length: passwordLength)
+        }
+        else{
+            self.txtpassword.text = Defaults.shared.currentUser?.empPassword ?? ""
+        }
+        
         self.txteditdailyOvertimeHours.text = "\(merchantSettings?.merchantDailyOvertime ?? 8)"
         self.txteditWeeklyOvertimeHours.text = "\(merchantSettings?.merchantWeeklyOvertime ?? 32)"
         
@@ -533,15 +599,19 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
             self.txtBusinessTimezone.text = "Mountain Standard Time(MST)"
         }else if merchantSettings?.merchantTimezone ?? "" == "US/Pacific"{
             self.txtBusinessTimezone.text = "Pacific Standard Time(PST)"
-        }else if merchantSettings?.merchantTimezone ?? "" == "Asia/Kolkata"{
-            self.txtBusinessTimezone.text = "Test Timezone(Don't Choose)"
         }
+//        else if merchantSettings?.merchantTimezone ?? "" == "Asia/Kolkata"{
+//            self.txtBusinessTimezone.text = "Test Timezone(Don't Choose)"
+//        }
         
         self.txtTotalEmployee.text = merchantSettings?.merchantCompanySize ?? ""
         
         
     }
     @IBAction func rightBarButtonClicked(sender:UIButton){
+        if menuV.isHidden == false{
+            return
+        }
         PopupMenuVC.showPopupMenu(prevVC: self) { selectedItem in
             if let menuItem = selectedItem{
                 if menuItem == .logout{
@@ -552,7 +622,13 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                 else{
                     //Account
                     print("Account")
-                    self.showSettingsView(showAccount: true)
+//                    self.showSettingsView(showAccount: true)
+                    let vc = EmployeeTimeReportVC.instantiate()
+                    vc.isForUserAccount = true
+                    if let empId = Defaults.shared.currentUser?.empId{
+                        vc.selectedEmployeeID = "\(empId)"
+                        self.pushVC(controller:vc)
+                    }
                 }
             }
         }
@@ -565,6 +641,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                 hideAllSettingProfileSetupViews()
                 setupMerchant.merchant_week_start = "\(selectedDay.rawValue)"
                 editPayPeriodDurationView.isHidden = false
+                Defaults.shared.settingsPopupStatus = 2
             }
             else{
                 self.showAlert(alertType:.validation, message: "Please select pay period start on.")
@@ -579,6 +656,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                 }
 //                editWeeklyOvertimeView.isHidden = false
                 editdailyOvertimeView.isHidden = false
+                Defaults.shared.settingsPopupStatus = 3
             }
             else{
                 self.showAlert(alertType:.validation, message: "Please select Pay Period duration.")
@@ -600,7 +678,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                     setupMerchant.merchant_daily_overtime = dailyOvertimeHours
                     setupMerchant.merchant_timezone = Defaults.shared.currentUser?.merchantTimezone ?? ""
                     setupMerchant.merchant_current_pay_week = "1"
-                    
+                    Defaults.shared.settingsPopupStatus = 4
                     callSetupMerchangtAPI()
                     print(setupMerchant ?? "")
                     //callSetupAPI
@@ -825,14 +903,14 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         SettingsSavePopupVC.showSettingsSavePopup(prevVC: self) { isSaveTapped in
             if isSaveTapped{
                 if self.validateSettings(){
-                    self.saveView.isHidden = true
-                    self.editView.isUserInteractionEnabled = true
-                    self.editView.alpha = 1.0
+//                    self.saveView.isHidden = true
+//                    self.editView.isUserInteractionEnabled = true
+//                    self.editView.alpha = 1.0
         //            self.timesheetStackView.alpha = 0.5
-                    self.changeTimesheetAppearance(toEdit: false)
+//                    self.changeTimesheetAppearance(toEdit: false)
         //            self.accountStackView.alpha = 0.5
-                    self.changeAccountTextfieldsAppearance(toEdit: false)
-                    self.changeBusinessAppearance(toEdit: false)
+//                    self.changeAccountTextfieldsAppearance(toEdit: false)
+//                    self.changeBusinessAppearance(toEdit: false)
                     self.setSelectedDetailsToMerchantSettings()
                     self.callSaveMerchantSettings()
                 }
@@ -921,14 +999,15 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
 //        switchDailyOvertime.isUserInteractionEnabled = false
 //        btnWeek1.isUserInteractionEnabled = false
 //        btnWeek2.isUserInteractionEnabled = false
-        saveView.isHidden = true
-        editView.isUserInteractionEnabled = true
-        editView.alpha = 1.0
-//        self.timesheetStackView.alpha = 0.5
-        changeTimesheetAppearance(toEdit: false)
-//        self.accountStackView.alpha = 0.5
-        changeAccountTextfieldsAppearance(toEdit: false)
-        changeBusinessAppearance(toEdit: false)
+        //        self.timesheetStackView.alpha = 0.5
+        //        self.accountStackView.alpha = 0.5
+        
+//        saveView.isHidden = true
+//        editView.isUserInteractionEnabled = true
+//        editView.alpha = 1.0
+//        changeTimesheetAppearance(toEdit: false)
+//        changeAccountTextfieldsAppearance(toEdit: false)
+//        changeBusinessAppearance(toEdit: false)
         fetchSettings()
     }
     @IBAction func closeClick(sender:UIButton){
@@ -942,7 +1021,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     @IBAction func btnSelectBusinessTimezoneTapped(_ sender: Any) {
 //        let pickerArray = ["Atlantic Standard Time(AST)","Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)","Test Timezone(Don't Choose)"]
-        let pickerArray = ["Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)","Test Timezone(Don't Choose)"]
+        let pickerArray = ["Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)"]
         IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField: txtBusinessTimezone, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
@@ -1000,9 +1079,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     @IBAction func btnBackToSelectionTapped(_ sender: Any) {
         self.viewSelection.isHidden = false
+        self.saveView.isHidden = true
         self.timesheetSettingView.isHidden = true
         self.businessSettingsView.isHidden = true
-        self.accountSettingView.isHidden = true
+//        self.accountSettingView.isHidden = true
     }
     
    
@@ -1087,6 +1167,30 @@ extension SettingsVC:MenuItemDelegate {
     }
     
 }
+
+extension SettingsVC: CustomMenuItemDelegate {
+    func customMenuItemClicked(menuName: String) {
+        print(menuName)
+        if menuName == Menuname.settings{
+            let vc = SettingsVC.instantiate()
+            self.pushVC(controller:vc)
+        }else  if menuName == Menuname.logout{
+            Defaults.shared.currentUser = nil
+            Utility.setRootScreen(isShowAnimation: true)
+        }else  if menuName == Menuname.employee{
+            let vc = EmployeesVC.instantiate()
+            self.pushVC(controller:vc)
+        }else  if menuName == Menuname.timeSheet{
+            let vc = TimesheetListVC.instantiate()
+            self.pushVC(controller:vc)
+        }else  if menuName == Menuname.timeClock{
+            let vc = DashBoardVC.instantiate()
+            self.pushVC(controller:vc)
+        }
+        
+    }
+}
+
 extension SettingsVC:UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if editView.alpha == 1.0{
@@ -1123,26 +1227,29 @@ extension SettingsVC : UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0{
-            //Account
-            self.viewSelection.isHidden = true
-            self.timesheetSettingView.isHidden = true
-            self.businessSettingsView.isHidden = true
-            self.accountSettingView.isHidden = false
-        }
-        else if indexPath.row == 1{
+//        if indexPath.row == 0{
+//            //Account
+//            self.viewSelection.isHidden = true
+//            self.saveView.isHidden = false
+//            self.timesheetSettingView.isHidden = true
+//            self.businessSettingsView.isHidden = true
+//            self.accountSettingView.isHidden = false
+//        }
+         if indexPath.row == 0{
             //Bussiness
             self.viewSelection.isHidden = true
+            self.saveView.isHidden = false
             self.timesheetSettingView.isHidden = true
             self.businessSettingsView.isHidden = false
-            self.accountSettingView.isHidden = true
+//            self.accountSettingView.isHidden = true
         }
-        else if indexPath.row == 2{
+        else if indexPath.row == 1{
             //Timesheet
             self.viewSelection.isHidden = true
+            self.saveView.isHidden = false
             self.timesheetSettingView.isHidden = false
             self.businessSettingsView.isHidden = true
-            self.accountSettingView.isHidden = true
+//            self.accountSettingView.isHidden = true
         }
     }
 }

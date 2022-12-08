@@ -80,12 +80,12 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
             saveMerchent.merchant_name = txtBusinessName.text!
             saveMerchent.merchant_zip = txtZipcode.text!
             let timezone = txtTimezone.text!.components(separatedBy:" ")[0]
-            if timezone == "Test"{
-                saveMerchent.merchant_timezone = "Asia/Kolkata"
-            }
-            else{
+//            if timezone == "Test"{
+//                saveMerchent.merchant_timezone = "Asia/Kolkata"
+//            }
+//            else{
                 saveMerchent.merchant_timezone = "US/\(timezone)"
-            }
+//            }
             let vc = OnboardingRegisterStep3VC.instantiate()
             vc.saveMerchent = saveMerchent
             self.pushVC(controller:vc)
@@ -96,7 +96,7 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
     @IBAction func selectTimezoneClick(sender:UIButton){
         
 //        let pickerArray = ["Atlantic Standard Time(AST)","Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)"]
-        let pickerArray = ["Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)","Test Timezone(Don't Choose)"]
+        let pickerArray = ["Eastern Standard Time(EST)","Central Standard Time(CST)","Mountain Standard Time(MST)","Pacific Standard Time(PST)"]
         IQKeyboardManager.shared.enable = false
         PickerView.sharedInstance.addPicker(self, onTextField: txtTimezone, pickerArray: pickerArray) { index, value, isDismiss in
             if !isDismiss {
@@ -111,3 +111,15 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
 }
 
 
+extension OnboardingRegisterStep2VC : UITextFieldDelegate{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtZipcode{
+            let maxLength = 5
+            let currentString: NSString = (textField.text ?? "") as NSString
+            let newString: NSString =  currentString.replacingCharacters(in: range, with: string) as NSString
+            
+            return newString.length <= maxLength
+        }
+        return true
+    }
+}

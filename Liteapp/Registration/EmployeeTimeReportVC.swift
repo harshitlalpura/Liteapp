@@ -77,6 +77,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtjobtitle: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var txtUsername: UITextField!
     @IBOutlet weak var btnDeleteEmployee: UIButton!
     
     @IBOutlet weak var userinformationView: UIView!
@@ -105,6 +106,13 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var imgvwCapitalLetter: UIImageView!
     @IBOutlet weak var imgvwNumber: UIImageView!
     @IBOutlet weak var imgvwSpecialCharacter: UIImageView!
+    @IBOutlet weak var constTopEditTooltip: NSLayoutConstraint!
+    
+    @IBOutlet weak var viewUsername: UIView!
+    
+    @IBOutlet weak var customNavView: UIView!
+    
+    var menuV : CustomMenuView!
     
     var isPasswordValidTotalCount : Bool = false
     var isPasswordValidCapitalChar : Bool = false
@@ -114,6 +122,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     
     var isFromEmployee = false
     var isFromTimesheet = false
+    var isForUserAccount = false
     var weekDates = [CustomDate]()
     var selectedWeekIndex = 0
     var selectedSettings:Settings = .userInfo
@@ -128,6 +137,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     var isEditMode : Bool = false
     var btnApproveUnApprove : UIButton?
     var approvalFooterView : UIView?
+    var isForAdminProfile : Bool = false
+    
     @IBOutlet weak var picker: MyDatePicker!
     @IBOutlet weak var datePickerView: UIView!
     override func viewDidLoad() {
@@ -148,6 +159,12 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             self.timereportView.isHidden = false
             editView.isHidden = false
         }
+        else if isForUserAccount{
+            self.employeeProfileSelectionView.isHidden = true
+            self.userinformationView.isHidden = false
+            self.timereportView.isHidden = true
+            editView.isHidden = false
+        }
         else{
             self.employeeProfileSelectionView.isHidden = false
             self.userinformationView.isHidden = true
@@ -160,6 +177,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         self.txtEmail.delegate = self
         self.txtjobtitle.delegate = self
         self.txtPassword.delegate = self
+        self.txtUsername.delegate = self
         
         tblEvents.addObserver(self, forKeyPath: #keyPath(UITableView.contentSize), options: [NSKeyValueObservingOptions.new], context: &myContext)
 //        collectionViewEvents.addObserver(self, forKeyPath: #keyPath(UICollectionView.contentSize), options: [NSKeyValueObservingOptions.new], context: &collectionviewContext)
@@ -196,16 +214,46 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         self.view.layoutSubviews()
     }
     private func setupMenu(){
-        let controller = MenuViewController.instantiate()
-        controller.delegate = self
-        controller.selectedOption = .Employee
-        menu = SideMenuNavigationController(rootViewController:controller)
-        menu.navigationBar.isHidden = true
-        menu.leftSide = true
-        menu.menuWidth = Utility.getMenuWidth()
-        SideMenuManager.default.addPanGestureToPresent(toView:view)
-        SideMenuManager.default.leftMenuNavigationController = menu
+//        let controller = MenuViewController.instantiate()
+//        controller.delegate = self
+//        controller.selectedOption = .Employee
+//        menu = SideMenuNavigationController(rootViewController:controller)
+//        menu.navigationBar.isHidden = true
+//        menu.leftSide = true
+//        menu.menuWidth = Utility.getMenuWidth()
+//        SideMenuManager.default.addPanGestureToPresent(toView:view)
+//        SideMenuManager.default.leftMenuNavigationController = menu
         
+        let topMargin = self.customNavView.frame.origin.y + self.customNavView.frame.size.height
+        menuV = CustomMenuView.init(frame: CGRect.init(x: 0, y: topMargin, width: self.view.frame.width, height: self.view.frame.height - topMargin))
+        menuV.isHidden = true
+        menuV.delegate = self
+        menuV.selectedOption = .Employee
+        self.view.addSubview(menuV)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+        self.view.addGestureRecognizer(swipeLeft)
+        
+    }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizer.Direction.right:
+                print("Swiped right")
+                menuV.swipedRight()
+            case UISwipeGestureRecognizer.Direction.left:
+                print("Swiped left")
+                menuV.swipedLeft()
+            default:
+                break
+            }
+        }
     }
    
     func setupTableViewHeightWithReload(){
@@ -285,6 +333,9 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     }
     
     @IBAction func rightBarButtonClicked(sender:UIButton){
+        if menuV.isHidden == false{
+            return
+        }
         PopupMenuVC.showPopupMenu(prevVC: self) { selectedItem in
             if let menuItem = selectedItem{
                 if menuItem == .logout{
@@ -295,15 +346,19 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                 else{
                     //Account
                     print("Account")
-                    let vc = SettingsVC.instantiate()
-                    vc.isForAccountSettings = true
-                    self.pushVC(controller:vc)
+                    let vc = EmployeeTimeReportVC.instantiate()
+                    vc.isForUserAccount = true
+                    if let empId = Defaults.shared.currentUser?.empId{
+                        vc.selectedEmployeeID = "\(empId)"
+                        self.pushVC(controller:vc)
+                    }
                 }
             }
         }
     }
     @IBAction func menuClicked(sender:UIButton){
-        self.present(menu, animated: true, completion: {})
+//        self.present(menu, animated: true, completion: {})
+        menuV.showHideMenu()
     }
     @IBAction func datePickerCancelClick(){
         self.datePickerView.isHidden = true
@@ -368,6 +423,22 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                 self.txtEmail.text = "\(self.employeeDetails?.empWorkEmail ?? "")"
                 self.txtjobtitle.text = "\(self.employeeDetails?.empJobTitle ?? "")"
                 self.txtPassword.text = "\(self.employeeDetails?.empPassword ?? "")"
+                self.txtUsername.text = "\(self.employeeDetails?.empUsername ?? "")"
+                
+                //Show/Hide Username and Delete option based on user type
+                if self.employeeDetails?.empType == "S"{
+                    //Show Username and Hide Delete
+                    self.isForAdminProfile = true
+                    self.viewUsername.isHidden = false
+                    self.btnDeleteEmployee.isHidden = true
+                }
+                else{
+                    //Hide Username and Show Delete
+                    self.isForAdminProfile = false
+                    self.viewUsername.isHidden = true
+                    self.btnDeleteEmployee.isHidden = false
+                }
+                
                 self.fetchEmployeeTimesheet()
             }else if let err = error{
                 print(err)
@@ -406,6 +477,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         txtEmail.isUserInteractionEnabled = true
         txtjobtitle.isUserInteractionEnabled = true
         txtPassword.isUserInteractionEnabled = true
+        txtUsername.isUserInteractionEnabled = true
         tblEvents.isUserInteractionEnabled = true
        
         txtFirstName.alpha = 1.0
@@ -413,6 +485,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         txtEmail.alpha = 1.0
         txtjobtitle.alpha = 1.0
         txtPassword.alpha = 1.0
+        txtUsername.alpha = 1.0
 //        userinforStackview.alpha = 1.0
         changeEmployeeAccountTextfieldsAppearance(toEdit: true)
         
@@ -590,6 +663,10 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                 return false
             }
         }
+        if self.isForAdminProfile && txtUsername.text!.count < 1{
+            self.showAlert(alertType:.validation, message: "Please Enter Username")
+            return false
+        }
         if txtPassword.text!.count < 1{
             self.showAlert(alertType:.validation, message: "Please Enter Password")
             return false
@@ -605,6 +682,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             txtjobtitle.backgroundColor = UIColor.white
             txtEmail.backgroundColor = UIColor.white
             txtPassword.backgroundColor = UIColor.white
+            txtUsername.backgroundColor = UIColor.white
             btnDeleteEmployee.isEnabled = true
             btnDeleteEmployee.alpha = 1.0
         }
@@ -614,6 +692,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             txtjobtitle.backgroundColor = UIColor.Color.appThemeBGColor
             txtEmail.backgroundColor = UIColor.Color.appThemeBGColor
             txtPassword.backgroundColor = UIColor.Color.appThemeBGColor
+            txtUsername.backgroundColor = UIColor.Color.appThemeBGColor
             btnDeleteEmployee.isEnabled = false
             btnDeleteEmployee.alpha = 0.5
         }
@@ -650,6 +729,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             txtLastName.isUserInteractionEnabled = true
             txtEmail.isUserInteractionEnabled = true
             txtjobtitle.isUserInteractionEnabled = true
+            txtUsername.isUserInteractionEnabled = true
             txtPassword.isUserInteractionEnabled = true
             tblEvents.isUserInteractionEnabled = true
             
@@ -657,6 +737,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             txtLastName.alpha = 1.0
             txtEmail.alpha = 1.0
             txtjobtitle.alpha = 1.0
+            txtUsername.alpha = 1.0
             txtPassword.alpha = 1.0
 //            userinforStackview.alpha = 1.0
             changeEmployeeAccountTextfieldsAppearance(toEdit: true)
@@ -671,19 +752,21 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
 //            txtEmail.isUserInteractionEnabled = false
 //            txtjobtitle.isUserInteractionEnabled = false
 //            tblEvents.isUserInteractionEnabled = false
-            
-            txtFirstName.alpha = 0.5
-            txtLastName.alpha = 0.5
-            txtEmail.alpha = 0.5
-            txtjobtitle.alpha = 0.5
-            txtPassword.alpha = 0.5
-//            userinforStackview.alpha = 0.5
-            changeEmployeeAccountTextfieldsAppearance(toEdit: false)
-            tblEvents.tableFooterView = nil
-            saveView.isHidden = true
-            editView.isUserInteractionEnabled = true
-            editView.alpha = 1.0
-            updateEmployeeDetails()
+            if validateSettings(){
+                txtFirstName.alpha = 0.5
+                txtLastName.alpha = 0.5
+                txtEmail.alpha = 0.5
+                txtjobtitle.alpha = 0.5
+                txtUsername.alpha = 0.5
+                txtPassword.alpha = 0.5
+                //            userinforStackview.alpha = 0.5
+                changeEmployeeAccountTextfieldsAppearance(toEdit: false)
+                tblEvents.tableFooterView = nil
+                saveView.isHidden = true
+                editView.isUserInteractionEnabled = true
+                editView.alpha = 1.0
+                updateEmployeeDetails()
+            }
         }
 
     }
@@ -730,6 +813,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         
         employee.empFirstname = txtFirstName.text!
         employee.empLastname = txtLastName.text!
+        employee.empUsername = txtUsername.text!
         employee.empJobTitle = txtjobtitle.text!
         employee.empPassword = txtPassword.text!
         employee.empWorkEmail = txtEmail.text!
@@ -744,6 +828,12 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.updateEmployees(), param: employee.getParam(), header: Defaults.shared.header ?? ["":""]) { success, response, error in
             if let res = response{
                 print(res)
+                if let status = res["status"] as? Int , status == 1{
+                    SucessPopupVC.showSuccessPopup(prevVC: self,titleStr: "Success" , strSubTitle: "Your changes were saved!") { done in
+                        self.fetchEmployeeDetails()
+                }
+                    
+                }
             }else if let err = error{
                 print(err)
             }
@@ -762,7 +852,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                         self.showAlert(alertType:.validation, message: "There was some error while deleting employee, Please try again.")
                     }else{
                         //Success
-                        SucessPopupVC.showSuccessPopup(prevVC: self) { done in
+                        SucessPopupVC.showSuccessPopup(prevVC: self,titleStr: "Success!" , strSubTitle: "Employee was deleted successfully.") { done in
                             //Go to previous scree
                             self.popVC()
                         }
@@ -822,14 +912,15 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
   
     }
     @objc func addTimesheetClicked(sender:UIButton) {
-
-        let timesheet = Timesheet().addEventsForDay(date:nil)
-        self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.tag].timesheet?.append(timesheet)
-        
-//        self.tblEvents.reloadData()
-        self.setupTableViewHeightWithReload()
-        self.collectionViewEvents.reloadData()
-        selectedWeekIndex = sender.tag
+        if self.isEditMode == true{
+            let timesheet = Timesheet().addEventsForDay(date:nil)
+            self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[sender.tag].timesheet?.append(timesheet)
+            
+            //        self.tblEvents.reloadData()
+            self.setupTableViewHeightWithReload()
+            self.collectionViewEvents.reloadData()
+            selectedWeekIndex = sender.tag
+        }
     }
     @objc func changeDateSelected(sender:MyButton) {
 
@@ -1471,21 +1562,30 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     cell.regularHoursLabel.text =  "\(regulartuple.hours)." + String(format: "%02d hrs", ((regulartuple.leftMinutes * 100)/60 ))
                    
                 }
-                cell.btnAddTimesheet.tag = indexPath.section
-                cell.btnAddTimesheet.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
+//                cell.btnAddTimesheet.tag = indexPath.section
+//                cell.btnAddTimesheet.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
                 cell.weeklyOverTimeView.isHidden = true
 //                if merchantData?.merchantWeeklyOvertimeEnabled ?? "" == "Y"{
 //                    cell.weeklyOverTimeView.isHidden = false
 //                }else{
 //                    cell.weeklyOverTimeView.isHidden = true
 //                }
-                cell.showAddDayOption(needToShow: isEditMode)
-                if self.selectedPayPeriod?.payperiodStatus == "A" {
-                    cell.button.setTitle("APPROVED", for: .normal)
+//                cell.showAddDayOption(needToShow: isEditMode)
+                cell.showAddDayOption(needToShow: false)
+                cell.button.tag = indexPath.section
+                cell.button.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
+                if self.isEditMode == true{
+                    cell.button.setBackgroundColor(UIColor.Color.appBlueColor2, forState: .normal)
                 }
                 else{
-                    cell.button.setTitle("UNAPPROVED", for: .normal)
+                    cell.button.setBackgroundColor(UIColor.init(hex: "B6C2D0"), forState: .normal)
                 }
+//                if self.selectedPayPeriod?.payperiodStatus == "A" {
+//                    cell.button.setTitle("APPROVED", for: .normal)
+//                }
+//                else{
+//                    cell.button.setTitle("UNAPPROVED", for: .normal)
+//                }
                 cell.selectionStyle = .none
                 return cell
 
@@ -2187,6 +2287,28 @@ extension EmployeeTimeReportVC:MenuItemDelegate {
         }
     }
 }
+extension EmployeeTimeReportVC: CustomMenuItemDelegate {
+    func customMenuItemClicked(menuName: String) {
+        print(menuName)
+        if menuName == Menuname.settings{
+            let vc = SettingsVC.instantiate()
+            self.pushVC(controller:vc)
+        }else  if menuName == Menuname.logout{
+            Defaults.shared.currentUser = nil
+            Utility.setRootScreen(isShowAnimation: true)
+        }else  if menuName == Menuname.employee{
+            let vc = EmployeesVC.instantiate()
+            self.pushVC(controller:vc)
+        }else  if menuName == Menuname.timeSheet{
+            let vc = TimesheetListVC.instantiate()
+            self.pushVC(controller:vc)
+        }else  if menuName == Menuname.timeClock{
+            let vc = DashBoardVC.instantiate()
+            self.pushVC(controller:vc)
+        }
+    }
+}
+
 extension String{
     func toDate(dateFormat:String = DateTimeFormat.yyyy_MM_dd.rawValue)->Date{
         let dateFormatter = DateFormatter()
@@ -2288,4 +2410,34 @@ extension String{
         return dateFormatter.string(from:date)
     }
    
+}
+
+extension EmployeeTimeReportVC : UIScrollViewDelegate{
+     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print( scrollView.contentOffset.y)
+         let scrollY = scrollView.contentOffset.y
+         if scrollY > 65{
+             constTopEditTooltip.constant = 0.0
+         }
+         else{
+             constTopEditTooltip.constant = 65.0 - scrollY
+         }
+         
+//
+//        let delta =  scrollView.contentOffset.y - oldContentOffset.y
+//
+//        //we compress the top view
+//        if delta > 0 && topConstraint.constant > topConstraintRange.start && scrollView.contentOffset.y > 0 {
+//            topConstraint.constant -= delta
+//            scrollView.contentOffset.y -= delta
+//        }
+//
+//        //we expand the top view
+//        if delta < 0 && topConstraint.constant < topConstraintRange.end && scrollView.contentOffset.y < 0{
+//            topConstraint.constant -= delta
+//            scrollView.contentOffset.y -= delta
+//        }
+//
+//        oldContentOffset = scrollView.contentOffset
+    }
 }

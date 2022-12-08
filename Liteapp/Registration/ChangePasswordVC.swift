@@ -101,6 +101,13 @@ class ChangePasswordVC: BaseViewController, StoryboardSceneBased{
                         }
                     }else{
                         if let messagae  = res["message"] as? String{
+                            Defaults.shared.passLen = self.txtNewPassword.text?.length
+                            //Update on prev VC
+                            if let settingsVC = (self.presentingViewController as? UINavigationController)?.topViewController as? SettingsVC
+
+                            {
+                                settingsVC.txtpassword.text = Utility.randomString(length: self.txtNewPassword.text?.length ?? 8)
+                            }
                             AlertMesage.show(.success, message: messagae)
                             self.dismiss(animated:true)
                         }

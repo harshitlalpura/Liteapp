@@ -34,8 +34,8 @@ class SettingsSavePopupVC: UIViewController,StoryboardSceneBased {
         UIView.animate(withDuration: 0.2) {
             self.viewSavePopup.alpha = 0.0
         }completion: { completed in
-            self.completion!(isSaved)
             self.dismiss(animated: false, completion: nil)
+            self.completion!(isSaved)
         }
     }
     

@@ -133,6 +133,7 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
                 let user = Mapper<EmployeeData>().map(JSONObject:res)
                 Defaults.shared.currentUser = user?.empData?.first
                 print(Defaults.shared.currentUser?.merchantName ?? "")
+                Defaults.shared.passLen = self.txtPassword.text?.length
                 if user?.status ?? 0 == 0{
      
                     self.showAlert(alertType:.validation, message: user?.message ?? "")

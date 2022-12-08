@@ -78,7 +78,11 @@ class ExportTimesheetPopupVC: UIViewController,StoryboardSceneBased {
     // MARK: - Export Helper
     func createCSV() {
         ProgressHUD.show()
-        var csvString = "\("Employee"),\("Total Hours"),\("Status")\n"
+        let payPeriodWithoutComma = payPeriodStr.replace(string: ",", withString: "")
+        var csvString = "Pay Period - " + payPeriodWithoutComma + "\n"
+//        var csvString = "\("Employee"),\("Total Hours"),\("Status")\n"
+        csvString = csvString.appending("\("Employee"),\("Total Hours"),\("Status")\n")
+        
         if let list = selectedTimesheetList{
             for dct in list {
                 let fname = dct.empFirstname ?? ""

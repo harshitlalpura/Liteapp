@@ -50,7 +50,7 @@ struct UpdateEmployee{
     
     var empLastname:String?
     var empJobTitle:String?
-    
+    var empUsername:String?
     var empWorkEmail:String?
     var empPassword:String?
     
@@ -69,6 +69,7 @@ struct UpdateEmployee{
                           "emp_firstname":"\(self.empFirstname ?? "")",
                           "emp_lastname":"\(self.empLastname ?? "")",
                           "emp_job_title":"\(self.empJobTitle ?? "")",
+                          "emp_username":"\(self.empUsername ?? "")",
                           "emp_work_email":"\(self.empWorkEmail ?? "")",
                           "emp_password":"\(self.empPassword ?? "")",
                           "timesheet":"\(self.timesheet ?? "")",
@@ -152,6 +153,8 @@ class EmployeeDetails: Mappable {
     var empPassword: String?
     var empWorkEmail: String?
     var empJobTitle: String?
+    var empType: String?
+    var empUsername: String?
 
     required init?(map: Map){
     }
@@ -163,5 +166,7 @@ class EmployeeDetails: Mappable {
         empPassword <- map["emp_password"]
         empWorkEmail <- map["emp_work_email"]
         empJobTitle <- map["emp_job_title"]
+        empType <- map["emp_type"]
+        empUsername <- map["emp_username"]
     }
 }

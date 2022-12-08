@@ -57,6 +57,9 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var lbltimeclockOutampm: UILabel!
     @IBOutlet weak var lblDateclockOutPopup: UILabel!
   
+    @IBOutlet weak var customNavView: UIView!
+    
+    var menuV : CustomMenuView!
     var dashboardData:DashBoardData!
     var strCurrentDate = ""
     var selectedDate = Date()
@@ -91,6 +94,16 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
         self.fetchDashboard()
         self.getCurrentTime()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        
+        //Check if Settings Popup filling is incomplete
+        if let settingsStatus = Defaults.shared.settingsPopupStatus{
+            if settingsStatus == 1 || settingsStatus == 2 || settingsStatus == 3 {
+                //Show Settings with Popups
+                let vc = SettingsVC.instantiate()
+                vc.wasAppKilledWhenSettingsIncomplete = true
+                self.pushVC(controller:vc)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -106,7 +119,9 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     
     @IBAction func menuClicked(sender:UIButton){
        // self.createBlurOverlay()
-        self.present(menu, animated: true, completion: {})
+//        self.present(menu, animated: true, completion: {})
+//        menuV.isHidden = false
+        menuV.showHideMenu()
     }
     
     @IBAction func rightBarButtonClicked(sender:UIButton){
@@ -115,6 +130,9 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
 //        }else{
 //            logoutView.isHidden = true
 //        }
+        if menuV.isHidden == false{
+            return
+        }
         PopupMenuVC.showPopupMenu(prevVC: self) { selectedItem in
             if let menuItem = selectedItem{
                 if menuItem == .logout{
@@ -125,9 +143,15 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
                 else{
                     //Account
                     print("Account")
-                    let vc = SettingsVC.instantiate()
-                    vc.isForAccountSettings = true
-                    self.pushVC(controller:vc)
+//                    let vc = SettingsVC.instantiate()
+//                    vc.isForAccountSettings = true
+//                    self.pushVC(controller:vc)
+                    let vc = EmployeeTimeReportVC.instantiate()
+                    vc.isForUserAccount = true
+                    if let empId = Defaults.shared.currentUser?.empId{
+                        vc.selectedEmployeeID = "\(empId)"
+                        self.pushVC(controller:vc)
+                    }
                     
                 }
             }
@@ -143,17 +167,47 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
        
     }
     private func setupMenu(){
-        let controller = MenuViewController.instantiate()
-        controller.delegate = self
-        controller.selectedOption = .TimeClock
-        menu = SideMenuNavigationController(rootViewController:controller)
-        menu.navigationBar.isHidden = true
-        menu.leftSide = true
-        menu.menuWidth = Utility.getMenuWidth()
-        SideMenuManager.default.addPanGestureToPresent(toView:view)
-        SideMenuManager.default.leftMenuNavigationController = menu
+//        let controller = MenuViewController.instantiate()
+//        controller.delegate = self
+//        controller.selectedOption = .TimeClock
+//        menu = SideMenuNavigationController(rootViewController:controller)
+//        menu.navigationBar.isHidden = true
+//        menu.leftSide = true
+//        menu.menuWidth = Utility.getMenuWidth()
+//        SideMenuManager.default.addPanGestureToPresent(toView:view)
+//        SideMenuManager.default.leftMenuNavigationController = menu
+        let topMargin = self.customNavView.frame.origin.y + self.customNavView.frame.size.height
+        menuV = CustomMenuView.init(frame: CGRect.init(x: 0, y: topMargin, width: self.view.frame.width, height: self.view.frame.height - topMargin))
+        menuV.isHidden = true
+        menuV.delegate = self
+        menuV.selectedOption = .TimeClock
+        self.view.addSubview(menuV)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+        self.view.addGestureRecognizer(swipeLeft)
         
     }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizer.Direction.right:
+                print("Swiped right")
+                menuV.swipedRight()
+            case UISwipeGestureRecognizer.Direction.left:
+                print("Swiped left")
+                menuV.swipedLeft()
+            default:
+                break
+            }
+        }
+    }
+    
     func fetchDashboard(){
         let currenttitme = Date().string(format: DateTimeFormat.h_mm.rawValue)
         lblTime.text = currenttitme
@@ -360,6 +414,11 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     func minutesToHoursAndMinutes(_ minutes: Int) -> (hours: Int , leftMinutes: Int) {
         return (minutes / 60, (minutes % 60))
     }
+    
+    func secondsToHoursAndMinutes(_ seconds: Int) -> (hours: Int , leftMinutes: Int) {
+        return (seconds / 3600, (seconds % 3600) / 60)
+    }
+    
     func setupCalendarView(dashBoardData:DashBoardData?){
         
         
@@ -373,7 +432,8 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
         self.lblPayPeriod.text = dashBoardData?.payPeriod ?? ""
         
         let todayHoursMins = ("\(dashBoardData?.todayMinutes ?? 0)" ).components(separatedBy:".")
-        let todayHoursMinstouple = self.minutesToHoursAndMinutes(Int(todayHoursMins[0]) ?? 0)
+//        let todayHoursMinstouple = self.minutesToHoursAndMinutes(Int(todayHoursMins[0]) ?? 0)
+        let todayHoursMinstouple = self.secondsToHoursAndMinutes(Int(todayHoursMins[0]) ?? 0)
         self.lblDailyHours.text = "Daily Hours \(todayHoursMinstouple.hours)hr \(todayHoursMinstouple.leftMinutes)min "
         
         let startDate = (dashBoardData?.payPeriodFrom ?? "").toDate(format:DateTimeFormat.yyyy_MM_dd.rawValue)
@@ -540,6 +600,34 @@ extension DashBoardVC:MenuItemDelegate {
         }
     }
 }
+
+extension DashBoardVC: CustomMenuItemDelegate {
+    func customMenuItemClicked(menuName: String) {
+        print(menuName)
+        if menuName == Menuname.settings{
+            
+            let vc = SettingsVC.instantiate()
+            self.pushVC(controller:vc)
+        }else  if menuName == Menuname.logout{
+            
+            Defaults.shared.currentUser = nil
+            Utility.setRootScreen(isShowAnimation: true)
+            //            logoutView.isHidden = true
+            
+        }else  if menuName == Menuname.employee{
+            
+            let vc = EmployeesVC.instantiate()
+            self.pushVC(controller:vc)
+            
+        }else  if menuName == Menuname.timeSheet{
+            
+            let vc = TimesheetListVC.instantiate()
+            self.pushVC(controller:vc)
+            
+        }
+    }
+}
+
 extension UIColor{
 //    static let startShiftColor = UIColor(hex:"81C469")
 //    static let breakStartColor = UIColor(hex:"F1A25B")

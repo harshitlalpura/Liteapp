@@ -256,8 +256,14 @@
 		AF40E92828C7467C0048164E /* SettingsSavePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF40E92728C7467C0048164E /* SettingsSavePopupVC.swift */; };
 		AF4F5D7628CE6638008A9E6D /* ExportTimesheetPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4F5D7528CE6638008A9E6D /* ExportTimesheetPopupVC.swift */; };
 		AF6255B228B29D7200E36CB9 /* ForgotPasswordCheckMailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6255B128B29D7000E36CB9 /* ForgotPasswordCheckMailVC.swift */; };
+		AF695AB52937D53800F34EED /* CustomMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF695AB32937D53800F34EED /* CustomMenuCell.swift */; };
+		AF695AB62937D53800F34EED /* CustomMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF695AB42937D53800F34EED /* CustomMenuCell.xib */; };
+		AF695AB92937D90400F34EED /* CustomMenuLogoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF695AB72937D90400F34EED /* CustomMenuLogoutCell.swift */; };
+		AF695ABA2937D90400F34EED /* CustomMenuLogoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF695AB82937D90400F34EED /* CustomMenuLogoutCell.xib */; };
 		AF6E8BF728F4854400430879 /* Illuminate_Terms_of_Service.pdf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E8BF528F4854300430879 /* Illuminate_Terms_of_Service.pdf */; };
 		AF6E8BF828F4854400430879 /* Illuminate_Privacy_Policy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E8BF628F4854300430879 /* Illuminate_Privacy_Policy.pdf */; };
+		AF969CC129337D5800192ACE /* CustomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF969CC029337D4A00192ACE /* CustomMenuView.swift */; };
+		AF969CC329337DB600192ACE /* CustomMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF969CC229337DB400192ACE /* CustomMenuView.xib */; };
 		AFA52FB828CA56E000931563 /* DeleteEmployeePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA52FB728CA56E000931563 /* DeleteEmployeePopupVC.swift */; };
 		AFB5EBEB28D0E7A70086C32D /* CustomAdvanceAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB5EBEA28D0E7A70086C32D /* CustomAdvanceAlertVC.swift */; };
 		AFC60B0B28CBBD3E00946F44 /* SucessPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC60B0A28CBBD3D00946F44 /* SucessPopupVC.swift */; };
@@ -553,8 +559,14 @@
 		AF40E92728C7467C0048164E /* SettingsSavePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSavePopupVC.swift; sourceTree = "<group>"; };
 		AF4F5D7528CE6638008A9E6D /* ExportTimesheetPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTimesheetPopupVC.swift; sourceTree = "<group>"; };
 		AF6255B128B29D7000E36CB9 /* ForgotPasswordCheckMailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordCheckMailVC.swift; sourceTree = "<group>"; };
+		AF695AB32937D53800F34EED /* CustomMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenuCell.swift; sourceTree = "<group>"; };
+		AF695AB42937D53800F34EED /* CustomMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMenuCell.xib; sourceTree = "<group>"; };
+		AF695AB72937D90400F34EED /* CustomMenuLogoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenuLogoutCell.swift; sourceTree = "<group>"; };
+		AF695AB82937D90400F34EED /* CustomMenuLogoutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMenuLogoutCell.xib; sourceTree = "<group>"; };
 		AF6E8BF528F4854300430879 /* Illuminate_Terms_of_Service.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Illuminate_Terms_of_Service.pdf; sourceTree = "<group>"; };
 		AF6E8BF628F4854300430879 /* Illuminate_Privacy_Policy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Illuminate_Privacy_Policy.pdf; sourceTree = "<group>"; };
+		AF969CC029337D4A00192ACE /* CustomMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenuView.swift; sourceTree = "<group>"; };
+		AF969CC229337DB400192ACE /* CustomMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMenuView.xib; sourceTree = "<group>"; };
 		AFA52FB728CA56E000931563 /* DeleteEmployeePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteEmployeePopupVC.swift; sourceTree = "<group>"; };
 		AFB5EBEA28D0E7A70086C32D /* CustomAdvanceAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAdvanceAlertVC.swift; sourceTree = "<group>"; };
 		AFC60B0A28CBBD3D00946F44 /* SucessPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SucessPopupVC.swift; sourceTree = "<group>"; };
@@ -628,6 +640,7 @@
 		615A45392852693900CEB7DE /* Popup */ = {
 			isa = PBXGroup;
 			children = (
+				AF695AB22937D3D900F34EED /* CustomMenuView */,
 				615A453A2852695C00CEB7DE /* CustomAlertViewController.swift */,
 				AFC70CCE28B5F8FF0040B3B2 /* PopupMenuVC.swift */,
 				AFC60B0A28CBBD3D00946F44 /* SucessPopupVC.swift */,
@@ -1314,6 +1327,19 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		AF695AB22937D3D900F34EED /* CustomMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				AF969CC029337D4A00192ACE /* CustomMenuView.swift */,
+				AF969CC229337DB400192ACE /* CustomMenuView.xib */,
+				AF695AB32937D53800F34EED /* CustomMenuCell.swift */,
+				AF695AB42937D53800F34EED /* CustomMenuCell.xib */,
+				AF695AB72937D90400F34EED /* CustomMenuLogoutCell.swift */,
+				AF695AB82937D90400F34EED /* CustomMenuLogoutCell.xib */,
+			);
+			path = CustomMenuView;
+			sourceTree = "<group>";
+		};
 		AF6E8BF428F484FC00430879 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1415,6 +1441,7 @@
 				61A297BF285373370015777F /* Poppins-Medium.ttf in Resources */,
 				61A29799285372A20015777F /* Roboto-Bold.ttf in Resources */,
 				61A29791285372A20015777F /* Roboto-Regular.ttf in Resources */,
+				AF969CC329337DB600192ACE /* CustomMenuView.xib in Resources */,
 				61A29796285372A20015777F /* Roboto-LightItalic.ttf in Resources */,
 				6182F689284933170006BDF0 /* LaunchScreen.storyboard in Resources */,
 				61A29795285372A20015777F /* Roboto-BoldItalic.ttf in Resources */,
@@ -1432,6 +1459,7 @@
 				61A297BA285373370015777F /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				61A297BE285373370015777F /* Poppins-Regular.ttf in Resources */,
 				61A297B0285373370015777F /* Poppins-ExtraLight.ttf in Resources */,
+				AF695AB62937D53800F34EED /* CustomMenuCell.xib in Resources */,
 				61A2979B285372A20015777F /* Roboto-Black.ttf in Resources */,
 				61A2978028535D5D0015777F /* Timesheet.storyboard in Resources */,
 				6182F7FA284933FB0006BDF0 /* .gitkeep in Resources */,
@@ -1450,6 +1478,7 @@
 				61A297B1285373370015777F /* Poppins-ExtraBold.ttf in Resources */,
 				61A297AF285373370015777F /* Poppins-ThinItalic.ttf in Resources */,
 				61A297B5285373370015777F /* Poppins-Light.ttf in Resources */,
+				AF695ABA2937D90400F34EED /* CustomMenuLogoutCell.xib in Resources */,
 				61D8D69E285D13ED0065B19C /* Merchant.storyboard in Resources */,
 				AF6E8BF828F4854400430879 /* Illuminate_Privacy_Policy.pdf in Resources */,
 				61A297B9285373370015777F /* Poppins-Black.ttf in Resources */,
@@ -1541,6 +1570,7 @@
 				6177FA85285F227900C4A44F /* InviteViaEmailVC.swift in Sources */,
 				6182F7F4284933FB0006BDF0 /* ConstraintDirectionalInsets.swift in Sources */,
 				6182F802284933FB0006BDF0 /* TOCropScrollView.m in Sources */,
+				AF695AB52937D53800F34EED /* CustomMenuCell.swift in Sources */,
 				6182F7B3284933FB0006BDF0 /* UIImageView+Kingfisher.swift in Sources */,
 				6182F792284933FB0006BDF0 /* BaseButton.swift in Sources */,
 				6182F7E8284933FB0006BDF0 /* ConstraintOffsetTarget.swift in Sources */,
@@ -1586,6 +1616,7 @@
 				6182F7DF284933FB0006BDF0 /* ConstraintDirectionalInsetTarget.swift in Sources */,
 				6182F7D1284933FB0006BDF0 /* EmptyDataSet.swift in Sources */,
 				6182F7F9284933FB0006BDF0 /* OnlyPicturesProtocol.swift in Sources */,
+				AF969CC129337D5800192ACE /* CustomMenuView.swift in Sources */,
 				6182F8132849369D0006BDF0 /* AppConstant.swift in Sources */,
 				6182F8172849369D0006BDF0 /* APIEndPoints.swift in Sources */,
 				6182F808284933FB0006BDF0 /* Utility.swift in Sources */,
@@ -1693,6 +1724,7 @@
 				6182F7C4284933FB0006BDF0 /* SignedNumericExtensions.swift in Sources */,
 				6182F79F284933FB0006BDF0 /* UIColorExtensions.swift in Sources */,
 				6182F7C6284933FB0006BDF0 /* Dictionary+Extensions.swift in Sources */,
+				AF695AB92937D90400F34EED /* CustomMenuLogoutCell.swift in Sources */,
 				6182F7D9284933FB0006BDF0 /* ConstraintInsets.swift in Sources */,
 				6182F78C284933FB0006BDF0 /* AppBaseLabel.swift in Sources */,
 				61EA23832856076200CB0891 /* EmployeesVC.swift in Sources */,
@@ -1892,7 +1924,7 @@
 				CODE_SIGN_ENTITLEMENTS = Liteapp/Liteapp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = B2E5UW74Q7;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=*]" = "";
@@ -1930,7 +1962,7 @@
 				CODE_SIGN_ENTITLEMENTS = Liteapp/Liteapp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Bryte Innovative Technologies, LLC (B2E5UW74Q7)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = B2E5UW74Q7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Liteapp/Info.plist;
