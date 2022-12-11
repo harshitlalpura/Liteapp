@@ -1127,6 +1127,7 @@
                     <connections>
                         <outlet property="breakinSuccessPopup" destination="3Vc-In-slp" id="ceb-Ew-odT"/>
                         <outlet property="btnClockin" destination="8MZ-TG-vUo" id="Mhl-vA-O8Q"/>
+                        <outlet property="btnMenu" destination="cWJ-Ax-eH8" id="UHu-yx-ojn"/>
                         <outlet property="btnStartBreak" destination="z4h-QP-z4t" id="ACd-tM-zlb"/>
                         <outlet property="calanderCollectionView" destination="cKa-hN-wTH" id="UCa-ok-nOm"/>
                         <outlet property="clockInSuccessPopup" destination="4Gm-Av-A1e" id="wjJ-Gm-6e1"/>
@@ -2134,6 +2135,7 @@
                         <outlet property="approvalSortImageview" destination="eWf-pJ-k4E" id="Ge3-Jg-Nlg"/>
                         <outlet property="approveMainview" destination="qUy-LD-mf1" id="GUK-dQ-cIY"/>
                         <outlet property="btnCheckAll" destination="cen-g1-mVI" id="9W6-vX-VA6"/>
+                        <outlet property="btnMenu" destination="h2i-xO-fIn" id="z4j-Xy-nIZ"/>
                         <outlet property="customNavView" destination="C5X-NU-e36" id="uNA-eg-1MJ"/>
                         <outlet property="exportMainView" destination="4cL-gx-zxh" id="hFh-oL-Nhn"/>
                         <outlet property="lblusername" destination="sxh-id-wFO" id="8w8-km-tLL"/>

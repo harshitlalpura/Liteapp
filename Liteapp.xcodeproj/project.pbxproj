@@ -1924,7 +1924,7 @@
 				CODE_SIGN_ENTITLEMENTS = Liteapp/Liteapp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = B2E5UW74Q7;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=*]" = "";
@@ -1962,7 +1962,7 @@
 				CODE_SIGN_ENTITLEMENTS = Liteapp/Liteapp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Bryte Innovative Technologies, LLC (B2E5UW74Q7)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = B2E5UW74Q7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Liteapp/Info.plist;

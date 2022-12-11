@@ -10,6 +10,7 @@ import MessageUI
 
 protocol CustomMenuItemDelegate : NSObjectProtocol {
     func customMenuItemClicked(menuName:String)
+    func customMenuDidHide()
 }
 
 class CustomMenuView: UIView {
@@ -89,6 +90,9 @@ class CustomMenuView: UIView {
             }
             else{
                 self.isHidden = true
+                
+                self.delegate?.customMenuDidHide()
+                
             }
         }
     }

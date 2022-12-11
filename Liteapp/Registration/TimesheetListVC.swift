@@ -62,6 +62,7 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var customNavView: UIView!
     
+    @IBOutlet weak var btnMenu: UIButton!
     var menuV : CustomMenuView!
     
     var sortNameType = Sort.defaultShort
@@ -99,6 +100,7 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
     @IBAction func menuClicked(sender:UIButton){
 //        self.present(menu, animated: true, completion: {})
         menuV.showHideMenu()
+        btnMenu.isHidden = true
     }
     private func setupMenu(){
 //        let controller = MenuViewController.instantiate()
@@ -133,6 +135,9 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
             switch swipeGesture.direction {
             case UISwipeGestureRecognizer.Direction.right:
                 print("Swiped right")
+                if self.menuV.isHidden == true{
+                    self.btnMenu.isHidden = true
+                }
                 menuV.swipedRight()
             case UISwipeGestureRecognizer.Direction.left:
                 print("Swiped left")
@@ -607,5 +612,8 @@ extension TimesheetListVC: CustomMenuItemDelegate {
             let vc = DashBoardVC.instantiate()
             self.pushVC(controller:vc)
         }
+    }
+    func customMenuDidHide(){
+        self.btnMenu.isHidden = false
     }
 }

@@ -130,6 +130,11 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var customNavView: UIView!
     var menuV : CustomMenuView!
+    @IBOutlet weak var btnMenu: UIButton!
+    
+    @IBOutlet weak var viewBiweeklySelection: UIView!
+    @IBOutlet weak var btnWeek1Option: UIButton!
+    @IBOutlet weak var btnWeek2Option: UIButton!
     
     
     var setupMerchant:SetupMerchant!
@@ -224,6 +229,18 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         btnWeek2.setTitleColor(UIColor(hex:"#393F45"), for: .normal)
         btnWeek2.setTitleColor(UIColor.white, for: .selected)
         
+        btnWeek1Option.setBackgroundColor(UIColor.Color.appBlueColor2, forState: .selected)
+        btnWeek1Option.setBackgroundColor(.white, forState: .normal)
+        btnWeek1Option.setTitleColor(UIColor(hex:"#393F45"), for: .normal)
+        btnWeek1Option.setTitleColor(UIColor.white, for: .selected)
+        btnWeek1Option.isSelected = true
+        
+
+        btnWeek2Option.setBackgroundColor(UIColor.Color.appBlueColor2, forState: .selected)
+        btnWeek2Option.setBackgroundColor(.white, forState: .normal)
+        btnWeek2Option.setTitleColor(UIColor(hex:"#393F45"), for: .normal)
+        btnWeek2Option.setTitleColor(UIColor.white, for: .selected)
+        self.viewBiweeklySelection.isHidden = true
         
         
         
@@ -302,6 +319,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
             wasAppKilledWhenSettingsIncomplete = false
             self.setupMerchant = SetupMerchant()
             self.setupMerchant.merchant_id = "\(Defaults.shared.currentUser?.merchantId ?? 0)"
+            self.setupMerchant.merchant_current_pay_week = "1"
             self.editPayPeriodStartDayView.isHidden = false
             self.blurOverlayView.isHidden = false
         }
@@ -339,6 +357,9 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
             switch swipeGesture.direction {
             case UISwipeGestureRecognizer.Direction.right:
                 print("Swiped right")
+                if self.menuV.isHidden == true{
+                    self.btnMenu.isHidden = true
+                }
                 menuV.swipedRight()
             case UISwipeGestureRecognizer.Direction.left:
                 print("Swiped left")
@@ -363,6 +384,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBAction func menuClicked(sender:UIButton){
 //        self.present(menu, animated: true, completion: {})
         menuV.showHideMenu()
+        self.btnMenu.isHidden = true
     }
     func callSetupMerchangtAPI(){
         NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.setupMerchants(), param: setupMerchant.getParam(), header: Defaults.shared.header ?? ["":""]) { success, response, error in
@@ -377,6 +399,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                 if let status = res["status"] as? Int{
                     if status == 1{
                         self.successPopup.isHidden = false
+                        //Refresh Settings View by calling API
+                        self.fetchSettings()
                     }
                 }
             }else if let err = error{
@@ -653,6 +677,11 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                     setupMerchant.merchant_pay_period = "W"
                 }else if (selectedDuration.rawValue == 2){
                     setupMerchant.merchant_pay_period = "B"
+//                    if btnWeek2Option.isSelected == true{
+//                        setupMerchant.merchant_current_pay_week = "2"
+//                    }else{
+//                        setupMerchant.merchant_current_pay_week = "1"
+//                    }
                 }
 //                editWeeklyOvertimeView.isHidden = false
                 editdailyOvertimeView.isHidden = false
@@ -677,7 +706,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                     setupMerchant.merchant_weekly_overtime = weeklyOvertimeHours
                     setupMerchant.merchant_daily_overtime = dailyOvertimeHours
                     setupMerchant.merchant_timezone = Defaults.shared.currentUser?.merchantTimezone ?? ""
-                    setupMerchant.merchant_current_pay_week = "1"
+//                    setupMerchant.merchant_current_pay_week = "1"
                     Defaults.shared.settingsPopupStatus = 4
                     callSetupMerchangtAPI()
                     print(setupMerchant ?? "")
@@ -716,7 +745,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         setupMerchant.merchant_weekly_overtime = ""
         setupMerchant.merchant_daily_overtime = ""
         setupMerchant.merchant_timezone = Defaults.shared.currentUser?.merchantTimezone ?? ""
-        setupMerchant.merchant_current_pay_week = "1"
+//        setupMerchant.merchant_current_pay_week = "1"
         
         callSetupMerchangtAPI()
        
@@ -782,14 +811,17 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         sender.isSelected = true
         if sender.tag == 1{
             self.editDurationSelected = .weekly
+            self.viewBiweeklySelection.isHidden = true
         }else if sender.tag == 2{
             self.editDurationSelected = .biWeekly
+            self.viewBiweeklySelection.isHidden = false
         }
     }
     
     @IBAction func congratulationsPopupContinueSelected(sender:UIButton){
         self.setupMerchant = SetupMerchant()
         self.setupMerchant.merchant_id = "\(Defaults.shared.currentUser?.merchantId ?? 0)"
+        self.setupMerchant.merchant_current_pay_week = "1"
         self.congratulationsPopup.isHidden = true
         self.editPayPeriodStartDayView.isHidden = false
         self.blurOverlayView.isHidden = false
@@ -955,10 +987,6 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
             self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
             return false
         }
-        if txtBusinessName.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Business Name")
-            return false
-        }
         if txtZipCode.text!.count < 1{
             self.showAlert(alertType:.validation, message: "Please Enter Zipcode")
             return false
@@ -967,8 +995,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
             self.showAlert(alertType:.validation, message: "Please Enter Timezone")
             return false
         }
-        if let url = txtBusinessWebsite.text{
-            if !(url.count > 0 && url.isValidUrl()){
+        if let url = txtBusinessWebsite.text , url.trimmed.count > 0{
+            if !(url.isValidUrl()){
                 self.showAlert(alertType:.validation, message: "Invalid Website. Please Try Again.")
                 isValidated = false
             }
@@ -1085,7 +1113,18 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
 //        self.accountSettingView.isHidden = true
     }
     
-   
+    @IBAction func btnWeek1OptionTapped(_ sender: Any) {
+        btnWeek1Option.isSelected = true
+        btnWeek2Option.isSelected = false
+        setupMerchant.merchant_current_pay_week = "1"
+    }
+    
+    @IBAction func btnWeek2OptionTapped(_ sender: Any) {
+        btnWeek1Option.isSelected = false
+        btnWeek2Option.isSelected = true
+        setupMerchant.merchant_current_pay_week = "2"
+    }
+    
     func changeAccountTextfieldsAppearance(toEdit mode: Bool){
         if mode{
             txtFirstName.backgroundColor = UIColor.white
@@ -1188,6 +1227,9 @@ extension SettingsVC: CustomMenuItemDelegate {
             self.pushVC(controller:vc)
         }
         
+    }
+    func customMenuDidHide(){
+        self.btnMenu.isHidden = false
     }
 }
 

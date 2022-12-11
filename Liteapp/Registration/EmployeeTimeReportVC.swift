@@ -113,6 +113,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var customNavView: UIView!
     
     var menuV : CustomMenuView!
+    @IBOutlet weak var btnMenu: UIButton!
     
     var isPasswordValidTotalCount : Bool = false
     var isPasswordValidCapitalChar : Bool = false
@@ -246,6 +247,9 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             switch swipeGesture.direction {
             case UISwipeGestureRecognizer.Direction.right:
                 print("Swiped right")
+                if self.menuV.isHidden == true{
+                    self.btnMenu.isHidden = true
+                }
                 menuV.swipedRight()
             case UISwipeGestureRecognizer.Direction.left:
                 print("Swiped left")
@@ -359,6 +363,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBAction func menuClicked(sender:UIButton){
 //        self.present(menu, animated: true, completion: {})
         menuV.showHideMenu()
+        btnMenu.isHidden = true
     }
     @IBAction func datePickerCancelClick(){
         self.datePickerView.isHidden = true
@@ -2306,6 +2311,9 @@ extension EmployeeTimeReportVC: CustomMenuItemDelegate {
             let vc = DashBoardVC.instantiate()
             self.pushVC(controller:vc)
         }
+    }
+    func customMenuDidHide(){
+        self.btnMenu.isHidden = false
     }
 }
 

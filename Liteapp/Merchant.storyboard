@@ -1993,7 +1993,7 @@ button at the top of the page</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1rk-Qa-2AJ">
-                                        <rect key="frame" x="20" y="93" width="364" height="110"/>
+                                        <rect key="frame" x="20" y="93" width="364" height="222.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Yd-6y-IhR">
                                                 <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
@@ -2059,6 +2059,76 @@ button at the top of the page</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xnn-yT-Q5r">
+                                                <rect key="frame" x="0.0" y="120" width="364" height="102.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which Pay Period are you currently in?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="fEX-TE-q4o">
+                                                        <rect key="frame" x="10" y="8" width="344" height="20.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20.5" id="gfa-Re-iDs"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
+                                                        <color key="textColor" red="0.44313728810000003" green="0.46274507050000002" blue="0.47843140360000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Ed-aQ-Y7x">
+                                                        <rect key="frame" x="8" y="40.5" width="348" height="50"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qbb-az-KDu">
+                                                                <rect key="frame" x="0.0" y="0.0" width="169" height="50"/>
+                                                                <color key="tintColor" name="appBlueColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="Week 1">
+                                                                    <color key="titleColor" red="0.5176470876" green="0.52941179279999995" blue="0.55686277149999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" red="0.88627451660000001" green="0.91372549530000002" blue="0.93725490570000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                        <real key="value" value="1.5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="btnWeek1OptionTapped:" destination="6D3-2p-9GA" eventType="touchUpInside" id="OoV-OU-Lln"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eIG-Jo-rGj">
+                                                                <rect key="frame" x="179" y="0.0" width="169" height="50"/>
+                                                                <color key="tintColor" name="appBlueColor"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="Week 2">
+                                                                    <color key="titleColor" red="0.5176470876" green="0.52941179279999995" blue="0.55686277149999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" red="0.88627451660000001" green="0.91372549530000002" blue="0.93725490570000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                        <real key="value" value="1.5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="btnWeek2OptionTapped:" destination="6D3-2p-9GA" eventType="touchUpInside" id="Jrn-9v-k52"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="RpN-Kv-oiq"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="1Ed-aQ-Y7x" firstAttribute="top" secondItem="fEX-TE-q4o" secondAttribute="bottom" constant="12" id="5Dx-kz-v6P"/>
+                                                    <constraint firstAttribute="bottom" secondItem="1Ed-aQ-Y7x" secondAttribute="bottom" constant="12" id="6Rl-Bt-UXp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="1Ed-aQ-Y7x" secondAttribute="trailing" constant="8" id="J9M-JY-giW"/>
+                                                    <constraint firstItem="fEX-TE-q4o" firstAttribute="top" secondItem="Xnn-yT-Q5r" secondAttribute="top" constant="8" id="Sod-d2-Xo0"/>
+                                                    <constraint firstItem="1Ed-aQ-Y7x" firstAttribute="leading" secondItem="Xnn-yT-Q5r" secondAttribute="leading" constant="8" id="gRG-en-cop"/>
+                                                    <constraint firstAttribute="trailing" secondItem="fEX-TE-q4o" secondAttribute="trailing" constant="10" id="hN6-fU-xyB"/>
+                                                    <constraint firstItem="fEX-TE-q4o" firstAttribute="leading" secondItem="Xnn-yT-Q5r" secondAttribute="leading" constant="10" id="uZw-mT-vsd"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHC-Xv-Vjc">
@@ -2077,6 +2147,7 @@ button at the top of the page</string>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <viewLayoutGuide key="safeArea" id="ZjU-N5-bnv"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="1rk-Qa-2AJ" firstAttribute="top" secondItem="Zj6-aG-lEL" secondAttribute="bottom" constant="20" id="9M0-Zj-3cx"/>
@@ -2713,6 +2784,7 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                             <constraint firstAttribute="bottom" secondItem="tns-MK-Zgu" secondAttribute="bottom" id="3hK-h6-YGR"/>
                             <constraint firstItem="dKg-H6-yTo" firstAttribute="trailing" secondItem="8FF-ey-Aoo" secondAttribute="trailing" id="4c9-fp-3Ed"/>
                             <constraint firstItem="tns-MK-Zgu" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="539-C1-GVz"/>
+                            <constraint firstItem="0Wn-4V-isN" firstAttribute="top" secondItem="tns-MK-Zgu" secondAttribute="top" constant="20" id="5Gl-7A-xSd"/>
                             <constraint firstItem="tns-MK-Zgu" firstAttribute="top" secondItem="qGe-b8-iFC" secondAttribute="bottom" id="5f9-Pj-9ul"/>
                             <constraint firstItem="8FF-ey-Aoo" firstAttribute="trailing" secondItem="tns-MK-Zgu" secondAttribute="trailing" id="80R-RP-AfO"/>
                             <constraint firstItem="pMb-C5-m6s" firstAttribute="bottom" secondItem="FBx-Qu-Wmw" secondAttribute="bottom" id="8Jz-6o-PKa"/>
@@ -2722,26 +2794,25 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                             <constraint firstItem="pMb-C5-m6s" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="FQS-3y-MhM"/>
                             <constraint firstAttribute="bottom" secondItem="Yrp-eQ-qW5" secondAttribute="bottom" id="HZp-Ao-CTg"/>
                             <constraint firstItem="fju-A6-iJz" firstAttribute="centerY" secondItem="tns-MK-Zgu" secondAttribute="centerY" id="IeW-aZ-enF"/>
-                            <constraint firstItem="0Wn-4V-isN" firstAttribute="bottom" secondItem="tns-MK-Zgu" secondAttribute="bottom" constant="-20" id="Je4-DU-hAe"/>
                             <constraint firstItem="kE1-JP-1ug" firstAttribute="top" secondItem="FBx-Qu-Wmw" secondAttribute="top" id="Kvq-xE-buB"/>
                             <constraint firstItem="qGe-b8-iFC" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="OWh-kD-IRS"/>
+                            <constraint firstItem="0Wn-4V-isN" firstAttribute="trailing" secondItem="tns-MK-Zgu" secondAttribute="trailing" constant="-10" id="PDJ-am-J7w"/>
                             <constraint firstItem="dKg-H6-yTo" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="Rtf-0T-eUQ"/>
                             <constraint firstItem="dKg-H6-yTo" firstAttribute="bottom" secondItem="FBx-Qu-Wmw" secondAttribute="bottom" id="SIf-9z-lu3"/>
                             <constraint firstItem="fju-A6-iJz" firstAttribute="leading" secondItem="tns-MK-Zgu" secondAttribute="leading" constant="10" id="UtK-md-buh"/>
                             <constraint firstItem="QLd-gz-8sn" firstAttribute="leading" secondItem="tns-MK-Zgu" secondAttribute="leading" constant="10" id="V5t-Sl-Y38"/>
                             <constraint firstItem="cdD-xD-dK7" firstAttribute="leading" secondItem="tns-MK-Zgu" secondAttribute="leading" constant="10" id="Wix-2J-tPA"/>
                             <constraint firstItem="8FF-ey-Aoo" firstAttribute="trailing" secondItem="kE1-JP-1ug" secondAttribute="trailing" id="Xbc-Xr-yUR"/>
-                            <constraint firstItem="0Wn-4V-isN" firstAttribute="top" secondItem="tns-MK-Zgu" secondAttribute="top" constant="20" id="awh-pr-7ni"/>
+                            <constraint firstItem="0Wn-4V-isN" firstAttribute="leading" secondItem="tns-MK-Zgu" secondAttribute="leading" constant="10" id="aOe-Op-nx2"/>
                             <constraint firstItem="pMb-C5-m6s" firstAttribute="trailing" secondItem="8FF-ey-Aoo" secondAttribute="trailing" id="eYo-js-iek"/>
                             <constraint firstItem="fju-A6-iJz" firstAttribute="trailing" secondItem="tns-MK-Zgu" secondAttribute="trailing" constant="-10" id="gmf-Xn-h8A"/>
                             <constraint firstItem="qGe-b8-iFC" firstAttribute="top" secondItem="FBx-Qu-Wmw" secondAttribute="top" id="hfH-Xy-QIw"/>
                             <constraint firstAttribute="bottom" secondItem="kE1-JP-1ug" secondAttribute="bottom" id="izs-Ix-G9t"/>
                             <constraint firstItem="Yrp-eQ-qW5" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="k6n-sf-Vf3"/>
-                            <constraint firstItem="0Wn-4V-isN" firstAttribute="leading" secondItem="tns-MK-Zgu" secondAttribute="leading" constant="10" id="nfg-Hz-XsQ"/>
                             <constraint firstAttribute="top" secondItem="dKg-H6-yTo" secondAttribute="top" id="pB5-4f-KNQ"/>
+                            <constraint firstItem="0Wn-4V-isN" firstAttribute="bottom" secondItem="tns-MK-Zgu" secondAttribute="bottom" constant="-20" id="qXF-fH-eLe"/>
                             <constraint firstItem="QLd-gz-8sn" firstAttribute="trailing" secondItem="tns-MK-Zgu" secondAttribute="trailing" constant="-10" id="tMT-17-qBl"/>
                             <constraint firstItem="QLd-gz-8sn" firstAttribute="top" secondItem="tns-MK-Zgu" secondAttribute="top" constant="20" id="tmD-dm-o4r"/>
-                            <constraint firstItem="0Wn-4V-isN" firstAttribute="trailing" secondItem="tns-MK-Zgu" secondAttribute="trailing" constant="-10" id="vuB-xC-lgc"/>
                             <constraint firstItem="8FF-ey-Aoo" firstAttribute="trailing" secondItem="qGe-b8-iFC" secondAttribute="trailing" id="yXa-DO-UrB"/>
                             <constraint firstItem="cdD-xD-dK7" firstAttribute="top" secondItem="tns-MK-Zgu" secondAttribute="top" constant="20" id="zLO-tV-y4v"/>
                             <constraint firstAttribute="top" secondItem="pMb-C5-m6s" secondAttribute="top" id="zTv-z1-NOq"/>
@@ -2754,6 +2825,7 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="blurOverlayView" destination="kE1-JP-1ug" id="9cE-DT-whE"/>
                         <outlet property="btnBiWeekly" destination="86t-Rg-oGZ" id="TAl-ln-gTb"/>
                         <outlet property="btnFriday" destination="BIY-K8-Lqh" id="sUa-mv-gMr"/>
+                        <outlet property="btnMenu" destination="Bly-f5-FRk" id="G16-hg-Ak9"/>
                         <outlet property="btnMonday" destination="VLm-qD-Cz2" id="HCv-En-KEP"/>
                         <outlet property="btnSaturday" destination="GEI-XL-cSw" id="TJV-Ci-qcZ"/>
                         <outlet property="btnSunday" destination="Yh4-77-HTE" id="PY9-uz-h7c"/>
@@ -2761,7 +2833,9 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="btnTuesday" destination="xLC-4j-iBy" id="cy6-EU-soz"/>
                         <outlet property="btnWednesday" destination="R40-9H-At0" id="gBy-SJ-YVs"/>
                         <outlet property="btnWeek1" destination="nSP-gi-9R3" id="sxY-Da-gcN"/>
+                        <outlet property="btnWeek1Option" destination="Qbb-az-KDu" id="vz5-tM-Qes"/>
                         <outlet property="btnWeek2" destination="6Ee-jq-Fao" id="W3y-nB-P2S"/>
+                        <outlet property="btnWeek2Option" destination="eIG-Jo-rGj" id="lD1-Lu-8Ug"/>
                         <outlet property="btnWeekly" destination="2SE-ac-ARl" id="jwU-8b-EXX"/>
                         <outlet property="btnselectPayPeriod" destination="GEI-XL-cSw" id="hsI-B6-Ibc"/>
                         <outlet property="businessSettingsView" destination="0FX-i7-RRv" id="YOY-Pi-YQC"/>
@@ -2810,6 +2884,7 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="txtpassword" destination="gYZ-Kp-FTB" id="WPf-R0-8R3"/>
                         <outlet property="txtselectPayPeriod" destination="exK-0n-1z2" id="Q5D-Yp-TWB"/>
                         <outlet property="txtselectWeekStartday" destination="Dbm-ET-Gv0" id="391-3z-VXI"/>
+                        <outlet property="viewBiweeklySelection" destination="Xnn-yT-Q5r" id="Ioi-Uq-Mf2"/>
                         <outlet property="viewSelection" destination="0WO-XK-vjN" id="myU-I4-o6M"/>
                     </connections>
                 </viewController>
@@ -3274,6 +3349,7 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                     </view>
                     <connections>
                         <outlet property="btnCreateEmployeeNoEmployeeView" destination="dlA-Zy-Fnd" id="fyx-5H-HnW"/>
+                        <outlet property="btnMenu" destination="fkH-yX-757" id="BoC-Ad-T3H"/>
                         <outlet property="customNavView" destination="7ij-Ru-SsA" id="fz0-Z6-kLg"/>
                         <outlet property="jobTitleSortImageview" destination="8Rz-zH-sGk" id="Qk5-UD-Y1b"/>
                         <outlet property="lblCreateEmployee" destination="DOb-Ct-7uF" id="yK7-dd-dg4"/>
@@ -5222,6 +5298,7 @@ button at the top of the page</string>
                     <connections>
                         <outlet property="IQLayoutGuideConstraint" destination="6YE-32-HyU" id="cgk-xF-XVR"/>
                         <outlet property="btnDeleteEmployee" destination="unb-sn-o69" id="9hA-0u-irB"/>
+                        <outlet property="btnMenu" destination="lbp-rG-seV" id="lcp-lt-aGB"/>
                         <outlet property="btnWeekDay1" destination="b8B-wo-Nbu" id="dAE-BK-RPW"/>
                         <outlet property="btnWeekDay2" destination="msn-fh-Axy" id="t0i-IQ-lbc"/>
                         <outlet property="btnWeekDay3" destination="8qr-N9-i1c" id="JDD-dM-b7b"/>
@@ -7389,6 +7466,7 @@ button at the top of the page</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnMenu" destination="d3j-gb-1Ec" id="l7x-93-gJz"/>
                         <outlet property="btnWeekDay1" destination="NFC-C4-sGi" id="i8w-Rs-ED8"/>
                         <outlet property="btnWeekDay2" destination="syc-gF-0AJ" id="qxl-KM-VgJ"/>
                         <outlet property="btnWeekDay3" destination="Xfi-Ht-Ugk" id="XHo-NN-bkc"/>

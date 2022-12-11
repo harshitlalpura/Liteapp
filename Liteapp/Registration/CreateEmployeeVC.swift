@@ -92,6 +92,7 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var customNavView: UIView!
     
     var menuV : CustomMenuView!
+    @IBOutlet weak var btnMenu: UIButton!
     
     var weekDates = [CustomDate]()
     var selectedWeekIndex = 0
@@ -163,6 +164,9 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
             switch swipeGesture.direction {
             case UISwipeGestureRecognizer.Direction.right:
                 print("Swiped right")
+                if self.menuV.isHidden == true{
+                    self.btnMenu.isHidden = true
+                }
                 menuV.swipedRight()
             case UISwipeGestureRecognizer.Direction.left:
                 print("Swiped left")
@@ -223,6 +227,7 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     @IBAction func menuClicked(sender:UIButton){
 //        self.present(menu, animated: true, completion: {})
         menuV.showHideMenu()
+        btnMenu.isHidden = true
     }
     
     @IBAction func selectSettingType(sender:UIButton){
@@ -1350,6 +1355,9 @@ extension CreateEmployeeVC: CustomMenuItemDelegate {
             let vc = DashBoardVC.instantiate()
             self.pushVC(controller:vc)
         }
+    }
+    func customMenuDidHide(){
+        self.btnMenu.isHidden = false
     }
 }
 

@@ -33,6 +33,7 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var customNavView: UIView!
     
     var menuV : CustomMenuView!
+    @IBOutlet weak var btnMenu: UIButton!
     
     var sortNameType = Sort.defaultShort
     var sortJobTitleType = Sort.defaultShort
@@ -65,6 +66,7 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
     @IBAction func menuClicked(sender:UIButton){
 //        self.present(menu, animated: true, completion: {})
         menuV.showHideMenu()
+        self.btnMenu.isHidden = true
     }
     @IBAction func rightBarButtonClicked(sender:UIButton){
         if menuV.isHidden == false{
@@ -206,6 +208,9 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
             switch swipeGesture.direction {
             case UISwipeGestureRecognizer.Direction.right:
                 print("Swiped right")
+                if self.menuV.isHidden == true{
+                    self.btnMenu.isHidden = true
+                }
                 menuV.swipedRight()
             case UISwipeGestureRecognizer.Direction.left:
                 print("Swiped left")
@@ -321,5 +326,8 @@ extension EmployeesVC: CustomMenuItemDelegate {
             let vc = DashBoardVC.instantiate()
             self.pushVC(controller:vc)
         }
+    }
+    func customMenuDidHide(){
+        self.btnMenu.isHidden = false
     }
 }

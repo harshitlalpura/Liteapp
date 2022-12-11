@@ -58,6 +58,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var lblDateclockOutPopup: UILabel!
   
     @IBOutlet weak var customNavView: UIView!
+    @IBOutlet weak var btnMenu: UIButton!
     
     var menuV : CustomMenuView!
     var dashboardData:DashBoardData!
@@ -122,6 +123,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
 //        self.present(menu, animated: true, completion: {})
 //        menuV.isHidden = false
         menuV.showHideMenu()
+        self.btnMenu.isHidden = true
     }
     
     @IBAction func rightBarButtonClicked(sender:UIButton){
@@ -198,6 +200,9 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
             switch swipeGesture.direction {
             case UISwipeGestureRecognizer.Direction.right:
                 print("Swiped right")
+                if self.menuV.isHidden == true{
+                    self.btnMenu.isHidden = true
+                }
                 menuV.swipedRight()
             case UISwipeGestureRecognizer.Direction.left:
                 print("Swiped left")
@@ -625,6 +630,11 @@ extension DashBoardVC: CustomMenuItemDelegate {
             self.pushVC(controller:vc)
             
         }
+        self.btnMenu.isHidden = false
+    }
+    
+    func customMenuDidHide(){
+        self.btnMenu.isHidden = false
     }
 }
 
