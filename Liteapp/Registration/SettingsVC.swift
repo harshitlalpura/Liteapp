@@ -136,6 +136,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var btnWeek1Option: UIButton!
     @IBOutlet weak var btnWeek2Option: UIButton!
     
+    @IBOutlet weak var btnDeleteMyAccount: UIButton!
     
     var setupMerchant:SetupMerchant!
     var merchantSettings:MerchantSettings?
@@ -161,6 +162,16 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         
     }
     func setUI(){
+        
+        if let empType = Defaults.shared.currentUser?.empType{
+            if empType == "S"{
+                btnDeleteMyAccount.isHidden = false
+            }
+            else{
+                btnDeleteMyAccount.isHidden = true
+            }
+        }
+        
         editdailyOvertimeView.dropShadow()
         lblusername.text = Utility.getNameInitials()
         
@@ -1181,6 +1192,41 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
             txtTotalEmployee.backgroundColor = UIColor.Color.appThemeBGColor
         }
     }
+    
+    @IBAction func btnDeleteMyAccountClicked(_ sender: Any) {
+        DeleteAccountVC.showDeleteAccountPopup(prevVC: self) { isDeleteTapped in
+            if isDeleteTapped {
+                //Call API for delete
+                self.callDeleteAccountAPI()
+            }
+        }
+    }
+    
+    func callDeleteAccountAPI(){
+        let parameters = ["merchant_id":Defaults.shared.currentUser?.merchantId ?? 0,
+            "emp_token":Defaults.shared.currentUser?.empToken ?? "",
+                          "emp_id":Defaults.shared.currentUser?.empId ?? 0] as [String : Any]
+        
+        NetworkLayer.sharedNetworkLayer.postWebApiCallwithHeader(apiEndPoints: APIEndPoints.deleteMerchant(), param:parameters, header: Defaults.shared.header ?? ["":""]) { success, response, error in
+            if let res = response{
+                print(res)
+                if let status = res["status"] as? Int{
+                    if status == 1{
+                        //Logout User
+                        Defaults.shared.currentUser = nil
+                        Utility.setRootScreen(isShowAnimation: true)
+                    }
+                }
+                else{
+                    self.showAlert(alertType:.validation, message: "Something went wrong while deleting account. Please try again.")
+                }
+            }else if let err = error{
+                print(err)
+                self.showAlert(alertType:.validation, message: "Something went wrong while deleting account. Please try again.")
+            }
+        }
+    }
+    
 }
 extension SettingsVC:MenuItemDelegate {
     func MenuItemClicked(menuName: String) {

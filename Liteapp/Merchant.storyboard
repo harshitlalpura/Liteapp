@@ -160,7 +160,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="796"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zq3-OK-sAB" userLabel="Content View">
-                                                <rect key="frame" x="10" y="0.0" width="394" height="2808"/>
+                                                <rect key="frame" x="10" y="0.0" width="394" height="2828"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V5Q-iN-lT6">
                                                         <rect key="frame" x="0.0" y="0.0" width="394" height="70"/>
@@ -240,18 +240,50 @@
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="gGz-8Q-BLJ">
-                                                        <rect key="frame" x="0.0" y="80" width="394" height="2628"/>
+                                                        <rect key="frame" x="0.0" y="80" width="394" height="2648"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0WO-XK-vjN">
-                                                                <rect key="frame" x="0.0" y="0.0" width="394" height="243"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="394" height="263"/>
                                                                 <subviews>
                                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Zqs-4C-51R">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="394" height="243"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="394" height="263"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" constant="243" id="f5K-75-Xge"/>
+                                                                            <constraint firstAttribute="height" constant="263" id="f5K-75-Xge"/>
                                                                         </constraints>
                                                                         <inset key="separatorInset" minX="23" minY="0.0" maxX="23" maxY="0.0"/>
+                                                                        <view key="tableFooterView" contentMode="scaleToFill" id="vai-Ap-jfX">
+                                                                            <rect key="frame" x="0.0" y="148" width="394" height="70"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <subviews>
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gw8-6w-3T1">
+                                                                                    <rect key="frame" x="0.0" y="15" width="394" height="40"/>
+                                                                                    <color key="backgroundColor" name="appRedColor"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="40" id="mWd-OG-ZfM"/>
+                                                                                    </constraints>
+                                                                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                    <state key="normal" title="Delete My Account">
+                                                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    </state>
+                                                                                    <userDefinedRuntimeAttributes>
+                                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                            <real key="value" value="5"/>
+                                                                                        </userDefinedRuntimeAttribute>
+                                                                                    </userDefinedRuntimeAttributes>
+                                                                                    <connections>
+                                                                                        <action selector="btnDeleteMyAccountClicked:" destination="6D3-2p-9GA" eventType="touchUpInside" id="HPl-6j-vkr"/>
+                                                                                    </connections>
+                                                                                </button>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstItem="Gw8-6w-3T1" firstAttribute="centerY" secondItem="vai-Ap-jfX" secondAttribute="centerY" id="S28-LI-Cnt"/>
+                                                                                <constraint firstItem="Gw8-6w-3T1" firstAttribute="leading" secondItem="vai-Ap-jfX" secondAttribute="leading" id="fih-91-XyE"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="Gw8-6w-3T1" secondAttribute="trailing" id="rwD-tK-sJb"/>
+                                                                            </constraints>
+                                                                        </view>
                                                                         <prototypes>
                                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsSelectionCell" rowHeight="81" id="koZ-l0-3gH" customClass="SettingsSelectionCell" customModule="Liteapp" customModuleProvider="target">
                                                                                 <rect key="frame" x="0.0" y="44.5" width="394" height="81"/>
@@ -316,7 +348,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LB8-AY-jOJ">
-                                                                <rect key="frame" x="0.0" y="273" width="394" height="655"/>
+                                                                <rect key="frame" x="0.0" y="293" width="394" height="655"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R6F-IN-Arp">
                                                                         <rect key="frame" x="10" y="0.0" width="374" height="80"/>
@@ -628,7 +660,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iub-Qe-4p6">
-                                                                <rect key="frame" x="0.0" y="958" width="394" height="1000"/>
+                                                                <rect key="frame" x="0.0" y="978" width="394" height="1000"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIb-xf-Uy4">
                                                                         <rect key="frame" x="0.0" y="0.0" width="394" height="80"/>
@@ -1200,7 +1232,7 @@ weekly , biweekly.</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0FX-i7-RRv">
-                                                                <rect key="frame" x="0.0" y="1988" width="394" height="640"/>
+                                                                <rect key="frame" x="0.0" y="2008" width="394" height="640"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DWI-BC-jGP">
                                                                         <rect key="frame" x="0.0" y="0.0" width="394" height="80"/>
@@ -2824,6 +2856,7 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="accountStackView" destination="4j9-pg-fny" id="JZi-I4-Nwq"/>
                         <outlet property="blurOverlayView" destination="kE1-JP-1ug" id="9cE-DT-whE"/>
                         <outlet property="btnBiWeekly" destination="86t-Rg-oGZ" id="TAl-ln-gTb"/>
+                        <outlet property="btnDeleteMyAccount" destination="Gw8-6w-3T1" id="PJg-bZ-dhm"/>
                         <outlet property="btnFriday" destination="BIY-K8-Lqh" id="sUa-mv-gMr"/>
                         <outlet property="btnMenu" destination="Bly-f5-FRk" id="G16-hg-Ak9"/>
                         <outlet property="btnMonday" destination="VLm-qD-Cz2" id="HCv-En-KEP"/>
@@ -5780,6 +5813,145 @@ button at the top of the page</string>
             </objects>
             <point key="canvasLocation" x="2904" y="1"/>
         </scene>
+        <!--Delete AccountVC-->
+        <scene sceneID="0BM-8V-FP6">
+            <objects>
+                <viewController storyboardIdentifier="DeleteAccountVC" id="Lon-NL-57F" customClass="DeleteAccountVC" customModule="Liteapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C7Y-JN-NNo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qqF-Wv-xh5">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Igh-TW-s3o">
+                                        <rect key="frame" x="14" y="266.5" width="386" height="363"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Npq-k7-DYS">
+                                                <rect key="frame" x="0.0" y="0.0" width="386" height="8"/>
+                                                <color key="backgroundColor" name="appRedColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="8" id="dIn-fo-e2w"/>
+                                                </constraints>
+                                            </view>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deleteAcc" translatesAutoresizingMaskIntoConstraints="NO" id="t0b-gb-ula">
+                                                <rect key="frame" x="148" y="28" width="90" height="90"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="90" id="Zne-7R-Q2n"/>
+                                                    <constraint firstAttribute="width" constant="90" id="wK5-Hh-lWU"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPb-sn-OUt">
+                                                <rect key="frame" x="20" y="148" width="346" height="28"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
+                                                <color key="textColor" red="0.22352941179999999" green="0.2470588235" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iU4-Yq-bvV">
+                                                <rect key="frame" x="20" y="194" width="346" height="94"/>
+                                                <string key="text">Are you sure you want to delete your account? All of your data will be deleted and your employees will no longer be able to access their accounts.</string>
+                                                <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="20"/>
+                                                <color key="textColor" red="0.22352941179999999" green="0.2470588235" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="X8U-zG-qcd">
+                                                <rect key="frame" x="30.5" y="308" width="325" height="35"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gf-Pi-r2j">
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="35"/>
+                                                        <color key="backgroundColor" red="0.94509803921568625" green="0.96078431372549022" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="Qwo-w4-uhc"/>
+                                                            <constraint firstAttribute="width" constant="150" id="RA7-o5-sBq"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Cancel">
+                                                            <fontDescription key="titleFontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </buttonConfiguration>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnCancelTapped:" destination="A2q-7W-Dat" eventType="touchUpInside" id="WGW-z6-nwF"/>
+                                                            <action selector="btnCancelTapped:" destination="Lon-NL-57F" eventType="touchUpInside" id="ZV7-eE-dbH"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnc-nU-lN1">
+                                                        <rect key="frame" x="175" y="0.0" width="150" height="35"/>
+                                                        <color key="backgroundColor" name="appRedColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="tQy-IB-frl"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Delete">
+                                                            <fontDescription key="titleFontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
+                                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </buttonConfiguration>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnDeleteTapped:" destination="A2q-7W-Dat" eventType="touchUpInside" id="Cgn-GW-mlE"/>
+                                                            <action selector="btnDeleteTapped:" destination="Lon-NL-57F" eventType="touchUpInside" id="fXO-aj-GY5"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="X8U-zG-qcd" secondAttribute="bottom" constant="20" id="2iC-vH-nrY"/>
+                                            <constraint firstAttribute="trailing" secondItem="qPb-sn-OUt" secondAttribute="trailing" constant="20" id="7WC-9f-FWQ"/>
+                                            <constraint firstItem="iU4-Yq-bvV" firstAttribute="top" secondItem="qPb-sn-OUt" secondAttribute="bottom" constant="18" id="95C-3G-Qlj"/>
+                                            <constraint firstItem="Npq-k7-DYS" firstAttribute="top" secondItem="Igh-TW-s3o" secondAttribute="top" id="9iz-RI-15F"/>
+                                            <constraint firstItem="qPb-sn-OUt" firstAttribute="leading" secondItem="Igh-TW-s3o" secondAttribute="leading" constant="20" id="I4r-03-sFg"/>
+                                            <constraint firstItem="t0b-gb-ula" firstAttribute="centerX" secondItem="Igh-TW-s3o" secondAttribute="centerX" id="NFS-u6-RO3"/>
+                                            <constraint firstItem="X8U-zG-qcd" firstAttribute="centerX" secondItem="Igh-TW-s3o" secondAttribute="centerX" id="NJS-EO-erd"/>
+                                            <constraint firstAttribute="trailing" secondItem="iU4-Yq-bvV" secondAttribute="trailing" constant="20" id="SZ1-oL-Hs4"/>
+                                            <constraint firstItem="X8U-zG-qcd" firstAttribute="top" secondItem="iU4-Yq-bvV" secondAttribute="bottom" constant="20" id="aJy-nv-BCi"/>
+                                            <constraint firstItem="t0b-gb-ula" firstAttribute="top" secondItem="Npq-k7-DYS" secondAttribute="bottom" constant="20" id="c7x-06-dUH"/>
+                                            <constraint firstItem="Npq-k7-DYS" firstAttribute="leading" secondItem="Igh-TW-s3o" secondAttribute="leading" id="kT0-tl-ChW"/>
+                                            <constraint firstAttribute="trailing" secondItem="Npq-k7-DYS" secondAttribute="trailing" id="kVf-ZC-Pwu"/>
+                                            <constraint firstItem="qPb-sn-OUt" firstAttribute="top" secondItem="t0b-gb-ula" secondAttribute="bottom" constant="30" id="mg4-fZ-S6I"/>
+                                            <constraint firstItem="iU4-Yq-bvV" firstAttribute="leading" secondItem="Igh-TW-s3o" secondAttribute="leading" constant="20" id="xQt-65-2OE"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.22352941179999999" green="0.2470588235" blue="0.27058823529999998" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Igh-TW-s3o" firstAttribute="leading" secondItem="qqF-Wv-xh5" secondAttribute="leading" constant="14" id="9IH-Wi-Nc5"/>
+                                    <constraint firstItem="Igh-TW-s3o" firstAttribute="centerY" secondItem="qqF-Wv-xh5" secondAttribute="centerY" id="bcF-KV-yh3"/>
+                                    <constraint firstAttribute="trailing" secondItem="Igh-TW-s3o" secondAttribute="trailing" constant="14" id="ttV-Ht-2ig"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="9mV-v5-ZhR"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qqF-Wv-xh5" firstAttribute="leading" secondItem="9mV-v5-ZhR" secondAttribute="leading" id="2po-vU-je7"/>
+                            <constraint firstAttribute="trailing" secondItem="qqF-Wv-xh5" secondAttribute="trailing" id="J1X-c2-fKx"/>
+                            <constraint firstItem="qqF-Wv-xh5" firstAttribute="top" secondItem="C7Y-JN-NNo" secondAttribute="top" id="THi-m8-yZg"/>
+                            <constraint firstAttribute="bottom" secondItem="qqF-Wv-xh5" secondAttribute="bottom" id="pMt-bf-RbQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="viewPopup" destination="Igh-TW-s3o" id="BMe-Y7-IId"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q1c-fE-1Fm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3614" y="1"/>
+        </scene>
         <!--Create EmployeeVC-->
         <scene sceneID="sYF-cK-a6o">
             <objects>
@@ -8610,6 +8782,7 @@ This referral code is only valid for 30 days.</string>
         </scene>
     </scenes>
     <resources>
+        <image name="deleteAcc" width="96" height="96"/>
         <image name="deleteEmployee" width="94" height="94"/>
         <image name="employee_timesheet" width="30" height="29.5"/>
         <image name="employee_user_info" width="29.5" height="29.5"/>

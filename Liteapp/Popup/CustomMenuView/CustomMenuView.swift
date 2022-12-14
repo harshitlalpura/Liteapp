@@ -46,6 +46,17 @@ class CustomMenuView: UIView {
         func commonInit() {
             Bundle.main.loadNibNamed(kCONTENT_XIB_NAME, owner: self, options: nil)
             contentView.fixInView(self)
+            
+            if Defaults.shared.currentUser?.empType ?? "" == "S"{
+                menuItems = ["TimeClock","Employees","TimeSheets","Settings","Logout \n Manager"]
+    //            menuImages = ["ic_timeclock","ic_employee","ic_timesheets","ic_settings","ic_logout"]
+                menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
+            }else{
+               menuItems = ["TimeClock","Logout \n Manager"]
+    //            menuImages = ["ic_timeclock","ic_logout"]
+                menuImages = ["ic_timeclock_tint","ic_logout_tint"]
+            }
+            
             self.constvwSupportHeight.constant = 0.0
             self.constViewMenuLeading.constant = -277.0
             tblView.register(UINib(nibName: "CustomMenuCell", bundle: nil), forCellReuseIdentifier: "cell")

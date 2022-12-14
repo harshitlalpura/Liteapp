@@ -85,6 +85,9 @@ class APIEndPoints {
     static func termsOfService() -> String {
         return APIConstants.baseURL + "termsOfService"
     }
+    static func deleteMerchant() -> String {
+        return APIConstants.baseURL + "merchants/delete"
+    }
     
     
 }
