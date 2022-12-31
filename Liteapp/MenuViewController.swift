@@ -48,7 +48,7 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
 //    var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
     var menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
     
-    var supportText : String = "Having trouble? We've got your back! Contact our support team at support@getilluminate.io and we'll respond as soon as possible."
+    var supportText : String = "Let us know how we can help and a member from our Support Team will get back to you!"
     var supportEmail = "support@getilluminate.io"
     override func viewDidLoad() {
         super.viewDidLoad()

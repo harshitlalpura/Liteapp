@@ -92,12 +92,11 @@ public struct SideMenuSettings: Model, InitializableStruct {
         let appScreenRect = UIApplication.shared.keyWindow?.bounds ?? UIWindow().bounds
         let minimumSize = min(appScreenRect.width, appScreenRect.height)
         return min(round(minimumSize * 0.75), 240)
-      //  return appScreenRect.width
     }()
     public var presentingViewControllerUserInteractionEnabled: Bool = false
     public var presentingViewControllerUseSnapshot: Bool = false
     public var presentDuration: Double = 0.35
-    public var presentationStyle: SideMenuPresentationStyle = .menuSlideIn
+    public var presentationStyle: SideMenuPresentationStyle = .viewSlideOut
     public var pushStyle: SideMenuPushStyle = .default
     public var statusBarEndAlpha: CGFloat = 0
     public var usingSpringWithDamping: CGFloat = 1

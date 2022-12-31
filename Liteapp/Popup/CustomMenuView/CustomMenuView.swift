@@ -21,7 +21,7 @@ class CustomMenuView: UIView {
     @IBOutlet weak var btnSupport: UIButton!
     @IBOutlet weak var lblSupportText: UILabel!
     @IBOutlet weak var tblView: UITableView!
-    
+    @IBOutlet weak var btnEmail: UIButton!
     weak public var delegate: CustomMenuItemDelegate?
     @IBOutlet weak var constvwSupportHeight: NSLayoutConstraint!
     
@@ -30,7 +30,7 @@ class CustomMenuView: UIView {
 //    var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
     var menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
     
-    var supportText : String = "Having trouble? We've got your back! Contact our support team at support@getilluminate.io and we'll respond as soon as possible."
+    var supportText : String = "Let us know how we can help and a member from our Support Team will get back to you!"
     var supportEmail = "support@getilluminate.io"
     
     override init(frame: CGRect) {
@@ -110,10 +110,10 @@ class CustomMenuView: UIView {
     
     @IBAction func btnSupportClicked(_ sender: Any) {
         UIView.animate(withDuration: 0.25) {
-            if self.constvwSupportHeight.constant == 100.0{
+            if self.constvwSupportHeight.constant == 150.0{
                 self.constvwSupportHeight.constant = 0.0
             }else{
-                self.constvwSupportHeight.constant = 100.0
+                self.constvwSupportHeight.constant = 150.0
             }
             self.layoutIfNeeded()
         }
@@ -133,15 +133,15 @@ class CustomMenuView: UIView {
             self.lblSupportText.attributedText = underlineAttriString
             self.lblSupportText.lineBreakMode = .byWordWrapping
             self.lblSupportText.isUserInteractionEnabled = true
-            self.lblSupportText.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(self.tapLabel(gesture:))))
+ 
         }
     
     }
     
-    @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
+    @IBAction func btnEmailClicked(_ sender: Any) {
         let emailRange = (supportText as NSString).range(of: supportEmail)
         
-        if gesture.didTapAttributedTextInLabel(label: lblSupportText, inRange: emailRange) {
+      
             print("Tapped Email")
             if MFMailComposeViewController.canSendMail() {
                 let mail = MFMailComposeViewController()
@@ -157,9 +157,7 @@ class CustomMenuView: UIView {
                 print("Application is not able to send an email")
             }
             
-        } else {
-            print("Tapped none")
-        }
+        
     }
     
 }

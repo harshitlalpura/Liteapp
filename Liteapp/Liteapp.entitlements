@@ -6,6 +6,7 @@
 	<array>
 		<string>applinks:lite.testbryteportal.com</string>
 		<string>applinks:lite.bryteportal.com</string>
+		<string>applinks:lite.getilluminate.io</string>
 	</array>
 </dict>
 </plist>

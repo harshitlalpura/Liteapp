@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		47D76446DB6D8B546C056094 /* Pods_Liteapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900C9CDEA89A1DFAF57CEBCB /* Pods_Liteapp.framework */; };
+		4634152C95FC52AC127E5E92 /* Pods_Liteapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA97B4266405C80E5E402556 /* Pods_Liteapp.framework */; };
 		612D437B2884081600C84522 /* TimeReportCVHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612D43792884081500C84522 /* TimeReportCVHeaderCell.swift */; };
 		612D437C2884081600C84522 /* TimeReportCVHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 612D437A2884081500C84522 /* TimeReportCVHeaderCell.xib */; };
 		6144E85C287DC6ED0036D73E /* MerchantiPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6144E859287DC6EC0036D73E /* MerchantiPad.storyboard */; };
@@ -272,7 +272,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		20EF40F49A12D1A17C5A6168 /* Pods-Liteapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Liteapp.debug.xcconfig"; path = "Target Support Files/Pods-Liteapp/Pods-Liteapp.debug.xcconfig"; sourceTree = "<group>"; };
+		461A9ABE6E63887CF1A56959 /* Pods-Liteapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Liteapp.debug.xcconfig"; path = "Target Support Files/Pods-Liteapp/Pods-Liteapp.debug.xcconfig"; sourceTree = "<group>"; };
 		612D43792884081500C84522 /* TimeReportCVHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeReportCVHeaderCell.swift; sourceTree = "<group>"; };
 		612D437A2884081500C84522 /* TimeReportCVHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeReportCVHeaderCell.xib; sourceTree = "<group>"; };
 		6144E859287DC6EC0036D73E /* MerchantiPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MerchantiPad.storyboard; sourceTree = "<group>"; };
@@ -552,7 +552,6 @@
 		61EA23862856112700CB0891 /* Employees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employees.swift; sourceTree = "<group>"; };
 		61F67BF42869C91D005E9622 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		61FBCBB9285A6B7000D7BBC5 /* AddEmployeeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmployeeVC.swift; sourceTree = "<group>"; };
-		900C9CDEA89A1DFAF57CEBCB /* Pods_Liteapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Liteapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0571F428B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPrivacyStaticPagesVC.swift; sourceTree = "<group>"; };
 		AF0571F628B25AA900D807F6 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		AF1104F928BD2E3B0044DE37 /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
@@ -573,7 +572,8 @@
 		AFB5EBEA28D0E7A70086C32D /* CustomAdvanceAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAdvanceAlertVC.swift; sourceTree = "<group>"; };
 		AFC60B0A28CBBD3D00946F44 /* SucessPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SucessPopupVC.swift; sourceTree = "<group>"; };
 		AFC70CCE28B5F8FF0040B3B2 /* PopupMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMenuVC.swift; sourceTree = "<group>"; };
-		F698F00D4EDAB0A3A10A1B1C /* Pods-Liteapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Liteapp.release.xcconfig"; path = "Target Support Files/Pods-Liteapp/Pods-Liteapp.release.xcconfig"; sourceTree = "<group>"; };
+		BC42AF90C2EC7D7B374B13A6 /* Pods-Liteapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Liteapp.release.xcconfig"; path = "Target Support Files/Pods-Liteapp/Pods-Liteapp.release.xcconfig"; sourceTree = "<group>"; };
+		DA97B4266405C80E5E402556 /* Pods_Liteapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Liteapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -581,17 +581,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47D76446DB6D8B546C056094 /* Pods_Liteapp.framework in Frameworks */,
+				4634152C95FC52AC127E5E92 /* Pods_Liteapp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4C99831D52E263E2D54F5610 /* Frameworks */ = {
+		0AE9564F2F531F7068E0F4E7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				900C9CDEA89A1DFAF57CEBCB /* Pods_Liteapp.framework */,
+				DA97B4266405C80E5E402556 /* Pods_Liteapp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -599,8 +599,8 @@
 		5C6EC7EB29E2A9660BEEB68E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				20EF40F49A12D1A17C5A6168 /* Pods-Liteapp.debug.xcconfig */,
-				F698F00D4EDAB0A3A10A1B1C /* Pods-Liteapp.release.xcconfig */,
+				461A9ABE6E63887CF1A56959 /* Pods-Liteapp.debug.xcconfig */,
+				BC42AF90C2EC7D7B374B13A6 /* Pods-Liteapp.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -659,7 +659,7 @@
 				6182F67B284933140006BDF0 /* Liteapp */,
 				6182F67A284933140006BDF0 /* Products */,
 				5C6EC7EB29E2A9660BEEB68E /* Pods */,
-				4C99831D52E263E2D54F5610 /* Frameworks */,
+				0AE9564F2F531F7068E0F4E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1359,11 +1359,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6182F68D284933170006BDF0 /* Build configuration list for PBXNativeTarget "Liteapp" */;
 			buildPhases = (
-				548E1436D79D67128278DD88 /* [CP] Check Pods Manifest.lock */,
+				45164230A0BB7D02B5B17C4F /* [CP] Check Pods Manifest.lock */,
 				6182F675284933140006BDF0 /* Sources */,
 				6182F676284933140006BDF0 /* Frameworks */,
 				6182F677284933140006BDF0 /* Resources */,
-				3B2F75D15998D23919F83E2A /* [CP] Embed Pods Frameworks */,
+				13FD95CFE929B84D7B97CE78 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1498,7 +1498,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3B2F75D15998D23919F83E2A /* [CP] Embed Pods Frameworks */ = {
+		13FD95CFE929B84D7B97CE78 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1515,7 +1515,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Liteapp/Pods-Liteapp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		548E1436D79D67128278DD88 /* [CP] Check Pods Manifest.lock */ = {
+		45164230A0BB7D02B5B17C4F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1921,14 +1921,14 @@
 		};
 		6182F68E284933170006BDF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20EF40F49A12D1A17C5A6168 /* Pods-Liteapp.debug.xcconfig */;
+			baseConfigurationReference = 461A9ABE6E63887CF1A56959 /* Pods-Liteapp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Liteapp/Liteapp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B2E5UW74Q7;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=*]" = "";
@@ -1947,7 +1947,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lite.hr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1959,14 +1959,14 @@
 		};
 		6182F68F284933170006BDF0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F698F00D4EDAB0A3A10A1B1C /* Pods-Liteapp.release.xcconfig */;
+			baseConfigurationReference = BC42AF90C2EC7D7B374B13A6 /* Pods-Liteapp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Liteapp/Liteapp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Bryte Innovative Technologies, LLC (B2E5UW74Q7)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B2E5UW74Q7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Liteapp/Info.plist;
@@ -1983,7 +1983,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lite.hr;
 				PRODUCT_NAME = "$(TARGET_NAME)";

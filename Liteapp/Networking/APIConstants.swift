@@ -41,7 +41,7 @@ class APIConstants: NSObject {
         
     }
     struct productionUrls {
-        static let baseURL = "https://lite.testbryteportal.com/"
+        static let baseURL = "https://lite.getilluminate.io/"
         
     }
     struct developmentUrls {

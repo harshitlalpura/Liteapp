@@ -147,6 +147,7 @@ PODS:
   - IQKeyboardManagerSwift (6.5.9)
   - KeychainAccess (4.2.2)
   - Kingfisher (7.0.0)
+  - libxlsxwriter (1.1.4)
   - lottie-ios (3.3.0)
   - MKToolTip (1.0.6)
   - nanopb (2.30908.0):
@@ -187,6 +188,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - KeychainAccess (= 4.2.2)
   - Kingfisher (= 7.0.0)
+  - libxlsxwriter
   - lottie-ios
   - MKToolTip
   - ObjectMapper
@@ -228,6 +230,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - KeychainAccess
     - Kingfisher
+    - libxlsxwriter
     - lottie-ios
     - MKToolTip
     - nanopb
@@ -280,6 +283,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: 5efc54fec3980f92354898532e562cc17f31efb4
+  libxlsxwriter: f9f040bb01f0aabac1adb09f27c8cf542ae9a044
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   MKToolTip: 69509b1cada10f96bd9f4ab559a768e7c6557933
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
@@ -293,6 +297,6 @@ SPEC CHECKSUMS:
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
   ZLImageEditor: eae3fcfa3050b42111d53bd4c611c26637ef604d
 
-PODFILE CHECKSUM: 7e99001e5ece242c418fc1c5dc851a2220dedca2
+PODFILE CHECKSUM: 0fd58b197da325e1a3c2b279b8e52947802b7292
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
