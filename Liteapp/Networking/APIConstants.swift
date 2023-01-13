@@ -18,7 +18,7 @@ class APIConstants: NSObject {
     }
     //Change application running mode type here
 
-    static let applicationMode: APIConstants.type = .development
+    static let applicationMode: APIConstants.type = .production
 
     /// Application base url
     static var baseURL: String{

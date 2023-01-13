@@ -134,6 +134,7 @@ extension InviteViaTextVC:UITableViewDelegate,UITableViewDataSource {
         cell.lblName.text = contact.givenName + " " + contact.familyName
         cell.lblPhone.text = contact.phoneNumber.first
         cell.imageview.image = contact.image
+        
         cell.btnCheck.isSelected = false
         cell.btnCheck.addTarget(self, action:#selector(self.checkClicked(sender:)), for: .touchUpInside)
         cell.btnCheck.tag = indexPath.row
