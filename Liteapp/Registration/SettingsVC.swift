@@ -12,13 +12,13 @@ import Alamofire
 import IQKeyboardManagerSwift
 
 enum EditSelectedDay:Int{
-    case sunday = 1
-    case monday = 2
-    case tuesday = 3
-    case wednesday = 4
-    case thursday = 5
-    case friday = 6
-    case saturday = 7
+    case sunday = 0
+    case monday = 1
+    case tuesday = 2
+    case wednesday = 3
+    case thursday = 4
+    case friday = 5
+    case saturday = 6
 }
 enum EditDuration:Int{
     case weekly = 1
@@ -175,13 +175,13 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         editdailyOvertimeView.dropShadow()
         lblusername.text = Utility.getNameInitials()
         
-        btnSunday.tag = 1
-        btnMonday.tag = 2
-        btnTuesday.tag = 3
-        btnWednesday.tag = 4
-        btnThursday.tag = 5
-        btnFriday.tag = 6
-        btnSaturday.tag = 7
+        btnSunday.tag = 0
+        btnMonday.tag = 1
+        btnTuesday.tag = 2
+        btnWednesday.tag = 3
+        btnThursday.tag = 4
+        btnFriday.tag = 5
+        btnSaturday.tag = 6
         
         btnSunday.setBackgroundColor(.white, forState: .normal)
         btnSunday.setBackgroundColor(UIColor.Color.appBlueColor, forState: .selected)
@@ -798,19 +798,19 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         
         sender.isSelected = true
         
-        if sender.tag == 1{
+        if sender.tag == 0{
             self.editDaySelected = .sunday
-        }else if sender.tag == 2{
+        }else if sender.tag == 1{
             self.editDaySelected = .monday
-        }else if sender.tag == 3{
+        }else if sender.tag == 2{
             self.editDaySelected = .tuesday
-        }else if sender.tag == 4{
+        }else if sender.tag == 3{
             self.editDaySelected = .wednesday
-        }else if sender.tag == 5{
+        }else if sender.tag == 4{
             self.editDaySelected = .thursday
-        }else if sender.tag == 6{
+        }else if sender.tag == 5{
             self.editDaySelected = .friday
-        }else if sender.tag == 7{
+        }else if sender.tag == 6{
             self.editDaySelected = .saturday
         }
     }
