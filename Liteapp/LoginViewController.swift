@@ -32,6 +32,13 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var passwordTextValidationView: UIView!
     @IBOutlet weak var lblTermsAndPrivacy: UILabel!
     
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var lblPassword: UILabel!
+    @IBOutlet weak var btnLogin: UIButton!
+    @IBOutlet weak var lblRegister: UILabel!
+    @IBOutlet weak var btnRegister: UIButton!
+    
     @IBOutlet weak var btnForgotPassword: UIButton!
     
     var privacyText : String = ""
@@ -40,6 +47,16 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
         DispatchQueue.main.async {
             self.vwGradiantContainer.setGradientBackground()
         }
+        
+        lblTitle.text = NSLocalizedString("We've made time tracking easier. Let's get started", comment: "TitleText")
+        lblEmail.text = NSLocalizedString("Email", comment: "EmailLabel")
+        lblPassword.text = NSLocalizedString("Password", comment: "PasswordLabel")
+        btnForgotPassword.setTitle(NSLocalizedString("Forgot Password?", comment: "ForgotPasswordButton"), for: .normal)
+        lblRegister.text = NSLocalizedString("Don't have an account?", comment: "RegisterLabel")
+        btnRegister.setTitle(NSLocalizedString("Register here", comment: "RegisterButton"), for: .normal)
+        btnLogin.setTitle(NSLocalizedString("Login", comment: "LoginButton"), for: .normal)
+        
+        
         // Do any additional setup after loading the view.
         if let forgotPasswordEmpId = Defaults.shared.forgotPasswordEmpId{
             //Open Reset Password Screen
@@ -74,12 +91,12 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
     
     func setupTermsAndPrivacyLabel(){
         
-        privacyText = "By signing up, you agree to our End User License Agreement and Privacy Policy."
+        privacyText = NSLocalizedString("By signing up, you agree to our End User License Agreement and Privacy Policy.", comment: "privacyText")
         lblTermsAndPrivacy.text = privacyText
         lblTermsAndPrivacy.textColor =  UIColor.white
         let underlineAttriString = NSMutableAttributedString(string: privacyText)
-        let range1 = (privacyText as NSString).range(of: "End User License Agreement")
-        let range2 = (privacyText as NSString).range(of: "Privacy Policy")
+        let range1 = (privacyText as NSString).range(of: NSLocalizedString("End User License Agreement", comment: "UserAgreementText"))
+        let range2 = (privacyText as NSString).range(of: NSLocalizedString("Privacy Policy", comment: "PrivacyPolicy"))
         let rangeFull = (privacyText as NSString).range(of: privacyText)
         let fontSize = lblTermsAndPrivacy.font.pointSize
         underlineAttriString.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: fontSize), range: range1)
@@ -94,8 +111,8 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
     }
     
     @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
-        let termsRange = (privacyText as NSString).range(of: "End User License Agreement")
-        let privacyRange = (privacyText as NSString).range(of: "Privacy Policy")
+        let termsRange = (privacyText as NSString).range(of: NSLocalizedString("End User License Agreement", comment: "UserAgreementText"))
+        let privacyRange = (privacyText as NSString).range(of: NSLocalizedString("Privacy Policy", comment: "PrivacyPolicy"))
         
         if gesture.didTapAttributedTextInLabel(label: lblTermsAndPrivacy, inRange: termsRange) {
             print("Tapped terms")
@@ -167,7 +184,7 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
         }
         if txtPassword.text!.count > 1{
             if txtPassword.text!.isValidPassword == false{
-                self.showAlert(alertType:.validation, message: "Please enter valid password")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Please enter valid password", comment: "ValidPassword"))
                 return false
             }
         }

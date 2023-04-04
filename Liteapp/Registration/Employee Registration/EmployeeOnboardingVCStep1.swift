@@ -18,11 +18,28 @@ class EmployeeOnboardingVCStep1:BaseViewController, StoryboardSceneBased{
 //    @IBOutlet weak var jobtitleTextValidationView: UIView!
     @IBOutlet weak var vwGradiantContainer: UIView!
     
+    @IBOutlet weak var lblStep: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblFirstName: UILabel!
+    @IBOutlet weak var firstNameValidationLabel: UILabel!
+    @IBOutlet weak var lblLastName: UILabel!
+    @IBOutlet weak var lastNameValidationLabel: UILabel!
+    @IBOutlet weak var btnContinue: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
         // Do any additional setup after loading the view.
+        lblStep.text = NSLocalizedString("Step 1 of 3", comment: "stepLabel")
+        lblTitle.text = NSLocalizedString("Let’s get your employee account set up. Don’t worry, this should only take about 2 minutes.", comment: "titleLabel")
+        lblFirstName.text = NSLocalizedString("First Name", comment: "firstNameLabel")
+        txtFirstName.placeholder = NSLocalizedString("e.g. John", comment: "firstNamePlaceholder")
+        firstNameValidationLabel.text = NSLocalizedString("Please Enter First Name", comment: "firstNameValidationLabel")
+        lblLastName.text = NSLocalizedString("Last Name", comment: "lastNameLabel")
+        txtLastName.placeholder = NSLocalizedString("e.g. Doe", comment: "lastNamePlaceholder")
+        lastNameValidationLabel.text = NSLocalizedString("Please Enter Last Name", comment: "lastNameValidationLabel")
+        btnContinue.setTitle(NSLocalizedString("Continue", comment: "continueButton"), for: .normal)
     }
     @IBAction func continueClicked(sender:UIButton){
         checkTextValidation()

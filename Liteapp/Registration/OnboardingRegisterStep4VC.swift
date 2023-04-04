@@ -38,6 +38,11 @@ class OnboardingRegisterStep4VC: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var btnViewRange100to499: UIButton!
     @IBOutlet weak var btnViewRange500Plus: UIButton!
     @IBOutlet weak var vwGradiantContainer: UIView!
+    
+    @IBOutlet weak var stepLabel: UILabel!
+    @IBOutlet weak var businessTitleLabel: UILabel!
+    @IBOutlet weak var btnCompleteAccount: UIButton!
+    
     var saveMerchent:SaveMerchant!
     var selectedEmployeeRange:EmployeeRange = .employee1to4
     var selectedEmployees = "1 to 4"
@@ -49,6 +54,11 @@ class OnboardingRegisterStep4VC: BaseViewController, StoryboardSceneBased{
         btnViewRange20to99.tag = 3
         btnViewRange100to499.tag = 4
         btnViewRange500Plus.tag = 5
+        
+        stepLabel.text = NSLocalizedString("Step 4 of 5", comment: "stepLabel")
+        businessTitleLabel.text = NSLocalizedString("How many people do you employ?", comment: "businessTitleLabel")
+        btnCompleteAccount.setTitle(NSLocalizedString("Compete my account", comment: "btnCompleteAccount"), for: .normal)
+        
     }
     
 

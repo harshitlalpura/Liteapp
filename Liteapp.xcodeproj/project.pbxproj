@@ -249,6 +249,8 @@
 		61EA23872856112700CB0891 /* Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EA23862856112700CB0891 /* Employees.swift */; };
 		61F67BF52869C91E005E9622 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F67BF42869C91D005E9622 /* ChangePasswordVC.swift */; };
 		61FBCBBA285A6B7000D7BBC5 /* AddEmployeeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBCBB9285A6B7000D7BBC5 /* AddEmployeeVC.swift */; };
+		834A3A3129C5921C0089F32E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 834A3A3329C5921C0089F32E /* Localizable.strings */; };
+		834A3A3629C5929A0089F32E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 834A3A3829C5929A0089F32E /* Localizable.strings */; };
 		AF0571F528B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0571F428B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift */; };
 		AF0571F728B25AAB00D807F6 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0571F628B25AA900D807F6 /* ForgotPasswordVC.swift */; };
 		AF1104FA28BD2E3B0044DE37 /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1104F928BD2E3B0044DE37 /* ResetPasswordVC.swift */; };
@@ -552,6 +554,8 @@
 		61EA23862856112700CB0891 /* Employees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employees.swift; sourceTree = "<group>"; };
 		61F67BF42869C91D005E9622 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		61FBCBB9285A6B7000D7BBC5 /* AddEmployeeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmployeeVC.swift; sourceTree = "<group>"; };
+		834A3A3229C5921C0089F32E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		834A3A3729C5929A0089F32E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AF0571F428B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPrivacyStaticPagesVC.swift; sourceTree = "<group>"; };
 		AF0571F628B25AA900D807F6 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		AF1104F928BD2E3B0044DE37 /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
@@ -1348,6 +1352,8 @@
 			children = (
 				AF6E8BF628F4854300430879 /* Illuminate_Privacy_Policy.pdf */,
 				AF6E8BF528F4854300430879 /* Illuminate_Terms_of_Service.pdf */,
+				834A3A3329C5921C0089F32E /* Localizable.strings */,
+				834A3A3829C5929A0089F32E /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1450,6 +1456,7 @@
 				61A29795285372A20015777F /* Roboto-BoldItalic.ttf in Resources */,
 				61A297B3285373370015777F /* Poppins-SemiBold.ttf in Resources */,
 				61A29790285372A20015777F /* Roboto-Light.ttf in Resources */,
+				834A3A3629C5929A0089F32E /* Localizable.strings in Resources */,
 				61A297AE285373370015777F /* Poppins-Bold.ttf in Resources */,
 				61D8D6A2285D1B110065B19C /* TimeSheetCell.xib in Resources */,
 				61A297B6285373370015777F /* Poppins-Thin.ttf in Resources */,
@@ -1486,6 +1493,7 @@
 				AF6E8BF828F4854400430879 /* Illuminate_Privacy_Policy.pdf in Resources */,
 				61A297B9285373370015777F /* Poppins-Black.ttf in Resources */,
 				61D14B0F28597C0800E8F735 /* TimeReportFooterCell.xib in Resources */,
+				834A3A3129C5921C0089F32E /* Localizable.strings in Resources */,
 				AF6E8BF728F4854400430879 /* Illuminate_Terms_of_Service.pdf in Resources */,
 				6182F7FD284933FB0006BDF0 /* TOCropViewControllerLocalizable.strings in Resources */,
 				61A2978F285372A20015777F /* Roboto-Medium.ttf in Resources */,
@@ -1800,6 +1808,22 @@
 				6182F75D284933FB0006BDF0 /* ro */,
 			);
 			name = TOCropViewControllerLocalizable.strings;
+			sourceTree = "<group>";
+		};
+		834A3A3329C5921C0089F32E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				834A3A3229C5921C0089F32E /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		834A3A3829C5929A0089F32E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				834A3A3729C5929A0089F32E /* es */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

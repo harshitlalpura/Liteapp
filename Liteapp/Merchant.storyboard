@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2857,6 +2857,7 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="accountStackView" destination="4j9-pg-fny" id="JZi-I4-Nwq"/>
                         <outlet property="blurOverlayView" destination="kE1-JP-1ug" id="9cE-DT-whE"/>
                         <outlet property="btnBiWeekly" destination="86t-Rg-oGZ" id="TAl-ln-gTb"/>
+                        <outlet property="btnChange" destination="2iN-i8-7Wd" id="jhh-R3-I4B"/>
                         <outlet property="btnDeleteMyAccount" destination="Gw8-6w-3T1" id="PJg-bZ-dhm"/>
                         <outlet property="btnFriday" destination="BIY-K8-Lqh" id="sUa-mv-gMr"/>
                         <outlet property="btnMenu" destination="Bly-f5-FRk" id="G16-hg-Ak9"/>
@@ -2872,13 +2873,23 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="btnWeek2Option" destination="eIG-Jo-rGj" id="lD1-Lu-8Ug"/>
                         <outlet property="btnWeekly" destination="2SE-ac-ARl" id="jwU-8b-EXX"/>
                         <outlet property="btnselectPayPeriod" destination="GEI-XL-cSw" id="hsI-B6-Ibc"/>
+                        <outlet property="businessEmployeeCountLabel" destination="pNu-OH-2Fn" id="Jhz-Z9-6kh"/>
+                        <outlet property="businessNameLabel" destination="Xdt-8I-b8y" id="RHE-mh-hY4"/>
                         <outlet property="businessSettingsView" destination="0FX-i7-RRv" id="YOY-Pi-YQC"/>
+                        <outlet property="businessUrlLabel" destination="CzR-54-IqY" id="S67-Ac-XuP"/>
+                        <outlet property="congoContinueButton" destination="pYb-iT-fJU" id="MkG-In-wvK"/>
+                        <outlet property="congoDecsLabel" destination="tG0-Pv-GxT" id="Z38-ea-NYv"/>
+                        <outlet property="congoTitleLabel" destination="bmM-Mt-hKN" id="R7b-wo-mER"/>
                         <outlet property="congratulationsPopup" destination="pMb-C5-m6s" id="P6q-gM-lrP"/>
                         <outlet property="continueButtonStep1" destination="abx-1n-QP8" id="8cn-Lt-MIB"/>
                         <outlet property="continueButtonStep2" destination="NHC-Xv-Vjc" id="EBW-HJ-TGK"/>
                         <outlet property="continueButtonStep3" destination="m3z-bi-kod" id="uf0-J5-s6f"/>
                         <outlet property="continueButtonStep4" destination="hwo-1h-bch" id="Z8O-oT-7jP"/>
                         <outlet property="customNavView" destination="qGe-b8-iFC" id="JgV-rn-N4P"/>
+                        <outlet property="dailyOvertimeAfterLabel" destination="eLs-Oh-ud8" id="OZr-G3-2Tx"/>
+                        <outlet property="editModeDescLabel" destination="gJf-el-cPc" id="Iig-RL-Ums"/>
+                        <outlet property="editModeOkButton" destination="6D8-q5-TFR" id="OX1-zH-zss"/>
+                        <outlet property="editModeTitleLabel" destination="muD-Ej-3WB" id="NWc-3V-4HG"/>
                         <outlet property="editPayPeriodDurationView" destination="0Wn-4V-isN" id="dMM-pG-Vwc"/>
                         <outlet property="editPayPeriodStartDayView" destination="cdD-xD-dK7" id="MaZ-5U-XKc"/>
                         <outlet property="editTooltipView" destination="9Ac-B1-ZhH" id="38p-eL-mRc"/>
@@ -2887,19 +2898,57 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="editWeeklyOvertimeView" destination="QLd-gz-8sn" id="YgH-L3-UiW"/>
                         <outlet property="editdailyOvertimeHoursView" destination="D0P-Nx-nhi" id="Z6E-Lf-cZS"/>
                         <outlet property="editdailyOvertimeView" destination="fju-A6-iJz" id="yWP-4e-Kaq"/>
+                        <outlet property="lblAccountSettings" destination="Yw8-qH-Xrf" id="nxg-3R-QJL"/>
+                        <outlet property="lblBusinessSettings" destination="pyG-Gx-P5a" id="E1f-j4-oXR"/>
+                        <outlet property="lblDailyOvertime" destination="x66-f7-OQd" id="Qu7-PC-eAU"/>
+                        <outlet property="lblDailyOvertimeDesc" destination="zGQ-sX-dV8" id="Z8C-Vc-8hG"/>
+                        <outlet property="lblEdit" destination="IfD-XI-YiE" id="TTP-3l-Chy"/>
+                        <outlet property="lblEmail" destination="j0D-ar-cO6" id="08l-d5-fzQ"/>
+                        <outlet property="lblFirstName" destination="cRq-qm-gzQ" id="RhD-tu-9yN"/>
+                        <outlet property="lblHour" destination="6dA-r6-HSA" id="fPd-w0-Jfx"/>
+                        <outlet property="lblLastName" destination="SkN-eo-e0t" id="yse-Yl-6mi"/>
+                        <outlet property="lblPassword" destination="sJT-Zz-gb1" id="KRG-SV-4Z8"/>
+                        <outlet property="lblPayPeriod" destination="phE-4A-Orb" id="FyL-gp-x1r"/>
+                        <outlet property="lblPayPeriodDesc" destination="lzp-wr-iAQ" id="5WL-S5-1ll"/>
+                        <outlet property="lblPayPeriodStart" destination="mIn-3I-Vqt" id="ECg-5S-sfK"/>
+                        <outlet property="lblPayPeriodStartDesc" destination="v1q-aW-RWO" id="zcL-Hf-O3i"/>
+                        <outlet property="lblPayPeriodWeek" destination="3Yi-Bg-lbo" id="nJT-5c-t6c"/>
+                        <outlet property="lblPayPeriodWeekDesc" destination="ytt-uD-18g" id="wsI-DH-ubq"/>
+                        <outlet property="lblSettings" destination="FP2-j6-KqD" id="qMY-b6-I3M"/>
+                        <outlet property="lblSplitShift" destination="x01-Aj-yQq" id="rtO-m3-GnL"/>
+                        <outlet property="lblSplitShiftDesc" destination="cfV-yr-O0Y" id="Ldf-rg-WSW"/>
+                        <outlet property="lblTimeClockSettings" destination="zhF-V2-wQI" id="G5K-8m-Ked"/>
+                        <outlet property="lblUserName" destination="ico-nc-VVl" id="gnh-py-9KF"/>
+                        <outlet property="lblWeeklyOvertime" destination="HH8-Au-S5B" id="J0U-kL-WFU"/>
+                        <outlet property="lblWeeklyOvertimeDesc" destination="gWD-WV-Kzc" id="cqP-LH-Bhc"/>
                         <outlet property="lblusername" destination="nZJ-m4-F77" id="4Qf-ny-4U5"/>
                         <outlet property="saveView" destination="Yrp-eQ-qW5" id="FVp-ik-4rv"/>
+                        <outlet property="saveViewCancelButton" destination="glh-kf-aUv" id="UNa-X1-a7m"/>
+                        <outlet property="saveViewSaveButton" destination="vpX-fa-C05" id="muY-BV-O5g"/>
                         <outlet property="selectCurrentPayWeek" destination="tpa-fJ-BM3" id="68q-mh-7Bt"/>
                         <outlet property="selectPayPeriodView" destination="XBv-fo-05c" id="4tY-6s-IWp"/>
                         <outlet property="selectWeekStartdayView" destination="8tJ-Jt-MCP" id="PxL-8l-lRM"/>
                         <outlet property="selectWeekView" destination="AdU-wq-67q" id="8Es-Cf-egm"/>
                         <outlet property="skipEditDailyHours" destination="zEz-fr-hMV" id="QVE-5r-Kan"/>
                         <outlet property="skipEditWeeklyHours" destination="b4Z-yY-a7S" id="8jd-xN-3Tg"/>
+                        <outlet property="step1DecsLabel" destination="APg-3Z-ywh" id="LB2-XS-5nH"/>
+                        <outlet property="step1TitleLabel" destination="0fc-oP-pf5" id="fiS-0W-Jl2"/>
+                        <outlet property="step2DecsLabel" destination="Zj6-aG-lEL" id="agr-JO-8px"/>
+                        <outlet property="step2TitleLabel" destination="HAn-3N-Ugc" id="enz-OC-puZ"/>
+                        <outlet property="step3DecsLabel" destination="dtK-hT-3nH" id="i65-Vo-EGz"/>
+                        <outlet property="step3TitleLabel" destination="aa0-Zf-oRV" id="IkP-xE-26m"/>
+                        <outlet property="step4DecsLabel" destination="HQX-Af-B1e" id="iLC-nr-e4T"/>
+                        <outlet property="step4TitleLabel" destination="g6f-in-iEP" id="3Sz-Vq-iV5"/>
+                        <outlet property="successDecsLabel" destination="rfO-xs-8gD" id="pus-Pp-fid"/>
                         <outlet property="successPopup" destination="dKg-H6-yTo" id="Byp-eh-EQi"/>
+                        <outlet property="successTitleLabel" destination="DeK-QG-CnN" id="Q20-24-BcF"/>
+                        <outlet property="successViewCloseButton" destination="kNS-tQ-qio" id="TLc-o2-NJc"/>
+                        <outlet property="successViewContinueButton" destination="ou5-we-4EN" id="oii-55-Vaw"/>
                         <outlet property="switchDailyOvertime" destination="K7o-Nh-eZw" id="usi-ct-QsS"/>
                         <outlet property="switchSplitShift" destination="wg9-96-c1e" id="c73-RJ-RTT"/>
                         <outlet property="switchWeeklyOvertime" destination="BOX-Yg-Rgg" id="3MQ-p3-cIQ"/>
                         <outlet property="tblSelection" destination="Zqs-4C-51R" id="GAU-Qh-hON"/>
+                        <outlet property="timeZoneLabel" destination="0TE-sD-BV2" id="BaX-EZ-Hck"/>
                         <outlet property="timesheetSettingView" destination="iub-Qe-4p6" id="bTC-L4-obN"/>
                         <outlet property="timesheetStackView" destination="jMh-PF-U7e" id="uzo-FS-SCw"/>
                         <outlet property="txtBusinessName" destination="qYa-Ib-HvN" id="IO3-0P-Vxb"/>
@@ -2920,6 +2969,8 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="txtselectWeekStartday" destination="Dbm-ET-Gv0" id="391-3z-VXI"/>
                         <outlet property="viewBiweeklySelection" destination="Xnn-yT-Q5r" id="Ioi-Uq-Mf2"/>
                         <outlet property="viewSelection" destination="0WO-XK-vjN" id="myU-I4-o6M"/>
+                        <outlet property="weeklyOvertimeAfterLabel" destination="u0z-Ea-wgI" id="GGL-jH-dwT"/>
+                        <outlet property="zipCodeLabel" destination="CVH-f9-QXM" id="eAC-4u-HQG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cmh-0U-gWb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3386,7 +3437,11 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="btnMenu" destination="fkH-yX-757" id="BoC-Ad-T3H"/>
                         <outlet property="customNavView" destination="7ij-Ru-SsA" id="fz0-Z6-kLg"/>
                         <outlet property="jobTitleSortImageview" destination="8Rz-zH-sGk" id="Qk5-UD-Y1b"/>
+                        <outlet property="lblAddNew" destination="iNT-b8-QXi" id="QRP-Jz-7ks"/>
                         <outlet property="lblCreateEmployee" destination="DOb-Ct-7uF" id="yK7-dd-dg4"/>
+                        <outlet property="lblEmployee" destination="wKs-Zr-TV8" id="4A0-9Z-OrO"/>
+                        <outlet property="lblEmployeeName" destination="6nm-ha-DH2" id="5TX-ic-xm4"/>
+                        <outlet property="lblJobTitle" destination="ZHj-Cg-y80" id="bAW-Xs-gOd"/>
                         <outlet property="lblusername" destination="EXm-qx-yJI" id="71c-t8-9mX"/>
                         <outlet property="nameSortImageview" destination="j5a-9P-d0K" id="rSv-Xg-YUj"/>
                         <outlet property="tblview" destination="v14-v9-q3I" id="QrY-KV-dZy"/>
@@ -5332,6 +5387,7 @@ button at the top of the page</string>
                     <connections>
                         <outlet property="IQLayoutGuideConstraint" destination="6YE-32-HyU" id="cgk-xF-XVR"/>
                         <outlet property="btnDeleteEmployee" destination="unb-sn-o69" id="9hA-0u-irB"/>
+                        <outlet property="btnEditModetOK" destination="uCQ-T1-eps" id="gCV-Yj-uVG"/>
                         <outlet property="btnMenu" destination="lbp-rG-seV" id="lcp-lt-aGB"/>
                         <outlet property="btnWeekDay1" destination="b8B-wo-Nbu" id="dAE-BK-RPW"/>
                         <outlet property="btnWeekDay2" destination="msn-fh-Axy" id="t0i-IQ-lbc"/>
@@ -5343,7 +5399,11 @@ button at the top of the page</string>
                         <outlet property="collectionViewEvents" destination="dPX-zz-ql8" id="Kb1-rm-igk"/>
                         <outlet property="constTopEditTooltip" destination="Q02-Qm-eiz" id="jyK-fz-y8f"/>
                         <outlet property="customNavView" destination="EO0-q1-AGk" id="kdP-eP-dVx"/>
+                        <outlet property="datePickerCancelButton" destination="wnj-zW-hKd" id="bWL-Tb-i5y"/>
+                        <outlet property="datePickerClearButton" destination="IhF-T5-heh" id="51J-os-obQ"/>
+                        <outlet property="datePickerDoneButton" destination="vgS-ZH-Kf2" id="DX0-ih-1Q5"/>
                         <outlet property="datePickerView" destination="VGn-mT-oLp" id="8aT-zZ-N0h"/>
+                        <outlet property="dateViewCancelButton" destination="Cw2-2U-V24" id="eVl-7I-ScP"/>
                         <outlet property="editTooltipView" destination="n2E-Fg-CNA" id="hQB-Wf-1a3"/>
                         <outlet property="editView" destination="6YE-32-HyU" id="Frz-Fg-5Dk"/>
                         <outlet property="employeeProfileSelectionView" destination="aJn-qj-2hb" id="eIJ-fG-NnT"/>
@@ -5354,9 +5414,18 @@ button at the top of the page</string>
                         <outlet property="imgvwNumber" destination="i01-eW-rFj" id="NL5-WC-tE5"/>
                         <outlet property="imgvwSpecialCharacter" destination="blr-lh-tjZ" id="tH7-rO-Lck"/>
                         <outlet property="imgvwminimumCharacter" destination="8fw-lF-0L9" id="cNf-3u-Onb"/>
+                        <outlet property="lblEdit" destination="1Hy-Mc-IeN" id="rAm-zC-kxl"/>
+                        <outlet property="lblEditModeTitle" destination="Vm8-bv-CHc" id="CgI-GF-ric"/>
+                        <outlet property="lblEditModetDesc" destination="b5V-ux-WWC" id="4Xv-Yd-kmL"/>
+                        <outlet property="lblProfile" destination="fJM-6j-9NK" id="DJi-ij-222"/>
+                        <outlet property="lblSelectDate" destination="htZ-YY-9Ob" id="sIv-YB-TGo"/>
+                        <outlet property="lblTimesheetDesc" destination="4s1-7u-Vrc" id="cdm-B9-Sis"/>
+                        <outlet property="lblTimesheetTitle" destination="vKF-Fq-vgd" id="RNa-tI-7XQ"/>
+                        <outlet property="lblUserInfoDesc" destination="B7Q-gT-Kew" id="n1U-vj-yoI"/>
+                        <outlet property="lblUserInfoTitle" destination="zfm-Wn-P8I" id="dCP-dL-M5e"/>
                         <outlet property="lblname" destination="qrs-Ef-yEw" id="gDi-qk-KWv"/>
                         <outlet property="lblusername" destination="UmD-KB-lR4" id="IzM-Vf-Nml"/>
-                        <outlet property="lblweekDay1" destination="h1t-8N-j6w" id="D8T-A9-Rnb"/>
+                        <outlet property="lblweekDay1" destination="SEi-Pf-Zsr" id="Ds7-Cc-OzV"/>
                         <outlet property="lblweekDay2" destination="pdf-7K-dh1" id="NzG-uK-Obg"/>
                         <outlet property="lblweekDay3" destination="WOL-bZ-LV8" id="z16-EV-Pvi"/>
                         <outlet property="lblweekDay5" destination="wr3-dZ-NyO" id="7ZF-ZA-Lzs"/>
@@ -5371,7 +5440,15 @@ button at the top of the page</string>
                         <outlet property="lblweekDayDate7" destination="WxU-6n-vST" id="fXt-KV-B6T"/>
                         <outlet property="passwordValidationView" destination="KeL-zP-4fv" id="8cr-o9-dOY"/>
                         <outlet property="picker" destination="BvH-xy-yfS" id="Rkx-Qm-xZo"/>
+                        <outlet property="requirementLabel1" destination="SLR-3t-7wl" id="m02-MS-rNk"/>
+                        <outlet property="requirementLabel2" destination="dys-IW-mGj" id="IkV-qK-QBI"/>
+                        <outlet property="requirementLabel3" destination="cjQ-EP-bx9" id="oA7-o3-RyV"/>
+                        <outlet property="requirementLabel4" destination="Xy2-HT-gOU" id="iBa-qm-QIa"/>
+                        <outlet property="requirementLabel5" destination="xGk-dK-N0t" id="hYg-63-XBe"/>
+                        <outlet property="requirementTitleLabel" destination="0ee-2k-A5g" id="bF1-EQ-YhM"/>
                         <outlet property="saveView" destination="Rfs-Xm-8JG" id="qR6-Pi-hHv"/>
+                        <outlet property="saveViewCancelButton" destination="yfn-0W-u3F" id="wfF-fX-MQ3"/>
+                        <outlet property="saveViewSaveButton" destination="hdE-fp-kBe" id="HR6-oJ-SGX"/>
                         <outlet property="selectedPayperiodLabel" destination="io5-hc-pYX" id="8Ea-Tl-ecm"/>
                         <outlet property="tblEvents" destination="QNB-BX-ofg" id="k75-jV-CXA"/>
                         <outlet property="timereportView" destination="G4s-ua-w7y" id="KeS-jG-1hb"/>
@@ -5564,6 +5641,13 @@ button at the top of the page</string>
                     <connections>
                         <outlet property="btnCancel" destination="eYo-pV-5ut" id="CTx-Q7-7ZJ"/>
                         <outlet property="btnSave" destination="kaq-33-rcP" id="azb-E0-NOT"/>
+                        <outlet property="lblDailyOvertime" destination="E4s-L4-hfG" id="zCd-3u-phS"/>
+                        <outlet property="lblPayPeriod" destination="ukq-hg-GSA" id="lPr-Mj-6tQ"/>
+                        <outlet property="lblPayPeriodStart" destination="yYm-Cl-av2" id="6Be-mu-qHO"/>
+                        <outlet property="lblPayPeriodWeek" destination="qhR-GR-G0n" id="9ds-hf-dSA"/>
+                        <outlet property="lblSaveDesc" destination="B54-kl-Gkh" id="gak-gf-chm"/>
+                        <outlet property="lblSaveTitle" destination="QK8-Er-cKe" id="lue-k8-e2y"/>
+                        <outlet property="lblWeeklyOvertime" destination="H3H-ph-xGY" id="hh9-pa-0fL"/>
                         <outlet property="viewSavePopup" destination="BWC-Ur-j36" id="qVD-Cc-Y7I"/>
                     </connections>
                 </viewController>
@@ -5698,6 +5782,10 @@ button at the top of the page</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnCancel" destination="6Xb-d1-jOu" id="AYc-Ac-DZU"/>
+                        <outlet property="btnDelete" destination="EVV-4x-1kW" id="SQT-Ce-xxa"/>
+                        <outlet property="lblDeleteDesc" destination="TZU-ae-0tC" id="xXg-Lx-DDW"/>
+                        <outlet property="lblDeleteTitle" destination="dRz-aU-DFE" id="MPt-rn-PIF"/>
                         <outlet property="viewPopup" destination="f5N-0T-Nrq" id="sdF-2g-Gb4"/>
                     </connections>
                 </viewController>
@@ -5805,6 +5893,7 @@ button at the top of the page</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnClose" destination="Yl5-Kg-xeG" id="UKf-8o-bku"/>
                         <outlet property="lblSubtitle" destination="sxt-CF-yLa" id="tCW-Ka-jJZ"/>
                         <outlet property="lblTitle" destination="MxA-VE-RCv" id="DW9-LI-pAj"/>
                         <outlet property="viewPopup" destination="MfU-n7-ERs" id="SwQ-FY-xtW"/>
@@ -5946,6 +6035,10 @@ button at the top of the page</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnCancel" destination="8gf-Pi-r2j" id="h65-1c-cKY"/>
+                        <outlet property="btnDelete" destination="cnc-nU-lN1" id="ycX-qJ-MGo"/>
+                        <outlet property="lblDeleteDesc" destination="iU4-Yq-bvV" id="2Dv-Mh-fJ2"/>
+                        <outlet property="lblDeleteTitle" destination="qPb-sn-OUt" id="VwE-Ws-R7M"/>
                         <outlet property="viewPopup" destination="Igh-TW-s3o" id="BMe-Y7-IId"/>
                     </connections>
                 </viewController>
@@ -7648,7 +7741,11 @@ button at the top of the page</string>
                         <outlet property="btnWeekDay6" destination="4Z5-zy-aAQ" id="E2c-Kq-KoB"/>
                         <outlet property="btnWeekDay7" destination="VW3-5E-MdR" id="CdY-5d-ULY"/>
                         <outlet property="customNavView" destination="Ncb-DT-lLJ" id="r1d-Nm-67a"/>
+                        <outlet property="datePickerCancelButton" destination="Isp-Pl-C5w" id="Bpi-cz-KZ0"/>
+                        <outlet property="datePickerClearButton" destination="FTB-4o-BNg" id="L2v-Jq-7Ry"/>
+                        <outlet property="datePickerDoneButton" destination="22T-7P-vcZ" id="MMQ-BD-ZVK"/>
                         <outlet property="datePickerView" destination="uGU-IT-ZA0" id="kPa-ml-08F"/>
+                        <outlet property="dateViewCancelButton" destination="vhc-cf-esF" id="uoZ-oz-QgY"/>
                         <outlet property="employeeProfileSelectionView" destination="fUv-Tc-VMV" id="tyH-PS-eCn"/>
                         <outlet property="eventTableHeightConstraint" destination="PF5-bL-sXP" id="a7m-nb-mhk"/>
                         <outlet property="imgvwCapitalLetter" destination="A5b-3L-7PC" id="Fye-Oi-Qcg"/>
@@ -7656,6 +7753,20 @@ button at the top of the page</string>
                         <outlet property="imgvwNumber" destination="RIc-pG-shQ" id="Q2A-Za-oqG"/>
                         <outlet property="imgvwSpecialCharacter" destination="XPh-FV-bdV" id="ENF-Uh-BZc"/>
                         <outlet property="imgvwminimumCharacter" destination="PzO-ph-Yne" id="HJK-TS-E9f"/>
+                        <outlet property="lblEmail" destination="P8y-rV-dQh" id="AAg-MZ-mTG"/>
+                        <outlet property="lblFirstName" destination="cne-jl-5Mn" id="rYl-G8-TDT"/>
+                        <outlet property="lblJobTitle" destination="ItO-ng-43Q" id="yVK-qw-10Q"/>
+                        <outlet property="lblLastName" destination="z8W-5a-9DH" id="Ybm-uL-4NB"/>
+                        <outlet property="lblPassword" destination="hVB-PB-s8c" id="2Om-9w-Fhz"/>
+                        <outlet property="lblPayPeriod" destination="3IM-u4-o67" id="fZy-By-7ia"/>
+                        <outlet property="lblProfile" destination="gP6-B5-Nwk" id="tD4-M6-6dK"/>
+                        <outlet property="lblSelectDate" destination="qNo-H1-xqH" id="qFD-0L-tA8"/>
+                        <outlet property="lblTimeSheet" destination="ILV-R3-Ygy" id="LmI-dT-byi"/>
+                        <outlet property="lblTimesheetDesc" destination="xbA-Qs-Haa" id="Xv5-D8-65m"/>
+                        <outlet property="lblTimesheetTitle" destination="db4-p4-oUA" id="Lp0-bw-tn9"/>
+                        <outlet property="lblUserDetails" destination="SO6-J3-nlL" id="LyN-P6-tl3"/>
+                        <outlet property="lblUserInfoDesc" destination="Vbj-96-SWX" id="EdY-hd-Yfk"/>
+                        <outlet property="lblUserInfoTitle" destination="Eya-ga-GiU" id="9Rp-xC-1Ne"/>
                         <outlet property="lblname" destination="tYz-U2-nu2" id="nxf-je-vlK"/>
                         <outlet property="lblusername" destination="hOe-vt-D4Z" id="ZJp-5b-1vZ"/>
                         <outlet property="lblweekDay1" destination="OWr-lR-i9o" id="NJ7-uO-aH8"/>
@@ -7674,7 +7785,15 @@ button at the top of the page</string>
                         <outlet property="lblweekDayDate7" destination="fTC-3v-WFI" id="oQG-8T-aXi"/>
                         <outlet property="passwordValidationView" destination="FQK-pV-9sz" id="eCf-ct-6Uc"/>
                         <outlet property="picker" destination="rJC-NP-910" id="t3d-Oi-p2a"/>
+                        <outlet property="requirementLabel1" destination="I8P-mf-xU5" id="gLP-RH-iox"/>
+                        <outlet property="requirementLabel2" destination="9xF-8K-Iup" id="g9W-Qs-5b4"/>
+                        <outlet property="requirementLabel3" destination="dUy-2X-baL" id="Hx8-g5-Khh"/>
+                        <outlet property="requirementLabel4" destination="paG-tY-Lot" id="KRo-7j-3QF"/>
+                        <outlet property="requirementLabel5" destination="CXn-zW-sqF" id="Fle-aG-4rR"/>
+                        <outlet property="requirementTitleLabel" destination="Tv3-yR-c8m" id="daZ-TG-K8g"/>
                         <outlet property="saveView" destination="l8P-H1-f3l" id="FSS-4p-G04"/>
+                        <outlet property="saveViewCancelButton" destination="eqh-md-NOU" id="Dix-lm-Ylo"/>
+                        <outlet property="saveViewSaveButton" destination="wke-qp-hNC" id="gT5-xY-rhC"/>
                         <outlet property="selectedPayperiodLabel" destination="CfL-ah-cwz" id="8qn-uT-uph"/>
                         <outlet property="tblEvents" destination="F6S-ET-LO9" id="qwu-id-LFq"/>
                         <outlet property="timereportView" destination="f5T-PO-y4Y" id="Nq4-TQ-OAg"/>
@@ -8045,6 +8164,16 @@ SG93IHdvdWxkIHlvdSBsaWtlIHRvIGFkZAt5b3VyIGVtcGxveWVlcz8
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lblDesc" destination="dau-Id-BjJ" id="wWq-V5-frm"/>
+                        <outlet property="lblDesc1" destination="gxx-Li-0iU" id="9Dw-OD-wDY"/>
+                        <outlet property="lblDesc2" destination="ZU4-Ea-dGv" id="WHm-6z-wrW"/>
+                        <outlet property="lblDesc3" destination="mMA-Ws-j2j" id="fTt-eA-GgE"/>
+                        <outlet property="lblDesc4" destination="5fW-NG-OBc" id="vGX-q8-K5o"/>
+                        <outlet property="lblTitle" destination="3Q5-LE-GR9" id="foD-w1-lte"/>
+                        <outlet property="lblTitle1" destination="VpM-FM-skQ" id="C9J-D0-NRV"/>
+                        <outlet property="lblTitle2" destination="eBy-CA-6HX" id="IMf-hd-5Zk"/>
+                        <outlet property="lblTitle3" destination="0IU-5z-Ejm" id="jEz-S8-s22"/>
+                        <outlet property="lblTitle4" destination="v7s-gf-QdA" id="ABJ-fJ-BZE"/>
                         <outlet property="viewPopup" destination="Y5i-9k-MEq" id="8SA-hi-6XY"/>
                     </connections>
                 </viewController>
@@ -8393,6 +8522,15 @@ SG93IHdvdWxkIHlvdSBsaWtlIHRvIGFkZAt5b3VyIGVtcGxveWVlcz8
                             <constraint firstItem="3nz-qC-6qt" firstAttribute="trailing" secondItem="xh9-F1-e7X" secondAttribute="trailing" id="rQ1-zA-L44"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="btnClose" destination="Vsf-lx-Au7" id="fyM-4j-IHc"/>
+                        <outlet property="lblApple" destination="GZ4-aF-bNB" id="ohk-zs-1wh"/>
+                        <outlet property="lblDesc" destination="303-rP-Xpr" id="p4D-Uk-Trt"/>
+                        <outlet property="lblGmail" destination="Kxb-Ee-FBn" id="7p2-Jc-exQ"/>
+                        <outlet property="lblOutlook" destination="3k6-qH-4bO" id="bZC-Mw-xjV"/>
+                        <outlet property="lblTitle" destination="A1L-cz-k38" id="yzP-GE-rN7"/>
+                        <outlet property="lblviaEmail" destination="cZe-gB-GYk" id="9da-oS-iL2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ZZ-CN-9ih" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -8606,6 +8744,9 @@ SG93IHdvdWxkIHlvdSBsaWtlIHRvIGFkZAt5b3VyIGVtcGxveWVlcz8
                     </view>
                     <connections>
                         <outlet property="btnInvite" destination="alR-Ul-fDC" id="yAa-2H-pYQ"/>
+                        <outlet property="lblDesc" destination="d5g-94-IcF" id="Gbn-jq-eM4"/>
+                        <outlet property="lblTitle" destination="NKv-D6-7pb" id="Cxz-5s-4W3"/>
+                        <outlet property="lblviaText" destination="80k-oz-bNw" id="bfV-Yq-sAS"/>
                         <outlet property="searchbar" destination="ti4-EO-nf0" id="FX7-uW-F1W"/>
                         <outlet property="tblview" destination="uKg-5v-Cz2" id="j4a-ex-qR0"/>
                     </connections>
@@ -8772,7 +8913,12 @@ This referral code is only valid for 30 days.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnClose" destination="aAP-Mw-m7T" id="SSp-gK-27k"/>
+                        <outlet property="btnCode" destination="X3L-kF-hdS" id="vvc-hv-qy0"/>
                         <outlet property="lblCode" destination="qPy-Cg-dRg" id="9wv-Ud-OWe"/>
+                        <outlet property="lblDesc" destination="sI1-wT-iAv" id="8F7-Cq-2K9"/>
+                        <outlet property="lblTitle" destination="i6q-Wa-SCZ" id="QXh-RI-gwH"/>
+                        <outlet property="lblviaCode" destination="5y1-RY-CQK" id="YCq-dm-Zum"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IOh-c3-QRr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

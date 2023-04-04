@@ -101,8 +101,64 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
     var payPeriodsData = [Payperiods]()
     var selectedPayPeriod:Payperiods?
     var selectedPayPeriodIndex:Int = 0
+    
+    @IBOutlet weak var lblProfile: UILabel!
+    @IBOutlet weak var lblUserInfoTitle: UILabel!
+    @IBOutlet weak var lblUserInfoDesc: UILabel!
+    @IBOutlet weak var lblTimesheetTitle: UILabel!
+    @IBOutlet weak var lblTimesheetDesc: UILabel!
+    @IBOutlet weak var lblUserDetails: UILabel!
+    @IBOutlet weak var lblFirstName: UILabel!
+    @IBOutlet weak var lblLastName: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var lblJobTitle: UILabel!
+    @IBOutlet weak var lblPassword: UILabel!
+    @IBOutlet weak var lblTimeSheet: UILabel!
+    @IBOutlet weak var lblPayPeriod: UILabel!
+    @IBOutlet weak var requirementTitleLabel: UILabel!
+    @IBOutlet weak var requirementLabel1: UILabel!
+    @IBOutlet weak var requirementLabel2: UILabel!
+    @IBOutlet weak var requirementLabel3: UILabel!
+    @IBOutlet weak var requirementLabel4: UILabel!
+    @IBOutlet weak var requirementLabel5: UILabel!
+    @IBOutlet weak var saveViewCancelButton: UIButton!
+    @IBOutlet weak var saveViewSaveButton: UIButton!
+    @IBOutlet weak var lblSelectDate: UILabel!
+    @IBOutlet weak var dateViewCancelButton: UIButton!
+    @IBOutlet weak var datePickerCancelButton: UIButton!
+    @IBOutlet weak var datePickerClearButton: UIButton!
+    @IBOutlet weak var datePickerDoneButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        lblProfile.text = NSLocalizedString("PROFILE", comment: "lblProfile")
+        lblUserInfoTitle.text = NSLocalizedString("User Information", comment: "lblUserInfoTitle")
+        lblUserInfoDesc.text = NSLocalizedString("General employee information", comment: "lblUserInfoDesc")
+        lblTimesheetTitle.text = NSLocalizedString("Timesheets", comment: "lblTimesheetTitle")
+        lblTimesheetDesc.text = NSLocalizedString("Employee clock history", comment: "lblTimesheetDesc")
+        lblUserDetails.text = NSLocalizedString("User Information", comment: "lblUserDetails")
+        lblFirstName.text = NSLocalizedString("First Name", comment: "firstNameLabel")
+        lblLastName.text = NSLocalizedString("Last Name", comment: "lastNameLabel")
+        lblEmail.text = NSLocalizedString("Email Address", comment: "emailLabel")
+        lblJobTitle.text = NSLocalizedString("Job Title", comment: "jobTitleLabel")
+        lblPassword.text = NSLocalizedString("Password", comment: "passwordLabel")
+        lblTimeSheet.text = NSLocalizedString("Timesheet", comment: "lblTimeSheet")
+        lblPayPeriod.text = NSLocalizedString("Pay Period", comment: "lblPayPeriod")
+        requirementTitleLabel.text = NSLocalizedString("Please complete all the requirements.", comment: "requirementTitleLabel")
+        requirementLabel1.text = NSLocalizedString("Minimum 8 characters", comment: "requirementLabel1")
+        requirementLabel2.text = NSLocalizedString("Lowercase Letter", comment: "requirementLabel2")
+        requirementLabel3.text = NSLocalizedString("Capital Letter", comment: "requirementLabel3")
+        requirementLabel4.text = NSLocalizedString("Number", comment: "requirementLabel4")
+        requirementLabel5.text = NSLocalizedString("Special Character", comment: "requirementLabel5")
+        saveViewCancelButton.setTitle(NSLocalizedString("Cancel", comment: "saveViewCancelButton"), for: .normal)
+        saveViewSaveButton.setTitle(NSLocalizedString("Save", comment: "saveViewSaveButton"), for: .normal)
+        lblSelectDate.text = NSLocalizedString("Select Date", comment: "lblSelectDate")
+        dateViewCancelButton.setTitle(NSLocalizedString("Cancel", comment: "dateViewCancelButton"), for: .normal)
+        datePickerCancelButton.setTitle(NSLocalizedString("Cancel", comment: "datePickerCancelButton"), for: .normal)
+        datePickerClearButton.setTitle(NSLocalizedString("Clear", comment: "datePickerClearButton"), for: .normal)
+        datePickerDoneButton.setTitle(NSLocalizedString("Done", comment: "datePickerDoneButton"), for: .normal)
+        
         setupMenu()
         setData()
         setTableview()

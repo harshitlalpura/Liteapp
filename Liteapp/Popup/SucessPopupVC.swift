@@ -13,6 +13,7 @@ class SucessPopupVC: UIViewController,StoryboardSceneBased {
     @IBOutlet weak var viewPopup: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblSubtitle: UILabel!
+    @IBOutlet weak var btnClose: UIButton!
     
     // MARK: - Variables
     var completion: ((Bool) -> ())?
@@ -28,6 +29,7 @@ class SucessPopupVC: UIViewController,StoryboardSceneBased {
         
         lblTitle.text = strTitle
         lblSubtitle.text = strSubTitle
+        btnClose.setTitle(NSLocalizedString("Close", comment: "btnClose"), for: .normal)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

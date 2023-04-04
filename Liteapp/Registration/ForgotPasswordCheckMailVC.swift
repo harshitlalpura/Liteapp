@@ -15,17 +15,25 @@ class ForgotPasswordCheckMailVC: UIViewController {
     @IBOutlet weak var lblInstructions: UILabel!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var vwGradiantContainer: UIView!
+    
+    @IBOutlet weak var lblCheckMail: UILabel!
+    @IBOutlet weak var lblNoEmailRevieced: UILabel!
+    
     // MARK: - Variables
     var strEmail : String?
     // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
+        lblCheckMail.text = NSLocalizedString("Check your mail", comment: "lblCheckMail")
+        lblNoEmailRevieced.text = NSLocalizedString("Didn't receive the email?", comment: "lblNoEmailRevieced")
         if let email = strEmail{
-        lblInstructions.text = "We have sent password reset \ninstructions to " + email
+        lblInstructions.text = NSLocalizedString("We have sent password reset instructions to ", comment: "lblInstructions") + email
         }else{
-            lblInstructions.text = "We have sent password reset \ninstructions to email address"
+            lblInstructions.text = NSLocalizedString("We have sent password reset instructions to email address", comment: "lblInstructions")
         }
+        btnResend.setTitle(NSLocalizedString("Click to resend", comment: "btnResend"), for: .normal)
+        btnBack.setTitle(NSLocalizedString("Back to Login", comment: "btnBack"), for: .normal)
         // Do any additional setup after loading the view.
     }
     

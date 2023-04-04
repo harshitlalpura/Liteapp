@@ -25,12 +25,47 @@ class ChangePasswordVC: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var imgvwNumber: UIImageView!
     @IBOutlet weak var imgvwSpecialCharacter: UIImageView!
     
+    
+    @IBOutlet weak var congratulationsLabel: UILabel!
+    @IBOutlet weak var requirementTitleLabel: UILabel!
+    @IBOutlet weak var requirementLabel1: UILabel!
+    @IBOutlet weak var requirementLabel2: UILabel!
+    @IBOutlet weak var requirementLabel3: UILabel!
+    @IBOutlet weak var requirementLabel4: UILabel!
+    @IBOutlet weak var requirementLabel5: UILabel!
+    @IBOutlet weak var validationTitleLabel: UILabel!
+    @IBOutlet weak var validationLabel1: UILabel!
+    @IBOutlet weak var validationLabel2: UILabel!
+    @IBOutlet weak var validationLabel3: UILabel!
+    @IBOutlet weak var validationLabel4: UILabel!
+    @IBOutlet weak var validationLabel5: UILabel!
+    @IBOutlet weak var currentPasswordLabel: UILabel!
+    @IBOutlet weak var newPasswordLabel: UILabel!
+    @IBOutlet weak var confirmNewPasswordLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         txtOldPassword.delegate = self
         txtNewPassword.delegate = self
         txtConfirmPassword.delegate = self
         // Do any additional setup after loading the view.
+        congratulationsLabel.text = NSLocalizedString("Congratulations!", comment: "congratulationsLabel")
+        currentPasswordLabel.text = NSLocalizedString("Type Current Password", comment: "currentPasswordLabel")
+        newPasswordLabel.text = NSLocalizedString("Type New Password", comment: "newPasswordLabel")
+        confirmNewPasswordLabel.text = NSLocalizedString("Confirm New Password", comment: "confirmNewPasswordLabel")
+        requirementTitleLabel.text = NSLocalizedString("New Password Must Include:", comment: "requirementTitleLabel")
+        requirementLabel1.text = NSLocalizedString("Minimum 8 characters", comment: "requirementLabel1")
+        requirementLabel2.text = NSLocalizedString("Lowercase Letter", comment: "requirementLabel2")
+        requirementLabel3.text = NSLocalizedString("Capital Letter", comment: "requirementLabel3")
+        requirementLabel4.text = NSLocalizedString("Number", comment: "requirementLabel4")
+        requirementLabel5.text = NSLocalizedString("Special Character", comment: "requirementLabel5")
+        validationTitleLabel.text = NSLocalizedString("Please complete all the requirements.", comment: "validationTitleLabel")
+        validationLabel1.text = NSLocalizedString("Minimum 8 characters", comment: "validationLabel1")
+        validationLabel2.text = NSLocalizedString("Lowercase Letter", comment: "validationLabel2")
+        validationLabel3.text = NSLocalizedString("Capital Letter", comment: "validationLabel3")
+        validationLabel4.text = NSLocalizedString("Number", comment: "validationLabel4")
+        validationLabel5.text = NSLocalizedString("Special Character", comment: "validationLabel5")
+        btnSave.setTitle(NSLocalizedString("Save", comment: "btnSave"), for: .normal)
     }
     
     @IBAction func saveClicked(){
@@ -43,39 +78,39 @@ class ChangePasswordVC: BaseViewController, StoryboardSceneBased{
     }
     private func checkValidation()->Bool{
         if txtOldPassword.text?.count ?? 0 < 8{
-            self.showAlert(alertType:.validation, message: "Password must be atleast 8 characters")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Password must be atleast 8 characters", comment: "Alert"))
             
             return false
         }
         if txtNewPassword.text?.count ?? 0 < 8{
-            self.showAlert(alertType:.validation, message: "Password must be atleast 8 characters")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Password must be atleast 8 characters", comment: "Alert"))
            
             return false
         }
         if txtConfirmPassword.text?.count ?? 0 < 8{
-            self.showAlert(alertType:.validation, message: "Password must be atleast 8 characters")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Password must be atleast 8 characters", comment: "Alert"))
             
             return false
         }
 
         if (txtOldPassword.text?.isValidPassword ?? false == false){
-            self.showAlert(alertType:.validation, message: "Please Enter Valid Password")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Valid Password", comment: "Alert"))
            
             
             return false
         }
         if (txtNewPassword.text?.isValidPassword ?? false == false){
-            self.showAlert(alertType:.validation, message:"Please Enter Valid Password")
+            self.showAlert(alertType:.validation, message:NSLocalizedString("Please Enter Valid Password", comment: "Alert"))
             
             return false
         }
         if (txtConfirmPassword.text?.isValidPassword ?? false == false){
-            self.showAlert(alertType:.validation, message:"Please Enter Valid Password")
+            self.showAlert(alertType:.validation, message:NSLocalizedString("Please Enter Valid Password", comment: "Alert"))
             
             return false
         }
         if txtConfirmPassword.text != txtNewPassword.text{
-            self.showAlert(alertType:.validation, message: "Confirm Password must be same as New Password.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Confirm Password must be same as New Password.", comment: "Alert"))
             
             return false
         }

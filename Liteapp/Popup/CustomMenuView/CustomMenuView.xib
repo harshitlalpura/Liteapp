@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -23,11 +23,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomMenuView" customModule="Liteapp" customModuleProvider="target">
             <connections>
+                <outlet property="btnContactSupport" destination="erU-GP-6ZV" id="Sct-Ng-NdL"/>
                 <outlet property="btnSupport" destination="5w7-6m-wIy" id="LCQ-oq-hhf"/>
                 <outlet property="constViewMenuLeading" destination="lQU-3m-20g" id="reM-20-Cgh"/>
                 <outlet property="constvwSupportHeight" destination="jAN-ej-PaX" id="RSM-QE-M8T"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="4zY-xU-yLx"/>
                 <outlet property="lblSupportText" destination="VY7-lO-HLL" id="3Vg-bz-7hh"/>
+                <outlet property="lblSupportTitle" destination="uuU-M1-TtS" id="v3x-QM-mg1"/>
                 <outlet property="tblView" destination="9NI-Nz-pzy" id="DLB-Jd-E7t"/>
             </connections>
         </placeholder>

@@ -22,10 +22,19 @@ class InviteViaTextVC:BaseViewController, StoryboardSceneBased,MFMailComposeView
     @IBOutlet weak var tblview: UITableView!
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet weak var btnInvite: UIButton!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblDesc: UILabel!
+    @IBOutlet weak var lblviaText: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        lblTitle.text = NSLocalizedString("Add New Employee", comment: "lblTitle")
+        lblDesc.text = NSLocalizedString("Select employees from your contacts list to send an invite to.", comment: "lblDesc")
+        lblviaText.text = NSLocalizedString("Via Text", comment: "lblviaText")
+        btnInvite.setTitle(NSLocalizedString("Invite Employee", comment: "btnInvite"), for: .normal)
+        
         inviteLink = "Hey! Please download our TimeClock App with the link below. \n Your referral code is \(Defaults.shared.currentUser?.merchantReferenceNumber ?? "").\n https://lite.testbryteportal.com/referral/\(Defaults.shared.currentUser?.merchantReferenceNumber ?? "")"
        // contacts = self.getContactFromCNContact()
         contactList = ContactsModel.generateModelArray()

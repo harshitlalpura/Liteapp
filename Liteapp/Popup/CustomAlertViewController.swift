@@ -56,15 +56,15 @@ class CustomAlertViewController: BaseViewController, StoryboardSceneBased{
         if alertType == .success{
             topBarView.backgroundColor = UIColor.Color.appGreenColor
             button.backgroundColor = UIColor.Color.appGreenColor
-            lblTitle.text = "Congratulations"
+            lblTitle.text = NSLocalizedString("Congratulations", comment: "lblTitle")
         }else if alertType == .failed{
             topBarView.backgroundColor = UIColor.Color.appRedColor
             button.backgroundColor = UIColor.Color.appRedColor
-            lblTitle.text = "Delete Employee"
+            lblTitle.text = NSLocalizedString("Delete Employee", comment: "lblTitle")
         }else if alertType == .validation{
             topBarView.backgroundColor = UIColor.Color.appYellowColor
             button.backgroundColor = UIColor.Color.appYellowColor
-            lblTitle.text = "Delete Employee"
+            lblTitle.text = NSLocalizedString("Delete Employee", comment: "lblTitle")
         }
     }
     @IBAction func buttonClicked(sender:UIButton){

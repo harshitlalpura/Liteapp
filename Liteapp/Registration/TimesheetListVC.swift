@@ -78,6 +78,14 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
     var selectedPayPeriod:Payperiods?
     var selectedPayPeriodIndex:Int = 0
     
+    @IBOutlet weak var lblTimeSheet: UILabel!
+    @IBOutlet weak var lblPayPeriod: UILabel!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblTotal: UILabel!
+    @IBOutlet weak var lblApproval: UILabel!
+    @IBOutlet weak var btnApprove: UIButton!
+    @IBOutlet weak var btnUnApprove: UIButton!
+    @IBOutlet weak var lblExportTimeSheet: UILabel!
     
     var payPeriodsData = [Payperiods]()
     
@@ -89,6 +97,15 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         btnCheckAll.setImage(UIImage.checkGreyImage, for: .selected)
         btnCheckAll.setImage(UIImage.uncheckGreyImage, for: .normal)
         // Do any additional setup after loading the view.
+        lblTimeSheet.text = NSLocalizedString("Timesheet", comment: "lblTimeSheet")
+        lblPayPeriod.text = NSLocalizedString("Pay Period", comment: "lblPayPeriod")
+        lblName.text = NSLocalizedString("Name", comment: "lblName")
+        lblTotal.text = NSLocalizedString("Total", comment: "lblTotal")
+        lblApproval.text = NSLocalizedString("Approval", comment: "lblApproval")
+        btnApprove.setTitle(NSLocalizedString("Unapprove", comment: "btnApprove"), for: .normal)
+        btnUnApprove.setTitle(NSLocalizedString("Approve", comment: "btnUnApprove"), for: .normal)
+        lblExportTimeSheet.text = NSLocalizedString("Export Timesheet", comment: "lblExportTimeSheet")
+        exportMainView.setTitle(NSLocalizedString("Export Timesheet", comment: "exportMainView"), for: .normal)
     }
     override func viewWillAppear(_ animated: Bool) {
         selectedTimesheetList =  [PayPeriodTimesheet]()

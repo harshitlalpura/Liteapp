@@ -22,6 +22,8 @@ class CustomMenuView: UIView {
     @IBOutlet weak var lblSupportText: UILabel!
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var btnEmail: UIButton!
+    @IBOutlet weak var lblSupportTitle: UILabel!
+    @IBOutlet weak var btnContactSupport: UIButton!
     weak public var delegate: CustomMenuItemDelegate?
     @IBOutlet weak var constvwSupportHeight: NSLayoutConstraint!
     
@@ -30,7 +32,8 @@ class CustomMenuView: UIView {
 //    var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
     var menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
     
-    var supportText : String = "Let us know how we can help and a member from our Support Team will get back to you!"
+    var supportTitle : String = NSLocalizedString("Looking for support?", comment: "lblSupportTitle")
+    var supportText : String = NSLocalizedString("Let us know how we can help and a member from our Support Team will get back to you!", comment: "lblSupportText")
     var supportEmail = "support@getilluminate.io"
     
     override init(frame: CGRect) {
@@ -133,7 +136,9 @@ class CustomMenuView: UIView {
             self.lblSupportText.attributedText = underlineAttriString
             self.lblSupportText.lineBreakMode = .byWordWrapping
             self.lblSupportText.isUserInteractionEnabled = true
- 
+            self.lblSupportTitle.text = self.supportTitle
+            self.btnSupport.setTitle(NSLocalizedString("Support", comment: "btnSupport"), for: .normal)
+            self.btnContactSupport.setTitle(NSLocalizedString("Contact Support Team", comment: "btnContactSupport"), for: .normal)
         }
     
     }

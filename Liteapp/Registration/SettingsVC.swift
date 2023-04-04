@@ -138,6 +138,59 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var btnDeleteMyAccount: UIButton!
     
+    @IBOutlet weak var lblSettings: UILabel!
+    @IBOutlet weak var lblEdit: UILabel!
+    @IBOutlet weak var lblAccountSettings: UILabel!
+    @IBOutlet weak var lblFirstName: UILabel!
+    @IBOutlet weak var lblLastName: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var lblPassword: UILabel!
+    @IBOutlet weak var btnChange: UIButton!
+    @IBOutlet weak var lblTimeClockSettings: UILabel!
+    @IBOutlet weak var lblSplitShift: UILabel!
+    @IBOutlet weak var lblSplitShiftDesc: UILabel!
+    @IBOutlet weak var lblWeeklyOvertime: UILabel!
+    @IBOutlet weak var lblWeeklyOvertimeDesc: UILabel!
+    @IBOutlet weak var lblHour: UILabel!
+    @IBOutlet weak var lblDailyOvertime: UILabel!
+    @IBOutlet weak var lblDailyOvertimeDesc: UILabel!
+    @IBOutlet weak var lblPayPeriod: UILabel!
+    @IBOutlet weak var lblPayPeriodDesc: UILabel!
+    @IBOutlet weak var lblPayPeriodWeek: UILabel!
+    @IBOutlet weak var lblPayPeriodWeekDesc: UILabel!
+    @IBOutlet weak var lblPayPeriodStart: UILabel!
+    @IBOutlet weak var lblPayPeriodStartDesc: UILabel!
+    @IBOutlet weak var lblBusinessSettings: UILabel!
+    @IBOutlet weak var businessNameLabel: UILabel!
+    @IBOutlet weak var zipCodeLabel: UILabel!
+    @IBOutlet weak var timeZoneLabel: UILabel!
+    @IBOutlet weak var businessUrlLabel: UILabel!
+    @IBOutlet weak var businessEmployeeCountLabel: UILabel!
+    @IBOutlet weak var editModeTitleLabel: UILabel!
+    @IBOutlet weak var editModeDescLabel: UILabel!
+    @IBOutlet weak var editModeOkButton: UIButton!
+    @IBOutlet weak var step1TitleLabel: UILabel!
+    @IBOutlet weak var step1DecsLabel: UILabel!
+    @IBOutlet weak var step2TitleLabel: UILabel!
+    @IBOutlet weak var step2DecsLabel: UILabel!
+    @IBOutlet weak var biWeeklySelectionLabel: UILabel!
+    @IBOutlet weak var step3TitleLabel: UILabel!
+    @IBOutlet weak var step3DecsLabel: UILabel!
+    @IBOutlet weak var step4TitleLabel: UILabel!
+    @IBOutlet weak var step4DecsLabel: UILabel!
+    @IBOutlet weak var weeklyOvertimeAfterLabel: UILabel!
+    @IBOutlet weak var dailyOvertimeAfterLabel: UILabel!
+    @IBOutlet weak var saveViewCancelButton: UIButton!
+    @IBOutlet weak var saveViewSaveButton: UIButton!
+    @IBOutlet weak var successViewContinueButton: UIButton!
+    @IBOutlet weak var successViewCloseButton: UIButton!
+    @IBOutlet weak var successTitleLabel: UILabel!
+    @IBOutlet weak var successDecsLabel: UILabel!
+    @IBOutlet weak var congoContinueButton: UIButton!
+    @IBOutlet weak var congoTitleLabel: UILabel!
+    @IBOutlet weak var congoDecsLabel: UILabel!
+    
     var setupMerchant:SetupMerchant!
     var merchantSettings:MerchantSettings?
     var editDaySelected:EditSelectedDay?
@@ -157,6 +210,81 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        lblSettings.text = NSLocalizedString("Settings", comment: "lblSettings")
+        lblEdit.text = NSLocalizedString("Edit", comment: "lblEdit")
+        lblAccountSettings.text = NSLocalizedString("Account Settings", comment: "lblAccountSettings")
+        lblFirstName.text = NSLocalizedString("First Name", comment: "firstNameLabel")
+        lblLastName.text = NSLocalizedString("Last Name", comment: "lastNameLabel")
+        lblEmail.text = NSLocalizedString("Email", comment: "emailLabel")
+        lblUserName.text = NSLocalizedString("Username", comment: "userNameLabel")
+        lblPassword.text = NSLocalizedString("Password", comment: "passwordLabel")
+        btnChange.setTitle(NSLocalizedString("Change", comment: "btnChange"), for: .normal)
+        lblTimeClockSettings.text = NSLocalizedString("TimeClock Settings", comment: "lblTimeClockSettings")
+        lblSplitShift.text = NSLocalizedString("Split Shift", comment: "lblSplitShift")
+        lblSplitShiftDesc.text = NSLocalizedString("Employees working past midnight will have their shifts split into pre- and post-midnight parts instead of automatically being clocked out at midnight.", comment: "lblSplitShiftDesc")
+        lblWeeklyOvertime.text = NSLocalizedString("Weekly Overtime", comment: "lblWeeklyOvertime")
+        lblWeeklyOvertimeDesc.text = NSLocalizedString("Define number of hours needed to work within a workweek before overtime accrual begins.", comment: "lblWeeklyOvertimeDesc")
+        lblHour.text = NSLocalizedString("Hours", comment: "lblHour")
+        lblDailyOvertime.text = NSLocalizedString("Daily Overtime", comment: "lblDailyOvertime")
+        lblDailyOvertimeDesc.text = NSLocalizedString("Define number of hours needed to work within a workday before overtime accrual begins.", comment: "lblDailyOvertimeDesc")
+        lblPayPeriod.text = NSLocalizedString("Pay Period", comment: "lblPayPeriod")
+        lblPayPeriodDesc.text = NSLocalizedString("Defines the pay period. Options are weekly , biweekly.", comment: "lblPayPeriodDesc")
+        lblPayPeriodWeek.text = NSLocalizedString("Current Pay Period Week", comment: "lblPayPeriodWeek")
+        lblPayPeriodWeekDesc.text = NSLocalizedString("Define which week of the pay period you’re currently in.", comment: "lblPayPeriodWeekDesc")
+        lblPayPeriodStart.text = NSLocalizedString("Pay Period Start Day", comment: "lblPayPeriodStart")
+        lblPayPeriodStartDesc.text = NSLocalizedString("Define the day of the week the pay period begins.", comment: "lblPayPeriodStartDesc")
+        lblBusinessSettings.text = NSLocalizedString("BUSINESS SETTINGS", comment: "lblBusinessSettings")
+        businessNameLabel.text = NSLocalizedString("Business Name", comment: "businessNameLabel")
+        txtBusinessName.placeholder = NSLocalizedString("Business Name", comment: "txtBusinessName")
+        zipCodeLabel.text = NSLocalizedString("Zipcode", comment: "zipCodeLabel")
+        txtZipCode.placeholder = NSLocalizedString("Zipcode", comment: "txtZipcode")
+        timeZoneLabel.text = NSLocalizedString("Timezone", comment: "timeZoneLabel")
+        txtBusinessTimezone.placeholder = NSLocalizedString("Select Timezone", comment: "txtTimezone")
+        businessUrlLabel.text = NSLocalizedString("Business Website", comment: "businessUrlLabel")
+        txtBusinessWebsite.placeholder = NSLocalizedString("Business Website", comment: "txtBusinessURL")
+        businessEmployeeCountLabel.text = NSLocalizedString("How many people do you employ?", comment: "businessTitleLabel")
+        txtTotalEmployee.placeholder = NSLocalizedString("Total Employees", comment: "txtTotalEmployee")
+        editModeTitleLabel.text = NSLocalizedString("EDIT MODE", comment: "editModeTitleLabel")
+        editModeDescLabel.text = NSLocalizedString("If you would like to make changes, please go into edit mode by selecting the edit button at the top of the page", comment: "editModeDescLabel")
+        editModeOkButton.setTitle(NSLocalizedString("OK", comment: "editModeOkButton"), for: .normal)
+        step1TitleLabel.text = NSLocalizedString("Step 1 of 3", comment: "step1TitleLabel")
+        step1DecsLabel.text = NSLocalizedString("What day does your Pay Period start on?", comment: "step1DecsLabel")
+        btnSunday.setTitle(NSLocalizedString("Sunday", comment: "btnSunday"), for: .normal)
+        btnMonday.setTitle(NSLocalizedString("Monday", comment: "btnMonday"), for: .normal)
+        btnTuesday.setTitle(NSLocalizedString("Tuesday", comment: "btnTuesday"), for: .normal)
+        btnWednesday.setTitle(NSLocalizedString("Wednesday", comment: "btnWednesday"), for: .normal)
+        btnThursday.setTitle(NSLocalizedString("Thursday", comment: "btnThursday"), for: .normal)
+        btnFriday.setTitle(NSLocalizedString("Friday", comment: "btnFriday"), for: .normal)
+        btnSaturday.setTitle(NSLocalizedString("Saturday", comment: "btnSaturday"), for: .normal)
+        continueButtonStep1.setTitle(NSLocalizedString("Continue", comment: "continueButtonStep1"), for: .normal)
+        step2TitleLabel.text = NSLocalizedString("Step 2 of 3", comment: "step2TitleLabel")
+        step2DecsLabel.text = NSLocalizedString("What is your Pay Period Duration ?", comment: "step2DecsLabel")
+        btnWeekly.setTitle(NSLocalizedString("Weekly", comment: "btnWeekly"), for: .normal)
+        btnBiWeekly.setTitle(NSLocalizedString("Bi-Weekly", comment: "btnBiWeekly"), for: .normal)
+        biWeeklySelectionLabel.text = NSLocalizedString("Which Pay Period are you currently in?", comment: "biWeeklySelectionLabel")
+        btnWeek1.setTitle(NSLocalizedString("Week 1", comment: "btnWeek1"), for: .normal)
+        btnWeek2.setTitle(NSLocalizedString("Week 2", comment: "btnWeek2"), for: .normal)
+        continueButtonStep2.setTitle(NSLocalizedString("Continue", comment: "continueButtonStep2"), for: .normal)
+        step3TitleLabel.text = NSLocalizedString("Step 3 of 5", comment: "step3TitleLabel")
+        step3DecsLabel.text = NSLocalizedString("What is your weekly overtime hours ?", comment: "step3DecsLabel")
+        skipEditWeeklyHours.setTitle(NSLocalizedString("Skip for right now", comment: "skipEditWeeklyHours"), for: .normal)
+        continueButtonStep3.setTitle(NSLocalizedString("Continue", comment: "continueButtonStep3"), for: .normal)
+        step4TitleLabel.text = NSLocalizedString("Step 3 of 3", comment: "step4TitleLabel")
+        step4DecsLabel.text = NSLocalizedString("How do you calculate overtime?", comment: "step4DecsLabel")
+        weeklyOvertimeAfterLabel.text = NSLocalizedString("Weekly overtime after:", comment: "weeklyOvertimeAfterLabel")
+        dailyOvertimeAfterLabel.text = NSLocalizedString("Daily overtime after: (AK, CA, CO, NV)", comment: "dailyOvertimeAfterLabel")
+        skipEditDailyHours.setTitle(NSLocalizedString("Skip for right now", comment: "skipEditDailyHours"), for: .normal)
+        continueButtonStep4.setTitle(NSLocalizedString("Continue", comment: "continueButtonStep4"), for: .normal)
+        saveViewCancelButton.setTitle(NSLocalizedString("Cancel", comment: "saveViewCancelButton"), for: .normal)
+        saveViewSaveButton.setTitle(NSLocalizedString("Save", comment: "saveViewSaveButton"), for: .normal)
+        successViewContinueButton.setTitle(NSLocalizedString("Continue", comment: "successViewContinueButton"), for: .normal)
+        successViewCloseButton.setTitle(NSLocalizedString("Close", comment: "successViewCloseButton"), for: .normal)
+        successTitleLabel.text = NSLocalizedString("Success!", comment: "successTitleLabel")
+        successDecsLabel.text = NSLocalizedString("Your settings were saved. Let's add your employees now.", comment: "successDecsLabel")
+        congoContinueButton.setTitle(NSLocalizedString("Continue", comment: "congoContinueButton"), for: .normal)
+        congoTitleLabel.text = NSLocalizedString("Congratulations!", comment: "congoTitleLabel")
+        congoDecsLabel.text = NSLocalizedString("Your account is complete. Let's understand your pay period and overtime settings", comment: "congoDecsLabel")
+        
         setUI()
         setupMenu()
         

@@ -12,12 +12,22 @@ class DeleteAccountVC: UIViewController ,StoryboardSceneBased {
     // MARK: - Outlets
     @IBOutlet weak var viewPopup: UIView!
     
+    @IBOutlet weak var btnDelete: UIButton!
+    @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var lblDeleteTitle: UILabel!
+    @IBOutlet weak var lblDeleteDesc: UILabel!
+    
     // MARK: - Variables
     var completion: ((Bool) -> ())?
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        lblDeleteTitle.text = NSLocalizedString("Delete Account?", comment: "lblDeleteTitle")
+        lblDeleteDesc.text = NSLocalizedString("Are you sure you want to delete your account? All of your data will be deleted and your employees will no longer be able to access their accounts.", comment: "lblDeleteDesc")
+        btnDelete.setTitle(NSLocalizedString("Delete", comment: "btnDelete"), for: .normal)
+        btnCancel.setTitle(NSLocalizedString("Cancel", comment: "btnCancel"), for: .normal)
 
         // Do any additional setup after loading the view.
     }

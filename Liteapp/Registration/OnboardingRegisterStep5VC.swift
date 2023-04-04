@@ -11,11 +11,16 @@ import ObjectMapper
 class OnboardingRegisterStep5VC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var vwGradiantContainer: UIView!
+    @IBOutlet weak var stepLabel: UILabel!
+    @IBOutlet weak var businessTitleLabel: UILabel!
+    
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
     var saveMerchent:SaveMerchant!
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
+        stepLabel.text = NSLocalizedString("Step 5 of 5", comment: "stepLabel")
+        businessTitleLabel.text = NSLocalizedString("Almost Complete. Setting up your account now...", comment: "businessTitleLabel")
         print(saveMerchent ?? "")
         saveMerchant()
     }

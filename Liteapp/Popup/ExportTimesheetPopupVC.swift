@@ -28,6 +28,12 @@ class ExportTimesheetPopupVC: UIViewController,StoryboardSceneBased {
     // MARK: - Outlets
     @IBOutlet weak var viewPopup: UIView!
     
+    @IBOutlet weak var btnClose: UIButton!
+    @IBOutlet weak var btnExportCSV: UIButton!
+    @IBOutlet weak var btnExportPDF: UIButton!
+    @IBOutlet weak var btnExportExcel: UIButton!
+    @IBOutlet weak var lblExportTimeSheet: UILabel!
+    
     // MARK: - Variables
     var selectedTimesheetList : [PayPeriodTimesheet]?
     var payPeriodStr : String = ""
@@ -39,6 +45,11 @@ class ExportTimesheetPopupVC: UIViewController,StoryboardSceneBased {
         super.viewDidLoad()
         self.viewPopup.alpha = 0.0
         // Do any additional setup after loading the view.
+        lblExportTimeSheet.text = NSLocalizedString("Export Timesheets", comment: "lblExportTimeSheet")
+        btnClose.setTitle(NSLocalizedString("Close", comment: "btnClose"), for: .normal)
+        btnExportCSV.setTitle(NSLocalizedString("Export to CSV", comment: "btnExportCSV"), for: .normal)
+        btnExportPDF.setTitle(NSLocalizedString("Export to PDF", comment: "btnExportPDF"), for: .normal)
+        btnExportExcel.setTitle(NSLocalizedString("Export to Excel", comment: "btnExportExcel"), for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {

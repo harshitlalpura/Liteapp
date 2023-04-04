@@ -10,10 +10,17 @@ import UIKit
 class ResetPasswordSuccessVC: UIViewController {
 
     @IBOutlet weak var vwGradiantContainer: UIView!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
+    @IBOutlet weak var btnBackToLogin: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
         // Do any additional setup after loading the view.
+        lblTitle.text = NSLocalizedString("Password Updated", comment: "lblTitle")
+        lblDescription.text = NSLocalizedString("Your password has been reset successfully", comment: "lblDescription")
+        btnBackToLogin.setTitle(NSLocalizedString("Go to login", comment: "btnBackToLogin"), for: .normal)
     }
     
 

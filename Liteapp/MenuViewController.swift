@@ -41,6 +41,7 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var upgradePremiumView: UIView!
     @IBOutlet weak var btnSupport: UIButton!
     @IBOutlet weak var lblSupportText: UILabel!
+    @IBOutlet weak var lblSupportQuestionText: UILabel!
     @IBOutlet weak var constvwSupportHeight: NSLayoutConstraint!
     var selectedOption:SelectedOption = .TimeClock
     weak public var delegate: MenuItemDelegate?
@@ -48,10 +49,14 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
 //    var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
     var menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
     
-    var supportText : String = "Let us know how we can help and a member from our Support Team will get back to you!"
+    var supportText : String = NSLocalizedString("Let us know how we can help and a member from our Support Team will get back to you!", comment: "lblSupportText")
     var supportEmail = "support@getilluminate.io"
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        btnSupport.setTitle(NSLocalizedString("Support", comment: "btnSupport"), for: .normal)
+        lblSupportQuestionText.text = NSLocalizedString("Looking for support?", comment: "btnSupport")
+        
         self.constvwSupportHeight.constant = 0.0
         setupTableView()
         setupSupportLabel()
@@ -189,7 +194,7 @@ extension MenuViewController:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == menuItems.count - 1{
             let cell = tableView.dequeueReusableCell(withIdentifier:"cellLogout",for:indexPath) as! MenuLogoutCell
-            cell.label.text = menuItems[indexPath.row]
+            cell.label.text = NSLocalizedString(menuItems[indexPath.row], comment: "menuItems")
             cell.label.textAlignment = .left
           
             cell.label.textColor = .black
@@ -231,7 +236,7 @@ extension MenuViewController:UITableViewDataSource,UITableViewDelegate {
         }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier:"cell",for:indexPath) as! MenuCell
-             cell.label.text = menuItems[indexPath.row]
+             cell.label.text = NSLocalizedString(menuItems[indexPath.row], comment: "menuItems")
              cell.label.textAlignment = .left
            
              cell.label.textColor = .black

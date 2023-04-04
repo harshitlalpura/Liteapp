@@ -12,9 +12,26 @@ class InviteViaEmailVC:BaseViewController, StoryboardSceneBased,MFMailComposeVie
 
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     var inviteLink = ""
+    
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblDesc: UILabel!
+    @IBOutlet weak var lblviaEmail: UILabel!
+    @IBOutlet weak var lblApple: UILabel!
+    @IBOutlet weak var lblGmail: UILabel!
+    @IBOutlet weak var lblOutlook: UILabel!
+    @IBOutlet weak var btnClose: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        lblTitle.text = NSLocalizedString("Add New Employee", comment: "lblTitle")
+        lblDesc.text = NSLocalizedString("Hey! Please join our organization on TimeClock with the link below. The link will allow you to create a employee profile and clock in and out.", comment: "lblDesc")
+        lblviaEmail.text = NSLocalizedString("Via Email", comment: "lblviaEmail")
+        lblApple.text = NSLocalizedString("Apple", comment: "lblApple")
+        lblGmail.text = NSLocalizedString("Gmail", comment: "lblGmail")
+        lblOutlook.text = NSLocalizedString("Outlook", comment: "lblOutlook")
+        btnClose.setTitle(NSLocalizedString("Close", comment: "btnClose"), for: .normal)
+        
         // Do any additional setup after loading the view.
         inviteLink = "Hey! Please download our TimeClock App with the link below. \n Your referral code is \(Defaults.shared.currentUser?.merchantReferenceNumber ?? "").\n https://lite.testbryteportal.com/referral/\(Defaults.shared.currentUser?.merchantReferenceNumber ?? "")"
     }

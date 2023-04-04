@@ -26,9 +26,46 @@ class EmployeeOnboardingVCStep2:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var passwordTextValidationView: UIView!
     @IBOutlet weak var confirmPasswordTextValidationView: UIView!
     @IBOutlet weak var vwGradiantContainer: UIView!
+    
+    @IBOutlet weak var lblStep: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var emailValidationLabel: UILabel!
+    @IBOutlet weak var lblPassword: UILabel!
+    @IBOutlet weak var passwordValidationLabel: UILabel!
+    @IBOutlet weak var lblConfirmPassword: UILabel!
+    @IBOutlet weak var confirmPasswordValidationLabel: UILabel!
+    @IBOutlet weak var btnContinue: UIButton!
+    @IBOutlet weak var requirementTitleLabel: UILabel!
+    @IBOutlet weak var requirementLabel1: UILabel!
+    @IBOutlet weak var requirementLabel2: UILabel!
+    @IBOutlet weak var requirementLabel3: UILabel!
+    @IBOutlet weak var requirementLabel4: UILabel!
+    @IBOutlet weak var requirementLabel5: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
+        
+        lblStep.text = NSLocalizedString("Step 2 of 3", comment: "stepLabel")
+        lblTitle.text = NSLocalizedString("Now, let's create your account credentials.", comment: "titleLabel")
+        lblEmail.text = NSLocalizedString("Email", comment: "emailLabel")
+        txtEmail.placeholder = NSLocalizedString("e.g. myemail@email.com", comment: "emailPlaceholder")
+        emailValidationLabel.text = NSLocalizedString("Please Enter Email", comment: "emailValidationLabel")
+        lblPassword.text = NSLocalizedString("Password", comment: "passwordLabel")
+        txtPassword.placeholder = NSLocalizedString("Enter Password", comment: "passwordPlaceholder")
+        passwordValidationLabel.text = NSLocalizedString("Please Enter Password", comment: "passwordValidationLabel")
+        lblConfirmPassword.text = NSLocalizedString("Confirm Password", comment: "confirmPasswordLabel")
+        txtConfrimPassword.placeholder = NSLocalizedString("Confirm Password", comment: "confirmPasswordPlaceholder")
+        confirmPasswordValidationLabel.text = NSLocalizedString("Please Confirm Password", comment: "confirmPasswordValidationLabel")
+        btnContinue.setTitle(NSLocalizedString("Continue", comment: "continueButton"), for: .normal)
+        requirementTitleLabel.text = NSLocalizedString("Please complete all the requirements.", comment: "requirementTitleLabel")
+        requirementLabel1.text = NSLocalizedString("Minimum 8 characters", comment: "requirementLabel1")
+        requirementLabel2.text = NSLocalizedString("Lowercase Letter", comment: "requirementLabel2")
+        requirementLabel3.text = NSLocalizedString("Capital Letter", comment: "requirementLabel3")
+        requirementLabel4.text = NSLocalizedString("Number", comment: "requirementLabel4")
+        requirementLabel5.text = NSLocalizedString("Special Character", comment: "requirementLabel5")
+        
         txtPassword.delegate = self
         txtConfrimPassword.delegate = self
     }

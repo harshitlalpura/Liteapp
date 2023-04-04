@@ -24,10 +24,33 @@ class AddEmployeeVC:BaseViewController, StoryboardSceneBased{
     
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblDesc: UILabel!
+    @IBOutlet weak var lblTitle1: UILabel!
+    @IBOutlet weak var lblDesc1: UILabel!
+    @IBOutlet weak var lblTitle2: UILabel!
+    @IBOutlet weak var lblDesc2: UILabel!
+    @IBOutlet weak var lblTitle3: UILabel!
+    @IBOutlet weak var lblDesc3: UILabel!
+    @IBOutlet weak var lblTitle4: UILabel!
+    @IBOutlet weak var lblDesc4: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewPopup.alpha = 0.0
         // Do any additional setup after loading the view.
+        
+        lblTitle.text = NSLocalizedString("Add New Employee", comment: "lblTitle")
+        lblDesc.text = NSLocalizedString("How would you like to add your employees?", comment: "lblDesc")
+        lblTitle1.text = NSLocalizedString("Invite Employees via Referral Code", comment: "lblTitle1")
+        lblDesc1.text = NSLocalizedString("Gives you a referral code employees can use to join your organization", comment: "lblDesc1")
+        lblTitle2.text = NSLocalizedString("Invite Employees via Text Message", comment: "lblTitle2")
+        lblDesc2.text = NSLocalizedString("Employees will receive an invite via text to create their profile", comment: "lblDesc2")
+        lblTitle3.text = NSLocalizedString("Invite Employees via Email", comment: "lblTitle3")
+        lblDesc3.text = NSLocalizedString("Employees will receive an invite via  email to create their profile", comment: "lblDesc3")
+        lblTitle4.text = NSLocalizedString("Manually Create Employees", comment: "lblTitle4")
+        lblDesc4.text = NSLocalizedString("Create each employee manually", comment: "lblDesc4")
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

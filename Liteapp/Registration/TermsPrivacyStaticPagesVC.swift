@@ -25,10 +25,10 @@ class TermsPrivacyStaticPagesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if isForTerms{
-            lblTitle.text = "End User License Agreement"
+            lblTitle.text = NSLocalizedString("End User License Agreement", comment: "EndUserTitle")
         }
         else{
-            lblTitle.text = "Privacy Policy"
+            lblTitle.text = NSLocalizedString("Privacy Policy", comment: "PrivacyPolicyTitle")
         }
         self.setupWebview()
         self.fetchStaticContentAPI()
@@ -76,7 +76,7 @@ class TermsPrivacyStaticPagesVC: UIViewController {
                         }
                         else{
                             ProgressHUD.hide()
-                            self.showAlert(alertType:.validation, message: "Something went wrong, Please try again later.")
+                            self.showAlert(alertType:.validation, message: NSLocalizedString("Something went wrong, Please try again later.", comment: "AlertTitle"))
                         }
                         
                     }

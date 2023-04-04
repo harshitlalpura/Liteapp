@@ -32,6 +32,12 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var viewNoEmployeesAdded: UIView!
     @IBOutlet weak var customNavView: UIView!
     
+    @IBOutlet weak var lblEmployee: UILabel!
+    @IBOutlet weak var lblAddNew: UILabel!
+    @IBOutlet weak var lblEmployeeName: UILabel!
+    @IBOutlet weak var lblJobTitle: UILabel!
+    @IBOutlet weak var lblNoEmployee: UILabel!
+    
     var menuV : CustomMenuView!
     @IBOutlet weak var btnMenu: UIButton!
     
@@ -45,7 +51,13 @@ class EmployeesVC:BaseViewController, StoryboardSceneBased{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        lblEmployee.text = NSLocalizedString("Employees", comment: "lblEmployee")
+        lblAddNew.text = NSLocalizedString("Add New", comment: "lblAddNew")
+        lblEmployeeName.text = NSLocalizedString("Employee Name", comment: "lblEmployeeName")
+        lblJobTitle.text = NSLocalizedString("Job Title", comment: "lblJobTitle")
+        lblNoEmployee.text = NSLocalizedString("You Have No Employees Yet...", comment: "lblNoEmployee")
+        
         setupMenu()
         setData()
         setTableView()

@@ -142,8 +142,56 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var picker: MyDatePicker!
     @IBOutlet weak var datePickerView: UIView!
+    
+    @IBOutlet weak var lblEdit: UILabel!
+    @IBOutlet weak var lblProfile: UILabel!
+    @IBOutlet weak var lblUserInfoTitle: UILabel!
+    @IBOutlet weak var lblUserInfoDesc: UILabel!
+    @IBOutlet weak var lblTimesheetTitle: UILabel!
+    @IBOutlet weak var lblTimesheetDesc: UILabel!
+    @IBOutlet weak var requirementTitleLabel: UILabel!
+    @IBOutlet weak var requirementLabel1: UILabel!
+    @IBOutlet weak var requirementLabel2: UILabel!
+    @IBOutlet weak var requirementLabel3: UILabel!
+    @IBOutlet weak var requirementLabel4: UILabel!
+    @IBOutlet weak var requirementLabel5: UILabel!
+    @IBOutlet weak var lblEditModeTitle: UILabel!
+    @IBOutlet weak var lblEditModetDesc: UILabel!
+    @IBOutlet weak var btnEditModetOK: UIButton!
+    @IBOutlet weak var saveViewCancelButton: UIButton!
+    @IBOutlet weak var saveViewSaveButton: UIButton!
+    @IBOutlet weak var lblSelectDate: UILabel!
+    @IBOutlet weak var dateViewCancelButton: UIButton!
+    @IBOutlet weak var datePickerCancelButton: UIButton!
+    @IBOutlet weak var datePickerClearButton: UIButton!
+    @IBOutlet weak var datePickerDoneButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        lblEdit.text = NSLocalizedString("Edit", comment: "lblEdit")
+        lblProfile.text = NSLocalizedString("PROFILE", comment: "lblProfile")
+        lblUserInfoTitle.text = NSLocalizedString("User Information", comment: "lblUserInfoTitle")
+        lblUserInfoDesc.text = NSLocalizedString("General employee information", comment: "lblUserInfoDesc")
+        lblTimesheetTitle.text = NSLocalizedString("Timesheets", comment: "lblTimesheetTitle")
+        lblTimesheetDesc.text = NSLocalizedString("Employee clock history", comment: "lblTimesheetDesc")
+        requirementTitleLabel.text = NSLocalizedString("Please complete all the requirements.", comment: "requirementTitleLabel")
+        requirementLabel1.text = NSLocalizedString("Minimum 8 characters", comment: "requirementLabel1")
+        requirementLabel2.text = NSLocalizedString("Lowercase Letter", comment: "requirementLabel2")
+        requirementLabel3.text = NSLocalizedString("Capital Letter", comment: "requirementLabel3")
+        requirementLabel4.text = NSLocalizedString("Number", comment: "requirementLabel4")
+        requirementLabel5.text = NSLocalizedString("Special Character", comment: "requirementLabel5")
+        lblEditModeTitle.text = NSLocalizedString("EDIT MODE", comment: "lblEditModeTitle")
+        lblEditModetDesc.text = NSLocalizedString("If you would like to make changes, please go into edit mode by selecting the edit button at the top of the page", comment: "lblEditModetDesc")
+        btnEditModetOK.setTitle(NSLocalizedString("Ok", comment: "btnEditModetOK"), for: .normal)
+        saveViewCancelButton.setTitle(NSLocalizedString("Cancel", comment: "saveViewCancelButton"), for: .normal)
+        saveViewSaveButton.setTitle(NSLocalizedString("Save", comment: "saveViewSaveButton"), for: .normal)
+        lblSelectDate.text = NSLocalizedString("Select Date", comment: "lblSelectDate")
+        dateViewCancelButton.setTitle(NSLocalizedString("Cancel", comment: "dateViewCancelButton"), for: .normal)
+        datePickerCancelButton.setTitle(NSLocalizedString("Cancel", comment: "datePickerCancelButton"), for: .normal)
+        datePickerClearButton.setTitle(NSLocalizedString("Clear", comment: "datePickerClearButton"), for: .normal)
+        datePickerDoneButton.setTitle(NSLocalizedString("Done", comment: "datePickerDoneButton"), for: .normal)
+        
         setData()
         setTableview()
         setupMenu()
@@ -280,11 +328,11 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     
     func setTitleForApproveUnApproveBtn(isForApprove : Bool){
         if !isForApprove{
-            btnApproveUnApprove!.setTitle("Approve Timesheet", for: .normal)
+            btnApproveUnApprove!.setTitle(NSLocalizedString("Approve Timesheet", comment: "btnApproveUnApprove"), for: .normal)
             btnApproveUnApprove!.setBackgroundColor(UIColor.Color.appGreenColor, forState: .normal)
         }
         else{
-            btnApproveUnApprove!.setTitle("Unapprove Timesheet", for: .normal)
+            btnApproveUnApprove!.setTitle(NSLocalizedString("Unapprove Timesheet", comment: "btnApproveUnApprove"), for: .normal)
             btnApproveUnApprove!.setBackgroundColor(UIColor.Color.appYellowColor, forState: .normal)
         }
     }
@@ -292,7 +340,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @objc func btnApproveUnApproveTapped(_ sender: UIButton!) {
         print("Button tapped")
         if selectedPayPeriodIndex == 0 {
-            self.showAlert(alertType:.validation, message: "Status of currunt pay period can't be changed.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Status of current pay period can't be changed.", comment: "AlertUnApprove"))
         }
         else{
             if self.selectedPayPeriod?.payperiodStatus == "A"{
@@ -454,7 +502,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
      
         for obj in (self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet ?? [Timesheet]()){
             if obj.date == weekDates[sender.tag - 1].datestring ?? ""{
-                self.showAlert(alertType:.validation, message: "This day already added")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("This day already added", comment: "AlertWeekDay"))
               
                 return
             }
@@ -641,39 +689,39 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     func validateSettings() -> Bool{
         let isValidated = true
         if txtFirstName.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter First Name")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter First Name", comment: "AlertFirstName"))
             return false
         }
         if txtFirstName.text!.hasNumbers{
-            self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Name can only contain alphabets.", comment: "AlertNameAlphabets"))
             return false
         }
         
         if txtLastName.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Last Name")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Last Name", comment: "AlertLastName"))
             return false
         }
         if txtLastName.text!.hasNumbers{
-            self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Name can only contain alphabets.", comment: "AlertNameAlphabets"))
             return false
         }
         if txtEmail.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Email")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Email", comment: "AlertEmail"))
             return false
         }
         if let email = txtEmail.text{
             if !(email.count > 0 && email.isEmail){
 //                self.showAlert(alertType:.validation, message: "Please Enter Valid Email")
-                self.showAlert(alertType:.validation, message: "Invalid E-Mail. Please Try Again.")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Invalid E-Mail. Please Try Again.", comment: "AlertEmailInvalid"))
                 return false
             }
         }
         if self.isForAdminProfile && txtUsername.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Username")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Username", comment: "AlertUsername"))
             return false
         }
         if txtPassword.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Password")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Password", comment: "AlertPassword"))
             return false
         }
         return isValidated
@@ -834,7 +882,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             if let res = response{
                 print(res)
                 if let status = res["status"] as? Int , status == 1{
-                    SucessPopupVC.showSuccessPopup(prevVC: self,titleStr: "Success" , strSubTitle: "Your changes were saved!") { done in
+                    SucessPopupVC.showSuccessPopup(prevVC: self,titleStr: NSLocalizedString("Success!", comment: "SuccessTitle") , strSubTitle: NSLocalizedString("Your changes were saved!", comment: "SuccessDesc")) { done in
                         self.fetchEmployeeDetails()
                 }
                     
@@ -854,10 +902,10 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                 if let status = res["status"] as? Int{
                     if status == 0{
                         //Fail
-                        self.showAlert(alertType:.validation, message: "There was some error while deleting employee, Please try again.")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("There was some error while deleting employee, Please try again.", comment: "alertDelete"))
                     }else{
                         //Success
-                        SucessPopupVC.showSuccessPopup(prevVC: self,titleStr: "Success!" , strSubTitle: "Employee was deleted successfully.") { done in
+                        SucessPopupVC.showSuccessPopup(prevVC: self,titleStr: NSLocalizedString("Success!", comment: "successAlert") , strSubTitle: NSLocalizedString("Employee was deleted successfully.", comment: "successAlertDecs")) { done in
                             //Go to previous scree
                             self.popVC()
                         }
@@ -1067,7 +1115,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         for obj in (self.payPeriodsData[self.selectedPayPeriodIndex].weeks?[self.selectedWeekIndex].timesheet ?? [Timesheet]()){
             if obj.date == weekDates[sender.tag - 1].datestring ?? ""{
                
-                self.showAlert(alertType:.validation, message: "This day already added")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("This day already added", comment: "dayAddedAlert"))
                 return
             }
             
@@ -1341,20 +1389,20 @@ extension EmployeeTimeReportVC: UICollectionViewDelegate,UICollectionViewDataSou
               
                 
               if timeLineEvent == "I"{
-                  timeReportViewNew.titleLabel.text = "Shift Start:"
+                  timeReportViewNew.titleLabel.text = NSLocalizedString("Shift Start:", comment: "ShiftStart")
                   timeReportViewNew.barView.backgroundColor = UIColor.startShiftColor
                   
                 
               }else if timeLineEvent == "O"{
-                  timeReportViewNew.titleLabel.text = "Shift End:"
+                  timeReportViewNew.titleLabel.text = NSLocalizedString("Shift End:", comment: "ShiftEnd")
                   timeReportViewNew.barView.backgroundColor = UIColor.endShiftColor
                  
               }else if timeLineEvent == "B"{
-                  timeReportViewNew.titleLabel.text = "Break Start:"
+                  timeReportViewNew.titleLabel.text = NSLocalizedString("Break Start:", comment: "BreakStart")
                   timeReportViewNew.barView.backgroundColor = UIColor.breakStartColor
                 
               }else if timeLineEvent == "S"{
-                  timeReportViewNew.titleLabel.text = "Break End:"
+                  timeReportViewNew.titleLabel.text = NSLocalizedString("Break End:", comment: "BreakEnd")
                   timeReportViewNew.barView.backgroundColor = UIColor.breakEndColor
                  
               }
@@ -1933,7 +1981,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
         let cal = Calendar.gregorian
         let order = cal.compare(Date.now, to: date, toGranularity: .minute)
         if order == .orderedAscending{
-            self.showAlert(alertType:.validation, message: "Time cannot be in future.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Time cannot be in future.", comment: "timeAlert"))
         }
         else{
             let dateFormatter = DateFormatter()
@@ -1970,7 +2018,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
             let cell = tblEvents.cellForRow(at: indexpath) as! TimeReportCell
             for subview in cell.allSubViewsOf(type:UILabel.self){
                 if subview.tag == eventIndex{
-                    if subview.text != "Select Date"{
+                    if subview.text != NSLocalizedString("Select Date", comment: "SelectDate"){
                         subview.text = event?.timelineValue
                         
                     }
@@ -2001,19 +2049,19 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
                     let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for Start Shift")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for Start Shift", comment: "StartAlert"))
                         return false
                     }
                 }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
                     let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for Start Shift")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for Start Shift", comment: "StartAlert"))
                         return false
                     }
                 }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
                     let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for Start Shift")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for Start Shift", comment: "StartAlert"))
                        
                         return false
                     }
@@ -2024,7 +2072,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for End Shift")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for End Shift", comment: "EndAlert"))
                        
                         
                         return false
@@ -2032,7 +2080,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for End Shift")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for End Shift", comment: "EndAlert"))
                      
                        
                         return false
@@ -2040,7 +2088,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 }else if event.timelineEvent ?? "" == UserStatus.Inbreak.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for End Shift")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for End Shift", comment: "EndAlert"))
                        
                         
                         return false
@@ -2053,14 +2101,14 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 if event.timelineEvent ?? "" == UserStatus.loggedIN.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch Start")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for Lunch Start", comment: "LunchStartAlert"))
                      
                         return false
                     }
                 }else if event.timelineEvent ?? "" == UserStatus.Endbreak.rawValue{
                     let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch Start")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for Lunch Start", comment: "LunchStartAlert"))
                        
                        
                         return false
@@ -2068,7 +2116,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 }else if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue{
                     let flag = compareDates(date1:time, date2: event.timelineValue ?? "")
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch Start")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for Lunch Start", comment: "LunchStartAlert"))
                        
                        
                         return false
@@ -2081,7 +2129,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 if event.timelineEvent == UserStatus.loggedIN.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch End")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for Lunch End", comment: "LunchEndAlert"))
                       
                        
                         return false
@@ -2089,7 +2137,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 }else if event.timelineEvent == UserStatus.Inbreak.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch End")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for Lunch End", comment: "LunchEndAlert"))
                        
                       
                         return false
@@ -2097,7 +2145,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 }else if event.timelineEvent == UserStatus.loggedOut.rawValue{
                     let flag = compareDates(date1:event.timelineValue ?? "", date2: time)
                     if flag{
-                        self.showAlert(alertType:.validation, message: "Please choose a different time for Lunch End")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("Please choose a different time for Lunch End", comment: "LunchEndAlert"))
                       
                         
                         return false
@@ -2154,20 +2202,20 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
             if event == events.first{
                 if event.timelineEvent ?? "" != UserStatus.loggedIN.rawValue{
                     if (strCurrentDate != nil){
-                        self.showAlert(alertType:.validation, message: "First event must be Shift Start on date : \(strCurrentDate ?? "")")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("First event must be Shift Start on date : ", comment: "timeLineAlert") + "\(strCurrentDate ?? "")" )
                     }
                     else{
-                        self.showAlert(alertType:.validation, message: "First event must be Shift Start")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("First event must be Shift Start", comment: "timeLineAlert"))
                     }
                    
                     return false
                 }else {
                     if event.timelineTime ?? "" == ""{
                         if (strCurrentDate != nil){
-                            self.showAlert(alertType:.validation, message: "Please select events for date \(strCurrentDate ?? "")")
+                            self.showAlert(alertType:.validation, message: NSLocalizedString("Please select events for date ", comment: "timeLineAlert") + "\(strCurrentDate ?? "")" )
                         }
                         else{
-                            self.showAlert(alertType:.validation, message: "Please select events")
+                            self.showAlert(alertType:.validation, message: NSLocalizedString("Please select events", comment: "timeLineAlert"))
                         }
                         return false
                     }
@@ -2176,10 +2224,10 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
             
             if event.timelineEvent ?? "" == UserStatus.loggedOut.rawValue && event.timelineTime ?? "" == ""{
                 if (strCurrentDate != nil){
-                    self.showAlert(alertType:.validation, message: "Please select events for date \(strCurrentDate ?? "")")
+                    self.showAlert(alertType:.validation, message: NSLocalizedString("Please select events for date " , comment: "timeLineAlert") + "\(strCurrentDate ?? "")" )
                 }
                 else{
-                    self.showAlert(alertType:.validation, message: "Please select events")
+                    self.showAlert(alertType:.validation, message: NSLocalizedString("Please select events", comment: "timeLineAlert"))
                 }
                 return false
             }
@@ -2208,10 +2256,10 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                        
                     }else{
                         if (strCurrentDate != nil){
-                            self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage) on date : \(strCurrentDate ?? "")")
+                            self.showAlert(alertType:.validation, message: "\(eventTypeMessage)" + NSLocalizedString("should not be after", comment: "EventAlert") + "\(currentEventTypeMessage) on date : \(strCurrentDate ?? "")")
                         }
                         else{
-                            self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                            self.showAlert(alertType:.validation, message: "\(eventTypeMessage)" + NSLocalizedString("should not be after", comment: "EventAlert") + "\(currentEventTypeMessage)")
                         }
                         
                         return false
@@ -2223,10 +2271,10 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     }else{
                         if events[i + 1].timelineTime ?? "" != ""{
                             if (strCurrentDate != nil){
-                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage) on date : \(strCurrentDate ?? "")")
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage)" + NSLocalizedString("should not be after", comment: "EventAlert") + "\(currentEventTypeMessage)" + NSLocalizedString("on date :", comment: "EventAlert") + "\(strCurrentDate ?? "")")
                             }
                             else{
-                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage)" + NSLocalizedString("should not be after", comment: "EventAlert") + "\(currentEventTypeMessage)")
                             }
                             return false
                         }
@@ -2238,10 +2286,10 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     }else{
                         if events[i + 1].timelineTime ?? "" != ""{
                             if (strCurrentDate != nil){
-                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage) on date : \(strCurrentDate ?? "")")
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage)" + NSLocalizedString("should not be after", comment: "EventAlert") + "\(currentEventTypeMessage)" + NSLocalizedString("on date :", comment: "EventAlert") + "\(strCurrentDate ?? "")")
                             }
                             else{
-                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage)" + NSLocalizedString("should not be after", comment: "EventAlert") + "\(currentEventTypeMessage)")
                             }
                             
                             return false
@@ -2254,10 +2302,10 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                     }else{
                         if events[i + 1].timelineTime ?? "" != ""{
                             if (strCurrentDate != nil){
-                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage) on date : \(strCurrentDate ?? "")")
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage)" + NSLocalizedString("should not be after", comment: "EventAlert") + "\(currentEventTypeMessage)" + NSLocalizedString("on date :", comment: "EventAlert") + "\(strCurrentDate ?? "")")
                             }
                             else{
-                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage) should not be after \(currentEventTypeMessage)")
+                                self.showAlert(alertType:.validation, message: "\(eventTypeMessage)" + NSLocalizedString("should not be after", comment: "EventAlert") + "\(currentEventTypeMessage)")
                             }
                             
                             return false

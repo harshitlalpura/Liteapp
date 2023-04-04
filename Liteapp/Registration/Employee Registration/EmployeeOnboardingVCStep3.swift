@@ -16,10 +16,32 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var txtCompany: UITextField!
     @IBOutlet weak var referralCodeTextValidationView: UIView!
     @IBOutlet weak var vwGradiantContainer: UIView!
+    
+    @IBOutlet weak var lblStep: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblReferalCode: UILabel!
+    @IBOutlet weak var referalCodeValidationLabel: UILabel!
+    @IBOutlet weak var lblCompany: UILabel!
+    @IBOutlet weak var noReferalLabel: UILabel!
+    @IBOutlet weak var btnContinue: UIButton!
+    
+    
     var saveEmployee:SaveEmployee!
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
+        
+        lblStep.text = NSLocalizedString("Step 3 of 3", comment: "stepLabel")
+        lblTitle.text = NSLocalizedString("Please enter your Referral Code below.", comment: "titleLabel")
+        lblReferalCode.text = NSLocalizedString("Referral Code", comment: "emailLabel")
+        txtReferralCode.placeholder = NSLocalizedString("eg. A001", comment: "emailPlaceholder")
+        referalCodeValidationLabel.text = NSLocalizedString("Please enter referral code", comment: "emailValidationLabel")
+        lblCompany.text = NSLocalizedString("Company", comment: "passwordLabel")
+        txtCompany.placeholder = NSLocalizedString("--------", comment: "passwordPlaceholder")
+        noReferalLabel.text = NSLocalizedString("Don’t have a referral code? That’s ok! The person who set up your company’s account can provide this to you.", comment: "confirmPasswordValidationLabel")
+        btnContinue.setTitle(NSLocalizedString("Continue", comment: "continueButton"), for: .normal)
+        
+        
         txtReferralCode.delegate = self
         txtCompany.isUserInteractionEnabled = false
         if let code =  Defaults.shared.referralCode{

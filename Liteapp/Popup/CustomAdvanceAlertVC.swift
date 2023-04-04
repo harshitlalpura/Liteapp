@@ -48,6 +48,7 @@ class CustomAdvanceAlertVC: UIViewController,StoryboardSceneBased {
     func setupUI(){
         lblTitle.text = strTitle
         lblSubtitle.text = strSubtitle
+        btnClose.setTitle(NSLocalizedString("Close", comment: "btnClose"), for: .normal)
         if alertType == .validation{
             imgLogo.image = UIImage.init(named: "ic_validationAlert")
             viewTop.backgroundColor = UIColor.Color.appYellowColor

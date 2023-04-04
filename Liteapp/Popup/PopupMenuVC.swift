@@ -17,6 +17,8 @@ class PopupMenuVC: UIViewController,StoryboardSceneBased {
     @IBOutlet weak var btnAccount: UIButton!
     @IBOutlet weak var btnLogout: UIButton!
     @IBOutlet weak var viewMenu: UIView!
+    @IBOutlet weak var lblLogout: UILabel!
+    @IBOutlet weak var lblAccount: UILabel!
     // MARK: - Variables
     var completion: ((menuItem?) -> ())?
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.timesheetiPad.rawValue : StoryboardName.timesheet.rawValue, bundle: nil)
@@ -26,6 +28,8 @@ class PopupMenuVC: UIViewController,StoryboardSceneBased {
         viewMenu.alpha = 0.0
         viewMenu.dropShadow()
         // Do any additional setup after loading the view.
+        lblAccount.text = NSLocalizedString("Account", comment: "lblAccount")
+        lblLogout.text = NSLocalizedString("Logout", comment: "lblLogout")
     }
     
     override func viewDidAppear(_ animated: Bool) {

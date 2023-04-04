@@ -11,11 +11,27 @@ class OnboardingRegisterVC: BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var vwGradiantContainer: UIView!
     @IBOutlet weak var lblTermsAndPrivacy: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblManager: UILabel!
+    @IBOutlet weak var btnManager: UIButton!
+    @IBOutlet weak var lblEmployee: UILabel!
+    @IBOutlet weak var btnEmployee: UIButton!
+    @IBOutlet weak var lblLogin: UILabel!
+    @IBOutlet weak var btnLogin: UIButton!
+    
     var privacyText : String = ""
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        lblTitle.text = NSLocalizedString("We've made time tracking easier. Let's get started", comment: "titleLabel")
+        lblManager.text = NSLocalizedString("Are you the manager?", comment: "managerLabel")
+        btnManager.setTitle(NSLocalizedString("Register as Manager", comment: "managerButton"), for: .normal)
+        lblEmployee.text = NSLocalizedString("Are you the employee?", comment: "employeeLabel")
+        btnEmployee.setTitle(NSLocalizedString("Register as Employee", comment: "employeeButton"), for: .normal)
+        lblLogin.text = NSLocalizedString("Already have an account?", comment: "loginLabel")
+        btnLogin.setTitle(NSLocalizedString("Login Here", comment: "loginButton"), for: .normal)
+        
         vwGradiantContainer.setGradientBackground()
 
     }
@@ -27,7 +43,7 @@ class OnboardingRegisterVC: BaseViewController, StoryboardSceneBased{
     
     func setupTermsAndPrivacyLabel(){
         
-        privacyText = "By signing up, you agree to our End User License Agreement and Privacy Policy."
+        privacyText = NSLocalizedString("By signing up, you agree to our End User License Agreement and Privacy Policy.", comment: "privacyText")
         lblTermsAndPrivacy.text = privacyText
         lblTermsAndPrivacy.textColor =  UIColor.white
         let underlineAttriString = NSMutableAttributedString(string: privacyText)
@@ -47,8 +63,8 @@ class OnboardingRegisterVC: BaseViewController, StoryboardSceneBased{
     }
     
     @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
-        let termsRange = (privacyText as NSString).range(of: "End User License Agreement")
-        let privacyRange = (privacyText as NSString).range(of: "Privacy Policy")
+        let termsRange = (privacyText as NSString).range(of: NSLocalizedString("End User License Agreement", comment: "UserAgreementText"))
+        let privacyRange = (privacyText as NSString).range(of: NSLocalizedString("Privacy Policy", comment: "PrivacyPolicy"))
         
         if gesture.didTapAttributedTextInLabel(label: lblTermsAndPrivacy, inRange: termsRange) {
             print("Tapped terms")

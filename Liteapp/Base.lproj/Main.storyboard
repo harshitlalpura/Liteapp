@@ -163,7 +163,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MIg-ZH-m22">
                                 <rect key="frame" x="0.0" y="255" width="414" height="641"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="smD-lF-WDx">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="smD-lF-WDx" userLabel="We’ve made time  tracking easier.  Let's get started">
                                         <rect key="frame" x="30" y="25" width="324" height="101"/>
                                         <string key="text">We’ve made time  tracking easier. 
 Let's get started</string>
@@ -319,9 +319,9 @@ Let's get started</string>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kR6-ty-0rK">
-                                                        <rect key="frame" x="204" y="82" width="150" height="33"/>
+                                                        <rect key="frame" x="154" y="82" width="200" height="33"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="150" id="FkB-Zm-oEI"/>
+                                                            <constraint firstAttribute="width" constant="200" id="FkB-Zm-oEI"/>
                                                             <constraint firstAttribute="height" constant="33" id="oWG-WM-hZf"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="15"/>
@@ -380,7 +380,7 @@ Let's get started</string>
                                                 <rect key="frame" x="0.0" y="240" width="374" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYx-ve-sie">
-                                                        <rect key="frame" x="48.5" y="30" width="277" height="19.5"/>
+                                                        <rect key="frame" x="10" y="24" width="354" height="32"/>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Don't have an account? ">
                                                                 <attributes>
@@ -400,9 +400,12 @@ Let's get started</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CeX-wm-BmO">
-                                                        <rect key="frame" x="48.5" y="30" width="277" height="19.5"/>
+                                                        <rect key="frame" x="249.5" y="24" width="114.5" height="32"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title=""/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Register here">
+                                                            <fontDescription key="titleFontDescription" name="Roboto-Bold" family="Roboto" pointSize="15"/>
+                                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="registerClickedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ORC-be-vxs"/>
                                                         </connections>
@@ -410,12 +413,12 @@ Let's get started</string>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="CeX-wm-BmO" firstAttribute="leading" secondItem="gYx-ve-sie" secondAttribute="leading" id="2wZ-gp-5Jh"/>
+                                                    <constraint firstAttribute="leading" secondItem="gYx-ve-sie" secondAttribute="leading" constant="-10" id="2wZ-gp-5Jh"/>
                                                     <constraint firstItem="gYx-ve-sie" firstAttribute="centerY" secondItem="UP6-lj-Avq" secondAttribute="centerY" constant="15" id="Ika-LB-7tZ"/>
                                                     <constraint firstAttribute="height" constant="50" id="Lz6-z5-1FQ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="CeX-wm-BmO" secondAttribute="trailing" constant="10" id="TWD-BA-ebw"/>
                                                     <constraint firstItem="CeX-wm-BmO" firstAttribute="top" secondItem="gYx-ve-sie" secondAttribute="top" id="ZHh-3P-XOY"/>
                                                     <constraint firstItem="CeX-wm-BmO" firstAttribute="bottom" secondItem="gYx-ve-sie" secondAttribute="bottom" id="eIk-4c-W3C"/>
-                                                    <constraint firstItem="CeX-wm-BmO" firstAttribute="trailing" secondItem="gYx-ve-sie" secondAttribute="trailing" id="vML-wI-Lmf"/>
                                                     <constraint firstItem="gYx-ve-sie" firstAttribute="centerX" secondItem="UP6-lj-Avq" secondAttribute="centerX" id="zJ3-eC-FhO"/>
                                                 </constraints>
                                             </view>
@@ -628,13 +631,19 @@ Let's get started</string>
                     <navigationItem key="navigationItem" id="obJ-yq-zlt"/>
                     <connections>
                         <outlet property="btnForgotPassword" destination="kR6-ty-0rK" id="uBY-fH-TNw"/>
+                        <outlet property="btnLogin" destination="IuW-lW-9OD" id="SId-J9-YFA"/>
+                        <outlet property="btnRegister" destination="CeX-wm-BmO" id="nQA-GG-cWn"/>
                         <outlet property="emailTextValidationView" destination="Q7d-Rv-UOY" id="RIt-xI-2hE"/>
                         <outlet property="imgvwCapitalLetter" destination="9kQ-2F-xkh" id="wfI-Zn-Wib"/>
                         <outlet property="imgvwLowercaseLetter" destination="grI-Ot-Eha" id="g1A-gM-Zgy"/>
                         <outlet property="imgvwNumber" destination="UbV-wc-gVX" id="dZv-dJ-Rqt"/>
                         <outlet property="imgvwSpecialCharacter" destination="6Lq-jR-ik4" id="AcQ-PR-shd"/>
                         <outlet property="imgvwminimumCharacter" destination="Hhw-rj-4HD" id="ahk-lZ-mvk"/>
+                        <outlet property="lblEmail" destination="crU-Rt-YgY" id="jOM-0J-KOh"/>
+                        <outlet property="lblPassword" destination="90C-0f-Ldo" id="3Dg-7f-bhN"/>
+                        <outlet property="lblRegister" destination="gYx-ve-sie" id="Xjx-64-4vV"/>
                         <outlet property="lblTermsAndPrivacy" destination="yv2-Fd-vZJ" id="Hlu-Po-Mv1"/>
+                        <outlet property="lblTitle" destination="smD-lF-WDx" id="7hz-nX-hNx"/>
                         <outlet property="passwordTextValidationView" destination="Lb9-VN-bhH" id="Ceb-VJ-mDw"/>
                         <outlet property="passwordValidationView" destination="cqa-Ca-GAn" id="tpC-xX-rD4"/>
                         <outlet property="txtEmail" destination="Ar4-jj-G6P" id="HbV-nl-RFc"/>
@@ -795,7 +804,7 @@ Let's get started</string>
                                                 <rect key="frame" x="0.0" y="170" width="374" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYo-cO-IoE">
-                                                        <rect key="frame" x="40" y="29" width="294" height="21.5"/>
+                                                        <rect key="frame" x="10" y="24" width="354" height="32"/>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Already have an account?">
                                                                 <attributes>
@@ -821,9 +830,11 @@ Let's get started</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Uf-rf-LuB">
-                                                        <rect key="frame" x="40" y="29" width="294" height="21.5"/>
+                                                        <rect key="frame" x="266.5" y="24" width="97.5" height="32"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title=""/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Login Here">
+                                                            <fontDescription key="titleFontDescription" name="Roboto-Bold" family="Roboto" pointSize="15"/>
+                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="userAvailableClickedWithSender:" destination="NaU-Wj-tuU" eventType="touchUpInside" id="hNh-Me-eRK"/>
                                                         </connections>
@@ -832,10 +843,10 @@ Let's get started</string>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="2RD-ev-ndr"/>
-                                                    <constraint firstItem="2Uf-rf-LuB" firstAttribute="leading" secondItem="RYo-cO-IoE" secondAttribute="leading" id="7Bg-Va-pAT"/>
+                                                    <constraint firstAttribute="leading" secondItem="RYo-cO-IoE" secondAttribute="leading" constant="-10" id="7Bg-Va-pAT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2Uf-rf-LuB" secondAttribute="trailing" constant="10" id="RED-QB-JfC"/>
                                                     <constraint firstItem="RYo-cO-IoE" firstAttribute="centerX" secondItem="PUM-n3-Tgb" secondAttribute="centerX" id="T3C-nV-63R"/>
                                                     <constraint firstItem="2Uf-rf-LuB" firstAttribute="top" secondItem="RYo-cO-IoE" secondAttribute="top" id="TtW-oi-ybb"/>
-                                                    <constraint firstItem="2Uf-rf-LuB" firstAttribute="trailing" secondItem="RYo-cO-IoE" secondAttribute="trailing" id="i96-Nj-OPk"/>
                                                     <constraint firstItem="2Uf-rf-LuB" firstAttribute="bottom" secondItem="RYo-cO-IoE" secondAttribute="bottom" id="uXQ-B9-aPp"/>
                                                     <constraint firstItem="RYo-cO-IoE" firstAttribute="centerY" secondItem="PUM-n3-Tgb" secondAttribute="centerY" constant="15" id="xHn-Jj-nho"/>
                                                 </constraints>
@@ -890,7 +901,14 @@ Let's get started</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnEmployee" destination="v6E-Kh-L3Q" id="RmL-Tu-Fkj"/>
+                        <outlet property="btnLogin" destination="2Uf-rf-LuB" id="gsX-6K-ejY"/>
+                        <outlet property="btnManager" destination="mjy-hw-KcW" id="S7J-EC-JM4"/>
+                        <outlet property="lblEmployee" destination="OiY-AL-lgD" id="7Hp-lo-6kr"/>
+                        <outlet property="lblLogin" destination="RYo-cO-IoE" id="W1I-2b-cBu"/>
+                        <outlet property="lblManager" destination="ycZ-ho-fUW" id="wRQ-X6-Cfs"/>
                         <outlet property="lblTermsAndPrivacy" destination="3jG-fa-Eug" id="kMg-FN-VJb"/>
+                        <outlet property="lblTitle" destination="6ll-8P-s1S" id="Uia-zm-SIv"/>
                         <outlet property="vwGradiantContainer" destination="aum-PP-P5M" id="ZLu-Nx-bGK"/>
                     </connections>
                 </viewController>
@@ -1665,8 +1683,11 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="SMK-xc-EMe" id="GxQ-GZ-djp"/>
                         <outlet property="confirmPasswordTextValidationView" destination="x2a-0T-Gh0" id="ALI-MB-KG8"/>
+                        <outlet property="confirmPasswordValidationLabel" destination="vFy-aM-TNz" id="nqh-b3-y4Q"/>
                         <outlet property="emailTextValidationView" destination="Xqy-dO-P3z" id="QJQ-dl-tK4"/>
+                        <outlet property="emailValidationLabel" destination="7P0-VE-SLN" id="06y-yD-uZ1"/>
                         <outlet property="firstNameTextValidationView" destination="27w-3v-VNN" id="eSM-jH-2aV"/>
                         <outlet property="imgvwCapitalLetter" destination="6S4-Eh-owr" id="nds-Y7-ViB"/>
                         <outlet property="imgvwLowercaseLetter" destination="YWr-io-r5Z" id="BVk-Kh-hr7"/>
@@ -1674,15 +1695,31 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         <outlet property="imgvwSpecialCharacter" destination="54i-hy-eco" id="F4Q-0Z-foj"/>
                         <outlet property="imgvwminimumCharacter" destination="RgL-ue-bse" id="GbW-eI-CfB"/>
                         <outlet property="lastNameTextValidationView" destination="1Yr-BH-1eX" id="4dI-KE-CTT"/>
+                        <outlet property="lastNameValidationLabel" destination="vem-S7-It2" id="4FP-bm-oBq"/>
+                        <outlet property="lblConfirmPassword" destination="LPw-T7-I41" id="IlA-c6-yR0"/>
+                        <outlet property="lblEmail" destination="QUQ-aW-Drb" id="Io2-Gu-tx7"/>
+                        <outlet property="lblFirstName" destination="8BN-Z7-PHQ" id="lrj-Ge-geq"/>
+                        <outlet property="lblLastName" destination="Yk7-LD-bSN" id="8en-hU-s0m"/>
+                        <outlet property="lblPassword" destination="6sL-Wf-Y1l" id="ea6-Cq-9px"/>
+                        <outlet property="lblStep" destination="jbV-tT-mwB" id="YFS-L1-mfK"/>
+                        <outlet property="lblTitle" destination="gMd-8f-TOf" id="cga-Bs-1aL"/>
+                        <outlet property="lblUserName" destination="NL0-wF-CCR" id="8Lt-30-ixa"/>
                         <outlet property="passwordTextValidationView" destination="fds-3p-PrR" id="stq-V4-9K9"/>
+                        <outlet property="passwordValidationLabel" destination="Qce-Xs-lxO" id="KR6-4v-cDE"/>
                         <outlet property="passwordValidationView" destination="vYV-jg-Wmw" id="VWv-kD-zLr"/>
+                        <outlet property="requirementLabel1" destination="qF9-U7-nvX" id="Xg6-BR-2vY"/>
+                        <outlet property="requirementLabel2" destination="rmw-Y3-kv2" id="es3-4W-5yM"/>
+                        <outlet property="requirementLabel3" destination="nLa-HF-Cmq" id="9XU-Dg-ndM"/>
+                        <outlet property="requirementLabel4" destination="Zxe-3X-zaF" id="QU1-J1-hZ5"/>
+                        <outlet property="requirementLabel5" destination="vcg-px-bNS" id="jgD-6w-5py"/>
+                        <outlet property="requirementTitleLabel" destination="Dq1-B0-51y" id="0gO-oX-Taf"/>
                         <outlet property="txtConfirmPassword" destination="hhB-Xs-cgJ" id="82R-rZ-KBl"/>
                         <outlet property="txtEmail" destination="t7R-9B-lG1" id="UTP-Hf-W2t"/>
                         <outlet property="txtFirstName" destination="RyV-tG-4nK" id="hFk-yL-N4C"/>
                         <outlet property="txtLastName" destination="Y3e-iY-wFg" id="FUA-Li-L3J"/>
                         <outlet property="txtPassword" destination="HFj-Kn-gUG" id="YjY-0l-abn"/>
                         <outlet property="txtUsername" destination="Xpi-Bf-SM1" id="ZXD-62-Ksu"/>
-                        <outlet property="usernameTextValidationView" destination="F9B-Jc-l2c" id="1EN-N7-lNW"/>
+                        <outlet property="userNameValidationLabel" destination="QVQ-Ox-iTT" id="W3I-AF-Mz4"/>
                         <outlet property="vwGradiantContainer" destination="taW-CB-M41" id="8cE-6J-hlK"/>
                     </connections>
                 </viewController>
@@ -1892,7 +1929,13 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="PJq-B9-ezr" id="cQa-he-XcK"/>
+                        <outlet property="btnSkip" destination="Mfw-o2-Zh5" id="eFd-RF-Yjj"/>
+                        <outlet property="businessTitleLabel" destination="KHR-22-GVi" id="sXJ-6K-lbD"/>
                         <outlet property="businessURLValidationView" destination="mxe-AE-pPy" id="IKZ-pU-nRG"/>
+                        <outlet property="businessUrlLabel" destination="V5x-jn-AZv" id="ytF-gW-R6D"/>
+                        <outlet property="businessUrlValidationLabel" destination="nJU-Ml-avo" id="aaA-r5-fFB"/>
+                        <outlet property="stepLabel" destination="fRj-cX-Vlc" id="2zN-Xx-Ucb"/>
                         <outlet property="txtBusinessURL" destination="VkQ-Iu-mrB" id="63S-dn-0qw"/>
                         <outlet property="vwGradiantContainer" destination="36p-cX-ibT" id="bOa-t5-FKr"/>
                     </connections>
@@ -2321,16 +2364,19 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnCompleteAccount" destination="aaL-pT-q9E" id="HQs-6u-zgj"/>
                         <outlet property="btnViewRange100to499" destination="EhX-TQ-pXW" id="26y-Ej-zpX"/>
                         <outlet property="btnViewRange1to4" destination="UDa-UE-3yr" id="MwU-aq-0jH"/>
                         <outlet property="btnViewRange20to99" destination="gWL-cg-plK" id="xtF-dJ-a7d"/>
                         <outlet property="btnViewRange500Plus" destination="WV6-2a-H5T" id="wMT-Ih-ezv"/>
                         <outlet property="btnViewRange5to19" destination="rPC-d1-RwR" id="xoz-Q9-Co7"/>
+                        <outlet property="businessTitleLabel" destination="hGw-f7-M4Q" id="zx6-Tf-nEe"/>
                         <outlet property="imgViewRange100to499" destination="508-Xe-gWl" id="9HO-T9-byY"/>
                         <outlet property="imgViewRange1to4" destination="JNr-ge-qMT" id="pqS-hO-1sp"/>
                         <outlet property="imgViewRange20to99" destination="0uV-Jq-vU0" id="CPf-G1-Z1u"/>
                         <outlet property="imgViewRange500Plus" destination="zGu-Wv-xdi" id="153-ZN-gD0"/>
                         <outlet property="imgViewRange5to19" destination="sr1-KX-7OK" id="ZVP-4V-PDQ"/>
+                        <outlet property="stepLabel" destination="i4I-Bq-gRK" id="Pra-SV-l1X"/>
                         <outlet property="vwGradiantContainer" destination="Qch-aH-X9P" id="HOD-W7-Dsp"/>
                     </connections>
                 </viewController>
@@ -2728,12 +2774,20 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="1vm-ZZ-5PV" id="3N2-0l-hqq"/>
+                        <outlet property="businessNameLabel" destination="Llt-f6-UO9" id="hQQ-eb-JFy"/>
+                        <outlet property="businessNameValidationLabel" destination="S2O-8g-o1d" id="26e-ee-1Kl"/>
+                        <outlet property="businessTitleLabel" destination="k8M-ka-d44" id="Ki2-LA-EtZ"/>
                         <outlet property="businessnameTextValidationView" destination="dgX-o2-87h" id="gCg-8K-ZtQ"/>
+                        <outlet property="timeZoneLabel" destination="nfK-0N-F33" id="KsL-Qs-NL4"/>
+                        <outlet property="timeZoneValidationLabel" destination="0Dk-L1-ebv" id="uHj-0O-za8"/>
                         <outlet property="timezoneextValidationView" destination="a1E-Te-dLm" id="AfS-Rp-6WG"/>
                         <outlet property="txtBusinessName" destination="MV3-ww-8Yo" id="e5c-o3-kKN"/>
                         <outlet property="txtTimezone" destination="UC6-eG-Lbr" id="gaE-k2-Vhh"/>
                         <outlet property="txtZipcode" destination="fkM-6i-Zi5" id="hbs-xH-Oyn"/>
                         <outlet property="vwGradiantContainer" destination="g9d-FM-dyp" id="spP-cj-U5u"/>
+                        <outlet property="zipCodeLabel" destination="M0U-TP-WQt" id="nfT-J3-MjG"/>
+                        <outlet property="zipCodeValidationLabel" destination="Nms-lL-m2A" id="slP-y3-jUx"/>
                         <outlet property="zipcodeTextValidationView" destination="c6F-hj-CO6" id="o6f-Ni-x1z"/>
                     </connections>
                 </viewController>
@@ -3147,6 +3201,7 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         <outlet property="bottomView" destination="zE0-oS-gxb" id="vJW-md-hLV"/>
                         <outlet property="btnSupport" destination="l1M-vG-XzU" id="5u5-FO-kl3"/>
                         <outlet property="constvwSupportHeight" destination="dhE-ku-Wtl" id="zal-KF-Xqx"/>
+                        <outlet property="lblSupportQuestionText" destination="34a-Lc-5LC" id="h64-eW-iWK"/>
                         <outlet property="lblSupportText" destination="0jB-AB-otW" id="HUq-fE-gzU"/>
                         <outlet property="menuTableview" destination="p3P-MK-2jY" id="LCN-94-GTn"/>
                         <outlet property="premiumView" destination="hT8-2W-nz4" id="1YK-S0-lo8"/>
@@ -3267,6 +3322,8 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="businessTitleLabel" destination="qy1-sb-tFt" id="7aL-b5-Sdd"/>
+                        <outlet property="stepLabel" destination="JNH-ll-IJ2" id="cnN-SX-8d1"/>
                         <outlet property="vwGradiantContainer" destination="AAW-JR-BkU" id="qMm-Qz-oz5"/>
                     </connections>
                 </viewController>
@@ -3840,8 +3897,15 @@ this should only take about
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="Aqh-pL-5ya" id="yql-RC-5oG"/>
+                        <outlet property="firstNameValidationLabel" destination="GtH-wK-D9R" id="lid-Ub-Jwv"/>
                         <outlet property="firstnameTextValidationView" destination="ASi-J0-ktB" id="QKn-mp-Vtt"/>
+                        <outlet property="lastNameValidationLabel" destination="w7M-IP-VUh" id="GDb-vY-Iud"/>
                         <outlet property="lastnameTextValidationView" destination="PSE-7g-avO" id="4wM-0N-Iff"/>
+                        <outlet property="lblFirstName" destination="x5V-vo-wld" id="yTs-6E-PE0"/>
+                        <outlet property="lblLastName" destination="Hgt-aM-IAI" id="MZc-sa-QRj"/>
+                        <outlet property="lblStep" destination="ink-pM-EBm" id="EuJ-Du-iOW"/>
+                        <outlet property="lblTitle" destination="aB3-AJ-uR7" id="7as-QO-XYY"/>
                         <outlet property="txtFirstName" destination="Rs9-Ky-KcQ" id="eqR-r0-4X9"/>
                         <outlet property="txtLastName" destination="zG2-36-Zzi" id="lpJ-zE-sfs"/>
                         <outlet property="vwGradiantContainer" destination="9iw-QY-wGE" id="PNP-Dc-TvV"/>
@@ -4350,15 +4414,30 @@ this should only take about
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="lHr-e0-NbT" id="OXX-4O-dmE"/>
                         <outlet property="confirmPasswordTextValidationView" destination="NLD-Lu-Wqk" id="V4h-Fy-8Zp"/>
+                        <outlet property="confirmPasswordValidationLabel" destination="3dn-5g-U8y" id="Hh1-bL-f2v"/>
                         <outlet property="emailTextValidationView" destination="kgD-0o-mPw" id="MAp-88-nkT"/>
+                        <outlet property="emailValidationLabel" destination="uTv-Si-cmL" id="WTf-uA-mXy"/>
                         <outlet property="imgvwCapitalLetter" destination="NFc-Yx-w3g" id="ltY-3f-mpH"/>
                         <outlet property="imgvwLowercaseLetter" destination="epJ-Ot-9c7" id="tgb-HK-WFu"/>
                         <outlet property="imgvwNumber" destination="fNn-WK-H4z" id="kaW-RD-hlq"/>
                         <outlet property="imgvwSpecialCharacter" destination="MmX-t8-Ukp" id="Szu-7U-UCt"/>
                         <outlet property="imgvwminimumCharacter" destination="D9V-Eg-ach" id="e3i-If-GkO"/>
+                        <outlet property="lblConfirmPassword" destination="K0O-DE-ECR" id="Eb1-oB-KxU"/>
+                        <outlet property="lblEmail" destination="1yy-a7-q7L" id="ARl-Kl-oiq"/>
+                        <outlet property="lblPassword" destination="e70-8l-WTt" id="tFn-Ou-lYT"/>
+                        <outlet property="lblStep" destination="k9Q-mU-bTQ" id="LIP-X3-LAy"/>
+                        <outlet property="lblTitle" destination="i9G-rb-nCD" id="3qW-Y0-KTj"/>
                         <outlet property="passwordTextValidationView" destination="fmQ-V1-3kk" id="YNQ-uM-5ax"/>
+                        <outlet property="passwordValidationLabel" destination="4i7-9z-jQ8" id="2lR-jY-48B"/>
                         <outlet property="passwordValidationView" destination="Igo-Ow-GMZ" id="Z50-yJ-t85"/>
+                        <outlet property="requirementLabel1" destination="aKx-Kf-RWC" id="Iw4-fV-wNg"/>
+                        <outlet property="requirementLabel2" destination="gjg-GM-tTH" id="5wr-ky-gUy"/>
+                        <outlet property="requirementLabel3" destination="xHb-NH-GWo" id="AVh-bq-n5F"/>
+                        <outlet property="requirementLabel4" destination="tDa-qA-crh" id="q3T-Rd-lBU"/>
+                        <outlet property="requirementLabel5" destination="h96-LH-kSt" id="1iA-An-dc4"/>
+                        <outlet property="requirementTitleLabel" destination="K8e-Ur-L8r" id="Cgn-Vy-o07"/>
                         <outlet property="txtConfrimPassword" destination="eSs-aM-os4" id="9ei-QO-NQi"/>
                         <outlet property="txtEmail" destination="foz-2j-U6s" id="tTd-xV-7pz"/>
                         <outlet property="txtPassword" destination="sJ8-JT-QRn" id="OGP-4e-wcQ"/>
@@ -4602,6 +4681,12 @@ this should only take about
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lblCompany" destination="rgb-eM-pkb" id="vqZ-KQ-VWy"/>
+                        <outlet property="lblReferalCode" destination="LZ6-aS-OBk" id="qzo-3S-DJx"/>
+                        <outlet property="lblStep" destination="6nk-Vf-Nsa" id="5PB-wO-Xq6"/>
+                        <outlet property="lblTitle" destination="yHg-8Q-LWC" id="zyK-1l-Yc8"/>
+                        <outlet property="noReferalLabel" destination="uPT-Ra-BCD" id="fUc-tc-WDI"/>
+                        <outlet property="referalCodeValidationLabel" destination="Zch-zo-mWW" id="85e-VM-Ysv"/>
                         <outlet property="referralCodeTextValidationView" destination="RyM-Hk-k3g" id="IXQ-lR-i3m"/>
                         <outlet property="txtCompany" destination="ENW-9a-gqT" id="usw-Et-n9I"/>
                         <outlet property="txtReferralCode" destination="cba-72-3dO" id="CRS-Ua-g8j"/>
@@ -5307,15 +5392,31 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                     <connections>
                         <outlet property="btnClose" destination="rT1-tP-oB0" id="Cei-yZ-PIr"/>
                         <outlet property="btnSave" destination="Vlf-1C-bID" id="9xZ-5A-zg6"/>
+                        <outlet property="confirmNewPasswordLabel" destination="SEX-VX-FvW" id="kAv-RO-i1R"/>
+                        <outlet property="congratulationsLabel" destination="US8-aa-ehy" id="NSo-Z7-K2t"/>
+                        <outlet property="currentPasswordLabel" destination="tOT-1n-Y7n" id="IP5-oj-dWu"/>
                         <outlet property="imgvwCapitalLetter" destination="HTw-Mm-agC" id="Dqb-8Z-uTI"/>
                         <outlet property="imgvwLowercaseLetter" destination="S7H-GI-hp6" id="aFP-oa-2iB"/>
                         <outlet property="imgvwNumber" destination="bzy-0K-QGT" id="O5A-ha-fDX"/>
                         <outlet property="imgvwSpecialCharacter" destination="gQM-39-A9Z" id="g5Z-uY-CiA"/>
                         <outlet property="imgvwminimumCharacter" destination="tLJ-r2-S8m" id="pEr-2g-Irk"/>
+                        <outlet property="newPasswordLabel" destination="3ox-jY-e2P" id="Cho-qf-KKB"/>
                         <outlet property="passwordValidationView" destination="HUV-o9-IHO" id="ast-Qi-kem"/>
+                        <outlet property="requirementLabel1" destination="7pH-ax-dYv" id="cId-lf-KrO"/>
+                        <outlet property="requirementLabel2" destination="2YQ-yw-tfW" id="ayn-OA-1vY"/>
+                        <outlet property="requirementLabel3" destination="HDI-X2-uK6" id="wdG-Ss-AnJ"/>
+                        <outlet property="requirementLabel4" destination="Zxb-to-S5o" id="rY4-UV-Q4D"/>
+                        <outlet property="requirementLabel5" destination="Tqo-9i-vZT" id="5Yt-YX-XNT"/>
+                        <outlet property="requirementTitleLabel" destination="hSb-8z-6qm" id="7WV-FV-snJ"/>
                         <outlet property="txtConfirmPassword" destination="zbj-o2-k1M" id="2o9-87-yfb"/>
                         <outlet property="txtNewPassword" destination="aSH-Xw-bhq" id="xwq-JP-Yz0"/>
                         <outlet property="txtOldPassword" destination="GGq-Bo-7ix" id="WTB-4N-0dt"/>
+                        <outlet property="validationLabel1" destination="sj2-No-afk" id="J1w-bg-ql5"/>
+                        <outlet property="validationLabel2" destination="ddv-fu-nRl" id="fwH-Dq-ddN"/>
+                        <outlet property="validationLabel3" destination="huy-6j-Khe" id="rTc-7Q-fpG"/>
+                        <outlet property="validationLabel4" destination="Utg-t4-XMp" id="JQ5-VT-Ynp"/>
+                        <outlet property="validationLabel5" destination="WFX-az-MfO" id="YwF-jU-NPc"/>
+                        <outlet property="validationTitleLabel" destination="Nyi-Hd-SQ8" id="EGY-GM-gim"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qeF-QA-V3D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5515,6 +5616,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                         <outlet property="btnBackToLogin" destination="153-8f-aho" id="unJ-4C-aX0"/>
                         <outlet property="btnSendInstructions" destination="dIs-5c-THR" id="y6n-hW-Hjx"/>
                         <outlet property="emailTextValidationView" destination="xZZ-dr-lc6" id="nID-ss-DNe"/>
+                        <outlet property="emailValidationLabel" destination="rng-hp-muS" id="oN0-cS-VNv"/>
+                        <outlet property="lblDescription" destination="SkW-QD-yoM" id="Y6K-Ve-L6N"/>
+                        <outlet property="lblEmail" destination="1mc-la-CHj" id="54B-tp-SDt"/>
+                        <outlet property="lblTitle" destination="1HJ-CI-ojz" id="fCY-mi-4MF"/>
                         <outlet property="txtEmail" destination="bWP-7p-Mjf" id="iZb-cC-6iv"/>
                         <outlet property="viewGradiantContainer" destination="KLv-tm-LwS" id="fjS-dv-8oT"/>
                     </connections>
@@ -6130,14 +6235,28 @@ both passwords must match</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnBack" destination="UK8-hN-scd" id="ZVc-kO-Tce"/>
                         <outlet property="btnConfirmPasswordVisibility" destination="Gl9-mI-L4g" id="N7u-Ff-KxY"/>
                         <outlet property="btnPasswordVisibility" destination="Ax8-t1-rgY" id="rBE-kb-QYT"/>
+                        <outlet property="btnResetPassword" destination="Tcg-7h-lya" id="QBB-XQ-c7M"/>
+                        <outlet property="confirmPasswordLabel" destination="t3c-KJ-2dJ" id="5mb-Af-5Ye"/>
+                        <outlet property="confirmPasswordValidationLabel" destination="TMc-pH-eI7" id="JA2-iy-3u2"/>
                         <outlet property="imgvwCapitalLetter" destination="ueN-6Y-Ir2" id="tvz-c9-pwZ"/>
                         <outlet property="imgvwLowercaseLetter" destination="iw2-Qj-XpR" id="c7t-KL-M02"/>
                         <outlet property="imgvwNumber" destination="2ny-Rk-BdM" id="Hgx-uk-wZR"/>
                         <outlet property="imgvwSpecialCharacter" destination="EjX-UN-mdV" id="a0G-Su-iRg"/>
                         <outlet property="imgvwminimumCharacter" destination="qkT-rY-AZb" id="8TG-Rh-PFI"/>
+                        <outlet property="lblDescription" destination="2eo-uf-jrl" id="uA7-Ko-Uud"/>
+                        <outlet property="lblTitle" destination="DuX-dz-fgd" id="gWF-Kf-jGs"/>
+                        <outlet property="passwordLabel" destination="cZt-kt-zSQ" id="KQx-E4-eek"/>
+                        <outlet property="passwordValidationLabel" destination="S8F-Q0-roA" id="0nW-d6-eCc"/>
                         <outlet property="passwordValidationView" destination="y86-gr-Wgp" id="vpk-tN-S9w"/>
+                        <outlet property="requirementLabel1" destination="rbA-xq-f9i" id="vGy-V3-Fc1"/>
+                        <outlet property="requirementLabel2" destination="uQ6-2V-GkG" id="woq-cf-uqo"/>
+                        <outlet property="requirementLabel3" destination="l5m-n3-U2G" id="r02-F5-Ek0"/>
+                        <outlet property="requirementLabel4" destination="Ukg-c6-weL" id="Dhs-20-Ud1"/>
+                        <outlet property="requirementLabel5" destination="P8c-8y-tpi" id="ykA-bb-Klp"/>
+                        <outlet property="requirementTitleLabel" destination="RCv-Ff-5cp" id="K74-Lg-eM4"/>
                         <outlet property="txtConfirmPassword" destination="adh-Xp-Ske" id="Bdy-u8-3FX"/>
                         <outlet property="txtPassword" destination="6w3-98-Rkd" id="9WU-wQ-EJq"/>
                         <outlet property="viewEnterPassword" destination="l1a-mP-vi5" id="Flx-nf-H2t"/>
@@ -6245,6 +6364,9 @@ both passwords must match</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnBackToLogin" destination="FPe-7v-iSr" id="mUl-AN-8ZV"/>
+                        <outlet property="lblDescription" destination="QUT-aV-P66" id="cdr-ZB-jh5"/>
+                        <outlet property="lblTitle" destination="7Wc-38-x6H" id="U5T-Mb-BxC"/>
                         <outlet property="vwGradiantContainer" destination="fnE-Xv-EG8" id="aNq-6Y-kPl"/>
                     </connections>
                 </viewController>

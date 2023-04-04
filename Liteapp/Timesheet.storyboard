@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1129,12 +1129,19 @@
                         <outlet property="breakinSuccessPopup" destination="3Vc-In-slp" id="ceb-Ew-odT"/>
                         <outlet property="btnClockin" destination="8MZ-TG-vUo" id="Mhl-vA-O8Q"/>
                         <outlet property="btnMenu" destination="cWJ-Ax-eH8" id="UHu-yx-ojn"/>
+                        <outlet property="btnOKBreakInPopUp" destination="Z21-hD-HOG" id="iBz-lp-6kX"/>
+                        <outlet property="btnOKClockInPopUp" destination="Gga-YV-WZe" id="zXm-wH-8Kc"/>
                         <outlet property="btnStartBreak" destination="z4h-QP-z4t" id="ACd-tM-zlb"/>
                         <outlet property="calanderCollectionView" destination="cKa-hN-wTH" id="UCa-ok-nOm"/>
+                        <outlet property="clockInPopUpLabel" destination="b7x-QE-mWG" id="cBa-cJ-1kF"/>
                         <outlet property="clockInSuccessPopup" destination="4Gm-Av-A1e" id="wjJ-Gm-6e1"/>
+                        <outlet property="clockOutPopUpLabel" destination="StB-SY-mOE" id="Q1d-TD-wsC"/>
                         <outlet property="clockOutSuccessPopup" destination="bXw-td-geD" id="z5r-tQ-s6t"/>
                         <outlet property="customNavView" destination="CiX-ra-P30" id="54h-UW-ZKu"/>
+                        <outlet property="hourLabel" destination="g18-4a-ZBP" id="dGx-eI-Rb6"/>
                         <outlet property="imageviewClockinStatus" destination="Muh-tm-HAX" id="PfH-wc-hID"/>
+                        <outlet property="lblClockOut1" destination="2uj-Kq-7F5" id="dTT-kK-qSA"/>
+                        <outlet property="lblClockOut2" destination="Xo2-sJ-aam" id="WEI-gC-iyF"/>
                         <outlet property="lblClockinStatus" destination="ggZ-Xw-f3U" id="L0N-lj-9oV"/>
                         <outlet property="lblDailyHours" destination="dlV-rf-mgs" id="BwJ-or-E49"/>
                         <outlet property="lblDate" destination="RtN-RN-bNp" id="Z4d-zM-Zmw"/>
@@ -1143,7 +1150,10 @@
                         <outlet property="lblDateclockOutPopup" destination="JVm-3I-3Zy" id="9d1-4j-qeL"/>
                         <outlet property="lblMessagebreakinPopup" destination="S4s-5R-TfB" id="iL3-4D-1lu"/>
                         <outlet property="lblPayPeriod" destination="NBx-YE-MFD" id="ZC8-4u-7bV"/>
+                        <outlet property="lblProjectedClockOut" destination="kdb-IF-l6Q" id="Jln-cw-6gy"/>
                         <outlet property="lblTime" destination="wj0-gE-4XP" id="FO0-ff-Tkx"/>
+                        <outlet property="lblTimeClock" destination="ZHM-H0-943" id="0Le-rc-NhQ"/>
+                        <outlet property="lblTotalHour" destination="4Z3-wk-t52" id="hEK-8e-f2U"/>
                         <outlet property="lblTotalHr" destination="do1-LE-FPv" id="zdh-7Y-OmU"/>
                         <outlet property="lblTotalMin" destination="kaM-NF-2ro" id="2fl-IG-abY"/>
                         <outlet property="lblWeeklyHours" destination="nvE-y4-PSc" id="Yrh-Su-7cP"/>
@@ -1157,7 +1167,9 @@
                         <outlet property="lblusername" destination="UyW-sY-WkN" id="2r4-J0-zaD"/>
                         <outlet property="lblweeklyHr" destination="Jj0-As-wsu" id="3dm-wA-txZ"/>
                         <outlet property="lblweeklyMin" destination="rcz-OP-YbD" id="qGV-hx-fg1"/>
+                        <outlet property="minuteLabel" destination="1Oa-Hy-OXa" id="ZBK-yd-s5O"/>
                         <outlet property="stackviewtimesheet" destination="6QP-A3-yHF" id="P8Z-uq-JNB"/>
+                        <outlet property="totalLabel" destination="xBB-us-H6V" id="AA3-s7-oJZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1303,6 +1315,8 @@
                     <connections>
                         <outlet property="btnAccount" destination="cnO-No-hCc" id="Mt7-oe-Oc9"/>
                         <outlet property="btnLogout" destination="KwG-0n-ddF" id="fhu-Mv-V8R"/>
+                        <outlet property="lblAccount" destination="GNO-US-osp" id="QxB-3G-lUg"/>
+                        <outlet property="lblLogout" destination="RFM-Nk-GQG" id="zzd-zk-g0Z"/>
                         <outlet property="viewMenu" destination="WCi-82-dUf" id="g2M-hf-PHl"/>
                     </connections>
                 </viewController>
@@ -1470,6 +1484,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnClose" destination="vl3-W4-3mP" id="APL-OG-4Qa"/>
+                        <outlet property="btnExportCSV" destination="ohF-23-VhL" id="alc-fO-9M7"/>
+                        <outlet property="btnExportExcel" destination="ueR-ii-18Q" id="D2Z-Vr-SVh"/>
+                        <outlet property="btnExportPDF" destination="uIE-Yt-zmK" id="tjk-0K-aeX"/>
+                        <outlet property="lblExportTimeSheet" destination="kuF-TP-dgc" id="riE-dQ-lYY"/>
                         <outlet property="viewPopup" destination="Cor-UB-tXC" id="MPA-5I-3Zg"/>
                     </connections>
                 </viewController>
@@ -2135,10 +2154,18 @@
                     <connections>
                         <outlet property="approvalSortImageview" destination="eWf-pJ-k4E" id="Ge3-Jg-Nlg"/>
                         <outlet property="approveMainview" destination="qUy-LD-mf1" id="GUK-dQ-cIY"/>
+                        <outlet property="btnApprove" destination="KNZ-vh-t6o" id="EL5-bD-PYu"/>
                         <outlet property="btnCheckAll" destination="cen-g1-mVI" id="9W6-vX-VA6"/>
                         <outlet property="btnMenu" destination="h2i-xO-fIn" id="z4j-Xy-nIZ"/>
+                        <outlet property="btnUnApprove" destination="8V4-hU-F3H" id="LSV-Nd-NmP"/>
                         <outlet property="customNavView" destination="C5X-NU-e36" id="uNA-eg-1MJ"/>
                         <outlet property="exportMainView" destination="4cL-gx-zxh" id="hFh-oL-Nhn"/>
+                        <outlet property="lblApproval" destination="DZ3-SG-LEn" id="17R-de-87C"/>
+                        <outlet property="lblExportTimeSheet" destination="5HM-CM-NXP" id="C1i-oU-emb"/>
+                        <outlet property="lblName" destination="OiY-O6-ts8" id="X83-LC-jgT"/>
+                        <outlet property="lblPayPeriod" destination="GRf-uL-2A8" id="EsV-GL-6w8"/>
+                        <outlet property="lblTimeSheet" destination="bj1-wf-Wd4" id="iee-dT-r04"/>
+                        <outlet property="lblTotal" destination="Sav-S7-Fx4" id="FmJ-GB-KkC"/>
                         <outlet property="lblusername" destination="sxh-id-wFO" id="8w8-km-tLL"/>
                         <outlet property="nameSortImageview" destination="0X0-dV-Mbc" id="WP9-Hs-FtJ"/>
                         <outlet property="selectedPayperiodLabel" destination="iW0-jW-Xe4" id="6iO-R7-BiR"/>

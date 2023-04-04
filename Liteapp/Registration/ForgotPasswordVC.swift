@@ -16,12 +16,24 @@ class ForgotPasswordVC: UIViewController {
     @IBOutlet weak var emailTextValidationView: UIView!
     @IBOutlet weak var viewGradiantContainer: UIView!
     
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var emailValidationLabel: UILabel!
+    
     // MARK: - Variables
     
     // MARK: - View Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         viewGradiantContainer.setGradientBackground()
+        lblTitle.text = NSLocalizedString("Forgot Password", comment: "lblTitle")
+        lblDescription.text = NSLocalizedString("Enter the email associated with your account to receive password reset instructions", comment: "lblDescription")
+        lblEmail.text = NSLocalizedString("Email", comment: "emailLabel")
+        txtEmail.placeholder = NSLocalizedString("Enter Email", comment: "emailPlaceholder")
+        emailValidationLabel.text = NSLocalizedString("Please Enter Email", comment: "emailValidationLabel")
+        btnSendInstructions.setTitle(NSLocalizedString("Send Instructions", comment: "btnSendInstructions"), for: .normal)
+        btnBackToLogin.setTitle(NSLocalizedString("Back to Login", comment: "btnBackToLogin"), for: .normal)
     }
 
     // MARK: - Button actions

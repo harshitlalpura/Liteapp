@@ -12,13 +12,22 @@ class DeleteEmployeePopupVC: UIViewController,StoryboardSceneBased {
     // MARK: - Outlets
     @IBOutlet weak var viewPopup: UIView!
     
+    @IBOutlet weak var btnDelete: UIButton!
+    @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var lblDeleteTitle: UILabel!
+    @IBOutlet weak var lblDeleteDesc: UILabel!
+    
     // MARK: - Variables
     var completion: ((Bool) -> ())?
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.merchantipad.rawValue : StoryboardName.merchant.rawValue, bundle: nil)
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        lblDeleteTitle.text = NSLocalizedString("Delete Employee?", comment: "lblDeleteTitle")
+        lblDeleteDesc.text = NSLocalizedString("You will permanently lose the employee profile and their timesheet data.", comment: "lblDeleteDesc")
+        btnDelete.setTitle(NSLocalizedString("Delete Employee", comment: "btnDelete"), for: .normal)
+        btnCancel.setTitle(NSLocalizedString("Cancel", comment: "btnCancel"), for: .normal)
         // Do any additional setup after loading the view.
     }
     

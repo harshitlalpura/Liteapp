@@ -20,9 +20,33 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var timezoneextValidationView: UIView!
     @IBOutlet weak var vwGradiantContainer: UIView!
     
+    @IBOutlet weak var stepLabel: UILabel!
+    @IBOutlet weak var businessTitleLabel: UILabel!
+    @IBOutlet weak var businessNameLabel: UILabel!
+    @IBOutlet weak var businessNameValidationLabel: UILabel!
+    @IBOutlet weak var zipCodeLabel: UILabel!
+    @IBOutlet weak var zipCodeValidationLabel: UILabel!
+    @IBOutlet weak var timeZoneLabel: UILabel!
+    @IBOutlet weak var timeZoneValidationLabel: UILabel!
+    @IBOutlet weak var btnContinue: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
+        
+        stepLabel.text = NSLocalizedString("Step 2 of 5", comment: "stepLabel")
+        businessTitleLabel.text = NSLocalizedString("Where is your business located ?", comment: "businessTitleLabel")
+        businessNameLabel.text = NSLocalizedString("Business Name", comment: "businessNameLabel")
+        txtBusinessName.placeholder = NSLocalizedString("Enter Business Name", comment: "txtBusinessName")
+        businessNameValidationLabel.text = NSLocalizedString("Please Enter Business Name", comment: "businessNameValidationLabel")
+        zipCodeLabel.text = NSLocalizedString("Zipcode", comment: "zipCodeLabel")
+        txtZipcode.placeholder = NSLocalizedString("e.g. 11332", comment: "txtZipcode")
+        zipCodeValidationLabel.text = NSLocalizedString("Please Enter Zipcode", comment: "zipCodeValidationLabel")
+        timeZoneLabel.text = NSLocalizedString("Timezone", comment: "timeZoneLabel")
+        txtTimezone.placeholder = NSLocalizedString("Select Timezone", comment: "txtTimezone")
+        timeZoneValidationLabel.text = NSLocalizedString("Please Enter Timezone", comment: "timeZoneValidationLabel")
+        btnContinue.setTitle(NSLocalizedString("Continue", comment: "btnContinue"), for: .normal)
        
     }
     func checkTextValidation(){

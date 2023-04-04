@@ -60,6 +60,21 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var customNavView: UIView!
     @IBOutlet weak var btnMenu: UIButton!
     
+    @IBOutlet weak var lblTimeClock: UILabel!
+    @IBOutlet weak var lblClockOut1: UILabel!
+    @IBOutlet weak var lblClockOut2: UILabel!
+    @IBOutlet weak var lblProjectedClockOut: UILabel!
+    @IBOutlet weak var lblTotalHour: UILabel!
+    @IBOutlet weak var hourLabel: UILabel!
+    @IBOutlet weak var minuteLabel: UILabel!
+    @IBOutlet weak var myTimesheetLabel: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var btnOKBreakInPopUp: UIButton!
+    @IBOutlet weak var btnOKClockOutPopUp: UIButton!
+    @IBOutlet weak var clockOutPopUpLabel: UILabel!
+    @IBOutlet weak var btnOKClockInPopUp: UIButton!
+    @IBOutlet weak var clockInPopUpLabel: UILabel!
+    
     var menuV : CustomMenuView!
     var dashboardData:DashBoardData!
     var strCurrentDate = ""
@@ -75,7 +90,22 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
     var timer = Timer()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        lblTimeClock.text = NSLocalizedString("TimeClock", comment: "lblTimeClock")
+        lblClockOut1.text = NSLocalizedString("You are clocked out.", comment: "lblClockOut1")
+        lblClockOut2.text = NSLocalizedString("You are clocked out.", comment: "lblClockOut2")
+        lblProjectedClockOut.text = NSLocalizedString("Projected Out : -:-- --", comment: "lblProjectedClockOut")
+        lblTotalHour.text = NSLocalizedString("Total Hours", comment: "lblTotalHour")
+        hourLabel.text = NSLocalizedString("hr", comment: "hourLabel")
+        minuteLabel.text = NSLocalizedString("min", comment: "minuteLabel")
+        myTimesheetLabel.text = NSLocalizedString("My Timesheets", comment: "myTimesheetLabel")
+        totalLabel.text = NSLocalizedString("Total", comment: "totalLabel")
+        btnOKBreakInPopUp.setTitle(NSLocalizedString("Ok", comment: "btnOKBreakInPopUp"), for: .normal)
+        btnOKClockOutPopUp.setTitle(NSLocalizedString("Ok", comment: "btnOKClockOutPopUp"), for: .normal)
+        clockOutPopUpLabel.text = NSLocalizedString("You are clocked out.", comment: "clockOutPopUpLabel")
+        btnOKClockInPopUp.setTitle(NSLocalizedString("Ok", comment: "btnOKClockInPopUp"), for: .normal)
+        clockInPopUpLabel.text = NSLocalizedString("You are clocked in!", comment: "clockInPopUpLabel")
+        
         setupMenu()
         setData()
 //        self.logoutView.dropShadow()
@@ -352,7 +382,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
                 }else if  event_type == UserStatus.Inbreak.rawValue {
                     // self.showSucessMessage(strMessage: Localizable.Clockin.clockedout)
                     self.breakinSuccessPopup.isHidden = false
-                    self.lblMessagebreakinPopup.text = "You are on lunch break!"
+                    self.lblMessagebreakinPopup.text = NSLocalizedString("You are on lunch break!", comment: "lblMessagebreakinPopup")
                  }else if  event_type == UserStatus.Endbreak.rawValue {
                      // self.showSucessMessage(strMessage: Localizable.Clockin.clockedout)
                      self.clockInSuccessPopup.isHidden = false
@@ -388,19 +418,19 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
               
             let timeLineEvent = event.timelineEvent ?? ""
             if timeLineEvent == "I"{
-                timeReportViewNew.titleLabel.text = "Shift Start:"
+                timeReportViewNew.titleLabel.text = NSLocalizedString("Shift Start:", comment: "timeReportViewNew")
                 timeReportViewNew.barView.backgroundColor = UIColor.startShiftColor
                // startTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
             }else if timeLineEvent == "O"{
-                timeReportViewNew.titleLabel.text = "Shift End:"
+                timeReportViewNew.titleLabel.text = NSLocalizedString("Shift End:", comment: "timeReportViewNew")
                 timeReportViewNew.barView.backgroundColor = UIColor.endShiftColor
                // endTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
             }else if timeLineEvent == "B"{
-                timeReportViewNew.titleLabel.text = "Break Start:"
+                timeReportViewNew.titleLabel.text = NSLocalizedString("Break Start:", comment: "timeReportViewNew")
                 timeReportViewNew.barView.backgroundColor = UIColor.breakStartColor
               //  breakstartTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
             }else if timeLineEvent == "S"{
-                timeReportViewNew.titleLabel.text = "Break End:"
+                timeReportViewNew.titleLabel.text = NSLocalizedString("Break End:", comment: "lblMessagebreakinPopup")
                 timeReportViewNew.barView.backgroundColor = UIColor.breakEndColor
                // breakEndTime = event.timelineTime?.toDate(dateFormat:DateTimeFormat.wholedateTime.rawValue)
             }
@@ -484,7 +514,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
             changeStatus(event_type: UserStatus.loggedIN.rawValue)
         }
         else{
-            self.showAlert(alertType:.validation, message: "Plese end lunch break first.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Plese end lunch break first.", comment: "ClockInAlert"))
         }
     }
     
@@ -502,7 +532,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
             changeStatus(event_type: UserStatus.Inbreak.rawValue)
         }
         else{
-            self.showAlert(alertType:.validation, message: "You have to clock in first.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("You have to clock in first.", comment: "StartBreakAlert"))
         }
     }
     @IBAction func calenderNextClick(sender:UIButton){

@@ -27,6 +27,21 @@ class ResetPasswordVC: UIViewController {
     @IBOutlet weak var imgvwSpecialCharacter: UIImageView!
     @IBOutlet weak var vwGradiantContainer: UIView!
     
+    @IBOutlet weak var requirementTitleLabel: UILabel!
+    @IBOutlet weak var requirementLabel1: UILabel!
+    @IBOutlet weak var requirementLabel2: UILabel!
+    @IBOutlet weak var requirementLabel3: UILabel!
+    @IBOutlet weak var requirementLabel4: UILabel!
+    @IBOutlet weak var requirementLabel5: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var passwordValidationLabel: UILabel!
+    @IBOutlet weak var confirmPasswordLabel: UILabel!
+    @IBOutlet weak var confirmPasswordValidationLabel: UILabel!
+    @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnResetPassword: UIButton!
+    
     // MARK: - Variables
     var empId : String = ""
     
@@ -36,6 +51,23 @@ class ResetPasswordVC: UIViewController {
         vwGradiantContainer.setGradientBackground()
         Defaults.shared.forgotPasswordEmpId = nil
         // Do any additional setup after loading the view.
+        
+        requirementTitleLabel.text = NSLocalizedString("Please complete all the requirements.", comment: "requirementTitleLabel")
+        requirementLabel1.text = NSLocalizedString("Minimum 8 characters", comment: "requirementLabel1")
+        requirementLabel2.text = NSLocalizedString("Lowercase Letter", comment: "requirementLabel2")
+        requirementLabel3.text = NSLocalizedString("Capital Letter", comment: "requirementLabel3")
+        requirementLabel4.text = NSLocalizedString("Number", comment: "requirementLabel4")
+        requirementLabel5.text = NSLocalizedString("Special Character", comment: "requirementLabel5")
+        lblTitle.text = NSLocalizedString("Create New Password", comment: "lblTitle")
+        lblDescription.text = NSLocalizedString("Enter your new password below, both passwords must match", comment: "lblDescription")
+        passwordLabel.text = NSLocalizedString("Password", comment: "passwordLabel")
+        txtPassword.placeholder = NSLocalizedString("Enter Password", comment: "txtPassword")
+        passwordValidationLabel.text = NSLocalizedString("Please Enter Password", comment: "passwordValidationLabel")
+        confirmPasswordLabel.text = NSLocalizedString("Confirm Password", comment: "confirmPasswordLabel")
+        txtConfirmPassword.placeholder = NSLocalizedString("Enter Password Again", comment: "txtConfirmPassword")
+        confirmPasswordValidationLabel.text = NSLocalizedString("Please Re-Enter Password", comment: "confirmPasswordValidationLabel")
+        btnBack.setTitle(NSLocalizedString("Back to Login", comment: "btnBack"), for: .normal)
+        btnResetPassword.setTitle(NSLocalizedString("Reset Password", comment: "btnResetPassword"), for: .normal)
     }
     
     // MARK: - Button Actions

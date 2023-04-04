@@ -16,10 +16,25 @@ class OnboardingRegisterStep3VC: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var businessURLValidationView: UIView!
     @IBOutlet weak var vwGradiantContainer: UIView!
     
+    @IBOutlet weak var stepLabel: UILabel!
+    @IBOutlet weak var businessTitleLabel: UILabel!
+    @IBOutlet weak var businessUrlLabel: UILabel!
+    @IBOutlet weak var businessUrlValidationLabel: UILabel!
+    @IBOutlet weak var btnSkip: UIButton!
+    @IBOutlet weak var btnContinue: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
         // Do any additional setup after loading the view.
+        
+        stepLabel.text = NSLocalizedString("Step 3 of 5", comment: "stepLabel")
+        businessTitleLabel.text = NSLocalizedString("Does your business have a website ?", comment: "businessTitleLabel")
+        businessUrlLabel.text = NSLocalizedString("Business Website", comment: "businessUrlLabel")
+        txtBusinessURL.placeholder = NSLocalizedString("Enter Website URL", comment: "txtBusinessURL")
+        businessUrlValidationLabel.text = NSLocalizedString("Please Enter Valid URL", comment: "businessUrlValidationLabel")
+        btnSkip.setTitle(NSLocalizedString("Skip", comment: "btnSkip"), for: .normal)
+        btnContinue.setTitle(NSLocalizedString("Continue", comment: "btnContinue"), for: .normal)
     }
     
     func checkTextValidation(){
