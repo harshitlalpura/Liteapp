@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -253,7 +254,7 @@
                                                                         </constraints>
                                                                         <inset key="separatorInset" minX="23" minY="0.0" maxX="23" maxY="0.0"/>
                                                                         <view key="tableFooterView" contentMode="scaleToFill" id="qwZ-TY-zJA">
-                                                                            <rect key="frame" x="0.0" y="148" width="1004" height="70"/>
+                                                                            <rect key="frame" x="0.0" y="159" width="1004" height="70"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vC0-8s-pGQ">
@@ -286,7 +287,7 @@
                                                                         </view>
                                                                         <prototypes>
                                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsSelectionCell" rowHeight="81" id="9wy-VD-1uk" customClass="SettingsSelectionCell" customModule="Liteapp" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="44.5" width="1004" height="81"/>
+                                                                                <rect key="frame" x="0.0" y="50" width="1004" height="81"/>
                                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9wy-VD-1uk" id="EQY-2t-kcj">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="1004" height="81"/>
@@ -2793,6 +2794,7 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         <outlet property="accountStackView" destination="4j9-pg-fny" id="JZi-I4-Nwq"/>
                         <outlet property="blurOverlayView" destination="kE1-JP-1ug" id="9cE-DT-whE"/>
                         <outlet property="btnBiWeekly" destination="86t-Rg-oGZ" id="TAl-ln-gTb"/>
+                        <outlet property="btnChange" destination="2iN-i8-7Wd" id="W1V-BF-Pbx"/>
                         <outlet property="btnDeleteMyAccount" destination="vC0-8s-pGQ" id="Z4G-rC-hfw"/>
                         <outlet property="btnFriday" destination="BIY-K8-Lqh" id="sUa-mv-gMr"/>
                         <outlet property="btnMenu" destination="p1K-uw-UVj" id="XDT-CT-cSv"/>
@@ -2808,13 +2810,23 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         <outlet property="btnWeek2Option" destination="I89-P5-VYJ" id="UCk-ld-78z"/>
                         <outlet property="btnWeekly" destination="2SE-ac-ARl" id="jwU-8b-EXX"/>
                         <outlet property="btnselectPayPeriod" destination="GEI-XL-cSw" id="hsI-B6-Ibc"/>
+                        <outlet property="businessEmployeeCountLabel" destination="MKy-Fa-LWM" id="hko-ck-Six"/>
+                        <outlet property="businessNameLabel" destination="01F-5O-sv1" id="meD-uZ-sfl"/>
                         <outlet property="businessSettingsView" destination="ALa-ba-ixX" id="4dI-td-fl3"/>
+                        <outlet property="businessUrlLabel" destination="E6r-dM-9Rb" id="MZn-A1-jdp"/>
+                        <outlet property="congoContinueButton" destination="pYb-iT-fJU" id="JOl-Y4-aEk"/>
+                        <outlet property="congoDecsLabel" destination="tG0-Pv-GxT" id="MEH-xe-k9x"/>
+                        <outlet property="congoTitleLabel" destination="bmM-Mt-hKN" id="w5b-Yx-Yq2"/>
                         <outlet property="congratulationsPopup" destination="pMb-C5-m6s" id="P6q-gM-lrP"/>
                         <outlet property="continueButtonStep1" destination="abx-1n-QP8" id="8cn-Lt-MIB"/>
                         <outlet property="continueButtonStep2" destination="NHC-Xv-Vjc" id="EBW-HJ-TGK"/>
                         <outlet property="continueButtonStep3" destination="m3z-bi-kod" id="uf0-J5-s6f"/>
                         <outlet property="continueButtonStep4" destination="DL2-js-pxo" id="Yu3-Lh-9X4"/>
                         <outlet property="customNavView" destination="qGe-b8-iFC" id="myK-gv-1CZ"/>
+                        <outlet property="dailyOvertimeAfterLabel" destination="MQC-oX-apm" id="mki-pr-qKa"/>
+                        <outlet property="editModeDescLabel" destination="gJf-el-cPc" id="fU5-ic-I9y"/>
+                        <outlet property="editModeOkButton" destination="6D8-q5-TFR" id="hXx-wf-OrR"/>
+                        <outlet property="editModeTitleLabel" destination="muD-Ej-3WB" id="ul7-Z1-Fhh"/>
                         <outlet property="editPayPeriodDurationView" destination="0Wn-4V-isN" id="dMM-pG-Vwc"/>
                         <outlet property="editPayPeriodStartDayView" destination="cdD-xD-dK7" id="MaZ-5U-XKc"/>
                         <outlet property="editTooltipView" destination="9Ac-B1-ZhH" id="38p-eL-mRc"/>
@@ -2823,19 +2835,56 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         <outlet property="editWeeklyOvertimeView" destination="QLd-gz-8sn" id="YgH-L3-UiW"/>
                         <outlet property="editdailyOvertimeHoursView" destination="D0P-Nx-nhi" id="Z6E-Lf-cZS"/>
                         <outlet property="editdailyOvertimeView" destination="ZlU-UR-cLp" id="Nvu-4P-o75"/>
-                        <outlet property="lblusername" destination="Bt3-Yt-jr4" id="k7o-o4-KgS"/>
+                        <outlet property="lblAccountSettings" destination="Yw8-qH-Xrf" id="G28-AC-0af"/>
+                        <outlet property="lblBusinessSettings" destination="Hhp-yP-Dpp" id="55C-bR-IT7"/>
+                        <outlet property="lblDailyOvertime" destination="x66-f7-OQd" id="dOb-9Q-dgW"/>
+                        <outlet property="lblDailyOvertimeDesc" destination="zGQ-sX-dV8" id="2VR-vK-oOV"/>
+                        <outlet property="lblEdit" destination="IfD-XI-YiE" id="02v-Wg-SVb"/>
+                        <outlet property="lblEmail" destination="j0D-ar-cO6" id="jso-h7-UKr"/>
+                        <outlet property="lblFirstName" destination="Qs8-P1-PnQ" id="kJU-6Y-oYe"/>
+                        <outlet property="lblHour" destination="6dA-r6-HSA" id="zYZ-xc-YUa"/>
+                        <outlet property="lblLastName" destination="BEp-zx-emF" id="MB0-YS-BuD"/>
+                        <outlet property="lblPassword" destination="sJT-Zz-gb1" id="2ig-fD-0Mq"/>
+                        <outlet property="lblPayPeriod" destination="phE-4A-Orb" id="pwA-ZB-kEA"/>
+                        <outlet property="lblPayPeriodDesc" destination="lzp-wr-iAQ" id="lEs-Es-6Q1"/>
+                        <outlet property="lblPayPeriodStart" destination="mIn-3I-Vqt" id="Jov-Gb-xOn"/>
+                        <outlet property="lblPayPeriodStartDesc" destination="v1q-aW-RWO" id="vsc-Jz-KYm"/>
+                        <outlet property="lblPayPeriodWeek" destination="3Yi-Bg-lbo" id="7FK-dn-4PI"/>
+                        <outlet property="lblPayPeriodWeekDesc" destination="ytt-uD-18g" id="Pm9-44-QoD"/>
+                        <outlet property="lblSettings" destination="FP2-j6-KqD" id="ur7-Ml-bxj"/>
+                        <outlet property="lblSplitShift" destination="KPQ-AH-w5x" id="Tfx-ia-kKY"/>
+                        <outlet property="lblSplitShiftDesc" destination="vvM-he-FCf" id="jo4-rg-1MV"/>
+                        <outlet property="lblTimeClockSettings" destination="zhF-V2-wQI" id="jal-KI-sNt"/>
+                        <outlet property="lblWeeklyOvertime" destination="HH8-Au-S5B" id="2p0-Wz-kCg"/>
+                        <outlet property="lblWeeklyOvertimeDesc" destination="gWD-WV-Kzc" id="AWa-FP-LnA"/>
+                        <outlet property="lblusername" destination="ico-nc-VVl" id="Mvn-SL-C4W"/>
                         <outlet property="saveView" destination="Yrp-eQ-qW5" id="FVp-ik-4rv"/>
+                        <outlet property="saveViewCancelButton" destination="glh-kf-aUv" id="LhK-xi-7bi"/>
+                        <outlet property="saveViewSaveButton" destination="vpX-fa-C05" id="mGo-MG-4hn"/>
                         <outlet property="selectCurrentPayWeek" destination="tpa-fJ-BM3" id="68q-mh-7Bt"/>
                         <outlet property="selectPayPeriodView" destination="XBv-fo-05c" id="4tY-6s-IWp"/>
                         <outlet property="selectWeekStartdayView" destination="8tJ-Jt-MCP" id="PxL-8l-lRM"/>
                         <outlet property="selectWeekView" destination="AdU-wq-67q" id="8Es-Cf-egm"/>
                         <outlet property="skipEditDailyHours" destination="qdL-cQ-Aib" id="4AN-N7-bqS"/>
                         <outlet property="skipEditWeeklyHours" destination="b4Z-yY-a7S" id="8jd-xN-3Tg"/>
+                        <outlet property="step1DecsLabel" destination="APg-3Z-ywh" id="bLP-kd-2qj"/>
+                        <outlet property="step1TitleLabel" destination="0fc-oP-pf5" id="YWy-m7-PKf"/>
+                        <outlet property="step2DecsLabel" destination="Zj6-aG-lEL" id="jLF-Nr-VcE"/>
+                        <outlet property="step2TitleLabel" destination="HAn-3N-Ugc" id="3qR-tw-iVy"/>
+                        <outlet property="step3DecsLabel" destination="dtK-hT-3nH" id="3XS-NW-8sr"/>
+                        <outlet property="step3TitleLabel" destination="aa0-Zf-oRV" id="Dvg-Od-e0C"/>
+                        <outlet property="step4DecsLabel" destination="mKY-qs-MNe" id="kbm-Yv-xNH"/>
+                        <outlet property="step4TitleLabel" destination="j4c-m6-GKU" id="Z4J-Rz-Uga"/>
+                        <outlet property="successDecsLabel" destination="rfO-xs-8gD" id="2X4-DF-j6p"/>
                         <outlet property="successPopup" destination="dKg-H6-yTo" id="Byp-eh-EQi"/>
+                        <outlet property="successTitleLabel" destination="DeK-QG-CnN" id="zNt-Vd-evN"/>
+                        <outlet property="successViewCloseButton" destination="kNS-tQ-qio" id="ERz-R6-9TP"/>
+                        <outlet property="successViewContinueButton" destination="ou5-we-4EN" id="hPp-9A-KPF"/>
                         <outlet property="switchDailyOvertime" destination="K7o-Nh-eZw" id="usi-ct-QsS"/>
                         <outlet property="switchSplitShift" destination="Jrc-rx-lF9" id="Alf-ih-O59"/>
                         <outlet property="switchWeeklyOvertime" destination="BOX-Yg-Rgg" id="3MQ-p3-cIQ"/>
                         <outlet property="tblSelection" destination="hZG-fT-FWG" id="4ih-eI-c9z"/>
+                        <outlet property="timeZoneLabel" destination="CXm-NQ-igr" id="xCR-L1-6Mk"/>
                         <outlet property="timesheetSettingView" destination="iub-Qe-4p6" id="bTC-L4-obN"/>
                         <outlet property="timesheetStackView" destination="jMh-PF-U7e" id="uzo-FS-SCw"/>
                         <outlet property="txtBusinessName" destination="QLt-3Z-fM9" id="sw4-x5-MzR"/>
@@ -2855,6 +2904,8 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         <outlet property="txtselectWeekStartday" destination="Dbm-ET-Gv0" id="391-3z-VXI"/>
                         <outlet property="viewBiweeklySelection" destination="78R-Vx-52o" id="OoW-bH-Ii1"/>
                         <outlet property="viewSelection" destination="iDp-3r-JXc" id="50G-m6-aJG"/>
+                        <outlet property="weeklyOvertimeAfterLabel" destination="wSL-g8-gsC" id="KuA-jH-xQ7"/>
+                        <outlet property="zipCodeLabel" destination="M9N-rh-ISu" id="8AZ-Fh-YEG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cmh-0U-gWb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3068,7 +3119,7 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                                                         <rect key="frame" x="0.0" y="0.0" width="590.5" height="55"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Employee Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nm-ha-DH2">
-                                                                <rect key="frame" x="10" y="19.5" width="101" height="16.5"/>
+                                                                <rect key="frame" x="10" y="19.5" width="101" height="16"/>
                                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
                                                                 <color key="textColor" red="0.28235294117647058" green="0.33333333333333331" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
@@ -3105,7 +3156,7 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                                                         <rect key="frame" x="590.5" y="0.0" width="393.5" height="55"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHj-Cg-y80">
-                                                                <rect key="frame" x="10" y="19.5" width="53" height="16.5"/>
+                                                                <rect key="frame" x="10" y="19.5" width="53" height="16"/>
                                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
                                                                 <color key="textColor" red="0.28235294119999998" green="0.33333333329999998" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
@@ -3167,7 +3218,7 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EmployeeCell" id="Gxc-at-fif" customClass="EmployeeCell" customModule="Liteapp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="44.5" width="984" height="50"/>
+                                                        <rect key="frame" x="0.0" y="50" width="984" height="50"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gxc-at-fif" id="ITM-NV-gdR">
                                                             <rect key="frame" x="0.0" y="0.0" width="984" height="50"/>
@@ -3177,13 +3228,13 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                                                                     <rect key="frame" x="3" y="4" width="978" height="42"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0g-Rk-yuU">
-                                                                            <rect key="frame" x="10" y="13" width="587" height="16.5"/>
+                                                                            <rect key="frame" x="10" y="12.5" width="587" height="17"/>
                                                                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                                                                             <color key="textColor" name="appBlueColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyz-Z6-6n3">
-                                                                            <rect key="frame" x="597" y="13" width="371" height="16.5"/>
+                                                                            <rect key="frame" x="597" y="12.5" width="371" height="17"/>
                                                                             <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -3227,13 +3278,13 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                                                 <rect key="frame" x="5" y="60" width="984" height="1086"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Have No Employees Yet..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1aj-dV-NDb">
-                                                        <rect key="frame" x="8" y="501.5" width="968" height="23.5"/>
+                                                        <rect key="frame" x="8" y="501.5" width="968" height="23"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjV-4F-x00">
-                                                        <rect key="frame" x="8" y="537" width="968" height="35"/>
+                                                        <rect key="frame" x="8" y="536.5" width="968" height="35"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ka2-PC-lfS">
                                                                 <rect key="frame" x="0.0" y="0.0" width="968" height="35"/>
@@ -3324,7 +3375,12 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         <outlet property="btnMenu" destination="AsZ-ea-Ewo" id="gHY-7y-G3e"/>
                         <outlet property="customNavView" destination="7ij-Ru-SsA" id="w5E-cL-7dT"/>
                         <outlet property="jobTitleSortImageview" destination="8Rz-zH-sGk" id="Qk5-UD-Y1b"/>
+                        <outlet property="lblAddNew" destination="iNT-b8-QXi" id="bLM-0j-vEa"/>
                         <outlet property="lblCreateEmployee" destination="Ka2-PC-lfS" id="6A9-XU-916"/>
+                        <outlet property="lblEmployee" destination="wKs-Zr-TV8" id="b0D-RL-wqX"/>
+                        <outlet property="lblEmployeeName" destination="6nm-ha-DH2" id="WLu-nF-9Dr"/>
+                        <outlet property="lblJobTitle" destination="ZHj-Cg-y80" id="D9y-lw-enW"/>
+                        <outlet property="lblNoEmployee" destination="1aj-dV-NDb" id="oug-ap-4dF"/>
                         <outlet property="lblusername" destination="qIa-iF-YdI" id="mgb-DL-FID"/>
                         <outlet property="nameSortImageview" destination="j5a-9P-d0K" id="rSv-Xg-YUj"/>
                         <outlet property="tblview" destination="v14-v9-q3I" id="QrY-KV-dZy"/>
@@ -3507,6 +3563,13 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                     <connections>
                         <outlet property="btnCancel" destination="A2z-zy-2QM" id="NmW-YL-vVo"/>
                         <outlet property="btnSave" destination="F5a-WI-NjJ" id="SXM-3g-O08"/>
+                        <outlet property="lblDailyOvertime" destination="zbf-AD-q92" id="RvX-2s-lcb"/>
+                        <outlet property="lblPayPeriod" destination="2hH-Do-FfX" id="X9e-SV-2VT"/>
+                        <outlet property="lblPayPeriodStart" destination="5Vs-6o-gMy" id="GRb-zq-mg5"/>
+                        <outlet property="lblPayPeriodWeek" destination="ElJ-W6-qFa" id="5ng-rL-HNx"/>
+                        <outlet property="lblSaveDesc" destination="ZBk-BG-TJN" id="ujc-cu-vXu"/>
+                        <outlet property="lblSaveTitle" destination="uvP-C8-OS6" id="y6Q-l0-jEt"/>
+                        <outlet property="lblWeeklyOvertime" destination="cyu-ba-BCo" id="1jb-kg-sgc"/>
                         <outlet property="viewSavePopup" destination="Ryx-w6-Z93" id="bf1-49-67d"/>
                     </connections>
                 </viewController>
@@ -3641,6 +3704,10 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnCancel" destination="4bE-gc-Yrl" id="MGY-Ie-okO"/>
+                        <outlet property="btnDelete" destination="ktA-fa-PJO" id="bbB-OW-11P"/>
+                        <outlet property="lblDeleteDesc" destination="Q78-F2-2fT" id="fOc-lm-AtX"/>
+                        <outlet property="lblDeleteTitle" destination="C23-uD-YME" id="h1E-tI-Nvg"/>
                         <outlet property="viewPopup" destination="cIU-9N-jUn" id="nap-GC-Xe7"/>
                     </connections>
                 </viewController>
@@ -3748,6 +3815,9 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnClose" destination="yo8-d6-cgW" id="wdh-5f-pKP"/>
+                        <outlet property="lblSubtitle" destination="Kl5-Pq-S5x" id="b6Y-Zp-WBZ"/>
+                        <outlet property="lblTitle" destination="5Cv-0b-hYd" id="Tyo-dq-k7Y"/>
                         <outlet property="viewPopup" destination="Uaz-jd-8eX" id="6Jf-gJ-ROT"/>
                     </connections>
                 </viewController>
@@ -3885,6 +3955,10 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnCancel" destination="k3g-Ut-JYG" id="3Wc-CY-Vo4"/>
+                        <outlet property="btnDelete" destination="phf-7q-4or" id="t4z-py-YEf"/>
+                        <outlet property="lblDeleteDesc" destination="9um-nP-ohb" id="Ag8-6K-hiB"/>
+                        <outlet property="lblDeleteTitle" destination="knw-le-gFr" id="dfm-Qk-JAH"/>
                         <outlet property="viewPopup" destination="CpN-jb-XhG" id="tob-rW-vIW"/>
                     </connections>
                 </viewController>
@@ -4629,6 +4703,9 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                                                                                 <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="btnDeleteEmployeeTapped:" destination="8rg-jL-v31" eventType="touchUpInside" id="b4S-Sa-z6n"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <viewLayoutGuide key="safeArea" id="kgE-Y0-aY1"/>
@@ -5819,6 +5896,7 @@ button at the top of the page</string>
                     <connections>
                         <outlet property="IQLayoutGuideConstraint" destination="6YE-32-HyU" id="cgk-xF-XVR"/>
                         <outlet property="btnDeleteEmployee" destination="unb-sn-o69" id="9hA-0u-irB"/>
+                        <outlet property="btnEditModetOK" destination="uCQ-T1-eps" id="5yf-2k-A3i"/>
                         <outlet property="btnMenu" destination="BSx-3I-nfa" id="NWH-oY-Zxk"/>
                         <outlet property="btnWeekDay1" destination="b8B-wo-Nbu" id="dAE-BK-RPW"/>
                         <outlet property="btnWeekDay2" destination="msn-fh-Axy" id="t0i-IQ-lbc"/>
@@ -5830,7 +5908,11 @@ button at the top of the page</string>
                         <outlet property="collectionViewEvents" destination="15m-Zh-ogG" id="EH3-Ow-dDu"/>
                         <outlet property="constTopEditTooltip" destination="Bck-sp-Bo6" id="fwT-ST-Gig"/>
                         <outlet property="customNavView" destination="EO0-q1-AGk" id="79o-cX-7ta"/>
+                        <outlet property="datePickerCancelButton" destination="wnj-zW-hKd" id="KBq-kj-Nij"/>
+                        <outlet property="datePickerClearButton" destination="IhF-T5-heh" id="JaL-ZJ-0nI"/>
+                        <outlet property="datePickerDoneButton" destination="vgS-ZH-Kf2" id="BO6-y2-vrB"/>
                         <outlet property="datePickerView" destination="VGn-mT-oLp" id="8aT-zZ-N0h"/>
+                        <outlet property="dateViewCancelButton" destination="Cw2-2U-V24" id="Zzv-Qf-3Q1"/>
                         <outlet property="editTooltipView" destination="n2E-Fg-CNA" id="hQB-Wf-1a3"/>
                         <outlet property="editView" destination="6YE-32-HyU" id="Frz-Fg-5Dk"/>
                         <outlet property="employeeProfileSelectionView" destination="H3L-p7-bcs" id="igd-G3-t55"/>
@@ -5841,9 +5923,18 @@ button at the top of the page</string>
                         <outlet property="imgvwNumber" destination="qrL-S4-NXc" id="GtE-Uw-EJj"/>
                         <outlet property="imgvwSpecialCharacter" destination="pPy-Ny-31L" id="mh4-0V-77T"/>
                         <outlet property="imgvwminimumCharacter" destination="5Ah-Z5-h51" id="ySt-Qz-28b"/>
+                        <outlet property="lblEdit" destination="1Hy-Mc-IeN" id="lAq-v7-xtM"/>
+                        <outlet property="lblEditModeTitle" destination="Vm8-bv-CHc" id="Wr9-Tz-IcA"/>
+                        <outlet property="lblEditModetDesc" destination="b5V-ux-WWC" id="el6-FF-w3E"/>
+                        <outlet property="lblProfile" destination="hCr-Dl-laD" id="IBM-TG-vDZ"/>
+                        <outlet property="lblSelectDate" destination="htZ-YY-9Ob" id="VH4-K3-pXS"/>
+                        <outlet property="lblTimesheetDesc" destination="fRO-4X-y6z" id="WNm-G0-Ffk"/>
+                        <outlet property="lblTimesheetTitle" destination="ASq-Cx-NMC" id="d0v-yM-zb2"/>
+                        <outlet property="lblUserInfoDesc" destination="fq1-Me-q3N" id="wnt-MM-ccD"/>
+                        <outlet property="lblUserInfoTitle" destination="eVZ-ey-sHs" id="LqU-Cv-qov"/>
                         <outlet property="lblname" destination="qrs-Ef-yEw" id="gDi-qk-KWv"/>
                         <outlet property="lblusername" destination="0YW-ch-rnG" id="pul-4z-2Kf"/>
-                        <outlet property="lblweekDay1" destination="h1t-8N-j6w" id="D8T-A9-Rnb"/>
+                        <outlet property="lblweekDay1" destination="SEi-Pf-Zsr" id="zxg-uh-uHG"/>
                         <outlet property="lblweekDay2" destination="pdf-7K-dh1" id="NzG-uK-Obg"/>
                         <outlet property="lblweekDay3" destination="WOL-bZ-LV8" id="z16-EV-Pvi"/>
                         <outlet property="lblweekDay5" destination="wr3-dZ-NyO" id="7ZF-ZA-Lzs"/>
@@ -5858,7 +5949,15 @@ button at the top of the page</string>
                         <outlet property="lblweekDayDate7" destination="WxU-6n-vST" id="fXt-KV-B6T"/>
                         <outlet property="passwordValidationView" destination="SzL-De-ZEJ" id="etL-kh-mFy"/>
                         <outlet property="picker" destination="BvH-xy-yfS" id="Rkx-Qm-xZo"/>
+                        <outlet property="requirementLabel1" destination="Plf-d0-vLb" id="FdL-YH-DSU"/>
+                        <outlet property="requirementLabel2" destination="5L4-a3-xV7" id="0GN-Ee-sD9"/>
+                        <outlet property="requirementLabel3" destination="dLq-ey-BBW" id="kaX-QW-ARs"/>
+                        <outlet property="requirementLabel4" destination="UER-gZ-sNi" id="NXE-vr-C1a"/>
+                        <outlet property="requirementLabel5" destination="4g7-9M-SVC" id="avv-jN-WX7"/>
+                        <outlet property="requirementTitleLabel" destination="SC7-2e-OZt" id="ieL-JO-1PU"/>
                         <outlet property="saveView" destination="Rfs-Xm-8JG" id="qR6-Pi-hHv"/>
+                        <outlet property="saveViewCancelButton" destination="yfn-0W-u3F" id="l9f-vI-unj"/>
+                        <outlet property="saveViewSaveButton" destination="hdE-fp-kBe" id="imC-Mp-B7o"/>
                         <outlet property="selectedPayperiodLabel" destination="io5-hc-pYX" id="8Ea-Tl-ecm"/>
                         <outlet property="tblEvents" destination="QNB-BX-ofg" id="k75-jV-CXA"/>
                         <outlet property="timereportView" destination="G4s-ua-w7y" id="KeS-jG-1hb"/>
@@ -7607,7 +7706,11 @@ button at the top of the page</string>
                         <outlet property="btnWeekDay7" destination="VW3-5E-MdR" id="CdY-5d-ULY"/>
                         <outlet property="collectionViewEvents" destination="xPn-Ll-UvF" id="wDb-js-Czk"/>
                         <outlet property="customNavView" destination="Ncb-DT-lLJ" id="uWz-OW-9og"/>
+                        <outlet property="datePickerCancelButton" destination="Isp-Pl-C5w" id="wLi-cl-02w"/>
+                        <outlet property="datePickerClearButton" destination="FTB-4o-BNg" id="Klo-gV-faw"/>
+                        <outlet property="datePickerDoneButton" destination="22T-7P-vcZ" id="EWa-9t-Hf4"/>
                         <outlet property="datePickerView" destination="uGU-IT-ZA0" id="kPa-ml-08F"/>
+                        <outlet property="dateViewCancelButton" destination="vhc-cf-esF" id="R2M-jP-rfP"/>
                         <outlet property="employeeProfileSelectionView" destination="FhO-HT-PWN" id="RXa-3N-Lcl"/>
                         <outlet property="eventCollectionviewHeightConstraint" destination="C0g-mK-er6" id="PJP-jG-wT7"/>
                         <outlet property="eventTableHeightConstraint" destination="PF5-bL-sXP" id="a7m-nb-mhk"/>
@@ -7616,6 +7719,19 @@ button at the top of the page</string>
                         <outlet property="imgvwNumber" destination="RIc-pG-shQ" id="Q2A-Za-oqG"/>
                         <outlet property="imgvwSpecialCharacter" destination="XPh-FV-bdV" id="ENF-Uh-BZc"/>
                         <outlet property="imgvwminimumCharacter" destination="PzO-ph-Yne" id="HJK-TS-E9f"/>
+                        <outlet property="lblEmail" destination="P8y-rV-dQh" id="mCr-1j-sab"/>
+                        <outlet property="lblFirstName" destination="cne-jl-5Mn" id="xxW-3I-oZA"/>
+                        <outlet property="lblJobTitle" destination="ItO-ng-43Q" id="PeG-m4-C7E"/>
+                        <outlet property="lblLastName" destination="z8W-5a-9DH" id="5s3-6G-ipp"/>
+                        <outlet property="lblPassword" destination="hVB-PB-s8c" id="0B1-N4-RxC"/>
+                        <outlet property="lblPayPeriod" destination="3IM-u4-o67" id="7jC-16-PCe"/>
+                        <outlet property="lblProfile" destination="6KX-RF-uKv" id="Paa-GB-Hsq"/>
+                        <outlet property="lblSelectDate" destination="qNo-H1-xqH" id="cXN-Ye-KhV"/>
+                        <outlet property="lblTimesheetDesc" destination="lZh-iu-qQM" id="fTv-5Z-17e"/>
+                        <outlet property="lblTimesheetTitle" destination="ILV-R3-Ygy" id="vdh-c5-fzi"/>
+                        <outlet property="lblUserDetails" destination="SO6-J3-nlL" id="bQ4-mt-ySc"/>
+                        <outlet property="lblUserInfoDesc" destination="ehw-S2-GXN" id="2Lw-1O-XLY"/>
+                        <outlet property="lblUserInfoTitle" destination="ijz-4Y-Enl" id="Jjo-uZ-Iv7"/>
                         <outlet property="lblname" destination="tYz-U2-nu2" id="nxf-je-vlK"/>
                         <outlet property="lblusername" destination="MTI-Mb-FZq" id="HSn-s8-VLm"/>
                         <outlet property="lblweekDay1" destination="OWr-lR-i9o" id="NJ7-uO-aH8"/>
@@ -7634,7 +7750,15 @@ button at the top of the page</string>
                         <outlet property="lblweekDayDate7" destination="fTC-3v-WFI" id="oQG-8T-aXi"/>
                         <outlet property="passwordValidationView" destination="FQK-pV-9sz" id="eCf-ct-6Uc"/>
                         <outlet property="picker" destination="rJC-NP-910" id="t3d-Oi-p2a"/>
+                        <outlet property="requirementLabel1" destination="I8P-mf-xU5" id="eHS-wK-ojk"/>
+                        <outlet property="requirementLabel2" destination="9xF-8K-Iup" id="iwi-9b-MG2"/>
+                        <outlet property="requirementLabel3" destination="dUy-2X-baL" id="LjB-a7-o1Y"/>
+                        <outlet property="requirementLabel4" destination="paG-tY-Lot" id="fgp-mV-dmk"/>
+                        <outlet property="requirementLabel5" destination="CXn-zW-sqF" id="EzG-gj-mIf"/>
+                        <outlet property="requirementTitleLabel" destination="Tv3-yR-c8m" id="4l9-bF-hVL"/>
                         <outlet property="saveView" destination="l8P-H1-f3l" id="FSS-4p-G04"/>
+                        <outlet property="saveViewCancelButton" destination="eqh-md-NOU" id="q8W-bR-HpP"/>
+                        <outlet property="saveViewSaveButton" destination="wke-qp-hNC" id="x9Q-93-1Kc"/>
                         <outlet property="selectedPayperiodLabel" destination="CfL-ah-cwz" id="8qn-uT-uph"/>
                         <outlet property="tblEvents" destination="F6S-ET-LO9" id="qwu-id-LFq"/>
                         <outlet property="timereportView" destination="f5T-PO-y4Y" id="Nq4-TQ-OAg"/>
@@ -7664,16 +7788,16 @@ button at the top of the page</string>
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y5i-9k-MEq">
-                                        <rect key="frame" x="50" y="70" width="924" height="602.5"/>
+                                        <rect key="frame" x="50" y="70" width="924" height="593"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Employee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Q5-LE-GR9">
-                                                <rect key="frame" x="15" y="14" width="153" height="22.5"/>
+                                                <rect key="frame" x="15" y="14" width="141.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dau-Id-BjJ">
-                                                <rect key="frame" x="15" y="48.5" width="899" height="34"/>
+                                                <rect key="frame" x="15" y="45" width="899" height="28"/>
                                                 <string key="text" base64-UTF8="YES">
 SG93IHdvdWxkIHlvdSBsaWtlIHRvIGFkZAt5b3VyIGVtcGxveWVlcz8
 </string>
@@ -7682,7 +7806,7 @@ SG93IHdvdWxkIHlvdSBsaWtlIHRvIGFkZAt5b3VyIGVtcGxveWVlcz8
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Apy-MC-sdG">
-                                                <rect key="frame" x="15" y="122.5" width="894" height="430"/>
+                                                <rect key="frame" x="15" y="113" width="894" height="430"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1J1-2i-Pbp">
                                                         <rect key="frame" x="0.0" y="0.0" width="894" height="100"/>
@@ -8005,6 +8129,16 @@ SG93IHdvdWxkIHlvdSBsaWtlIHRvIGFkZAt5b3VyIGVtcGxveWVlcz8
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lblDesc" destination="dau-Id-BjJ" id="nVP-k2-0L0"/>
+                        <outlet property="lblDesc1" destination="gxx-Li-0iU" id="UV5-qn-Cr7"/>
+                        <outlet property="lblDesc2" destination="ZU4-Ea-dGv" id="z1L-SO-zr5"/>
+                        <outlet property="lblDesc3" destination="mMA-Ws-j2j" id="yib-wH-vl6"/>
+                        <outlet property="lblDesc4" destination="5fW-NG-OBc" id="CnV-eL-xZd"/>
+                        <outlet property="lblTitle" destination="3Q5-LE-GR9" id="px9-2g-RPn"/>
+                        <outlet property="lblTitle1" destination="VpM-FM-skQ" id="qEK-Qh-kN1"/>
+                        <outlet property="lblTitle2" destination="eBy-CA-6HX" id="vQm-Cy-T8e"/>
+                        <outlet property="lblTitle3" destination="0IU-5z-Ejm" id="VMY-zZ-DUK"/>
+                        <outlet property="lblTitle4" destination="v7s-gf-QdA" id="LUI-NM-VsZ"/>
                         <outlet property="viewPopup" destination="Y5i-9k-MEq" id="fpA-ej-lrw"/>
                     </connections>
                 </viewController>
@@ -8353,6 +8487,15 @@ SG93IHdvdWxkIHlvdSBsaWtlIHRvIGFkZAt5b3VyIGVtcGxveWVlcz8
                             <constraint firstItem="3nz-qC-6qt" firstAttribute="trailing" secondItem="xh9-F1-e7X" secondAttribute="trailing" id="rQ1-zA-L44"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="btnClose" destination="Vsf-lx-Au7" id="rlU-Lu-bMi"/>
+                        <outlet property="lblApple" destination="GZ4-aF-bNB" id="rdA-Kq-Jft"/>
+                        <outlet property="lblDesc" destination="303-rP-Xpr" id="iQh-ud-iCT"/>
+                        <outlet property="lblGmail" destination="Kxb-Ee-FBn" id="hwT-Gd-VF6"/>
+                        <outlet property="lblOutlook" destination="3k6-qH-4bO" id="AbY-x5-gqB"/>
+                        <outlet property="lblTitle" destination="A1L-cz-k38" id="eQU-av-end"/>
+                        <outlet property="lblviaEmail" destination="cZe-gB-GYk" id="XQS-7c-eyO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ZZ-CN-9ih" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -8415,7 +8558,7 @@ a invite to</string>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="70" id="BdK-IT-ngn" customClass="ContactCell" customModule="Liteapp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="44.5" width="974" height="70"/>
+                                                                <rect key="frame" x="0.0" y="50" width="974" height="70"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BdK-IT-ngn" id="71s-xo-RRt">
                                                                     <rect key="frame" x="0.0" y="0.0" width="974" height="70"/>
@@ -8568,6 +8711,9 @@ a invite to</string>
                     </view>
                     <connections>
                         <outlet property="btnInvite" destination="alR-Ul-fDC" id="yAa-2H-pYQ"/>
+                        <outlet property="lblDesc" destination="d5g-94-IcF" id="9pk-63-6kr"/>
+                        <outlet property="lblTitle" destination="NKv-D6-7pb" id="hl1-5c-U9X"/>
+                        <outlet property="lblviaText" destination="80k-oz-bNw" id="xPB-k2-bma"/>
                         <outlet property="searchbar" destination="ti4-EO-nf0" id="FX7-uW-F1W"/>
                         <outlet property="tblview" destination="uKg-5v-Cz2" id="j4a-ex-qR0"/>
                     </connections>
@@ -8734,7 +8880,12 @@ This referral code is only valid for 30 days.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnClose" destination="aAP-Mw-m7T" id="Hrs-7k-HBa"/>
+                        <outlet property="btnCode" destination="X3L-kF-hdS" id="paN-aH-P9q"/>
                         <outlet property="lblCode" destination="qPy-Cg-dRg" id="9wv-Ud-OWe"/>
+                        <outlet property="lblDesc" destination="sI1-wT-iAv" id="nkD-Gn-wxg"/>
+                        <outlet property="lblTitle" destination="i6q-Wa-SCZ" id="Rfj-bD-64Q"/>
+                        <outlet property="lblviaCode" destination="5y1-RY-CQK" id="4QY-xu-MU0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IOh-c3-QRr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9e4-Ql-E5u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9e4-Ql-E5u">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -53,10 +54,10 @@
                                 <rect key="frame" x="0.0" y="24" width="1024" height="230"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wqb-zf-JfG">
-                                        <rect key="frame" x="0.0" y="54.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="62.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="zFB-NJ-tFE">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -141,10 +142,10 @@
                                 <rect key="frame" x="0.0" y="74" width="1024" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FJA-RA-D2Z">
-                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Wkc-QG-xoX">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -548,7 +549,7 @@ Let's get started</string>
                                                 <rect key="frame" x="0.0" y="300" width="784" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYx-ve-sie">
-                                                        <rect key="frame" x="200" y="25.5" width="384" height="29"/>
+                                                        <rect key="frame" x="150" y="25.5" width="484" height="29"/>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Don't have an account? Register here">
                                                                 <attributes>
@@ -561,7 +562,7 @@ Let's get started</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CeX-wm-BmO">
-                                                        <rect key="frame" x="200" y="25.5" width="384" height="29"/>
+                                                        <rect key="frame" x="634" y="25.5" width="24" height="29"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title=""/>
                                                         <connections>
@@ -571,12 +572,12 @@ Let's get started</string>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="CeX-wm-BmO" firstAttribute="leading" secondItem="gYx-ve-sie" secondAttribute="leading" id="2wZ-gp-5Jh"/>
+                                                    <constraint firstItem="gYx-ve-sie" firstAttribute="leading" secondItem="UP6-lj-Avq" secondAttribute="leading" constant="150" id="2wZ-gp-5Jh"/>
                                                     <constraint firstItem="gYx-ve-sie" firstAttribute="centerY" secondItem="UP6-lj-Avq" secondAttribute="centerY" constant="15" id="Ika-LB-7tZ"/>
                                                     <constraint firstAttribute="height" constant="50" id="Lz6-z5-1FQ"/>
                                                     <constraint firstItem="CeX-wm-BmO" firstAttribute="top" secondItem="gYx-ve-sie" secondAttribute="top" id="ZHh-3P-XOY"/>
                                                     <constraint firstItem="CeX-wm-BmO" firstAttribute="bottom" secondItem="gYx-ve-sie" secondAttribute="bottom" id="eIk-4c-W3C"/>
-                                                    <constraint firstItem="CeX-wm-BmO" firstAttribute="trailing" secondItem="gYx-ve-sie" secondAttribute="trailing" id="vML-wI-Lmf"/>
+                                                    <constraint firstItem="gYx-ve-sie" firstAttribute="trailing" secondItem="CeX-wm-BmO" secondAttribute="leading" id="vML-wI-Lmf"/>
                                                     <constraint firstItem="gYx-ve-sie" firstAttribute="centerX" secondItem="UP6-lj-Avq" secondAttribute="centerX" id="zJ3-eC-FhO"/>
                                                 </constraints>
                                             </view>
@@ -617,13 +618,19 @@ Let's get started</string>
                     <navigationItem key="navigationItem" id="obJ-yq-zlt"/>
                     <connections>
                         <outlet property="btnForgotPassword" destination="8hN-RB-xwG" id="J5Z-Og-fhs"/>
+                        <outlet property="btnLogin" destination="IuW-lW-9OD" id="7e6-LR-LC4"/>
+                        <outlet property="btnRegister" destination="CeX-wm-BmO" id="sE9-LA-w2N"/>
                         <outlet property="emailTextValidationView" destination="Q7d-Rv-UOY" id="RIt-xI-2hE"/>
                         <outlet property="imgvwCapitalLetter" destination="9kQ-2F-xkh" id="wfI-Zn-Wib"/>
                         <outlet property="imgvwLowercaseLetter" destination="grI-Ot-Eha" id="g1A-gM-Zgy"/>
                         <outlet property="imgvwNumber" destination="UbV-wc-gVX" id="dZv-dJ-Rqt"/>
                         <outlet property="imgvwSpecialCharacter" destination="6Lq-jR-ik4" id="AcQ-PR-shd"/>
                         <outlet property="imgvwminimumCharacter" destination="Hhw-rj-4HD" id="ahk-lZ-mvk"/>
+                        <outlet property="lblEmail" destination="crU-Rt-YgY" id="MXs-Dg-qN0"/>
+                        <outlet property="lblPassword" destination="90C-0f-Ldo" id="1oC-fg-r7k"/>
+                        <outlet property="lblRegister" destination="gYx-ve-sie" id="asj-Z0-DAG"/>
                         <outlet property="lblTermsAndPrivacy" destination="yv2-Fd-vZJ" id="dse-WG-6ES"/>
+                        <outlet property="lblTitle" destination="smD-lF-WDx" id="UDu-G7-TPr"/>
                         <outlet property="passwordTextValidationView" destination="Lb9-VN-bhH" id="Ceb-VJ-mDw"/>
                         <outlet property="passwordValidationView" destination="cqa-Ca-GAn" id="tpC-xX-rD4"/>
                         <outlet property="txtEmail" destination="Ar4-jj-G6P" id="HbV-nl-RFc"/>
@@ -647,10 +654,10 @@ Let's get started</string>
                                 <rect key="frame" x="0.0" y="24" width="1024" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="z0q-7n-emx">
-                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="JDi-FF-V07">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -786,7 +793,7 @@ Let's get started</string>
                                                 <rect key="frame" x="0.0" y="210" width="724" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYo-cO-IoE">
-                                                        <rect key="frame" x="201.5" y="28" width="321" height="24"/>
+                                                        <rect key="frame" x="100" y="28" width="524" height="24"/>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Already have an account?">
                                                                 <attributes>
@@ -812,7 +819,7 @@ Let's get started</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Uf-rf-LuB">
-                                                        <rect key="frame" x="201.5" y="28" width="321" height="24"/>
+                                                        <rect key="frame" x="600" y="28" width="24" height="24"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title=""/>
                                                         <connections>
@@ -823,10 +830,10 @@ Let's get started</string>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="2RD-ev-ndr"/>
-                                                    <constraint firstItem="2Uf-rf-LuB" firstAttribute="leading" secondItem="RYo-cO-IoE" secondAttribute="leading" id="7Bg-Va-pAT"/>
+                                                    <constraint firstItem="2Uf-rf-LuB" firstAttribute="trailing" secondItem="PUM-n3-Tgb" secondAttribute="trailing" constant="-100" id="7Bg-Va-pAT"/>
                                                     <constraint firstItem="RYo-cO-IoE" firstAttribute="centerX" secondItem="PUM-n3-Tgb" secondAttribute="centerX" id="T3C-nV-63R"/>
                                                     <constraint firstItem="2Uf-rf-LuB" firstAttribute="top" secondItem="RYo-cO-IoE" secondAttribute="top" id="TtW-oi-ybb"/>
-                                                    <constraint firstItem="2Uf-rf-LuB" firstAttribute="trailing" secondItem="RYo-cO-IoE" secondAttribute="trailing" id="i96-Nj-OPk"/>
+                                                    <constraint firstItem="RYo-cO-IoE" firstAttribute="leading" secondItem="PUM-n3-Tgb" secondAttribute="leading" constant="100" id="i96-Nj-OPk"/>
                                                     <constraint firstItem="2Uf-rf-LuB" firstAttribute="bottom" secondItem="RYo-cO-IoE" secondAttribute="bottom" id="uXQ-B9-aPp"/>
                                                     <constraint firstItem="RYo-cO-IoE" firstAttribute="centerY" secondItem="PUM-n3-Tgb" secondAttribute="centerY" constant="15" id="xHn-Jj-nho"/>
                                                 </constraints>
@@ -881,7 +888,14 @@ Let's get started</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnEmployee" destination="v6E-Kh-L3Q" id="CHd-qi-kz2"/>
+                        <outlet property="btnLogin" destination="2Uf-rf-LuB" id="paO-pf-0Ko"/>
+                        <outlet property="btnManager" destination="mjy-hw-KcW" id="Vcq-1S-SFO"/>
+                        <outlet property="lblEmployee" destination="OiY-AL-lgD" id="AcX-9C-PMy"/>
+                        <outlet property="lblLogin" destination="RYo-cO-IoE" id="p9o-tE-hRz"/>
+                        <outlet property="lblManager" destination="ycZ-ho-fUW" id="xCp-ZY-eZf"/>
                         <outlet property="lblTermsAndPrivacy" destination="3jG-fa-Eug" id="yAr-u7-OYG"/>
+                        <outlet property="lblTitle" destination="6ll-8P-s1S" id="srO-9p-1o7"/>
                         <outlet property="vwGradiantContainer" destination="aum-PP-P5M" id="gec-uy-t7r"/>
                     </connections>
                 </viewController>
@@ -1648,23 +1662,43 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="SMK-xc-EMe" id="t1T-kO-Efa"/>
                         <outlet property="confirmPasswordTextValidationView" destination="x2a-0T-Gh0" id="ALI-MB-KG8"/>
+                        <outlet property="confirmPasswordValidationLabel" destination="vFy-aM-TNz" id="H6H-qN-m3b"/>
                         <outlet property="emailTextValidationView" destination="Xqy-dO-P3z" id="BIb-jp-t2c"/>
+                        <outlet property="emailValidationLabel" destination="7P0-VE-SLN" id="3c2-4D-pyg"/>
                         <outlet property="firstNameTextValidationView" destination="Afn-5N-W9h" id="9Lv-Xh-QQf"/>
+                        <outlet property="firstNameValidationLabel" destination="j1r-o1-jjb" id="sEq-Mm-Qo6"/>
                         <outlet property="imgvwCapitalLetter" destination="6S4-Eh-owr" id="nds-Y7-ViB"/>
                         <outlet property="imgvwLowercaseLetter" destination="YWr-io-r5Z" id="BVk-Kh-hr7"/>
                         <outlet property="imgvwNumber" destination="x80-SF-urR" id="fdI-cX-td9"/>
                         <outlet property="imgvwSpecialCharacter" destination="54i-hy-eco" id="F4Q-0Z-foj"/>
                         <outlet property="imgvwminimumCharacter" destination="RgL-ue-bse" id="GbW-eI-CfB"/>
                         <outlet property="lastNameTextValidationView" destination="WNo-XO-IGi" id="yEi-ti-2dO"/>
+                        <outlet property="lastNameValidationLabel" destination="lNa-dC-oMY" id="MFs-gv-utN"/>
+                        <outlet property="lblConfirmPassword" destination="LPw-T7-I41" id="avC-VV-V9a"/>
+                        <outlet property="lblEmail" destination="QUQ-aW-Drb" id="EX4-L5-gik"/>
+                        <outlet property="lblFirstName" destination="MWo-ot-Fqz" id="bBJ-5t-fBy"/>
+                        <outlet property="lblLastName" destination="IkA-WY-fLr" id="iec-Sw-C77"/>
+                        <outlet property="lblPassword" destination="6sL-Wf-Y1l" id="iCE-Ut-vOb"/>
+                        <outlet property="lblTitle" destination="gMd-8f-TOf" id="dh0-R8-ocg"/>
+                        <outlet property="lblUserName" destination="NL0-wF-CCR" id="1C6-4D-3Qq"/>
                         <outlet property="passwordTextValidationView" destination="fds-3p-PrR" id="stq-V4-9K9"/>
+                        <outlet property="passwordValidationLabel" destination="Qce-Xs-lxO" id="9If-F1-gbC"/>
                         <outlet property="passwordValidationView" destination="vYV-jg-Wmw" id="VWv-kD-zLr"/>
+                        <outlet property="requirementLabel1" destination="qF9-U7-nvX" id="zKb-hb-H19"/>
+                        <outlet property="requirementLabel2" destination="rmw-Y3-kv2" id="ABY-UE-hC7"/>
+                        <outlet property="requirementLabel3" destination="nLa-HF-Cmq" id="xn4-XY-wxN"/>
+                        <outlet property="requirementLabel4" destination="Zxe-3X-zaF" id="AuP-CG-n1t"/>
+                        <outlet property="requirementLabel5" destination="vcg-px-bNS" id="jQ0-rC-EY2"/>
+                        <outlet property="requirementTitleLabel" destination="Dq1-B0-51y" id="F8r-Pq-2Ct"/>
                         <outlet property="txtConfirmPassword" destination="hhB-Xs-cgJ" id="82R-rZ-KBl"/>
                         <outlet property="txtEmail" destination="t7R-9B-lG1" id="VC6-Q7-1Jo"/>
                         <outlet property="txtFirstName" destination="eQg-e1-y66" id="UZn-6w-AH4"/>
                         <outlet property="txtLastName" destination="nRP-Hz-wcW" id="u24-iY-MBO"/>
                         <outlet property="txtPassword" destination="HFj-Kn-gUG" id="YjY-0l-abn"/>
                         <outlet property="txtUsername" destination="Xpi-Bf-SM1" id="ZXD-62-Ksu"/>
+                        <outlet property="userNameValidationLabel" destination="QVQ-Ox-iTT" id="hi2-OU-p4C"/>
                         <outlet property="usernameTextValidationView" destination="F9B-Jc-l2c" id="1EN-N7-lNW"/>
                         <outlet property="vwGradiantContainer" destination="taW-CB-M41" id="ACl-vq-tOW"/>
                     </connections>
@@ -1685,10 +1719,10 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                                 <rect key="frame" x="0.0" y="24" width="1024" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fRX-hZ-7Km">
-                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="E05-st-LU2">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -1875,7 +1909,13 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="PJq-B9-ezr" id="rIw-pv-7qN"/>
+                        <outlet property="btnSkip" destination="Mfw-o2-Zh5" id="DwJ-wU-lqV"/>
+                        <outlet property="businessTitleLabel" destination="KHR-22-GVi" id="B4x-yI-X0t"/>
                         <outlet property="businessURLValidationView" destination="5jW-mz-nOY" id="jZd-IH-w0f"/>
+                        <outlet property="businessUrlLabel" destination="V5x-jn-AZv" id="nb9-6Q-pW2"/>
+                        <outlet property="businessUrlValidationLabel" destination="ch7-Wy-gfk" id="iIX-u3-Eqj"/>
+                        <outlet property="stepLabel" destination="fRj-cX-Vlc" id="ljV-eo-C7T"/>
                         <outlet property="txtBusinessURL" destination="VkQ-Iu-mrB" id="63S-dn-0qw"/>
                         <outlet property="vwGradiantContainer" destination="36p-cX-ibT" id="nE3-Oh-mVI"/>
                     </connections>
@@ -1906,10 +1946,10 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                                                 <rect key="frame" x="0.0" y="24" width="1024" height="248"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qxx-Hw-8g6">
-                                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="gKu-6Q-nR7">
-                                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                                             </imageView>
                                                         </subviews>
                                                     </stackView>
@@ -2299,16 +2339,19 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnCompleteAccount" destination="aaL-pT-q9E" id="Mdd-Qx-eQA"/>
                         <outlet property="btnViewRange100to499" destination="EhX-TQ-pXW" id="26y-Ej-zpX"/>
                         <outlet property="btnViewRange1to4" destination="UDa-UE-3yr" id="MwU-aq-0jH"/>
                         <outlet property="btnViewRange20to99" destination="gWL-cg-plK" id="xtF-dJ-a7d"/>
                         <outlet property="btnViewRange500Plus" destination="WV6-2a-H5T" id="wMT-Ih-ezv"/>
                         <outlet property="btnViewRange5to19" destination="rPC-d1-RwR" id="xoz-Q9-Co7"/>
+                        <outlet property="businessTitleLabel" destination="hGw-f7-M4Q" id="eg1-jJ-OJO"/>
                         <outlet property="imgViewRange100to499" destination="508-Xe-gWl" id="9HO-T9-byY"/>
                         <outlet property="imgViewRange1to4" destination="JNr-ge-qMT" id="pqS-hO-1sp"/>
                         <outlet property="imgViewRange20to99" destination="0uV-Jq-vU0" id="CPf-G1-Z1u"/>
                         <outlet property="imgViewRange500Plus" destination="zGu-Wv-xdi" id="153-ZN-gD0"/>
                         <outlet property="imgViewRange5to19" destination="sr1-KX-7OK" id="ZVP-4V-PDQ"/>
+                        <outlet property="stepLabel" destination="i4I-Bq-gRK" id="AGE-UU-csN"/>
                         <outlet property="vwGradiantContainer" destination="Qch-aH-X9P" id="s2u-mb-Ird"/>
                     </connections>
                 </viewController>
@@ -2338,10 +2381,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="248"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wz2-XA-Mxp">
-                                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="SUA-xG-jVe">
-                                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                                             </imageView>
                                                         </subviews>
                                                     </stackView>
@@ -2699,12 +2742,21 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="1vm-ZZ-5PV" id="QfH-ca-bEE"/>
+                        <outlet property="businessNameLabel" destination="Llt-f6-UO9" id="mVd-eq-skm"/>
+                        <outlet property="businessNameValidationLabel" destination="S2O-8g-o1d" id="D8k-qY-9tX"/>
+                        <outlet property="businessTitleLabel" destination="k8M-ka-d44" id="9eI-GC-Cr8"/>
                         <outlet property="businessnameTextValidationView" destination="dgX-o2-87h" id="gCg-8K-ZtQ"/>
+                        <outlet property="stepLabel" destination="9c6-SL-zNU" id="5TB-fw-Jwm"/>
+                        <outlet property="timeZoneLabel" destination="nfK-0N-F33" id="pMP-eo-RNk"/>
+                        <outlet property="timeZoneValidationLabel" destination="0Dk-L1-ebv" id="AMr-oS-eKd"/>
                         <outlet property="timezoneextValidationView" destination="a1E-Te-dLm" id="AfS-Rp-6WG"/>
                         <outlet property="txtBusinessName" destination="MV3-ww-8Yo" id="e5c-o3-kKN"/>
                         <outlet property="txtTimezone" destination="UC6-eG-Lbr" id="gaE-k2-Vhh"/>
                         <outlet property="txtZipcode" destination="fkM-6i-Zi5" id="hbs-xH-Oyn"/>
                         <outlet property="vwGradiantContainer" destination="g9d-FM-dyp" id="s52-dd-xoz"/>
+                        <outlet property="zipCodeLabel" destination="M0U-TP-WQt" id="12H-hT-vcz"/>
+                        <outlet property="zipCodeValidationLabel" destination="Nms-lL-m2A" id="gQX-eE-TEw"/>
                         <outlet property="zipcodeTextValidationView" destination="c6F-hj-CO6" id="o6f-Ni-x1z"/>
                     </connections>
                 </viewController>
@@ -2823,6 +2875,16 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="we1-nm-sb2">
                                 <rect key="frame" x="0.0" y="1246" width="1024" height="100"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looking for support?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3u-o8-hmN">
+                                        <rect key="frame" x="10" y="10" width="200" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="M4s-Mr-23y"/>
+                                            <constraint firstAttribute="height" constant="25" id="Xme-gU-JrH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                                        <color key="textColor" name="appDarkGrey"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Need support? We’re happy to help! Email our team at help@bryteps.com and we’ll get back to you as soon as possible." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gx-fH-HPJ">
                                         <rect key="frame" x="8" y="42" width="1008" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
@@ -2834,7 +2896,9 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="9Gx-fH-HPJ" secondAttribute="trailing" constant="8" id="JXz-sZ-w5L"/>
                                     <constraint firstItem="9Gx-fH-HPJ" firstAttribute="centerY" secondItem="we1-nm-sb2" secondAttribute="centerY" id="RvW-2Z-ltB"/>
+                                    <constraint firstItem="b3u-o8-hmN" firstAttribute="top" secondItem="we1-nm-sb2" secondAttribute="top" constant="10" id="U1k-xI-m9F"/>
                                     <constraint firstItem="9Gx-fH-HPJ" firstAttribute="leading" secondItem="we1-nm-sb2" secondAttribute="leading" constant="8" id="gP6-bl-RaR"/>
+                                    <constraint firstItem="b3u-o8-hmN" firstAttribute="leading" secondItem="we1-nm-sb2" secondAttribute="leading" constant="10" id="npo-da-rKF"/>
                                     <constraint firstAttribute="height" constant="100" id="xrT-eE-J6L"/>
                                 </constraints>
                             </view>
@@ -2843,7 +2907,7 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="52" id="DGe-Zd-ETv" customClass="MenuCell" customModule="Liteapp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="1024" height="52"/>
+                                        <rect key="frame" x="0.0" y="50" width="1024" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DGe-Zd-ETv" id="vR1-5I-qqi">
                                             <rect key="frame" x="0.0" y="0.0" width="1024" height="52"/>
@@ -2901,7 +2965,7 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellLogout" rowHeight="65" id="PHP-O0-tS3" customClass="MenuLogoutCell" customModule="Liteapp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="96.5" width="1024" height="65"/>
+                                        <rect key="frame" x="0.0" y="102" width="1024" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PHP-O0-tS3" id="8sJ-XE-QCJ">
                                             <rect key="frame" x="0.0" y="0.0" width="1024" height="65"/>
@@ -2931,6 +2995,9 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Zk-Gh-FvJ">
                                                     <rect key="frame" x="55" y="34.5" width="949" height="17"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="wFJ-Nv-PXr"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="12"/>
                                                     <color key="textColor" name="appDarkGrey"/>
                                                     <nil key="highlightedColor"/>
@@ -3111,6 +3178,7 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                         <outlet property="bottomView" destination="zE0-oS-gxb" id="vJW-md-hLV"/>
                         <outlet property="btnSupport" destination="7aR-YI-PwQ" id="muq-Tf-QI0"/>
                         <outlet property="constvwSupportHeight" destination="xrT-eE-J6L" id="hYF-JL-Xav"/>
+                        <outlet property="lblSupportQuestionText" destination="b3u-o8-hmN" id="su8-sy-VQi"/>
                         <outlet property="lblSupportText" destination="9Gx-fH-HPJ" id="9ii-3M-smf"/>
                         <outlet property="menuTableview" destination="p3P-MK-2jY" id="LCN-94-GTn"/>
                         <outlet property="premiumView" destination="hT8-2W-nz4" id="1YK-S0-lo8"/>
@@ -3136,10 +3204,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                 <rect key="frame" x="0.0" y="24" width="1024" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sDu-VU-M8c">
-                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="360-gy-tWy">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -3221,6 +3289,8 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="businessTitleLabel" destination="qy1-sb-tFt" id="Roa-MX-Ue8"/>
+                        <outlet property="stepLabel" destination="JNH-ll-IJ2" id="Pll-2b-eqf"/>
                         <outlet property="vwGradiantContainer" destination="AAW-JR-BkU" id="rVC-Jw-zsR"/>
                     </connections>
                 </viewController>
@@ -3631,10 +3701,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="135.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="kyq-jc-lBf">
-                                                        <rect key="frame" x="0.0" y="7" width="1024" height="121"/>
+                                                        <rect key="frame" x="0.0" y="15" width="1024" height="105"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="VkS-wN-m0T">
-                                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                                             </imageView>
                                                         </subviews>
                                                     </stackView>
@@ -3909,8 +3979,15 @@ this should only take about
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="Aqh-pL-5ya" id="tgi-5V-62C"/>
+                        <outlet property="firstNameValidationLabel" destination="GtH-wK-D9R" id="kCa-RP-86g"/>
                         <outlet property="firstnameTextValidationView" destination="ASi-J0-ktB" id="QKn-mp-Vtt"/>
+                        <outlet property="lastNameValidationLabel" destination="w7M-IP-VUh" id="NzE-LH-xZH"/>
                         <outlet property="lastnameTextValidationView" destination="PSE-7g-avO" id="4wM-0N-Iff"/>
+                        <outlet property="lblFirstName" destination="x5V-vo-wld" id="dBV-5O-Gm4"/>
+                        <outlet property="lblLastName" destination="Hgt-aM-IAI" id="MNS-bW-I7p"/>
+                        <outlet property="lblStep" destination="ink-pM-EBm" id="jzj-mY-BdP"/>
+                        <outlet property="lblTitle" destination="aB3-AJ-uR7" id="xJe-LA-4A1"/>
                         <outlet property="txtFirstName" destination="Rs9-Ky-KcQ" id="eqR-r0-4X9"/>
                         <outlet property="txtLastName" destination="zG2-36-Zzi" id="lpJ-zE-sfs"/>
                         <outlet property="vwGradiantContainer" destination="9iw-QY-wGE" id="h3h-DA-j04"/>
@@ -3932,10 +4009,10 @@ this should only take about
                                 <rect key="frame" x="0.0" y="24" width="1024" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Gv3-CY-YGh">
-                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="LwJ-vE-j8b">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -4419,15 +4496,30 @@ this should only take about
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="lHr-e0-NbT" id="NlW-0S-Ata"/>
                         <outlet property="confirmPasswordTextValidationView" destination="NLD-Lu-Wqk" id="V4h-Fy-8Zp"/>
+                        <outlet property="confirmPasswordValidationLabel" destination="3dn-5g-U8y" id="Jc9-GA-yJJ"/>
                         <outlet property="emailTextValidationView" destination="kgD-0o-mPw" id="MAp-88-nkT"/>
+                        <outlet property="emailValidationLabel" destination="uTv-Si-cmL" id="HaD-9x-i6J"/>
                         <outlet property="imgvwCapitalLetter" destination="NFc-Yx-w3g" id="ltY-3f-mpH"/>
                         <outlet property="imgvwLowercaseLetter" destination="epJ-Ot-9c7" id="tgb-HK-WFu"/>
                         <outlet property="imgvwNumber" destination="fNn-WK-H4z" id="kaW-RD-hlq"/>
                         <outlet property="imgvwSpecialCharacter" destination="MmX-t8-Ukp" id="Szu-7U-UCt"/>
                         <outlet property="imgvwminimumCharacter" destination="D9V-Eg-ach" id="e3i-If-GkO"/>
+                        <outlet property="lblConfirmPassword" destination="K0O-DE-ECR" id="AIk-Cu-YXK"/>
+                        <outlet property="lblEmail" destination="1yy-a7-q7L" id="UD1-ni-F2R"/>
+                        <outlet property="lblPassword" destination="e70-8l-WTt" id="7vF-sl-0uv"/>
+                        <outlet property="lblStep" destination="k9Q-mU-bTQ" id="yLh-cJ-t9y"/>
+                        <outlet property="lblTitle" destination="i9G-rb-nCD" id="eRz-32-fgy"/>
                         <outlet property="passwordTextValidationView" destination="fmQ-V1-3kk" id="YNQ-uM-5ax"/>
+                        <outlet property="passwordValidationLabel" destination="4i7-9z-jQ8" id="ZMd-QS-xVG"/>
                         <outlet property="passwordValidationView" destination="Igo-Ow-GMZ" id="Z50-yJ-t85"/>
+                        <outlet property="requirementLabel1" destination="aKx-Kf-RWC" id="QsN-C1-o0V"/>
+                        <outlet property="requirementLabel2" destination="gjg-GM-tTH" id="Mef-rU-Xv2"/>
+                        <outlet property="requirementLabel3" destination="xHb-NH-GWo" id="YfC-QS-5Uz"/>
+                        <outlet property="requirementLabel4" destination="tDa-qA-crh" id="3xm-q6-uR5"/>
+                        <outlet property="requirementLabel5" destination="h96-LH-kSt" id="UGd-lV-IPE"/>
+                        <outlet property="requirementTitleLabel" destination="K8e-Ur-L8r" id="je2-5c-DLD"/>
                         <outlet property="txtConfrimPassword" destination="eSs-aM-os4" id="9ei-QO-NQi"/>
                         <outlet property="txtEmail" destination="foz-2j-U6s" id="tTd-xV-7pz"/>
                         <outlet property="txtPassword" destination="sJ8-JT-QRn" id="OGP-4e-wcQ"/>
@@ -4450,10 +4542,10 @@ this should only take about
                                 <rect key="frame" x="0.0" y="24" width="1024" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4y3-fn-ZyW">
-                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="oFf-2U-uSV">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -4671,6 +4763,12 @@ this should only take about
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="Fe0-11-rQ6" id="5eI-r9-8lo"/>
+                        <outlet property="lblCompany" destination="rgb-eM-pkb" id="1WF-2h-m0d"/>
+                        <outlet property="lblReferalCode" destination="LZ6-aS-OBk" id="Rvr-vI-skT"/>
+                        <outlet property="lblStep" destination="6nk-Vf-Nsa" id="4gw-I5-Nho"/>
+                        <outlet property="noReferalLabel" destination="UMA-m9-CJ7" id="EPz-tr-ZEt"/>
+                        <outlet property="referalCodeValidationLabel" destination="Zch-zo-mWW" id="rYQ-YD-WeC"/>
                         <outlet property="referralCodeTextValidationView" destination="RyM-Hk-k3g" id="IXQ-lR-i3m"/>
                         <outlet property="txtCompany" destination="ENW-9a-gqT" id="usw-Et-n9I"/>
                         <outlet property="txtReferralCode" destination="cba-72-3dO" id="CRS-Ua-g8j"/>
@@ -4693,10 +4791,10 @@ this should only take about
                                 <rect key="frame" x="0.0" y="24" width="920" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lCC-i7-6ap">
-                                        <rect key="frame" x="0.0" y="64" width="920" height="121"/>
+                                        <rect key="frame" x="0.0" y="72" width="920" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="vqd-u5-Jnn">
-                                                <rect key="frame" x="0.0" y="0.0" width="920" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="920" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -5259,15 +5357,30 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                     <connections>
                         <outlet property="btnClose" destination="rT1-tP-oB0" id="Cei-yZ-PIr"/>
                         <outlet property="btnSave" destination="Vlf-1C-bID" id="9xZ-5A-zg6"/>
+                        <outlet property="confirmNewPasswordLabel" destination="SEX-VX-FvW" id="Syl-De-fJC"/>
+                        <outlet property="congratulationsLabel" destination="US8-aa-ehy" id="vNz-am-PPw"/>
+                        <outlet property="currentPasswordLabel" destination="tOT-1n-Y7n" id="gDQ-4t-QEh"/>
                         <outlet property="imgvwCapitalLetter" destination="HTw-Mm-agC" id="Dqb-8Z-uTI"/>
                         <outlet property="imgvwLowercaseLetter" destination="S7H-GI-hp6" id="aFP-oa-2iB"/>
                         <outlet property="imgvwNumber" destination="bzy-0K-QGT" id="O5A-ha-fDX"/>
                         <outlet property="imgvwSpecialCharacter" destination="gQM-39-A9Z" id="g5Z-uY-CiA"/>
                         <outlet property="imgvwminimumCharacter" destination="tLJ-r2-S8m" id="pEr-2g-Irk"/>
+                        <outlet property="newPasswordLabel" destination="3ox-jY-e2P" id="zUv-Ji-chi"/>
                         <outlet property="passwordValidationView" destination="HUV-o9-IHO" id="ast-Qi-kem"/>
+                        <outlet property="requirementLabel1" destination="7pH-ax-dYv" id="Yba-Za-mnL"/>
+                        <outlet property="requirementLabel2" destination="2YQ-yw-tfW" id="jaB-Ju-khi"/>
+                        <outlet property="requirementLabel3" destination="HDI-X2-uK6" id="Vnx-N6-KwT"/>
+                        <outlet property="requirementLabel4" destination="Zxb-to-S5o" id="yha-Q1-3fW"/>
+                        <outlet property="requirementLabel5" destination="Tqo-9i-vZT" id="Cs6-ar-b2r"/>
                         <outlet property="txtConfirmPassword" destination="zbj-o2-k1M" id="2o9-87-yfb"/>
                         <outlet property="txtNewPassword" destination="aSH-Xw-bhq" id="xwq-JP-Yz0"/>
                         <outlet property="txtOldPassword" destination="GGq-Bo-7ix" id="WTB-4N-0dt"/>
+                        <outlet property="validationLabel1" destination="sj2-No-afk" id="vFV-sr-Wd2"/>
+                        <outlet property="validationLabel2" destination="ddv-fu-nRl" id="tL8-Lf-x4K"/>
+                        <outlet property="validationLabel3" destination="huy-6j-Khe" id="kJ3-7x-LEo"/>
+                        <outlet property="validationLabel4" destination="Utg-t4-XMp" id="imb-7T-hk9"/>
+                        <outlet property="validationLabel5" destination="WFX-az-MfO" id="A4B-KI-SPT"/>
+                        <outlet property="validationTitleLabel" destination="Nyi-Hd-SQ8" id="ReD-zJ-CIv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qeF-QA-V3D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5286,10 +5399,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                 <rect key="frame" x="0.0" y="24" width="1024" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PTA-7n-BQk">
-                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="PSs-ce-oGC">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -5467,6 +5580,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                         <outlet property="btnBackToLogin" destination="RwA-yd-Maw" id="RBF-EO-LKo"/>
                         <outlet property="btnSendInstructions" destination="mKR-PM-J22" id="ufC-GD-yHq"/>
                         <outlet property="emailTextValidationView" destination="NPt-si-0Qr" id="JHp-9L-GBS"/>
+                        <outlet property="emailValidationLabel" destination="sHI-TM-Dcv" id="DmT-5v-gDe"/>
+                        <outlet property="lblDescription" destination="XOT-w2-Ano" id="3JF-KK-x98"/>
+                        <outlet property="lblEmail" destination="IX6-vc-3Nh" id="eHA-P7-jpd"/>
+                        <outlet property="lblTitle" destination="jbm-Xw-Erv" id="ZIy-aH-QeB"/>
                         <outlet property="txtEmail" destination="T8N-G7-kDx" id="Pcp-Z4-eYp"/>
                         <outlet property="viewGradiantContainer" destination="f78-cY-auQ" id="Ae8-AX-jAV"/>
                     </connections>
@@ -5487,10 +5604,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                 <rect key="frame" x="0.0" y="24" width="1024" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5ZL-qP-H3c">
-                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="94x-Ge-qaC">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -5619,10 +5736,10 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                                 <rect key="frame" x="0.0" y="24" width="1024" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wXP-tT-dnr">
-                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="oai-Yx-5lD">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -6077,18 +6194,32 @@ both passwords must match</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnBack" destination="QOE-fE-3j6" id="ccK-Fn-oPc"/>
                         <outlet property="btnConfirmPasswordVisibility" destination="0Ky-7C-NB4" id="ZR7-qZ-FpQ"/>
                         <outlet property="btnPasswordVisibility" destination="MDX-8a-tGr" id="PN3-Dc-dhz"/>
+                        <outlet property="btnResetPassword" destination="OWv-MM-TFf" id="aXh-Qf-ATX"/>
+                        <outlet property="confirmPasswordLabel" destination="c3f-KB-PEz" id="19l-JR-Xdz"/>
+                        <outlet property="confirmPasswordValidationLabel" destination="UzF-Og-nxU" id="3io-or-BlA"/>
                         <outlet property="imgvwCapitalLetter" destination="Ssc-ls-rf6" id="54D-l9-k2J"/>
                         <outlet property="imgvwLowercaseLetter" destination="wxq-EK-p8t" id="Kym-B1-ypa"/>
                         <outlet property="imgvwNumber" destination="rEB-0O-lSa" id="Ier-q9-zBx"/>
                         <outlet property="imgvwSpecialCharacter" destination="2hZ-e3-caV" id="yGK-Dm-TFY"/>
                         <outlet property="imgvwminimumCharacter" destination="sFm-Nn-ebm" id="IVX-Ci-3Nz"/>
+                        <outlet property="lblDescription" destination="xz6-3D-VRZ" id="kMU-Qx-wmO"/>
+                        <outlet property="lblTitle" destination="AR9-0r-Kmo" id="bQB-P5-qOS"/>
+                        <outlet property="passwordLabel" destination="jZ6-QC-wOI" id="nZf-KW-BII"/>
+                        <outlet property="passwordValidationLabel" destination="c8i-pp-DY6" id="F4n-9M-Uq9"/>
                         <outlet property="passwordValidationView" destination="rjn-s5-0ZG" id="MzR-uU-vIR"/>
+                        <outlet property="requirementLabel1" destination="7vN-D9-gUE" id="utZ-pk-SXT"/>
+                        <outlet property="requirementLabel2" destination="xmG-Vc-Vw3" id="IMx-6h-fjd"/>
+                        <outlet property="requirementLabel3" destination="TXU-eg-P66" id="2tC-zv-4Nj"/>
+                        <outlet property="requirementLabel4" destination="jAW-If-yjS" id="zO3-io-dRb"/>
+                        <outlet property="requirementLabel5" destination="3EH-0H-8hR" id="xK4-2E-BYL"/>
+                        <outlet property="requirementTitleLabel" destination="BRY-qk-Xxa" id="vgs-Cw-aEa"/>
                         <outlet property="txtConfirmPassword" destination="UrH-4D-5GT" id="eT6-F7-tq0"/>
                         <outlet property="txtPassword" destination="Jpk-69-PN5" id="DVM-0Y-MLu"/>
                         <outlet property="viewEnterPassword" destination="UZJ-A9-3nF" id="VDM-os-6qP"/>
-                        <outlet property="viewReEnterPassword" destination="UzF-Og-nxU" id="U43-0R-PFm"/>
+                        <outlet property="viewReEnterPassword" destination="AZ2-Az-huu" id="olF-5n-bFI"/>
                         <outlet property="vwGradiantContainer" destination="MBJ-mp-Ifv" id="mat-G1-aqP"/>
                     </connections>
                 </viewController>
@@ -6108,10 +6239,10 @@ both passwords must match</string>
                                 <rect key="frame" x="0.0" y="24" width="1024" height="248.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Dl-2f-jV9">
-                                        <rect key="frame" x="0.0" y="63.5" width="1024" height="121"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="1024" height="105"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luuminateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="aOJ-AR-PfQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="105"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -6192,6 +6323,9 @@ both passwords must match</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnBackToLogin" destination="ACM-fq-vvf" id="pTs-8G-vfW"/>
+                        <outlet property="lblDescription" destination="HO8-6x-VSW" id="YGx-Mq-WGg"/>
+                        <outlet property="lblTitle" destination="gPX-sW-BWi" id="erL-Hh-NCp"/>
                         <outlet property="vwGradiantContainer" destination="Z2o-yM-N7S" id="Ark-og-jbv"/>
                     </connections>
                 </viewController>
@@ -6201,7 +6335,7 @@ both passwords must match</string>
         </scene>
     </scenes>
     <resources>
-        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
         <image name="drawerheader" width="700" height="394"/>
         <image name="ic_arrow_back_24px" width="16" height="16"/>
         <image name="ic_close" width="20" height="20"/>
@@ -6215,7 +6349,7 @@ both passwords must match</string>
         <image name="ic_validationAlert" width="237" height="237"/>
         <image name="ic_visibility" width="48" height="48"/>
         <image name="img_success" width="237" height="237"/>
-        <image name="luuminateLogo" width="267" height="121"/>
+        <image name="luuminateLogo" width="275" height="105"/>
         <image name="onboarding" width="600" height="673"/>
         <image name="premium" width="225" height="225"/>
         <namedColor name="404040">
@@ -6243,7 +6377,7 @@ both passwords must match</string>
             <color red="0.94099998474121094" green="0.76899999380111694" blue="0.18400000035762787" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
