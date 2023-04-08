@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2855,6 +2855,7 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                     <connections>
                         <outlet property="accountSettingView" destination="LB8-AY-jOJ" id="ML2-CX-id2"/>
                         <outlet property="accountStackView" destination="4j9-pg-fny" id="JZi-I4-Nwq"/>
+                        <outlet property="biWeeklySelectionLabel" destination="fEX-TE-q4o" id="xxx-00-FCd"/>
                         <outlet property="blurOverlayView" destination="kE1-JP-1ug" id="9cE-DT-whE"/>
                         <outlet property="btnBiWeekly" destination="86t-Rg-oGZ" id="TAl-ln-gTb"/>
                         <outlet property="btnChange" destination="2iN-i8-7Wd" id="jhh-R3-I4B"/>
@@ -3442,6 +3443,7 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="lblEmployee" destination="wKs-Zr-TV8" id="4A0-9Z-OrO"/>
                         <outlet property="lblEmployeeName" destination="6nm-ha-DH2" id="5TX-ic-xm4"/>
                         <outlet property="lblJobTitle" destination="ZHj-Cg-y80" id="bAW-Xs-gOd"/>
+                        <outlet property="lblNoEmployee" destination="UVd-a2-WFm" id="Fi3-Yo-tTk"/>
                         <outlet property="lblusername" destination="EXm-qx-yJI" id="71c-t8-9mX"/>
                         <outlet property="nameSortImageview" destination="j5a-9P-d0K" id="rSv-Xg-YUj"/>
                         <outlet property="tblview" destination="v14-v9-q3I" id="QrY-KV-dZy"/>

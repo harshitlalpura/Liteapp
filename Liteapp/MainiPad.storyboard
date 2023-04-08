@@ -1681,6 +1681,7 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         <outlet property="lblFirstName" destination="MWo-ot-Fqz" id="bBJ-5t-fBy"/>
                         <outlet property="lblLastName" destination="IkA-WY-fLr" id="iec-Sw-C77"/>
                         <outlet property="lblPassword" destination="6sL-Wf-Y1l" id="iCE-Ut-vOb"/>
+                        <outlet property="lblStep" destination="jbV-tT-mwB" id="F7B-zl-fYu"/>
                         <outlet property="lblTitle" destination="gMd-8f-TOf" id="dh0-R8-ocg"/>
                         <outlet property="lblUserName" destination="NL0-wF-CCR" id="1C6-4D-3Qq"/>
                         <outlet property="passwordTextValidationView" destination="fds-3p-PrR" id="stq-V4-9K9"/>
@@ -4767,6 +4768,7 @@ this should only take about
                         <outlet property="lblCompany" destination="rgb-eM-pkb" id="1WF-2h-m0d"/>
                         <outlet property="lblReferalCode" destination="LZ6-aS-OBk" id="Rvr-vI-skT"/>
                         <outlet property="lblStep" destination="6nk-Vf-Nsa" id="4gw-I5-Nho"/>
+                        <outlet property="lblTitle" destination="yHg-8Q-LWC" id="rxx-tA-LQz"/>
                         <outlet property="noReferalLabel" destination="UMA-m9-CJ7" id="EPz-tr-ZEt"/>
                         <outlet property="referalCodeValidationLabel" destination="Zch-zo-mWW" id="rYQ-YD-WeC"/>
                         <outlet property="referralCodeTextValidationView" destination="RyM-Hk-k3g" id="IXQ-lR-i3m"/>

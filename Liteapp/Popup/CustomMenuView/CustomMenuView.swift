@@ -174,7 +174,7 @@ extension CustomMenuView:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == menuItems.count - 1{
             let cell = tableView.dequeueReusableCell(withIdentifier:"cellLogout",for:indexPath) as! CustomMenuLogoutCell
-            cell.label.text = menuItems[indexPath.row]
+            cell.label.text = NSLocalizedString(menuItems[indexPath.row], comment: "menuItems")
             cell.label.textAlignment = .left
           
             cell.label.textColor = .black
@@ -216,7 +216,7 @@ extension CustomMenuView:UITableViewDataSource,UITableViewDelegate {
         }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier:"cell",for:indexPath) as! CustomMenuCell
-             cell.label.text = menuItems[indexPath.row]
+             cell.label.text = NSLocalizedString(menuItems[indexPath.row], comment: "menuItems")
              cell.label.textAlignment = .left
            
              cell.label.textColor = .black

@@ -1139,7 +1139,7 @@
                         <outlet property="clockOutPopUpLabel" destination="StB-SY-mOE" id="Q1d-TD-wsC"/>
                         <outlet property="clockOutSuccessPopup" destination="bXw-td-geD" id="z5r-tQ-s6t"/>
                         <outlet property="customNavView" destination="CiX-ra-P30" id="54h-UW-ZKu"/>
-                        <outlet property="hourLabel" destination="g18-4a-ZBP" id="dGx-eI-Rb6"/>
+                        <outlet property="hourLabel" destination="YAz-uV-Z9n" id="7eo-cw-vfO"/>
                         <outlet property="imageviewClockinStatus" destination="Muh-tm-HAX" id="PfH-wc-hID"/>
                         <outlet property="lblClockOut1" destination="2uj-Kq-7F5" id="dTT-kK-qSA"/>
                         <outlet property="lblClockOut2" destination="Xo2-sJ-aam" id="WEI-gC-iyF"/>
@@ -1168,7 +1168,8 @@
                         <outlet property="lblusername" destination="UyW-sY-WkN" id="2r4-J0-zaD"/>
                         <outlet property="lblweeklyHr" destination="Jj0-As-wsu" id="3dm-wA-txZ"/>
                         <outlet property="lblweeklyMin" destination="rcz-OP-YbD" id="qGV-hx-fg1"/>
-                        <outlet property="minuteLabel" destination="1Oa-Hy-OXa" id="ZBK-yd-s5O"/>
+                        <outlet property="minuteLabel" destination="g1t-Y4-K9v" id="mBI-M8-8ER"/>
+                        <outlet property="myTimesheetLabel" destination="ydR-S9-QKT" id="0WA-wc-kNz"/>
                         <outlet property="stackviewtimesheet" destination="6QP-A3-yHF" id="P8Z-uq-JNB"/>
                         <outlet property="totalLabel" destination="xBB-us-H6V" id="AA3-s7-oJZ"/>
                     </connections>

@@ -2792,6 +2792,7 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                     <connections>
                         <outlet property="accountSettingView" destination="LB8-AY-jOJ" id="ML2-CX-id2"/>
                         <outlet property="accountStackView" destination="4j9-pg-fny" id="JZi-I4-Nwq"/>
+                        <outlet property="biWeeklySelectionLabel" destination="QAi-Rb-BeE" id="RRj-Vz-sDR"/>
                         <outlet property="blurOverlayView" destination="kE1-JP-1ug" id="9cE-DT-whE"/>
                         <outlet property="btnBiWeekly" destination="86t-Rg-oGZ" id="TAl-ln-gTb"/>
                         <outlet property="btnChange" destination="2iN-i8-7Wd" id="W1V-BF-Pbx"/>
@@ -2855,9 +2856,10 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         <outlet property="lblSplitShift" destination="KPQ-AH-w5x" id="Tfx-ia-kKY"/>
                         <outlet property="lblSplitShiftDesc" destination="vvM-he-FCf" id="jo4-rg-1MV"/>
                         <outlet property="lblTimeClockSettings" destination="zhF-V2-wQI" id="jal-KI-sNt"/>
+                        <outlet property="lblUserName" destination="ico-nc-VVl" id="GLf-tY-5jd"/>
                         <outlet property="lblWeeklyOvertime" destination="HH8-Au-S5B" id="2p0-Wz-kCg"/>
                         <outlet property="lblWeeklyOvertimeDesc" destination="gWD-WV-Kzc" id="AWa-FP-LnA"/>
-                        <outlet property="lblusername" destination="ico-nc-VVl" id="Mvn-SL-C4W"/>
+                        <outlet property="lblusername" destination="Bt3-Yt-jr4" id="myJ-Wk-AC8"/>
                         <outlet property="saveView" destination="Yrp-eQ-qW5" id="FVp-ik-4rv"/>
                         <outlet property="saveViewCancelButton" destination="glh-kf-aUv" id="LhK-xi-7bi"/>
                         <outlet property="saveViewSaveButton" destination="vpX-fa-C05" id="mGo-MG-4hn"/>
@@ -5929,7 +5931,7 @@ button at the top of the page</string>
                         <outlet property="lblProfile" destination="hCr-Dl-laD" id="IBM-TG-vDZ"/>
                         <outlet property="lblSelectDate" destination="htZ-YY-9Ob" id="VH4-K3-pXS"/>
                         <outlet property="lblTimesheetDesc" destination="fRO-4X-y6z" id="WNm-G0-Ffk"/>
-                        <outlet property="lblTimesheetTitle" destination="ASq-Cx-NMC" id="d0v-yM-zb2"/>
+                        <outlet property="lblTimesheetTitle" destination="t8h-iL-k2l" id="jF3-0y-cfG"/>
                         <outlet property="lblUserInfoDesc" destination="fq1-Me-q3N" id="wnt-MM-ccD"/>
                         <outlet property="lblUserInfoTitle" destination="eVZ-ey-sHs" id="LqU-Cv-qov"/>
                         <outlet property="lblname" destination="qrs-Ef-yEw" id="gDi-qk-KWv"/>
@@ -7727,8 +7729,9 @@ button at the top of the page</string>
                         <outlet property="lblPayPeriod" destination="3IM-u4-o67" id="7jC-16-PCe"/>
                         <outlet property="lblProfile" destination="6KX-RF-uKv" id="Paa-GB-Hsq"/>
                         <outlet property="lblSelectDate" destination="qNo-H1-xqH" id="cXN-Ye-KhV"/>
+                        <outlet property="lblTimeSheet" destination="ILV-R3-Ygy" id="GRw-Rk-c28"/>
                         <outlet property="lblTimesheetDesc" destination="lZh-iu-qQM" id="fTv-5Z-17e"/>
-                        <outlet property="lblTimesheetTitle" destination="ILV-R3-Ygy" id="vdh-c5-fzi"/>
+                        <outlet property="lblTimesheetTitle" destination="IqK-UD-bbH" id="dyQ-tP-n0A"/>
                         <outlet property="lblUserDetails" destination="SO6-J3-nlL" id="bQ4-mt-ySc"/>
                         <outlet property="lblUserInfoDesc" destination="ehw-S2-GXN" id="2Lw-1O-XLY"/>
                         <outlet property="lblUserInfoTitle" destination="ijz-4Y-Enl" id="Jjo-uZ-Iv7"/>

@@ -1689,6 +1689,7 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         <outlet property="emailTextValidationView" destination="Xqy-dO-P3z" id="QJQ-dl-tK4"/>
                         <outlet property="emailValidationLabel" destination="7P0-VE-SLN" id="06y-yD-uZ1"/>
                         <outlet property="firstNameTextValidationView" destination="27w-3v-VNN" id="eSM-jH-2aV"/>
+                        <outlet property="firstNameValidationLabel" destination="0kl-mI-dfp" id="hzp-of-0YJ"/>
                         <outlet property="imgvwCapitalLetter" destination="6S4-Eh-owr" id="nds-Y7-ViB"/>
                         <outlet property="imgvwLowercaseLetter" destination="YWr-io-r5Z" id="BVk-Kh-hr7"/>
                         <outlet property="imgvwNumber" destination="x80-SF-urR" id="fdI-cX-td9"/>
@@ -1720,6 +1721,7 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         <outlet property="txtPassword" destination="HFj-Kn-gUG" id="YjY-0l-abn"/>
                         <outlet property="txtUsername" destination="Xpi-Bf-SM1" id="ZXD-62-Ksu"/>
                         <outlet property="userNameValidationLabel" destination="QVQ-Ox-iTT" id="W3I-AF-Mz4"/>
+                        <outlet property="usernameTextValidationView" destination="F9B-Jc-l2c" id="SOF-4u-FiT"/>
                         <outlet property="vwGradiantContainer" destination="taW-CB-M41" id="8cE-6J-hlK"/>
                     </connections>
                 </viewController>
@@ -2779,6 +2781,7 @@ IHdpbGwgdGFrZQtsZXNzIHRoYW4gMiBtaW51dGVzLg
                         <outlet property="businessNameValidationLabel" destination="S2O-8g-o1d" id="26e-ee-1Kl"/>
                         <outlet property="businessTitleLabel" destination="k8M-ka-d44" id="Ki2-LA-EtZ"/>
                         <outlet property="businessnameTextValidationView" destination="dgX-o2-87h" id="gCg-8K-ZtQ"/>
+                        <outlet property="stepLabel" destination="9c6-SL-zNU" id="jbp-6q-J5H"/>
                         <outlet property="timeZoneLabel" destination="nfK-0N-F33" id="KsL-Qs-NL4"/>
                         <outlet property="timeZoneValidationLabel" destination="0Dk-L1-ebv" id="uHj-0O-za8"/>
                         <outlet property="timezoneextValidationView" destination="a1E-Te-dLm" id="AfS-Rp-6WG"/>
@@ -4681,6 +4684,7 @@ this should only take about
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnContinue" destination="Fe0-11-rQ6" id="9Q7-hK-W76"/>
                         <outlet property="lblCompany" destination="rgb-eM-pkb" id="vqZ-KQ-VWy"/>
                         <outlet property="lblReferalCode" destination="LZ6-aS-OBk" id="qzo-3S-DJx"/>
                         <outlet property="lblStep" destination="6nk-Vf-Nsa" id="5PB-wO-Xq6"/>
