@@ -251,6 +251,7 @@
 		61FBCBBA285A6B7000D7BBC5 /* AddEmployeeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FBCBB9285A6B7000D7BBC5 /* AddEmployeeVC.swift */; };
 		834A3A3129C5921C0089F32E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 834A3A3329C5921C0089F32E /* Localizable.strings */; };
 		834A3A3629C5929A0089F32E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 834A3A3829C5929A0089F32E /* Localizable.strings */; };
+		83BDC45329E46ED600D988BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83BDC45229E46ED600D988BC /* GoogleService-Info.plist */; };
 		AF0571F528B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0571F428B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift */; };
 		AF0571F728B25AAB00D807F6 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0571F628B25AA900D807F6 /* ForgotPasswordVC.swift */; };
 		AF1104FA28BD2E3B0044DE37 /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1104F928BD2E3B0044DE37 /* ResetPasswordVC.swift */; };
@@ -556,6 +557,7 @@
 		61FBCBB9285A6B7000D7BBC5 /* AddEmployeeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmployeeVC.swift; sourceTree = "<group>"; };
 		834A3A3229C5921C0089F32E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		834A3A3729C5929A0089F32E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		83BDC45229E46ED600D988BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF0571F428B23DA200D807F6 /* TermsPrivacyStaticPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPrivacyStaticPagesVC.swift; sourceTree = "<group>"; };
 		AF0571F628B25AA900D807F6 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		AF1104F928BD2E3B0044DE37 /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 		6182F67B284933140006BDF0 /* Liteapp */ = {
 			isa = PBXGroup;
 			children = (
+				83BDC45229E46ED600D988BC /* GoogleService-Info.plist */,
 				AF6E8BF428F484FC00430879 /* Resources */,
 				61552EBC2873622F00A60971 /* Liteapp.entitlements */,
 				6182F67C284933140006BDF0 /* AppDelegate.swift */,
@@ -1458,6 +1461,7 @@
 				61A29790285372A20015777F /* Roboto-Light.ttf in Resources */,
 				834A3A3629C5929A0089F32E /* Localizable.strings in Resources */,
 				61A297AE285373370015777F /* Poppins-Bold.ttf in Resources */,
+				83BDC45329E46ED600D988BC /* GoogleService-Info.plist in Resources */,
 				61D8D6A2285D1B110065B19C /* TimeSheetCell.xib in Resources */,
 				61A297B6285373370015777F /* Poppins-Thin.ttf in Resources */,
 				6144E85D287DC6ED0036D73E /* TimesheetiPad.storyboard in Resources */,

@@ -7,6 +7,8 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import FirebaseCore
+import FirebaseAuth
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
        // basicSetup(launchOptions: launchOptions)
         setUpIQKeyboardManager()
+        FirebaseApp.configure()
         return true
     }
 
