@@ -38,7 +38,7 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var lblRegister: UILabel!
     @IBOutlet weak var btnRegister: UIButton!
-    
+    @IBOutlet weak var btnChangeLanguage: UIButton!
     @IBOutlet weak var btnForgotPassword: UIButton!
     
     var privacyText : String = ""
@@ -56,7 +56,12 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
         btnRegister.setTitle(NSLocalizedString("Register here", comment: "RegisterButton"), for: .normal)
         btnLogin.setTitle(NSLocalizedString("Login", comment: "LoginButton"), for: .normal)
         
+        let quote = NSLocalizedString("English|Spanish", comment: "btnChangeLanguage")
+        let attributedQuote = NSMutableAttributedString(string: quote)
+        attributedQuote.addAttribute(.foregroundColor, value: UIColor(hex: "#B6C2D0"), range: NSRange(location: 7, length: 8))
         
+        
+        btnChangeLanguage.setAttributedTitle(attributedQuote, for: .normal)
         // Do any additional setup after loading the view.
         if let forgotPasswordEmpId = Defaults.shared.forgotPasswordEmpId{
             //Open Reset Password Screen
@@ -194,6 +199,20 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
     @IBAction func btnForgotPasswordTapped(_ sender: Any) {
         let vc = ForgotPasswordVC.instantiate(fromStoryboard: StoryboardName(rawValue: StoryboardName.main.rawValue)!)
         self.pushVC(controller:vc)
+    }
+    @IBAction func btnChangeLanguageTapped(_ sender: Any) {
+        if(UserDefaults.standard.value(forKey: "AppleLanguage") as! String == "en" )
+        {
+            UserDefaults.standard.set("es", forKey: "AppleLanguage")
+        }
+        else
+        {
+            UserDefaults.standard.set("en", forKey: "AppleLanguage")
+        }
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.currentLanguage = UserDefaults.standard.value(forKey: "AppleLanguage") as! String
+        Bundle.swizzleLocalization()
+        self.viewDidLoad()
     }
     
     
