@@ -14,7 +14,7 @@ enum Menuname{
     static let employee = "Employees"
     static let timeSheet = "TimeSheets"
     static let Exams = "Exams"
-    static let settings = "Settings"
+    static let settings = "Account"
     static let logout = "Logout \n Manager"
     
     
@@ -45,9 +45,9 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var constvwSupportHeight: NSLayoutConstraint!
     var selectedOption:SelectedOption = .TimeClock
     weak public var delegate: MenuItemDelegate?
-    var menuItems = ["TimeClock","Employees","TimeSheets","Settings","Logout \n Manager"]
+    var menuItems = ["TimeClock","Employees","TimeSheets","Account","Logout \n Manager"]
 //    var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
-    var menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
+    var menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","employee_user_info","ic_logout_tint"]
     
     var supportText : String = NSLocalizedString("Let us know how we can help and a member from our Support Team will get back to you!", comment: "lblSupportText")
     var supportEmail = "support@getilluminate.io"
@@ -82,9 +82,9 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
     }
     private func setupTableView(){
         if Defaults.shared.currentUser?.empType ?? "" == "S"{
-            menuItems = ["TimeClock","Employees","TimeSheets","Settings","Logout \n Manager"]
+            menuItems = ["TimeClock","Employees","TimeSheets","Account","Logout \n Manager"]
 //            menuImages = ["ic_timeclock","ic_employee","ic_timesheets","ic_settings","ic_logout"]
-            menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","ic_settings_tint","ic_logout_tint"]
+            menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","employee_user_info","ic_logout_tint"]
         }else{
            menuItems = ["TimeClock","Logout \n Manager"]
 //            menuImages = ["ic_timeclock","ic_logout"]

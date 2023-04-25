@@ -641,7 +641,12 @@ extension DashBoardVC: CustomMenuItemDelegate {
         print(menuName)
         if menuName == Menuname.settings{
             
-            let vc = SettingsVC.instantiate()
+//            let vc = SettingsVC.instantiate()
+            let vc = EmployeeTimeReportVC.instantiate()
+            vc.isForUserAccount = true
+            if let empId = Defaults.shared.currentUser?.empId{
+                vc.selectedEmployeeID = "\(empId)"
+            }
             self.pushVC(controller:vc)
         }else  if menuName == Menuname.logout{
             

@@ -82,6 +82,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     
     @IBOutlet weak var userinformationView: UIView!
     @IBOutlet weak var timereportView: UIView!
+    @IBOutlet weak var preferencesView: UIView!
     
     @IBOutlet weak var editTooltipView: UIView!
     
@@ -149,6 +150,10 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var lblUserInfoDesc: UILabel!
     @IBOutlet weak var lblTimesheetTitle: UILabel!
     @IBOutlet weak var lblTimesheetDesc: UILabel!
+    @IBOutlet weak var lblPreferencesTitle: UILabel!
+    @IBOutlet weak var lblPreferencesDesc: UILabel!
+    @IBOutlet weak var lblSettingsTitle: UILabel!
+    @IBOutlet weak var lblsettingsDesc: UILabel!
     @IBOutlet weak var requirementTitleLabel: UILabel!
     @IBOutlet weak var requirementLabel1: UILabel!
     @IBOutlet weak var requirementLabel2: UILabel!
@@ -165,16 +170,23 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var datePickerCancelButton: UIButton!
     @IBOutlet weak var datePickerClearButton: UIButton!
     @IBOutlet weak var datePickerDoneButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var txtselectLanguage: UITextField!
+    var languageOptions = ["English","Spanish"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         lblEdit.text = NSLocalizedString("Edit", comment: "lblEdit")
-        lblProfile.text = NSLocalizedString("PROFILE", comment: "lblProfile")
+        lblProfile.text = NSLocalizedString("ACCOUNT PROFILE", comment: "lblProfile")
         lblUserInfoTitle.text = NSLocalizedString("User Information", comment: "lblUserInfoTitle")
         lblUserInfoDesc.text = NSLocalizedString("General employee information", comment: "lblUserInfoDesc")
         lblTimesheetTitle.text = NSLocalizedString("Timesheets", comment: "lblTimesheetTitle")
         lblTimesheetDesc.text = NSLocalizedString("Employee clock history", comment: "lblTimesheetDesc")
+        lblPreferencesTitle.text = NSLocalizedString("Preferences", comment: "lblPreferencesTitle")
+        lblPreferencesDesc.text = NSLocalizedString("General app preferences", comment: "lblPreferencesDesc")
+        lblSettingsTitle.text = NSLocalizedString("Settings", comment: "lblSettingsTitle")
+        lblsettingsDesc.text = NSLocalizedString("Business & timeclock settings", comment: "lblsettingsDesc")
         requirementTitleLabel.text = NSLocalizedString("Please complete all the requirements.", comment: "requirementTitleLabel")
         requirementLabel1.text = NSLocalizedString("Minimum 8 characters", comment: "requirementLabel1")
         requirementLabel2.text = NSLocalizedString("Lowercase Letter", comment: "requirementLabel2")
@@ -200,25 +212,28 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             self.employeeProfileSelectionView.isHidden = false
             self.userinformationView.isHidden = true
             self.timereportView.isHidden = true
+            self.preferencesView.isHidden = true
             editView.isHidden = true
         }
-        else if isFromTimesheet{
-            self.employeeProfileSelectionView.isHidden = true
-            self.userinformationView.isHidden = true
-            self.timereportView.isHidden = false
-            editView.isHidden = false
-        }
-        else if isForUserAccount{
-            self.employeeProfileSelectionView.isHidden = true
-            self.userinformationView.isHidden = false
-            self.timereportView.isHidden = true
-            editView.isHidden = false
-        }
+//        else if isFromTimesheet{
+//            self.employeeProfileSelectionView.isHidden = false
+//            self.userinformationView.isHidden = true
+//            self.timereportView.isHidden = true
+//            editView.isHidden = true
+//        }
+//        else if isForUserAccount{
+//            self.employeeProfileSelectionView.isHidden = false
+//            self.userinformationView.isHidden = true
+//            self.timereportView.isHidden = true
+//            editView.isHidden = true
+//        }
         else{
             self.employeeProfileSelectionView.isHidden = false
             self.userinformationView.isHidden = true
             self.timereportView.isHidden = true
+            self.preferencesView.isHidden = true
             editView.isHidden = true
+            backButton.isHidden = true
         }
         
         self.txtFirstName.delegate = self
@@ -233,7 +248,6 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     }
     override func viewWillAppear(_ animated: Bool) {
         fetchEmployeeDetails()
-        
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if context == &myContext,
@@ -562,13 +576,36 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                     self.selectedSettings = .userInfo
                     self.userinformationView.isHidden = false
                     self.timereportView.isHidden = true
+                    self.preferencesView.isHidden = true
                 }else if value == Settings.timeSheet.rawValue{
                     self.selectedSettings = .timeSheet
                     self.userinformationView.isHidden = true
                     self.timereportView.isHidden = false
+                    self.preferencesView.isHidden = true
                 }
              }
             self.txtFirstName.resignFirstResponder()
+        }
+    }
+    @IBAction func selectLanguageClick(sender:UIButton){
+        let pickerArray = self.languageOptions
+        IQKeyboardManager.shared.enable = false
+        PickerView.sharedInstance.addPicker(self, onTextField: txtselectLanguage, pickerArray: pickerArray) { index, value, isDismiss in
+            if !isDismiss {
+                IQKeyboardManager.shared.enable = true
+                 print(value)
+                self.txtselectLanguage.text = value
+                if index == 0{
+                    UserDefaults.standard.set("en", forKey: "AppleLanguage")
+                }else{
+                    UserDefaults.standard.set("es", forKey: "AppleLanguage")
+                }
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                appDelegate?.currentLanguage = UserDefaults.standard.value(forKey: "AppleLanguage") as! String
+                Bundle.swizzleLocalization()
+             }
+            self.txtselectLanguage.resignFirstResponder()
+            self.viewDidLoad()
         }
     }
     @IBAction func selectPayperiodButton(sender:UIButton){
@@ -1145,6 +1182,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             employeeProfileSelectionView.isHidden = false
             userinformationView.isHidden = true
             timereportView.isHidden = true
+            self.preferencesView.isHidden = true
         }
         
     }
@@ -1154,6 +1192,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         employeeProfileSelectionView.isHidden = true
         userinformationView.isHidden = false
         timereportView.isHidden = true
+        self.preferencesView.isHidden = true
     }
     
     @IBAction func btnTimesheetTapped(_ sender: Any) {
@@ -1161,6 +1200,20 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         employeeProfileSelectionView.isHidden = true
         userinformationView.isHidden = true
         timereportView.isHidden = false
+        self.preferencesView.isHidden = true
+    }
+    
+    @IBAction func btnPreferencesTapped(_ sender: Any) {
+        editView.isHidden = true
+        employeeProfileSelectionView.isHidden = true
+        userinformationView.isHidden = true
+        timereportView.isHidden = true
+        self.preferencesView.isHidden = false
+    }
+    
+    @IBAction func btnSettingsTapped(_ sender: Any) {
+        let vc = SettingsVC.instantiate()
+        self.pushVC(controller:vc)
     }
     
     @IBAction func btnDeleteEmployeeTapped(_ sender: Any) {
@@ -2344,7 +2397,11 @@ extension EmployeeTimeReportVC: CustomMenuItemDelegate {
     func customMenuItemClicked(menuName: String) {
         print(menuName)
         if menuName == Menuname.settings{
-            let vc = SettingsVC.instantiate()
+            let vc = EmployeeTimeReportVC.instantiate()
+            vc.isForUserAccount = true
+            if let empId = Defaults.shared.currentUser?.empId{
+                vc.selectedEmployeeID = "\(empId)"
+            }
             self.pushVC(controller:vc)
         }else  if menuName == Menuname.logout{
             Defaults.shared.currentUser = nil

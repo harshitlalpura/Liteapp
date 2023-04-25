@@ -204,7 +204,7 @@
 "Employee Name"="Employee Name";
 "Job Title"="Job Title";
 "You Have No Employees Yet..."="You Have No Employees Yet...";
-"PROFILE"="PROFILE";
+"ACCOUNT PROFILE"="ACCOUNT PROFILE";
 "User Information"="User Information";
 "General employee information"="General employee information";
 "Employee clock history"="Employee clock history";
@@ -259,3 +259,6 @@
 "This referral code allows anyone who has it to join this organization. This referral code is only valid for 30 days."="This referral code allows anyone who has it to join this organization. This referral code is only valid for 30 days.";
 "via Referral Code"="via Referral Code";
 "Copy Code"="Copy Code";
+"Preferences"="Preferences";
+"General app preferences"="General app preferences";
+"Business & timeclock settings"="Business & timeclock settings";

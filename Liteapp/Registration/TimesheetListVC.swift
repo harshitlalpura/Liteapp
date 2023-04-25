@@ -614,7 +614,11 @@ extension TimesheetListVC: CustomMenuItemDelegate {
     func customMenuItemClicked(menuName: String) {
         print(menuName)
         if menuName == Menuname.settings{
-            let vc = SettingsVC.instantiate()
+            let vc = EmployeeTimeReportVC.instantiate()
+            vc.isForUserAccount = true
+            if let empId = Defaults.shared.currentUser?.empId{
+                vc.selectedEmployeeID = "\(empId)"
+            }
             self.pushVC(controller:vc)
         }else  if menuName == Menuname.logout{
             Defaults.shared.currentUser = nil
