@@ -5718,6 +5718,7 @@ button at the top of the page</string>
                         <outlet property="lblweekDayDate7" destination="WxU-6n-vST" id="fXt-KV-B6T"/>
                         <outlet property="passwordValidationView" destination="KeL-zP-4fv" id="8cr-o9-dOY"/>
                         <outlet property="picker" destination="BvH-xy-yfS" id="Rkx-Qm-xZo"/>
+                        <outlet property="preferencesTitleView" destination="6yU-LB-4kw" id="YWm-ws-3h6"/>
                         <outlet property="preferencesView" destination="fHY-Pz-y5C" id="SIR-oX-Khc"/>
                         <outlet property="requirementLabel1" destination="SLR-3t-7wl" id="m02-MS-rNk"/>
                         <outlet property="requirementLabel2" destination="dys-IW-mGj" id="IkV-qK-QBI"/>
@@ -5729,6 +5730,7 @@ button at the top of the page</string>
                         <outlet property="saveViewCancelButton" destination="yfn-0W-u3F" id="wfF-fX-MQ3"/>
                         <outlet property="saveViewSaveButton" destination="hdE-fp-kBe" id="HR6-oJ-SGX"/>
                         <outlet property="selectedPayperiodLabel" destination="io5-hc-pYX" id="8Ea-Tl-ecm"/>
+                        <outlet property="settingsTitleView" destination="MOP-8c-fEF" id="GrK-Ku-jc1"/>
                         <outlet property="tblEvents" destination="QNB-BX-ofg" id="k75-jV-CXA"/>
                         <outlet property="timereportView" destination="G4s-ua-w7y" id="KeS-jG-1hb"/>
                         <outlet property="txtEmail" destination="hIc-Ov-lS2" id="o66-15-MOQ"/>

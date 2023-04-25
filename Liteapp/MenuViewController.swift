@@ -27,6 +27,11 @@ enum SelectedOption:Int{
     case Settings = 3
     case Logout = 4
 }
+enum SelectedOptionEmployee:Int{
+    case TimeClock = 0
+    case Settings = 1
+    case Logout = 2
+}
 
 
 class MenuViewController: BaseViewController, StoryboardSceneBased{
@@ -86,9 +91,9 @@ class MenuViewController: BaseViewController, StoryboardSceneBased{
 //            menuImages = ["ic_timeclock","ic_employee","ic_timesheets","ic_settings","ic_logout"]
             menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","employee_user_info","ic_logout_tint"]
         }else{
-           menuItems = ["TimeClock","Logout \n Manager"]
+           menuItems = ["TimeClock","Account","Logout \n Manager"]
 //            menuImages = ["ic_timeclock","ic_logout"]
-            menuImages = ["ic_timeclock_tint","ic_logout_tint"]
+            menuImages = ["ic_timeclock_tint","employee_user_info","ic_logout_tint"]
         }
         menuTableview.delegate = self
         menuTableview.dataSource = self

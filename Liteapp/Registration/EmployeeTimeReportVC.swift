@@ -83,6 +83,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var userinformationView: UIView!
     @IBOutlet weak var timereportView: UIView!
     @IBOutlet weak var preferencesView: UIView!
+    @IBOutlet weak var preferencesTitleView: UIView!
+    @IBOutlet weak var settingsTitleView: UIView!
     
     @IBOutlet weak var editTooltipView: UIView!
     
@@ -214,6 +216,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             self.timereportView.isHidden = true
             self.preferencesView.isHidden = true
             editView.isHidden = true
+            self.preferencesTitleView.isHidden = true
+            self.settingsTitleView.isHidden = true
         }
 //        else if isFromTimesheet{
 //            self.employeeProfileSelectionView.isHidden = false
@@ -234,6 +238,13 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             self.preferencesView.isHidden = true
             editView.isHidden = true
             backButton.isHidden = true
+            if Defaults.shared.currentUser?.empType ?? "" == "S"{
+                self.settingsTitleView.isHidden = false
+            }
+            else
+            {
+                self.settingsTitleView.isHidden = true
+            }
         }
         
         self.txtFirstName.delegate = self
@@ -291,7 +302,8 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         menuV = CustomMenuView.init(frame: CGRect.init(x: 0, y: topMargin, width: self.view.frame.width, height: self.view.frame.height - topMargin))
         menuV.isHidden = true
         menuV.delegate = self
-        menuV.selectedOption = .Employee
+        menuV.selectedOption = .Settings
+        menuV.selectedOptionEmployee = .Settings
         self.view.addSubview(menuV)
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))

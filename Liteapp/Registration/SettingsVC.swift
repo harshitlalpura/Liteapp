@@ -479,6 +479,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         menuV.isHidden = true
         menuV.delegate = self
         menuV.selectedOption = .Settings
+        menuV.selectedOptionEmployee = .Settings
         self.view.addSubview(menuV)
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))

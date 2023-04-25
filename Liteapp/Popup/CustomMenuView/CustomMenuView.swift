@@ -28,6 +28,7 @@ class CustomMenuView: UIView {
     @IBOutlet weak var constvwSupportHeight: NSLayoutConstraint!
     
     var selectedOption:SelectedOption = .TimeClock
+    var selectedOptionEmployee:SelectedOptionEmployee = .TimeClock
     var menuItems = ["TimeClock","Employees","TimeSheets","Account","Logout \n Manager"]
 //    var menuImages = ["ic_timeclock","ic_employee","ic_timesheet","ic_settings","ic_logout"]
     var menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","employee_user_info","ic_logout_tint"]
@@ -55,9 +56,9 @@ class CustomMenuView: UIView {
     //            menuImages = ["ic_timeclock","ic_employee","ic_timesheets","ic_settings","ic_logout"]
                 menuImages = ["ic_timeclock_tint","ic_employees_tint","ic_timesheet_tint","employee_user_info","ic_logout_tint"]
             }else{
-               menuItems = ["TimeClock","Logout \n Manager"]
+               menuItems = ["TimeClock","Account","Logout \n Manager"]
     //            menuImages = ["ic_timeclock","ic_logout"]
-                menuImages = ["ic_timeclock_tint","ic_logout_tint"]
+                menuImages = ["ic_timeclock_tint","employee_user_info","ic_logout_tint"]
             }
             
             self.constvwSupportHeight.constant = 0.0
@@ -223,17 +224,31 @@ extension CustomMenuView:UITableViewDataSource,UITableViewDelegate {
              cell.imageview.image = UIImage(named:menuImages[indexPath.row])
              cell.selectionStyle = .none
              cell.backgroundColor = UIColor.Color.white
-             
-             if indexPath.row == self.selectedOption.rawValue{
-                 cell.label.textColor = UIColor.Color.appBlueColor2
-                 cell.imageview.tintColor = UIColor.Color.appBlueColor2.withAlphaComponent(0.5)
-              //   cell.label.font = UIFont.Robotobold(size:20)
-                 
-             }else{
-               //  cell.label.font = UIFont.Robotobold(size:20)
-                 cell.label.textColor = UIColor.Color.black
-                 cell.imageview.tintColor = UIColor.Color.grayblack
-             }
+            
+            if Defaults.shared.currentUser?.empType ?? "" == "S"{
+                if indexPath.row == self.selectedOption.rawValue{
+                    cell.label.textColor = UIColor.Color.appBlueColor2
+                    cell.imageview.tintColor = UIColor.Color.appBlueColor2.withAlphaComponent(0.5)
+                 //   cell.label.font = UIFont.Robotobold(size:20)
+                    
+                }else{
+                  //  cell.label.font = UIFont.Robotobold(size:20)
+                    cell.label.textColor = UIColor.Color.black
+                    cell.imageview.tintColor = UIColor.Color.grayblack
+                }
+                
+            }else{
+                 if indexPath.row == self.selectedOptionEmployee.rawValue{
+                     cell.label.textColor = UIColor.Color.appBlueColor2
+                     cell.imageview.tintColor = UIColor.Color.appBlueColor2.withAlphaComponent(0.5)
+                  //   cell.label.font = UIFont.Robotobold(size:20)
+                     
+                 }else{
+                   //  cell.label.font = UIFont.Robotobold(size:20)
+                     cell.label.textColor = UIColor.Color.black
+                     cell.imageview.tintColor = UIColor.Color.grayblack
+                 }
+            }
              cell.selectedBar.isHidden = true
              if indexPath.row == self.selectedOption.rawValue && self.selectedOption == .TimeClock{
      //            cell.imageview.image = UIImage(named:"ic_timeclock_selected")

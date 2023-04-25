@@ -213,6 +213,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
         menuV.isHidden = true
         menuV.delegate = self
         menuV.selectedOption = .TimeClock
+        menuV.selectedOptionEmployee = .TimeClock
         self.view.addSubview(menuV)
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
