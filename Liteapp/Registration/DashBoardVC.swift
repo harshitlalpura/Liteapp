@@ -275,10 +275,10 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
         if dashBoardData?.todayMinutes == 0{
             // imgStatus.tintColor = UIColor.Color.red
             imageviewClockinStatus.tintColor = UIColor.Color.red
-            lblClockinStatus.text = Localizable.Clockin.notClockedIn
+            lblClockinStatus.text = NSLocalizedString("Not Clocked In", comment: "notClockedIn")
             btnClockin.backgroundColor = UIColor.Color.green
             //  btnClockin.cornerRadius = 0.0
-            btnClockin.setTitle(Localizable.Clockin.btnCheckin, for: .normal)
+            btnClockin.setTitle(NSLocalizedString("Clock In", comment: "btnClockin"), for: .normal)
         }
         else{
             switch dashBoardData?.currentStatus ?? "" {
@@ -286,36 +286,36 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
             case UserStatus.loggedOut.rawValue:
                 // imgStatus.tintColor = UIColor.Color.red
                 imageviewClockinStatus.tintColor = UIColor.Color.red
-                lblClockinStatus.text = Localizable.Clockin.clockedoutAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
+                lblClockinStatus.text = NSLocalizedString("Out at", comment: "lblClockinStatus") + " " + "\(dashBoardData?.lastEventTime ?? "")"
                 btnClockin.backgroundColor = UIColor.Color.green
                 //  btnClockin.cornerRadius = 0.0
-                btnClockin.setTitle(Localizable.Clockin.btnCheckin, for: .normal)
+                btnClockin.setTitle(NSLocalizedString("Clock In", comment: "btnClockin"), for: .normal)
                 
             case UserStatus.loggedIN.rawValue:
                 // imgStatus.tintColor = UIColor.Color.green
                 imageviewClockinStatus.tintColor = UIColor.Color.green
-                lblClockinStatus.text = Localizable.Clockin.clockedinAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
+                lblClockinStatus.text = NSLocalizedString("In at", comment: "lblClockinStatus") + " " + "\(dashBoardData?.lastEventTime ?? "")"
                 btnClockin.backgroundColor = UIColor.Color.red
                 //  btnClockin.cornerRadius = btnClockin.frame.height / 2
-                btnClockin.setTitle(Localizable.Clockin.btnCheckout, for: .normal)
+                btnClockin.setTitle(NSLocalizedString("Clock Out", comment: "btnClockin"), for: .normal)
                 
             case UserStatus.Inbreak.rawValue:
                 // imgStatus.tintColor = UIColor.Color.yellow
                 imageviewClockinStatus.tintColor = UIColor.Color.yellow
-                lblClockinStatus.text = Localizable.Clockin.btnInAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
+                lblClockinStatus.text = NSLocalizedString("Break at", comment: "lblClockinStatus") + " " + "\(dashBoardData?.lastEventTime ?? "")"
                 btnClockin.backgroundColor = UIColor.Color.red
-                btnClockin.setTitle(Localizable.Clockin.btnCheckout, for: .normal)
+                btnClockin.setTitle(NSLocalizedString("Clock Out", comment: "btnClockin"), for: .normal)
                 
-                btnStartBreak.setTitle(Localizable.Clockin.btnEndreak, for: .normal)
+                btnStartBreak.setTitle(NSLocalizedString("End Lunch Break", comment: "btnClockin"), for: .normal)
                 
             case UserStatus.Endbreak.rawValue:
                 // imgStatus.tintColor = UIColor.Color.green
                 imageviewClockinStatus.tintColor = UIColor.Color.green
-                lblClockinStatus.text = Localizable.Clockin.clockedinAt + " " + "\(dashBoardData?.lastEventTime ?? "")"
+                lblClockinStatus.text = NSLocalizedString("In at", comment: "lblClockinStatus") + " " + "\(dashBoardData?.lastEventTime ?? "")"
                 btnClockin.backgroundColor = UIColor.Color.red
-                btnClockin.setTitle(Localizable.Clockin.btnCheckout, for: .normal)
+                btnClockin.setTitle(NSLocalizedString("Clock Out", comment: "btnClockin"), for: .normal)
                 
-                btnStartBreak.setTitle(Localizable.Clockin.btnStartBreak, for: .normal)
+                btnStartBreak.setTitle(NSLocalizedString("Start Lunch Break", comment: "btnClockin"), for: .normal)
                 
             default:
                 break
@@ -566,7 +566,7 @@ extension DashBoardVC:UICollectionViewDataSource, UICollectionViewDelegate, UICo
         
         let cell = calanderCollectionView.dequeueReusableCell(withReuseIdentifier: CalendarCell.reuseIdentifier, for: indexPath as IndexPath) as! CalendarCell
         let date = self.itemsDate[indexPath.section][indexPath.row]
-        cell.TitleLabel.text = date.string(format:DateTimeFormat.EEEE.rawValue)
+        cell.TitleLabel.text = NSLocalizedString(date.string(format:DateTimeFormat.EEEE.rawValue), comment: "Days") 
         cell.dateLabel.text = date.string(format:DateTimeFormat.dd.rawValue)
         cell.dateLabel.textColor = .darkGray
         

@@ -75,7 +75,7 @@
 "Please Enter Valid URL"="Please Enter Valid URL";
 "Skip"="Skip";
 "How many people do you employ?"="How many people do you employ?";
-"Compete my account"="Compete my account";
+"Compete my account"="Complete my account";
 "Almost Complete. Setting up your account now..."="Almost Complete. Setting up your account now...";
 "Let’s get your employee account set up. Don’t worry, this should only take about 2 minutes."="Let’s get your employee account set up. Don’t worry, this should only take about 2 minutes.";
 "Now, let's create your account credentials."="Now, let's create your account credentials.";
@@ -95,6 +95,7 @@
 "TimeClock"="TimeClock";
 "Employees"="Employees";
 "TimeSheets"="TimeSheets";
+"Timesheets"="Timesheets";
 "Settings"="Settings";
 "Logout \n Manager"="Logout \n Manager";
 "Congratulations"="Congratulations";
@@ -188,6 +189,7 @@
 "What is your Pay Period Duration ?"="What is your Pay Period Duration ?";
 "Weekly"="Weekly";
 "Bi-Weekly"="Bi-Weekly";
+"Biweekly"="Biweekly";
 "Which Pay Period are you currently in?"="Which Pay Period are you currently in?";
 "Week 1"="Week 1";
 "Week 2"="Week 2";
@@ -262,3 +264,22 @@
 "Preferences"="Preferences";
 "General app preferences"="General app preferences";
 "Business & timeclock settings"="Business & timeclock settings";
+"Please enter email"="Please enter email";
+"Please enter password"="Please enter password";
+"Change Language"="Change Language";
+"Business Settings"="Business Settings";
+"Info about your business"="Info about your business";
+"Timeclock Settings"="Timeclock Settings";
+"Settings that affect employees"="Settings that affect employees";
+"Total Hours:"="Total Hours:";
+"Regular Hours:"="Regular Hours:";
+"Overtime Hours:"="Overtime Hours:";
+"ADD DAY"="ADD DAY";
+"Not Clocked In"="Not Clocked In";
+"Clock In"="Clock In";
+"Out at"="Out at";
+"In at"="In at";
+"Clock Out"="Clock Out";
+"Break at"="Break at";
+"End Lunch Break"="End Lunch Break";
+"Start Lunch Break"="Start Lunch Break";

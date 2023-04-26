@@ -149,10 +149,13 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var lblEdit: UILabel!
     @IBOutlet weak var lblProfile: UILabel!
     @IBOutlet weak var lblUserInfoTitle: UILabel!
+    @IBOutlet weak var lblUserInfoTitle1: UILabel!
     @IBOutlet weak var lblUserInfoDesc: UILabel!
     @IBOutlet weak var lblTimesheetTitle: UILabel!
+    @IBOutlet weak var lblTimesheetTitle1: UILabel!
     @IBOutlet weak var lblTimesheetDesc: UILabel!
     @IBOutlet weak var lblPreferencesTitle: UILabel!
+    @IBOutlet weak var lblPreferencesTitle1: UILabel!
     @IBOutlet weak var lblPreferencesDesc: UILabel!
     @IBOutlet weak var lblSettingsTitle: UILabel!
     @IBOutlet weak var lblsettingsDesc: UILabel!
@@ -174,6 +177,15 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var datePickerDoneButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var txtselectLanguage: UITextField!
+    @IBOutlet weak var lblFirstName: UILabel!
+    @IBOutlet weak var lblLastName: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var lblJobTitle: UILabel!
+    @IBOutlet weak var lblPassword: UILabel!
+    @IBOutlet weak var lblPayPeriod: UILabel!
+    @IBOutlet weak var lblChangeLanguage: UILabel!
+    
     var languageOptions = ["English","Spanish"]
     
     override func viewDidLoad() {
@@ -182,10 +194,13 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         lblEdit.text = NSLocalizedString("Edit", comment: "lblEdit")
         lblProfile.text = NSLocalizedString("ACCOUNT PROFILE", comment: "lblProfile")
         lblUserInfoTitle.text = NSLocalizedString("User Information", comment: "lblUserInfoTitle")
+        lblUserInfoTitle1.text = NSLocalizedString("User Information", comment: "lblUserInfoTitle")
         lblUserInfoDesc.text = NSLocalizedString("General employee information", comment: "lblUserInfoDesc")
         lblTimesheetTitle.text = NSLocalizedString("Timesheets", comment: "lblTimesheetTitle")
+        lblTimesheetTitle1.text = NSLocalizedString("Timesheets", comment: "lblTimesheetTitle")
         lblTimesheetDesc.text = NSLocalizedString("Employee clock history", comment: "lblTimesheetDesc")
         lblPreferencesTitle.text = NSLocalizedString("Preferences", comment: "lblPreferencesTitle")
+        lblPreferencesTitle1.text = NSLocalizedString("Preferences", comment: "lblPreferencesTitle")
         lblPreferencesDesc.text = NSLocalizedString("General app preferences", comment: "lblPreferencesDesc")
         lblSettingsTitle.text = NSLocalizedString("Settings", comment: "lblSettingsTitle")
         lblsettingsDesc.text = NSLocalizedString("Business & timeclock settings", comment: "lblsettingsDesc")
@@ -205,6 +220,14 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         datePickerCancelButton.setTitle(NSLocalizedString("Cancel", comment: "datePickerCancelButton"), for: .normal)
         datePickerClearButton.setTitle(NSLocalizedString("Clear", comment: "datePickerClearButton"), for: .normal)
         datePickerDoneButton.setTitle(NSLocalizedString("Done", comment: "datePickerDoneButton"), for: .normal)
+        lblFirstName.text = NSLocalizedString("First Name", comment: "firstNameLabel")
+        lblLastName.text = NSLocalizedString("Last Name", comment: "lastNameLabel")
+        lblEmail.text = NSLocalizedString("Email", comment: "emailLabel")
+        lblUserName.text = NSLocalizedString("Username", comment: "userNameLabel")
+        lblJobTitle.text = NSLocalizedString("Job Title", comment: "lblJobTitle")
+        lblPassword.text = NSLocalizedString("Password", comment: "passwordLabel")
+        lblPayPeriod.text = NSLocalizedString("Pay Period", comment: "lblPayPeriod")
+        lblChangeLanguage.text = NSLocalizedString("Change Language", comment: "lblChangeLanguage")
         
         setData()
         setTableview()

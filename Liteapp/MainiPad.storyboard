@@ -655,7 +655,9 @@ Let's get started</string>
                         <outlet property="imgvwSpecialCharacter" destination="6Lq-jR-ik4" id="AcQ-PR-shd"/>
                         <outlet property="imgvwminimumCharacter" destination="Hhw-rj-4HD" id="ahk-lZ-mvk"/>
                         <outlet property="lblEmail" destination="crU-Rt-YgY" id="MXs-Dg-qN0"/>
+                        <outlet property="lblEmailError" destination="of2-7L-Wpc" id="mwA-ge-kH4"/>
                         <outlet property="lblPassword" destination="90C-0f-Ldo" id="1oC-fg-r7k"/>
+                        <outlet property="lblPasswordError" destination="R4T-Pa-7p6" id="3Ca-Gs-zXc"/>
                         <outlet property="lblRegister" destination="gYx-ve-sie" id="asj-Z0-DAG"/>
                         <outlet property="lblTermsAndPrivacy" destination="yv2-Fd-vZJ" id="dse-WG-6ES"/>
                         <outlet property="lblTitle" destination="smD-lF-WDx" id="UDu-G7-TPr"/>

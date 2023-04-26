@@ -198,8 +198,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     var setupProfile:Bool = false
     var isForAccountSettings : Bool = false
     
-    var weekDaysArray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
-    var durationOptions = ["Weekly","Biweekly"]
+    var weekDaysArray = [NSLocalizedString("Sunday", comment: "btnSunday"),NSLocalizedString("Monday", comment: "btnMonday"),NSLocalizedString("Tuesday", comment: "btnTuesday"),NSLocalizedString("Wednesday", comment: "btnWednesday"),NSLocalizedString("Thursday", comment: "btnThursday"),NSLocalizedString("Friday", comment: "btnFriday"),NSLocalizedString("Saturday", comment: "btnSaturday")]
+    var durationOptions = [NSLocalizedString("Weekly", comment: "btnWeekly"),NSLocalizedString("Biweekly", comment: "btnBiweekly")]
     var arrNoOfEmps = ["1 - 4","5 - 19","20 - 99","100 - 499","100 - 499","500+"]
     var settingsArray = ["TimeClock Settings","Account Settings"]
     
@@ -700,27 +700,27 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         self.txteditWeeklyOvertimeHours.text = "\(merchantSettings?.merchantWeeklyOvertime ?? 32)"
         
         if merchantSettings?.merchantPayPeriod ?? "" == "W"{
-            self.txtselectPayPeriod.text = "Weekly"
+            self.txtselectPayPeriod.text = NSLocalizedString("Weekly", comment: "btnWeekly")
             self.selectWeekView.isHidden = true
         }else if merchantSettings?.merchantPayPeriod ?? "" == "B"{
-            self.txtselectPayPeriod.text = "Biweekly"
+            self.txtselectPayPeriod.text = NSLocalizedString("Biweekly", comment: "btnBiweekly")
             self.selectWeekView.isHidden = false
         }
         
         if merchantSettings?.merchantWeekStart ?? 0 == 0{
-            self.txtselectWeekStartday.text = "Sunday"
+            self.txtselectWeekStartday.text = NSLocalizedString("Sunday", comment: "btnSunday")
         }else if merchantSettings?.merchantWeekStart ?? 0 == 1{
-            self.txtselectWeekStartday.text = "Monday"
+            self.txtselectWeekStartday.text = NSLocalizedString("Monday", comment: "btnMonday")
         }else if merchantSettings?.merchantWeekStart ?? 0 == 2{
-            self.txtselectWeekStartday.text = "Tuesday"
+            self.txtselectWeekStartday.text = NSLocalizedString("Tuesday", comment: "btnTuesday")
         }else if merchantSettings?.merchantWeekStart ?? 0 == 3{
-            self.txtselectWeekStartday.text = "Wednesday"
+            self.txtselectWeekStartday.text = NSLocalizedString("Wednesday", comment: "btnWednesday")
         }else if merchantSettings?.merchantWeekStart ?? 0 == 4{
-            self.txtselectWeekStartday.text = "Thursday"
+            self.txtselectWeekStartday.text = NSLocalizedString("Thursday", comment: "btnThursday")
         }else if merchantSettings?.merchantWeekStart ?? 0 == 5{
-            self.txtselectWeekStartday.text = "Friday"
+            self.txtselectWeekStartday.text = NSLocalizedString("Friday", comment: "btnFriday")
         }else if merchantSettings?.merchantWeekStart ?? 0 == 6{
-            self.txtselectWeekStartday.text = "Saturday"
+            self.txtselectWeekStartday.text = NSLocalizedString("Saturday", comment: "btnSaturday")
         }
         
         if self.merchantSettings?.merchantWeeklyOvertimeEnabled ?? "N" == "Y"{
@@ -1440,8 +1440,8 @@ extension SettingsVC : UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:"SettingsSelectionCell",for:indexPath) as! SettingsSelectionCell
         let dictSetting = arrSettings[indexPath.row]
-        cell.lblSettingTitle.text = dictSetting["title"]
-        cell.lblSettingDetails.text = dictSetting["subtitle"]
+        cell.lblSettingTitle.text = NSLocalizedString(dictSetting["title"]!, comment: "lblSettingsTitle")
+        cell.lblSettingDetails.text = NSLocalizedString(dictSetting["subtitle"]!, comment: "lblSettingsDetails")
         cell.imgSettings.image = UIImage.init(named: dictSetting["icon"]!)
         cell.selectionStyle = .none
         return cell

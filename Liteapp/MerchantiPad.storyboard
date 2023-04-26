@@ -5195,13 +5195,13 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                                         </constraints>
                                     </scrollView>
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzL-De-ZEJ">
-                                        <rect key="frame" x="150" y="1200" width="724" height="190"/>
+                                        <rect key="frame" x="150" y="1580" width="724" height="190"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fEG-zF-mWX">
                                                 <rect key="frame" x="0.0" y="0.0" width="724" height="40"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please complete all the requirements." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SC7-2e-OZt">
-                                                        <rect key="frame" x="260.5" y="12.5" width="203" height="14.5"/>
+                                                        <rect key="frame" x="260.5" y="13" width="203" height="14.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="12"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -6164,15 +6164,25 @@ button at the top of the page</string>
                         <outlet property="lblEdit" destination="1Hy-Mc-IeN" id="lAq-v7-xtM"/>
                         <outlet property="lblEditModeTitle" destination="Vm8-bv-CHc" id="Wr9-Tz-IcA"/>
                         <outlet property="lblEditModetDesc" destination="b5V-ux-WWC" id="el6-FF-w3E"/>
+                        <outlet property="lblEmail" destination="1Zm-7K-maL" id="GoU-oy-4wJ"/>
+                        <outlet property="lblFirstName" destination="tQM-OX-IUs" id="V7m-US-H1u"/>
+                        <outlet property="lblJobTitle" destination="2Bk-qV-4Ho" id="8fi-Ob-b74"/>
+                        <outlet property="lblLastName" destination="h1t-8N-j6w" id="2BS-5p-AGS"/>
+                        <outlet property="lblPassword" destination="VBt-u7-pfH" id="hOc-cs-VR9"/>
+                        <outlet property="lblPayPeriod" destination="RBy-rx-xEm" id="15n-Hy-BKa"/>
                         <outlet property="lblPreferencesDesc" destination="Y6Q-lB-DkF" id="Xzf-RC-cUw"/>
                         <outlet property="lblPreferencesTitle" destination="rrP-RC-YRR" id="jDd-Qv-gQ4"/>
+                        <outlet property="lblPreferencesTitle1" destination="69D-jU-r0X" id="N4w-Nb-FGf"/>
                         <outlet property="lblProfile" destination="hCr-Dl-laD" id="IBM-TG-vDZ"/>
                         <outlet property="lblSelectDate" destination="htZ-YY-9Ob" id="VH4-K3-pXS"/>
                         <outlet property="lblSettingsTitle" destination="4tM-gt-gkE" id="fl3-jG-sTZ"/>
                         <outlet property="lblTimesheetDesc" destination="fRO-4X-y6z" id="WNm-G0-Ffk"/>
                         <outlet property="lblTimesheetTitle" destination="t8h-iL-k2l" id="jF3-0y-cfG"/>
+                        <outlet property="lblTimesheetTitle1" destination="ASq-Cx-NMC" id="h35-1d-fXx"/>
                         <outlet property="lblUserInfoDesc" destination="fq1-Me-q3N" id="wnt-MM-ccD"/>
                         <outlet property="lblUserInfoTitle" destination="eVZ-ey-sHs" id="LqU-Cv-qov"/>
+                        <outlet property="lblUserInfoTitle1" destination="NS4-DK-1bJ" id="iTs-RX-Lye"/>
+                        <outlet property="lblUserName" destination="4yi-1q-btc" id="3h0-zp-gr2"/>
                         <outlet property="lblname" destination="qrs-Ef-yEw" id="gDi-qk-KWv"/>
                         <outlet property="lblsettingsDesc" destination="rHl-nw-4CN" id="EQw-89-Te8"/>
                         <outlet property="lblusername" destination="0YW-ch-rnG" id="pul-4z-2Kf"/>

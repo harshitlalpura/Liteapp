@@ -26,6 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             UserDefaults.standard.set(currentLanguage, forKey: "AppleLanguage")
         }
+        else
+        {
+            currentLanguage = UserDefaults.standard.value(forKey: "AppleLanguage") as! String
+            if(currentLanguage != "en")
+            {
+                Bundle.swizzleLocalization()
+            }
+        }
         return true
     }
 

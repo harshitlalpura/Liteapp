@@ -40,6 +40,8 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var btnRegister: UIButton!
     @IBOutlet weak var btnChangeLanguage: UIButton!
     @IBOutlet weak var btnForgotPassword: UIButton!
+    @IBOutlet weak var lblEmailError: UILabel!
+    @IBOutlet weak var lblPasswordError: UILabel!
     
     var privacyText : String = ""
     override func viewDidLoad() {
@@ -55,6 +57,8 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
         lblRegister.text = NSLocalizedString("Don't have an account?", comment: "RegisterLabel")
         btnRegister.setTitle(NSLocalizedString("Register here", comment: "RegisterButton"), for: .normal)
         btnLogin.setTitle(NSLocalizedString("Login", comment: "LoginButton"), for: .normal)
+        lblEmailError.text = NSLocalizedString("Please enter email", comment: "lblEmailError")
+        lblPasswordError.text = NSLocalizedString("Please enter password", comment: "lblPasswordError")
         
         let quote = NSLocalizedString("English|Spanish", comment: "btnChangeLanguage")
         let attributedQuote = NSMutableAttributedString(string: quote)
