@@ -62,12 +62,23 @@ class TimeReportCVCell: UICollectionViewCell , NibReusable {
     
     @IBOutlet weak var btnBackWeekday: MyButton!
     @IBOutlet weak var btncloseWeekday: MyButton!
+    
+    
+    @IBOutlet weak var totalTimeTitle: UILabel!
+    @IBOutlet weak var regularHoursTitle: UILabel!
+    @IBOutlet weak var overTimeTitle: UILabel!
+    @IBOutlet weak var btnAddTimesheet: UIButton!
+    
     var isChangeDate = false
     var weekDates = [CustomDate]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        totalTimeTitle.text = NSLocalizedString("Total Hours:", comment: "totalTimeTitle")
+        regularHoursTitle.text = NSLocalizedString("Regular Hours:", comment: "regularHoursTitle")
+        overTimeTitle.text = NSLocalizedString("Overtime Hours:", comment: "overTimeTitle")
+        btnAddTimesheet.setTitle(NSLocalizedString("ADD DAY", comment: "btnAddTimesheet"), for: .normal)
     }
     func setWeekDays(days:[CustomDate]){
       

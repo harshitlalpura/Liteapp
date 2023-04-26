@@ -274,7 +274,8 @@
 "Total Hours:"="Total Hours:";
 "Regular Hours:"="Regular Hours:";
 "Overtime Hours:"="Overtime Hours:";
-"ADD DAY"="ADD DAY";
+"ADD NEW DAY"="ADD NEW DAY";
+"Manually Add Day"="Manually Add Day";
 "Not Clocked In"="Not Clocked In";
 "Clock In"="Clock In";
 "Out at"="Out at";

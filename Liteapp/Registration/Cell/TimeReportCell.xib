@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1013,12 +1014,15 @@
                 <outlet property="lblweekDayDate6" destination="Cdp-Qr-Efd" id="OVG-OX-ALh"/>
                 <outlet property="lblweekDayDate7" destination="QuW-Hl-kxa" id="fuQ-pe-jiU"/>
                 <outlet property="overTimeLabel" destination="Wfj-IP-tV3" id="go2-7Q-Dnc"/>
+                <outlet property="overTimeTitle" destination="GcN-7g-i7M" id="Qj3-cy-NqX"/>
                 <outlet property="regularHoursLabel" destination="xX3-EF-dlb" id="JuA-aX-yUa"/>
+                <outlet property="regularHoursTitle" destination="A5m-xU-eFV" id="6fi-Sy-uDW"/>
                 <outlet property="scrollContentView" destination="Swt-Pp-j2Z" id="Omp-Lw-NYP"/>
                 <outlet property="scrollMainView" destination="ipq-wj-Z93" id="fzc-wx-ewD"/>
                 <outlet property="scrollView" destination="qw1-Xk-pnl" id="fLk-N7-TtV"/>
                 <outlet property="stackView" destination="c6w-aq-yzE" id="H6i-3e-BJl"/>
                 <outlet property="totalTimeLabel" destination="3ba-Wh-W30" id="jkD-jE-kUm"/>
+                <outlet property="totalTimeTitle" destination="Qlb-NZ-JS5" id="mq5-nh-1Fn"/>
                 <outlet property="viewDay1" destination="pBL-43-tvq" id="e7b-W3-ZZG"/>
                 <outlet property="viewDay2" destination="Gub-qc-7Cs" id="rzk-bc-4Kz"/>
                 <outlet property="viewDay3" destination="L4B-gi-F5I" id="6kT-ko-8tE"/>

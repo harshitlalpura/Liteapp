@@ -11,8 +11,12 @@ class TimeReportCell: UITableViewCell , NibReusable {
 
     @IBOutlet weak var stackView: UIStackView!
 
+    
+    @IBOutlet weak var totalTimeTitle: UILabel!
     @IBOutlet weak var totalTimeLabel: UILabel!
+    @IBOutlet weak var regularHoursTitle: UILabel!
     @IBOutlet weak var regularHoursLabel: UILabel!
+    @IBOutlet weak var overTimeTitle: UILabel!
     @IBOutlet weak var overTimeLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -75,7 +79,9 @@ class TimeReportCell: UITableViewCell , NibReusable {
     var weekDates = [CustomDate]()
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        totalTimeTitle.text = NSLocalizedString("Total Hours:", comment: "totalTimeTitle")
+        regularHoursTitle.text = NSLocalizedString("Regular Hours:", comment: "regularHoursTitle")
+        overTimeTitle.text = NSLocalizedString("Overtime Hours:", comment: "overTimeTitle")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

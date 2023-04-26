@@ -1453,7 +1453,7 @@ extension EmployeeTimeReportVC: UICollectionViewDelegate,UICollectionViewDataSou
             let weekday = date.getTodayWeekDay()
             let dateString = date.getString()
             cell.dateLabel.text = dateString
-            cell.dayLabel.text = weekday
+            cell.dayLabel.text = NSLocalizedString(weekday, comment: "Days") 
             
             cell.btnDate.addTarget(self, action:#selector(self.changeDateSelected(sender:)), for: .touchUpInside)
             cell.btnDate.timeSheetIndex = indexPath.row - 1
@@ -1738,7 +1738,7 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                 let weekday = date.getTodayWeekDay()
                 let dateString = date.getString()
                 cell.dateLabel.text = dateString
-                cell.dayLabel.text = weekday
+                cell.dayLabel.text = NSLocalizedString(weekday, comment: "Days")
                 
                 cell.btnDate.addTarget(self, action:#selector(self.changeDateSelected(sender:)), for: .touchUpInside)
                 cell.btnDate.timeSheetIndex = indexPath.row - 1
@@ -1761,24 +1761,24 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
                   let timeLineEvent = event.timelineEvent ?? ""
                   
                     
-                  if timeLineEvent == "I"{
-                      timeReportViewNew.titleLabel.text = "Shift Start:"
-                      timeReportViewNew.barView.backgroundColor = UIColor.startShiftColor
+                    if timeLineEvent == "I"{
+                        timeReportViewNew.titleLabel.text = NSLocalizedString("Shift Start:", comment: "ShiftStart")
+                        timeReportViewNew.barView.backgroundColor = UIColor.startShiftColor
+                        
                       
-                    
-                  }else if timeLineEvent == "O"{
-                      timeReportViewNew.titleLabel.text = "Shift End:"
-                      timeReportViewNew.barView.backgroundColor = UIColor.endShiftColor
-                     
-                  }else if timeLineEvent == "B"{
-                      timeReportViewNew.titleLabel.text = "Break Start:"
-                      timeReportViewNew.barView.backgroundColor = UIColor.breakStartColor
-                    
-                  }else if timeLineEvent == "S"{
-                      timeReportViewNew.titleLabel.text = "Break End:"
-                      timeReportViewNew.barView.backgroundColor = UIColor.breakEndColor
-                     
-                  }
+                    }else if timeLineEvent == "O"{
+                        timeReportViewNew.titleLabel.text = NSLocalizedString("Shift End:", comment: "ShiftEnd")
+                        timeReportViewNew.barView.backgroundColor = UIColor.endShiftColor
+                       
+                    }else if timeLineEvent == "B"{
+                        timeReportViewNew.titleLabel.text = NSLocalizedString("Break Start:", comment: "BreakStart")
+                        timeReportViewNew.barView.backgroundColor = UIColor.breakStartColor
+                      
+                    }else if timeLineEvent == "S"{
+                        timeReportViewNew.titleLabel.text = NSLocalizedString("Break End:", comment: "BreakEnd")
+                        timeReportViewNew.barView.backgroundColor = UIColor.breakEndColor
+                       
+                    }
                  timeReportViewNew.btnTimeEdit.addTarget(self, action:#selector(self.changeTimeClick(sender:)), for: .touchUpInside)
                  timeReportViewNew.btnTimeEdit.timeSheetIndex = indexPath.row - 1
                  timeReportViewNew.btnTimeEdit.weekIndex = indexPath.section

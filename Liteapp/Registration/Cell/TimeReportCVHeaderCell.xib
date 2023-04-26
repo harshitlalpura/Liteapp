@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -210,9 +211,12 @@
                 <outlet property="btnAddTimesheet" destination="Z07-Er-NsO" id="U5Z-Qf-l6W"/>
                 <outlet property="button" destination="juU-XE-Uam" id="vlT-it-oQn"/>
                 <outlet property="overTimeLabel" destination="aK0-ZS-Xxm" id="xcc-4P-JZw"/>
+                <outlet property="overTimeTitle" destination="hCy-29-134" id="2Ux-N9-74f"/>
                 <outlet property="regularHoursLabel" destination="Jst-nN-6JA" id="f3q-f0-RzG"/>
+                <outlet property="regularHoursTitle" destination="aPS-Ma-V1C" id="3FN-1s-ayg"/>
                 <outlet property="timeLabel" destination="8zF-1w-mAP" id="pVA-5a-ehj"/>
                 <outlet property="totalTimeLabel" destination="v7G-ND-jqR" id="MSx-x3-gkw"/>
+                <outlet property="totalTimeTitle" destination="cMC-8g-Rdx" id="A4J-Xe-RFA"/>
                 <outlet property="weeklyOverTimeView" destination="5nl-0K-LYO" id="8Yu-MN-2fh"/>
             </connections>
             <point key="canvasLocation" x="132" y="83"/>
