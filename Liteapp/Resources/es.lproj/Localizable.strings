@@ -266,7 +266,7 @@
 "Business & timeclock settings"="Configuration de la Empresa y el reloj de tiempo";
 "Please enter email"="Por favor ingrese Correo Electrónico";
 "Please enter password"="Por favor ingrese Contraseña";
-"Change Language"="Change Language";
+"Change Language"="Cambiar idioma";
 "Business Settings"="Configuración Empresarial";
 "Info about your business"="Información acerca de su negocio";
 "Timeclock Settings"="Configuración del horario";
@@ -278,8 +278,8 @@
 "Manually Add Day"="Manually Add Day";
 "Not Clocked In"="No registro Entrada";
 "Clock In"="Registrar Entrada";
-"Out at"="Out at";
-"In at"="In at";
+"Out at"="Fuera en";
+"In at"="en a las";
 "Clock Out"="Registrar Salida";
 "Break at"="Break at";
 "End Lunch Break"="Finalizar Descanso";

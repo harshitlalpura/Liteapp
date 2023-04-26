@@ -263,10 +263,12 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
             backButton.isHidden = true
             if Defaults.shared.currentUser?.empType ?? "" == "S"{
                 self.settingsTitleView.isHidden = false
+                btnDeleteEmployee.isHidden = false
             }
             else
             {
                 self.settingsTitleView.isHidden = true
+                btnDeleteEmployee.isHidden = true
             }
         }
         
@@ -532,13 +534,13 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
                     //Show Username and Hide Delete
                     self.isForAdminProfile = true
                     self.viewUsername.isHidden = false
-                    self.btnDeleteEmployee.isHidden = true
+//                    self.btnDeleteEmployee.isHidden = true
                 }
                 else{
                     //Hide Username and Show Delete
                     self.isForAdminProfile = false
                     self.viewUsername.isHidden = true
-                    self.btnDeleteEmployee.isHidden = false
+//                    self.btnDeleteEmployee.isHidden = false
                 }
                 
                 self.fetchEmployeeTimesheet()
@@ -1713,6 +1715,13 @@ extension EmployeeTimeReportVC: UITableViewDelegate, UITableViewDataSource {
 //                }
 //                cell.showAddDayOption(needToShow: isEditMode)
                 cell.showAddDayOption(needToShow: false)
+                if Defaults.shared.currentUser?.empType ?? "" == "S"{
+                    cell.button.isHidden = false
+                }
+                else
+                {
+                    cell.button.isHidden = true
+                }
                 cell.button.tag = indexPath.section
                 cell.button.addTarget(self, action:#selector(self.addTimesheetClicked(sender:)), for: .touchUpInside)
                 if self.isEditMode == true{
