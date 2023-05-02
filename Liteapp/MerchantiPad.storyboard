@@ -1557,14 +1557,14 @@ weekly , biweekly.</string>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X58-q2-26y">
                                                                 <rect key="frame" x="0.0" y="30" width="412" height="220"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="EDIT MODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muD-Ej-3WB">
-                                                                        <rect key="frame" x="20" y="10" width="104.5" height="28"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EDIT MODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muD-Ej-3WB">
+                                                                        <rect key="frame" x="20" y="10" width="104.5" height="82.5"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="20"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJf-el-cPc">
-                                                                        <rect key="frame" x="20" y="48" width="382" height="56.5"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJf-el-cPc">
+                                                                        <rect key="frame" x="20" y="102.5" width="382" height="56.5"/>
                                                                         <string key="text">If you would like to make changes, please 
 go into edit mode by selecting the edit 
 button at the top of the page</string>
@@ -1658,7 +1658,7 @@ button at the top of the page</string>
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.49661113410596025" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cdD-xD-dK7" userLabel="Chhose day">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdD-xD-dK7" userLabel="Chhose day">
                                 <rect key="frame" x="10" y="120" width="1004" height="1226"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LrO-zC-zgO">
@@ -1921,7 +1921,7 @@ button at the top of the page</string>
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abx-1n-QP8">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abx-1n-QP8">
                                         <rect key="frame" x="20" y="1168" width="964" height="38"/>
                                         <color key="backgroundColor" name="appYelloColor"/>
                                         <constraints>
@@ -1954,7 +1954,7 @@ button at the top of the page</string>
                                     <constraint firstAttribute="trailing" secondItem="APg-3Z-ywh" secondAttribute="trailing" constant="20" id="w6k-ry-qse"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Wn-4V-isN" userLabel="Chhose Weekly/Byweekly">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Wn-4V-isN" userLabel="Chhose Weekly/Byweekly">
                                 <rect key="frame" x="10" y="120" width="1004" height="1226"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dM4-nj-Nbu">
@@ -2120,7 +2120,7 @@ button at the top of the page</string>
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHC-Xv-Vjc">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHC-Xv-Vjc">
                                         <rect key="frame" x="20" y="1168" width="974" height="38"/>
                                         <color key="backgroundColor" name="appYelloColor"/>
                                         <constraints>
@@ -2153,7 +2153,7 @@ button at the top of the page</string>
                                     <constraint firstItem="NHC-Xv-Vjc" firstAttribute="leading" secondItem="0Wn-4V-isN" secondAttribute="leading" constant="20" id="yzh-K7-WHT"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QLd-gz-8sn" userLabel="Weekly Overtime">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLd-gz-8sn" userLabel="Weekly Overtime">
                                 <rect key="frame" x="10" y="120" width="1004" height="1226"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp3-js-kqv">
@@ -2260,7 +2260,7 @@ button at the top of the page</string>
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3z-bi-kod">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3z-bi-kod">
                                         <rect key="frame" x="20" y="1168" width="974" height="38"/>
                                         <color key="backgroundColor" name="appYelloColor"/>
                                         <constraints>
@@ -2764,27 +2764,39 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                             <constraint firstItem="8FF-ey-Aoo" firstAttribute="trailing" secondItem="Yrp-eQ-qW5" secondAttribute="trailing" id="2OI-rK-I4O"/>
                             <constraint firstItem="dKg-H6-yTo" firstAttribute="trailing" secondItem="8FF-ey-Aoo" secondAttribute="trailing" id="4c9-fp-3Ed"/>
                             <constraint firstItem="8FF-ey-Aoo" firstAttribute="bottom" secondItem="tns-MK-Zgu" secondAttribute="bottom" id="54S-iT-yMc"/>
+                            <constraint firstItem="8FF-ey-Aoo" firstAttribute="trailing" secondItem="QLd-gz-8sn" secondAttribute="trailing" constant="10" id="5eX-fg-U0K"/>
                             <constraint firstItem="ZlU-UR-cLp" firstAttribute="centerY" secondItem="tns-MK-Zgu" secondAttribute="centerY" id="6gb-sE-elK"/>
                             <constraint firstItem="pMb-C5-m6s" firstAttribute="bottom" secondItem="FBx-Qu-Wmw" secondAttribute="bottom" id="8Jz-6o-PKa"/>
+                            <constraint firstItem="QLd-gz-8sn" firstAttribute="top" secondItem="qGe-b8-iFC" secondAttribute="bottom" constant="20" id="8d4-hK-8eH"/>
+                            <constraint firstItem="0Wn-4V-isN" firstAttribute="leading" secondItem="cdD-xD-dK7" secondAttribute="leading" id="A0L-TI-ccI"/>
+                            <constraint firstItem="0Wn-4V-isN" firstAttribute="trailing" secondItem="cdD-xD-dK7" secondAttribute="trailing" id="CqQ-cX-DYz"/>
                             <constraint firstItem="kE1-JP-1ug" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="Dcd-nN-acv"/>
                             <constraint firstItem="tns-MK-Zgu" firstAttribute="trailing" secondItem="8FF-ey-Aoo" secondAttribute="trailing" id="DgN-cw-7Kd"/>
                             <constraint firstItem="8FF-ey-Aoo" firstAttribute="top" secondItem="ARe-iS-bWX" secondAttribute="top" id="EsZ-DO-EJy"/>
                             <constraint firstItem="pMb-C5-m6s" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="FQS-3y-MhM"/>
                             <constraint firstAttribute="bottom" secondItem="Yrp-eQ-qW5" secondAttribute="bottom" id="HZp-Ao-CTg"/>
                             <constraint firstItem="kE1-JP-1ug" firstAttribute="top" secondItem="FBx-Qu-Wmw" secondAttribute="top" id="Kvq-xE-buB"/>
+                            <constraint firstItem="QLd-gz-8sn" firstAttribute="bottom" secondItem="8FF-ey-Aoo" secondAttribute="bottom" id="MPt-nN-1D5"/>
+                            <constraint firstItem="QLd-gz-8sn" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" constant="10" id="Mo5-6N-su1"/>
                             <constraint firstItem="qGe-b8-iFC" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="OWh-kD-IRS"/>
+                            <constraint firstItem="0Wn-4V-isN" firstAttribute="bottom" secondItem="cdD-xD-dK7" secondAttribute="bottom" id="OhN-jn-JSs"/>
                             <constraint firstItem="dKg-H6-yTo" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="Rtf-0T-eUQ"/>
                             <constraint firstItem="dKg-H6-yTo" firstAttribute="bottom" secondItem="FBx-Qu-Wmw" secondAttribute="bottom" id="SIf-9z-lu3"/>
                             <constraint firstItem="ZlU-UR-cLp" firstAttribute="trailing" secondItem="tns-MK-Zgu" secondAttribute="trailing" constant="-20" id="UU9-pe-t0R"/>
                             <constraint firstItem="tns-MK-Zgu" firstAttribute="top" secondItem="qGe-b8-iFC" secondAttribute="bottom" id="X6f-hd-6G7"/>
                             <constraint firstItem="8FF-ey-Aoo" firstAttribute="trailing" secondItem="kE1-JP-1ug" secondAttribute="trailing" id="Xbc-Xr-yUR"/>
+                            <constraint firstItem="cdD-xD-dK7" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" constant="10" id="dMx-86-4pj"/>
                             <constraint firstItem="pMb-C5-m6s" firstAttribute="trailing" secondItem="8FF-ey-Aoo" secondAttribute="trailing" id="eYo-js-iek"/>
                             <constraint firstItem="tns-MK-Zgu" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="f5W-xl-BXC"/>
                             <constraint firstItem="qGe-b8-iFC" firstAttribute="top" secondItem="FBx-Qu-Wmw" secondAttribute="top" id="hfH-Xy-QIw"/>
                             <constraint firstAttribute="bottom" secondItem="kE1-JP-1ug" secondAttribute="bottom" id="izs-Ix-G9t"/>
                             <constraint firstItem="Yrp-eQ-qW5" firstAttribute="leading" secondItem="8FF-ey-Aoo" secondAttribute="leading" id="k6n-sf-Vf3"/>
+                            <constraint firstItem="cdD-xD-dK7" firstAttribute="bottom" secondItem="8FF-ey-Aoo" secondAttribute="bottom" id="l5N-Mv-shE"/>
                             <constraint firstItem="ZlU-UR-cLp" firstAttribute="leading" secondItem="tns-MK-Zgu" secondAttribute="leading" constant="20" id="mHK-cO-Ayw"/>
+                            <constraint firstItem="8FF-ey-Aoo" firstAttribute="trailing" secondItem="cdD-xD-dK7" secondAttribute="trailing" constant="10" id="p27-xM-4kJ"/>
                             <constraint firstAttribute="top" secondItem="dKg-H6-yTo" secondAttribute="top" id="pB5-4f-KNQ"/>
+                            <constraint firstItem="0Wn-4V-isN" firstAttribute="top" secondItem="cdD-xD-dK7" secondAttribute="top" id="rad-fM-nFQ"/>
+                            <constraint firstItem="cdD-xD-dK7" firstAttribute="top" secondItem="qGe-b8-iFC" secondAttribute="bottom" constant="20" id="rjI-qO-hZf"/>
                             <constraint firstItem="8FF-ey-Aoo" firstAttribute="trailing" secondItem="qGe-b8-iFC" secondAttribute="trailing" id="yXa-DO-UrB"/>
                             <constraint firstAttribute="top" secondItem="pMb-C5-m6s" secondAttribute="top" id="zTv-z1-NOq"/>
                         </constraints>
@@ -2892,6 +2904,7 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         <outlet property="txtBusinessName" destination="QLt-3Z-fM9" id="sw4-x5-MzR"/>
                         <outlet property="txtBusinessTimezone" destination="fNb-Zj-e9W" id="L2l-v9-wVB"/>
                         <outlet property="txtBusinessWebsite" destination="huo-Mm-Nty" id="0Xd-oR-OGf"/>
+                        <outlet property="txtEditPopupDailyOvertimeHours" destination="YBx-ew-EHL" id="0JZ-ou-Sl4"/>
                         <outlet property="txtEditPopupWeeklyOvertimeHours" destination="Dcc-pB-jqQ" id="aWJ-4J-dql"/>
                         <outlet property="txtFirstName" destination="Mj3-fn-yie" id="ZJi-9c-9kd"/>
                         <outlet property="txtLastName" destination="0tl-CA-PMj" id="V5N-U3-40f"/>
@@ -2899,7 +2912,7 @@ WW91ciBzZXR0aW5ncyB3ZXJlIHNhdmVkLgtMZXQncyBhZGQgeW91ciBlbXBsb3llZXMgbm93Lg
                         <outlet property="txtUserName" destination="QZb-Mq-mA2" id="O4z-Ls-VmW"/>
                         <outlet property="txtZipCode" destination="riR-qe-KOw" id="jgA-bz-eFF"/>
                         <outlet property="txteditWeeklyOvertimeHours" destination="46l-vj-pUk" id="3wE-gJ-gCK"/>
-                        <outlet property="txteditdailyOvertimeHours" destination="YBx-ew-EHL" id="j0D-oA-cTv"/>
+                        <outlet property="txteditdailyOvertimeHours" destination="uvR-uR-n63" id="T9Q-pm-65V"/>
                         <outlet property="txtemail" destination="AxQ-Je-Sd3" id="gYs-KX-IMk"/>
                         <outlet property="txtpassword" destination="gYZ-Kp-FTB" id="WPf-R0-8R3"/>
                         <outlet property="txtselectPayPeriod" destination="exK-0n-1z2" id="Q5D-Yp-TWB"/>
@@ -6161,6 +6174,7 @@ button at the top of the page</string>
                         <outlet property="imgvwNumber" destination="qrL-S4-NXc" id="GtE-Uw-EJj"/>
                         <outlet property="imgvwSpecialCharacter" destination="pPy-Ny-31L" id="mh4-0V-77T"/>
                         <outlet property="imgvwminimumCharacter" destination="5Ah-Z5-h51" id="ySt-Qz-28b"/>
+                        <outlet property="lblChangeLanguage" destination="69D-jU-r0X" id="zz1-lv-j5p"/>
                         <outlet property="lblEdit" destination="1Hy-Mc-IeN" id="lAq-v7-xtM"/>
                         <outlet property="lblEditModeTitle" destination="Vm8-bv-CHc" id="Wr9-Tz-IcA"/>
                         <outlet property="lblEditModetDesc" destination="b5V-ux-WWC" id="el6-FF-w3E"/>
@@ -6172,7 +6186,7 @@ button at the top of the page</string>
                         <outlet property="lblPayPeriod" destination="RBy-rx-xEm" id="15n-Hy-BKa"/>
                         <outlet property="lblPreferencesDesc" destination="Y6Q-lB-DkF" id="Xzf-RC-cUw"/>
                         <outlet property="lblPreferencesTitle" destination="rrP-RC-YRR" id="jDd-Qv-gQ4"/>
-                        <outlet property="lblPreferencesTitle1" destination="69D-jU-r0X" id="N4w-Nb-FGf"/>
+                        <outlet property="lblPreferencesTitle1" destination="KQ0-Hk-wwh" id="dZr-X7-Hlt"/>
                         <outlet property="lblProfile" destination="hCr-Dl-laD" id="IBM-TG-vDZ"/>
                         <outlet property="lblSelectDate" destination="htZ-YY-9Ob" id="VH4-K3-pXS"/>
                         <outlet property="lblSettingsTitle" destination="4tM-gt-gkE" id="fl3-jG-sTZ"/>
