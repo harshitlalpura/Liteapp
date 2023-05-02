@@ -284,7 +284,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         congoContinueButton.setTitle(NSLocalizedString("Continue", comment: "congoContinueButton"), for: .normal)
         congoTitleLabel.text = NSLocalizedString("Congratulations!", comment: "congoTitleLabel")
         congoDecsLabel.text = NSLocalizedString("Your account is complete. Let's understand your pay period and overtime settings", comment: "congoDecsLabel")
-        
+        txtEditPopupWeeklyOvertimeHours.textColor = UIColor.black
+        txtEditPopupDailyOvertimeHours.textColor = UIColor.black
         setUI()
         setupMenu()
         
@@ -841,7 +842,15 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
             }
         }else if sender.tag == 40{
             if checkDailyWeeklyOvertimeValidation(){
-                if let weeklyOvertimeHours = txtEditPopupWeeklyOvertimeHours.text , let dailyOvertimeHours = txtEditPopupDailyOvertimeHours.text{
+                if let weeklyOvertimeHours = txtEditPopupWeeklyOvertimeHours.text , var dailyOvertimeHours = txtEditPopupDailyOvertimeHours.text{
+                    if dailyOvertimeHours.count < 1{
+                        dailyOvertimeHours = "8"
+                        setupMerchant.merchantDailyOvertimeEnabled = "N"
+                    }
+                    else
+                    {
+                        setupMerchant.merchantDailyOvertimeEnabled = "Y"
+                    }
                     hideAllSettingProfileSetupViews()
                     setupMerchant.merchant_weekly_overtime = weeklyOvertimeHours
                     setupMerchant.merchant_daily_overtime = dailyOvertimeHours
@@ -849,6 +858,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
 //                    setupMerchant.merchant_current_pay_week = "1"
                     Defaults.shared.settingsPopupStatus = 4
                     callSetupMerchangtAPI()
+//                    self.callSaveMerchantSettings()
                     print(setupMerchant ?? "")
                     //callSetupAPI
                 }
@@ -862,11 +872,11 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                 self.showAlert(alertType:.validation, message: "Please enter weekly overtime.")
                 return false
             }
-            if txtEditPopupDailyOvertimeHours.text!.count < 1{
-                
-                self.showAlert(alertType:.validation, message: "Please Enter Daily Overtime.")
-                return false
-            }
+//            if txtEditPopupDailyOvertimeHours.text!.count < 1{
+//
+//                self.showAlert(alertType:.validation, message: "Please Enter Daily Overtime.")
+//                return false
+//            }
             return true
         }
     
