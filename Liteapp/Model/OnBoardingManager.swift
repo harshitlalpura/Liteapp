@@ -45,7 +45,7 @@ struct SetupMerchant{
     var merchant_pay_period:String?
     var merchant_current_pay_week:String?
     var merchant_weekly_overtime:String?
-    var merchantDailyOvertimeEnabled:String?
+    var merchant_daily_overtime_enabled:String?
     var merchant_daily_overtime:String?
     var merchant_timezone:String?
 
@@ -60,7 +60,7 @@ struct SetupMerchant{
                           "merchant_current_pay_week":self.merchant_current_pay_week ?? "",
                           "merchant_weekly_overtime":self.merchant_weekly_overtime ?? "",
                           "merchant_daily_overtime":self.merchant_daily_overtime ?? "",
-                          "merchantDailyOvertimeEnabled":self.merchantDailyOvertimeEnabled ?? "",
+                          "merchant_daily_overtime_enabled":self.merchant_daily_overtime_enabled ?? "",
                           "merchant_timezone":self.merchant_timezone ?? ""]
         return parameters
     }

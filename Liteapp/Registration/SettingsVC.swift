@@ -845,11 +845,11 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
                 if let weeklyOvertimeHours = txtEditPopupWeeklyOvertimeHours.text , var dailyOvertimeHours = txtEditPopupDailyOvertimeHours.text{
                     if dailyOvertimeHours.count < 1{
                         dailyOvertimeHours = "8"
-                        setupMerchant.merchantDailyOvertimeEnabled = "N"
+                        setupMerchant.merchant_daily_overtime_enabled = "N"
                     }
                     else
                     {
-                        setupMerchant.merchantDailyOvertimeEnabled = "Y"
+                        setupMerchant.merchant_daily_overtime_enabled = "Y"
                     }
                     hideAllSettingProfileSetupViews()
                     setupMerchant.merchant_weekly_overtime = weeklyOvertimeHours
