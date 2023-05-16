@@ -124,7 +124,7 @@ class ResetPasswordVC: UIViewController {
             return false
         }
         if txtPassword.text! != txtConfirmPassword.text!{
-            self.showAlert(alertType:.validation, message: "Passwords do not match.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Passwords do not match.", comment: "alertLabel"))
             return false
         }
         return true

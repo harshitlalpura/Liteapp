@@ -827,7 +827,7 @@ Let's get started</string>
                                                 <rect key="frame" x="0.0" y="210" width="724" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYo-cO-IoE">
-                                                        <rect key="frame" x="100" y="13" width="321" height="24"/>
+                                                        <rect key="frame" x="50" y="13" width="321" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="rxd-0z-hw6"/>
                                                         </constraints>
@@ -856,7 +856,7 @@ Let's get started</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Uf-rf-LuB">
-                                                        <rect key="frame" x="600" y="13" width="24" height="24"/>
+                                                        <rect key="frame" x="650" y="13" width="24" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="zPh-U8-7QV"/>
                                                         </constraints>
@@ -871,8 +871,8 @@ Let's get started</string>
                                                 <constraints>
                                                     <constraint firstItem="RYo-cO-IoE" firstAttribute="centerY" secondItem="PUM-n3-Tgb" secondAttribute="centerY" id="1cn-1D-eHg"/>
                                                     <constraint firstAttribute="height" constant="50" id="2RD-ev-ndr"/>
-                                                    <constraint firstAttribute="trailing" secondItem="2Uf-rf-LuB" secondAttribute="trailing" constant="100" id="av8-lR-gjE"/>
-                                                    <constraint firstItem="RYo-cO-IoE" firstAttribute="leading" secondItem="PUM-n3-Tgb" secondAttribute="leading" constant="100" id="ygr-44-bVV"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2Uf-rf-LuB" secondAttribute="trailing" constant="50" id="av8-lR-gjE"/>
+                                                    <constraint firstItem="RYo-cO-IoE" firstAttribute="leading" secondItem="PUM-n3-Tgb" secondAttribute="leading" constant="50" id="ygr-44-bVV"/>
                                                     <constraint firstItem="2Uf-rf-LuB" firstAttribute="centerY" secondItem="PUM-n3-Tgb" secondAttribute="centerY" id="yhD-FM-aaB"/>
                                                 </constraints>
                                             </view>

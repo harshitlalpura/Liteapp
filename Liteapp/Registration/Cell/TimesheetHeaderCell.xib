@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -201,9 +202,12 @@
             <connections>
                 <outlet property="btnAddTimesheet" destination="bH2-WN-Sur" id="e8e-gC-vQn"/>
                 <outlet property="button" destination="6aX-4R-9S5" id="5fg-gv-n48"/>
+                <outlet property="overTimeTitleLabel" destination="UFz-bx-Spz" id="P7o-c9-1Wr"/>
                 <outlet property="regularHoursLabel" destination="Zvg-Ln-EJ3" id="AFJ-fL-etc"/>
+                <outlet property="regularHoursTitleLabel" destination="7p8-9W-7qc" id="3U1-5C-cU1"/>
                 <outlet property="timeLabel" destination="ZzG-vf-XG0" id="Ype-Kc-IdK"/>
                 <outlet property="totalTimeLabel" destination="cCy-sz-B3D" id="v20-j3-UZR"/>
+                <outlet property="totalTimeTitleLabel" destination="6Se-Rf-rX9" id="WQO-kb-SjV"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="86.71875"/>
         </tableViewCell>
@@ -213,7 +217,7 @@
             <color red="0.0039215686274509803" green="0.50196078431372548" blue="0.74901960784313726" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="appLightColor">
-            <color red="0.96862745098039216" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96899998188018799" green="0.97299998998641968" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

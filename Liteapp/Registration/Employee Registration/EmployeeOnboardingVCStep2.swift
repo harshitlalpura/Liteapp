@@ -106,7 +106,7 @@ class EmployeeOnboardingVCStep2:BaseViewController, StoryboardSceneBased{
     func checkValidation()->Bool{
         if txtEmail.text!.count > 1{
             if txtEmail.text!.isEmail == false{
-                self.showAlert(alertType:.validation, message: "Invalid E-mail. Please Try Again.")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Invalid E-Mail. Please Try Again.", comment: "alertLabel"))
                 return false
             }
         }
@@ -118,7 +118,7 @@ class EmployeeOnboardingVCStep2:BaseViewController, StoryboardSceneBased{
         }
         
         if txtPassword.text! != txtConfrimPassword.text!{
-            self.showAlert(alertType:.validation, message: "Passwords do not match.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Passwords do not match.", comment: "alertLabel"))
             return false
         }
         return true

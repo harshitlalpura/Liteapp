@@ -146,7 +146,7 @@ class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
         }
         if let fname = txtFirstName.text, fname.count > 0{
             if fname.hasNumbers{
-                self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Name can only contain alphabets.", comment: "alertLabel"))
                 return false
             }
         }
@@ -156,7 +156,7 @@ class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
         }
         if let lname = txtLastName.text, lname.count > 0{
             if lname.hasNumbers{
-                self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Name can only contain alphabets.", comment: "alertLabel"))
                 return false
             }
         }
@@ -166,7 +166,7 @@ class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
         }
         if txtEmail.text!.count > 0{
             if txtEmail.text!.isEmail == false{
-                self.showAlert(alertType:.validation, message: "Invalid Email. Please Try Again.")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Invalid E-Mail. Please Try Again.", comment: "alertLabel"))
                 return false
             }
         }
@@ -175,15 +175,15 @@ class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
             return false
         }
         if txtUsername.text!.count < 5{
-            self.showAlert(alertType:.validation, message: "Username Must Be At Least 5 Characters.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Username Must Be At Least 5 Characters.", comment: "alertLabel"))
             return false
         }
         if txtPassword.text! != txtConfirmPassword.text!{
-            self.showAlert(alertType:.validation, message: "Passwords do not match.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Passwords do not match.", comment: "alertLabel"))
             return false
         }
         if isPasswordValidTotalCount == false || isPasswordValidCapitalChar == false || isPasswordValidSmallChar == false || isPasswordValidSpecialChar == false || isPasswordValidNumberChar == false{
-            self.showAlert(alertType:.validation, message: "Please enter password which follows all required criteria.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please enter password which follows all required criteria.", comment: "alertLabel"))
             return false
         }
         return true
@@ -196,7 +196,7 @@ class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
                     print(res)
                     if let status = res["status"] as? Int , status == 0{
                     //Same Email exists, could not proceed
-                        self.showAlert(alertType:.validation, message: "This email already exists. Please try another email or try to login")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("This email already exists. Please try another email or try to login", comment: "alertLabel"))
                     }
                     else{
                         //No Such emiail exists, checking for username
@@ -206,7 +206,7 @@ class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
                                 print(res)
                                 if let status = res["status"] as? Int , status == 0{
                                 //Same Username exists, could not proceed
-                                    self.showAlert(alertType:.validation, message: "This username already exists. Please try another username")
+                                    self.showAlert(alertType:.validation, message: NSLocalizedString("This username already exists. Please try another username", comment: "alertLabel"))
                                 }
                                 else{
                                     //Proceed Ahead

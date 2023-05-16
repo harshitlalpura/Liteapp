@@ -33,7 +33,7 @@ class InviteViaEmailVC:BaseViewController, StoryboardSceneBased,MFMailComposeVie
         btnClose.setTitle(NSLocalizedString("Close", comment: "btnClose"), for: .normal)
         
         // Do any additional setup after loading the view.
-        inviteLink = "Hey! Please download our TimeClock App with the link below. \n Your referral code is \(Defaults.shared.currentUser?.merchantReferenceNumber ?? "").\n https://lite.testbryteportal.com/referral/\(Defaults.shared.currentUser?.merchantReferenceNumber ?? "")"
+        inviteLink = NSLocalizedString("Hey! Please download our TimeClock App with the link below. \n Your referral code is", comment: "link") +  (Defaults.shared.currentUser?.merchantReferenceNumber ?? "") + ".\n https://lite.testbryteportal.com/referral/" + (Defaults.shared.currentUser?.merchantReferenceNumber ?? "")
     }
     @IBAction func backClicked(sender:UIButton){
         self.popVC()
@@ -41,7 +41,7 @@ class InviteViaEmailVC:BaseViewController, StoryboardSceneBased,MFMailComposeVie
     
     @IBAction func gmailClicked(sender:UIButton){
         let recipientEmail = ""
-        let subject = "Join us on TimeClock"
+        let subject = NSLocalizedString("Join us on TimeClock", comment: "emailsubject")
         let body = "\(self.inviteLink)"
         let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -52,13 +52,13 @@ class InviteViaEmailVC:BaseViewController, StoryboardSceneBased,MFMailComposeVie
            
             UIApplication.shared.open(gmailUrl)
         }else{
-            self.showAlert(alertType:.validation, message: "Gmail app not installed")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Gmail app not installed", comment: "emailerror"))
         }
         
     }
     @IBAction func outlookClicked(sender:UIButton){
         let recipientEmail = ""
-        let subject = "Join us on TimeClock"
+        let subject = NSLocalizedString("Join us on TimeClock", comment: "emailsubject")
         let body = "\(self.inviteLink)"
         let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -69,14 +69,14 @@ class InviteViaEmailVC:BaseViewController, StoryboardSceneBased,MFMailComposeVie
            
             UIApplication.shared.open(outlookUrl)
         }else{
-            self.showAlert(alertType:.validation, message: "Outlook app not installed")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Outlook app not installed", comment: "emailerror"))
         }
         
     }
     @IBAction func appleMailClicked(sender:UIButton){
         
         let recipientEmail = ""
-        let subject = "Join us on TimeClock"
+        let subject = NSLocalizedString("Join us on TimeClock", comment: "emailsubject")
         let body = "\(self.inviteLink)"
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
@@ -96,7 +96,7 @@ class InviteViaEmailVC:BaseViewController, StoryboardSceneBased,MFMailComposeVie
     @IBAction func sendEmail(_ sender: UIButton) {
             // Modify following variables with your text / recipient
             let recipientEmail = ""
-            let subject = "Join us on TimeClock"
+            let subject = NSLocalizedString("Join us on TimeClock", comment: "emailsubject")
             let body = "\(self.inviteLink)"
             
             // Show default mail composer

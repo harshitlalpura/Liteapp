@@ -33,7 +33,7 @@ class OnboardingRegisterVC: BaseViewController, StoryboardSceneBased{
         btnLogin.setTitle(NSLocalizedString("Login Here", comment: "loginButton"), for: .normal)
         
         vwGradiantContainer.setGradientBackground()
-
+        setupTermsAndPrivacyLabel()
     }
     override func viewDidAppear(_ animated: Bool) {
 //        if let code = Defaults.shared.referralCode{
@@ -47,8 +47,8 @@ class OnboardingRegisterVC: BaseViewController, StoryboardSceneBased{
         lblTermsAndPrivacy.text = privacyText
         lblTermsAndPrivacy.textColor =  UIColor.white
         let underlineAttriString = NSMutableAttributedString(string: privacyText)
-        let range1 = (privacyText as NSString).range(of: "End User License Agreement")
-        let range2 = (privacyText as NSString).range(of: "Privacy Policy")
+        let range1 = (privacyText as NSString).range(of: NSLocalizedString("End User License Agreement", comment: "UserAgreementText"))
+        let range2 = (privacyText as NSString).range(of: NSLocalizedString("Privacy Policy", comment: "PrivacyPolicy"))
         let rangeFull = (privacyText as NSString).range(of: privacyText)
         let fontSize = lblTermsAndPrivacy.font.pointSize
         underlineAttriString.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: fontSize), range: range1)

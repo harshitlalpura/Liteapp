@@ -52,7 +52,9 @@ class LoginViewController: BaseViewController, StoryboardSceneBased{
         
         lblTitle.text = NSLocalizedString("We've made time tracking easier. Let's get started", comment: "TitleText")
         lblEmail.text = NSLocalizedString("Email", comment: "EmailLabel")
+        txtEmail.placeholder = NSLocalizedString("Enter Email", comment: "EmailPlaceholder")
         lblPassword.text = NSLocalizedString("Password", comment: "PasswordLabel")
+        txtPassword.placeholder = NSLocalizedString("Enter Password", comment: "PasswordPlaceholder")
         btnForgotPassword.setTitle(NSLocalizedString("Forgot Password?", comment: "ForgotPasswordButton"), for: .normal)
         lblRegister.text = NSLocalizedString("Don't have an account?", comment: "RegisterLabel")
         btnRegister.setTitle(NSLocalizedString("Register here", comment: "RegisterButton"), for: .normal)

@@ -2907,6 +2907,8 @@ bmQgb3ZlcnRpbWUgc2V0dGluZ3M
                         <outlet property="lblEmail" destination="j0D-ar-cO6" id="08l-d5-fzQ"/>
                         <outlet property="lblFirstName" destination="cRq-qm-gzQ" id="RhD-tu-9yN"/>
                         <outlet property="lblHour" destination="6dA-r6-HSA" id="fPd-w0-Jfx"/>
+                        <outlet property="lblHour1" destination="mft-PL-9xh" id="N2a-cM-Wo9"/>
+                        <outlet property="lblHour2" destination="XEh-8C-PM9" id="7XC-89-W1y"/>
                         <outlet property="lblLastName" destination="SkN-eo-e0t" id="yse-Yl-6mi"/>
                         <outlet property="lblPassword" destination="sJT-Zz-gb1" id="KRG-SV-4Z8"/>
                         <outlet property="lblPayPeriod" destination="phE-4A-Orb" id="FyL-gp-x1r"/>

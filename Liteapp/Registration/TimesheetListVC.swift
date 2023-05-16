@@ -105,7 +105,7 @@ class TimesheetListVC: BaseViewController, StoryboardSceneBased{
         btnApprove.setTitle(NSLocalizedString("Unapprove", comment: "btnApprove"), for: .normal)
         btnUnApprove.setTitle(NSLocalizedString("Approve", comment: "btnUnApprove"), for: .normal)
         lblExportTimeSheet.text = NSLocalizedString("Export Timesheet", comment: "lblExportTimeSheet")
-        exportMainView.setTitle(NSLocalizedString("Export Timesheet", comment: "exportMainView"), for: .normal)
+//        exportMainView.setTitle(NSLocalizedString("Export Timesheet", comment: "exportMainView"), for: .normal)
     }
     override func viewWillAppear(_ animated: Bool) {
         selectedTimesheetList =  [PayPeriodTimesheet]()
@@ -531,10 +531,10 @@ extension TimesheetListVC:UITableViewDelegate,UITableViewDataSource {
         cell.lblName.text = (employee.empFirstname ?? "") + " " + (employee.empLastname ?? "")
         cell.lbltotal.text = (employee.total ?? "")
         if employee.payperiodStatus ?? "" == "U"{
-            cell.lblapprove.text = "Unapproved"
+            cell.lblapprove.text = NSLocalizedString("Unapproved", comment: "btnUnApprove")
             cell.lblapprove.textColor = UIColor.Color.appYellowColor
         }else if employee.payperiodStatus ?? "" == "A"{
-            cell.lblapprove.text = "Approved"
+            cell.lblapprove.text = NSLocalizedString("Approved", comment: "btnUnApprove")
             cell.lblapprove.textColor = UIColor.Color.appGreenColor
         }
         cell.btnCheck.isSelected = false

@@ -153,6 +153,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var lblWeeklyOvertime: UILabel!
     @IBOutlet weak var lblWeeklyOvertimeDesc: UILabel!
     @IBOutlet weak var lblHour: UILabel!
+    @IBOutlet weak var lblHour1: UILabel!
+    @IBOutlet weak var lblHour2: UILabel!
     @IBOutlet weak var lblDailyOvertime: UILabel!
     @IBOutlet weak var lblDailyOvertimeDesc: UILabel!
     @IBOutlet weak var lblPayPeriod: UILabel!
@@ -225,6 +227,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         lblWeeklyOvertime.text = NSLocalizedString("Weekly Overtime", comment: "lblWeeklyOvertime")
         lblWeeklyOvertimeDesc.text = NSLocalizedString("Define number of hours needed to work within a workweek before overtime accrual begins.", comment: "lblWeeklyOvertimeDesc")
         lblHour.text = NSLocalizedString("Hours", comment: "lblHour")
+        lblHour1.text = NSLocalizedString("Hours", comment: "lblHour1")
+        lblHour2.text = NSLocalizedString("Hours", comment: "lblHour2")
         lblDailyOvertime.text = NSLocalizedString("Daily Overtime", comment: "lblDailyOvertime")
         lblDailyOvertimeDesc.text = NSLocalizedString("Define number of hours needed to work within a workday before overtime accrual begins.", comment: "lblDailyOvertimeDesc")
         lblPayPeriod.text = NSLocalizedString("Pay Period", comment: "lblPayPeriod")
@@ -264,6 +268,8 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         biWeeklySelectionLabel.text = NSLocalizedString("Which Pay Period are you currently in?", comment: "biWeeklySelectionLabel")
         btnWeek1.setTitle(NSLocalizedString("Week 1", comment: "btnWeek1"), for: .normal)
         btnWeek2.setTitle(NSLocalizedString("Week 2", comment: "btnWeek2"), for: .normal)
+        btnWeek1Option.setTitle(NSLocalizedString("Week 1", comment: "btnWeek1"), for: .normal)
+        btnWeek2Option.setTitle(NSLocalizedString("Week 2", comment: "btnWeek2"), for: .normal)
         continueButtonStep2.setTitle(NSLocalizedString("Continue", comment: "continueButtonStep2"), for: .normal)
         step3TitleLabel.text = NSLocalizedString("Step 3 of 5", comment: "step3TitleLabel")
         step3DecsLabel.text = NSLocalizedString("What is your weekly overtime hours ?", comment: "step3DecsLabel")
@@ -284,6 +290,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         congoContinueButton.setTitle(NSLocalizedString("Continue", comment: "congoContinueButton"), for: .normal)
         congoTitleLabel.text = NSLocalizedString("Congratulations!", comment: "congoTitleLabel")
         congoDecsLabel.text = NSLocalizedString("Your account is complete. Let's understand your pay period and overtime settings", comment: "congoDecsLabel")
+        btnDeleteMyAccount.setTitle(NSLocalizedString("Delete My Account", comment: "btnDeleteMyAccount"), for: .normal)
         txtEditPopupWeeklyOvertimeHours.textColor = UIColor.black
         txtEditPopupDailyOvertimeHours.textColor = UIColor.black
         setUI()
@@ -1103,65 +1110,65 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     func validateSettings() -> Bool{
         var isValidated = true
         if txtFirstName.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter First Name")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter First Name", comment: "alertLabel"))
             return false
         }
         if txtFirstName.text!.hasNumbers{
-            self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Name can only contain alphabets.", comment: "alertLabel"))
             return false
         }
         
         if txtLastName.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Last Name")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Last Name", comment: "alertLabel"))
             return false
         }
         if txtLastName.text!.hasNumbers{
-            self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Name can only contain alphabets.", comment: "alertLabel"))
             return false
         }
         if txtUserName.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Username")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Username", comment: "alertLabel"))
             return false
         }
         if let email = txtemail.text{
             if !(email.count > 0 && email.isEmail){
-                self.showAlert(alertType:.validation, message: "Please Enter Valid Email")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Valid Email", comment: "alertLabel"))
                 isValidated = false
             }
         }
         if txtBusinessName.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Business Name")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Business Name", comment: "alertLabel"))
             return false
         }
         if txtBusinessName.text!.hasNumbers{
-            self.showAlert(alertType:.validation, message: "Name can only contain alphabets.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Name can only contain alphabets.", comment: "alertLabel"))
             return false
         }
         if txtZipCode.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Zipcode")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Zipcode", comment: "alertLabel"))
             return false
         }
         if txtBusinessTimezone.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Timezone")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Timezone", comment: "alertLabel"))
             return false
         }
         if let url = txtBusinessWebsite.text , url.trimmed.count > 0{
             if !(url.isValidUrl()){
-                self.showAlert(alertType:.validation, message: "Invalid Website. Please Try Again.")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Invalid Website. Please Try Again.", comment: "alertLabel"))
                 isValidated = false
             }
         }
         if txtTotalEmployee.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Select how many people do you employ.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Select how many people do you employ.", comment: "alertLabel"))
             return false
         }
         
         if txteditWeeklyOvertimeHours.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Weekly Overtime.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Weekly Overtime.", comment: "alertLabel"))
             return false
         }
         if txteditdailyOvertimeHours.text!.count < 1{
-            self.showAlert(alertType:.validation, message: "Please Enter Daily Overtime.")
+            self.showAlert(alertType:.validation, message: NSLocalizedString("Please Enter Daily Overtime.", comment: "alertLabel"))
             return false
         }
         return isValidated

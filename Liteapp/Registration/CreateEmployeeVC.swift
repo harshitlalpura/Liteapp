@@ -133,6 +133,7 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         super.viewDidLoad()
         
         lblProfile.text = NSLocalizedString("PROFILE", comment: "lblProfile")
+        lblname.text = NSLocalizedString("Create New Employee", comment: "lblname")
         lblUserInfoTitle.text = NSLocalizedString("User Information", comment: "lblUserInfoTitle")
         lblUserInfoDesc.text = NSLocalizedString("General employee information", comment: "lblUserInfoDesc")
         lblTimesheetTitle.text = NSLocalizedString("Timesheets", comment: "lblTimesheetTitle")
@@ -373,7 +374,7 @@ class CreateEmployeeVC:BaseViewController, StoryboardSceneBased{
         var validationSucceess = true
         if txtEmail.text!.isEmail == false{
             validationSucceess = false
-            AlertMesage.show(.warning, title: "Invalid Email", message: nil)
+            AlertMesage.show(.warning, title: NSLocalizedString("Invalid Email", comment: "emailerror"), message: nil)
             return
         }
         for week in self.selectedPayPeriod?.weeks ?? [Weeks](){
@@ -1087,24 +1088,19 @@ extension CreateEmployeeVC: UITableViewDelegate, UITableViewDataSource {
                   let timeLineEvent = event.timelineEvent ?? ""
                   
                     
-                  if timeLineEvent == "I"{
-                      timeReportViewNew.titleLabel.text = "Shift Start:"
-                      timeReportViewNew.barView.backgroundColor = UIColor.startShiftColor
-                     
-                    
-                  }else if timeLineEvent == "O"{
-                      timeReportViewNew.titleLabel.text = "Shift End:"
-                      timeReportViewNew.barView.backgroundColor = UIColor.endShiftColor
-                     
-                  }else if timeLineEvent == "B"{
-                      timeReportViewNew.titleLabel.text = "Break Start:"
-                      timeReportViewNew.barView.backgroundColor = UIColor.breakStartColor
-                      
-                  }else if timeLineEvent == "S"{
-                      timeReportViewNew.titleLabel.text = "Break End:"
-                      timeReportViewNew.barView.backgroundColor = UIColor.breakEndColor
-    
-                  }
+                    if timeLineEvent == "I"{
+                        timeReportViewNew.titleLabel.text = NSLocalizedString("Shift Start:", comment: "timeReportViewNew")
+                        timeReportViewNew.barView.backgroundColor = UIColor.startShiftColor
+                    }else if timeLineEvent == "O"{
+                        timeReportViewNew.titleLabel.text = NSLocalizedString("Shift End:", comment: "timeReportViewNew")
+                        timeReportViewNew.barView.backgroundColor = UIColor.endShiftColor
+                    }else if timeLineEvent == "B"{
+                        timeReportViewNew.titleLabel.text = NSLocalizedString("Break Start:", comment: "timeReportViewNew")
+                        timeReportViewNew.barView.backgroundColor = UIColor.breakStartColor
+                    }else if timeLineEvent == "S"{
+                        timeReportViewNew.titleLabel.text = NSLocalizedString("Break End:", comment: "lblMessagebreakinPopup")
+                        timeReportViewNew.barView.backgroundColor = UIColor.breakEndColor
+                    }
                  timeReportViewNew.btnTimeEdit.addTarget(self, action:#selector(self.changeTimeClick(sender:)), for: .touchUpInside)
                  timeReportViewNew.btnTimeEdit.timeSheetIndex = indexPath.row - 1
                  timeReportViewNew.btnTimeEdit.weekIndex = indexPath.section

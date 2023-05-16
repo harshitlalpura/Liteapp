@@ -66,7 +66,7 @@ class ForgotPasswordVC: UIViewController {
         }
         if txtEmail.text!.count > 0{
             if txtEmail.text!.isEmail == false{
-                self.showAlert(alertType:.validation, message: "Invalid E-mail. Please Try Again.")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Invalid E-Mail. Please Try Again.", comment: "alertLabel"))
                 return false
             }
         }

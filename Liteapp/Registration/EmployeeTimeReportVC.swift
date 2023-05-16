@@ -786,7 +786,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
         if let email = txtEmail.text{
             if !(email.count > 0 && email.isEmail){
 //                self.showAlert(alertType:.validation, message: "Please Enter Valid Email")
-                self.showAlert(alertType:.validation, message: NSLocalizedString("Invalid E-Mail. Please Try Again.", comment: "AlertEmailInvalid"))
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Invalid E-Mail. Please Try Again.", comment: "alertLabel"))
                 return false
             }
         }

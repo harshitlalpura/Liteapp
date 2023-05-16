@@ -55,7 +55,7 @@ class OnboardingRegisterStep3VC: BaseViewController, StoryboardSceneBased{
         
         if let url = txtBusinessURL.text{
             if !(url.count > 0 && url.isValidUrl()){
-                self.showAlert(alertType:.validation, message: "Invalid Website. Please Try Again.")
+                self.showAlert(alertType:.validation, message: NSLocalizedString("Invalid Website. Please Try Again.", comment: "alertLabel"))
                 return false
             }
         }

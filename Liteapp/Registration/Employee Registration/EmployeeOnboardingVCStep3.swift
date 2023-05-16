@@ -104,7 +104,7 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
             if let res = response{
                 if let status = res["status"] as? Int{
                     if status == 0{
-                        self.showAlert(alertType:.validation, message: "No such merchant available.Please try again.")
+                        self.showAlert(alertType:.validation, message: NSLocalizedString("No such merchant available.Please try again.", comment: "alertLabel"))
                         self.txtCompany.text = ""
                         
                     }else if status == 1{
@@ -115,7 +115,7 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
                         print(self.saveEmployee.getParam())
                     }
                 }else{
-                    self.showAlert(alertType:.validation, message: "No such merchant available.Please try again.")
+                    self.showAlert(alertType:.validation, message: NSLocalizedString("No such merchant available.Please try again.", comment: "alertLabel"))
                     self.txtCompany.text = ""
                     
                 }

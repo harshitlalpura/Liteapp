@@ -290,6 +290,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
                 btnClockin.backgroundColor = UIColor.Color.green
                 //  btnClockin.cornerRadius = 0.0
                 btnClockin.setTitle(NSLocalizedString("Clock In", comment: "btnClockin"), for: .normal)
+                btnStartBreak.setTitle(NSLocalizedString("Start Break", comment: "btnClockin"), for: .normal)
                 
             case UserStatus.loggedIN.rawValue:
                 // imgStatus.tintColor = UIColor.Color.green
@@ -298,6 +299,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
                 btnClockin.backgroundColor = UIColor.Color.red
                 //  btnClockin.cornerRadius = btnClockin.frame.height / 2
                 btnClockin.setTitle(NSLocalizedString("Clock Out", comment: "btnClockin"), for: .normal)
+                btnStartBreak.setTitle(NSLocalizedString("Start Break", comment: "btnClockin"), for: .normal)
                 
             case UserStatus.Inbreak.rawValue:
                 // imgStatus.tintColor = UIColor.Color.yellow
@@ -470,7 +472,7 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
         let todayHoursMins = ("\(dashBoardData?.todayMinutes ?? 0)" ).components(separatedBy:".")
 //        let todayHoursMinstouple = self.minutesToHoursAndMinutes(Int(todayHoursMins[0]) ?? 0)
         let todayHoursMinstouple = self.secondsToHoursAndMinutes(Int(todayHoursMins[0]) ?? 0)
-        self.lblDailyHours.text = "Daily Hours \(todayHoursMinstouple.hours)hr \(todayHoursMinstouple.leftMinutes)min "
+        self.lblDailyHours.text = NSLocalizedString("Daily Hours", comment: "lblDailyHours") + " \(todayHoursMinstouple.hours)hr \(todayHoursMinstouple.leftMinutes)min "
         
         let startDate = (dashBoardData?.payPeriodFrom ?? "").toDate(format:DateTimeFormat.yyyy_MM_dd.rawValue)
         var endDate = (dashBoardData?.payPeriodTo ?? "").toDate(format: DateTimeFormat.yyyy_MM_dd.rawValue)
