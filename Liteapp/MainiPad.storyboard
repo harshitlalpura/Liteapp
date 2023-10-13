@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9e4-Ql-E5u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9e4-Ql-E5u">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -5761,7 +5761,9 @@ QWxtb3N0IENvbXBsZXRlLgtTZXR0aW5nIHVwIHlvdXIgYWNjb3VudCBub3cuLi4
                     <connections>
                         <outlet property="btnBack" destination="co2-lS-IZU" id="KPn-EH-JdX"/>
                         <outlet property="btnResend" destination="rIC-IP-xpl" id="KZN-gK-wap"/>
+                        <outlet property="lblCheckMail" destination="bmM-l1-P2z" id="WDE-DI-gdL"/>
                         <outlet property="lblInstructions" destination="Gy5-Gr-QdD" id="exU-ut-Ybp"/>
+                        <outlet property="lblNoEmailRevieced" destination="5Dg-x1-Rxe" id="HGk-wH-AMI"/>
                         <outlet property="vwGradiantContainer" destination="32k-DB-OLF" id="UXB-cJ-xa2"/>
                     </connections>
                 </viewController>
@@ -6423,7 +6425,7 @@ both passwords must match</string>
             <color red="0.94099998474121094" green="0.76899999380111694" blue="0.18400000035762787" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
