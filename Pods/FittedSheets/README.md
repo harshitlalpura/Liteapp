@@ -15,7 +15,7 @@ The bottom sheet tries to be smart about the height it takes. If the view contro
 
 | Intrinsic Heights | Fullscreen Modal | True Fullscreen | Scrolling | Inline |
 |:-:|:-:|:-:|:-:|:-:|
-| ![Intrensid Heights](./Screens/IntrinsicHeight.gif) | ![Fullscreen Modal](./Screens/FullscreenHeight.gif) | ![True Fullscreen](./Screens/TrueFullscreenHeight.gif) | ![Scrolling](./Screens/Scrolling.gif) | ![Inline](./Screens/Inline.gif) | 
+| ![Intrinsic Heights](./Screens/IntrinsicHeight.gif) | ![Fullscreen Modal](./Screens/FullscreenHeight.gif) | ![True Fullscreen](./Screens/TrueFullscreenHeight.gif) | ![Scrolling](./Screens/Scrolling.gif) | ![Inline](./Screens/Inline.gif) |
 
 ## Usage
 
@@ -71,7 +71,7 @@ let options = SheetOptions(
 
 let sheetController = SheetViewController(
     controller: controller, 
-    sizes: [.intrinsic, .percent(0.25), .fixed(200), .fullScreen])
+    sizes: [.intrinsic, .percent(0.25), .fixed(200), .fullscreen])
     
     
 // The size of the grip in the pull bar
@@ -79,6 +79,9 @@ sheetController.gripSize = CGSize(width: 50, height: 6)
 
 // The color of the grip on the pull bar
 sheetController.gripColor = UIColor(white: 0.868, alpha: 1)
+
+// The corner curve of the sheet (iOS 13 or later)
+sheetController.cornerCurve = .continuous
 
 // The corner radius of the sheet
 sheetController.cornerRadius = 20

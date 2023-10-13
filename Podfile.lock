@@ -91,7 +91,7 @@ PODS:
     - GoogleUtilities/Reachability (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
     - nanopb (~> 2.30908.0)
-  - FittedSheets (2.4.0)
+  - FittedSheets (2.6.1)
   - GoogleAppMeasurement (8.15.0):
     - GoogleAppMeasurement/AdIdSupport (= 8.15.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
@@ -146,7 +146,7 @@ PODS:
   - GTMSessionFetcher/Core (1.7.1)
   - IQKeyboardManagerSwift (6.5.9)
   - KeychainAccess (4.2.2)
-  - Kingfisher (7.0.0)
+  - Kingfisher (7.6.1)
   - libxlsxwriter (1.1.4)
   - lottie-ios (3.3.0)
   - MKToolTip (1.0.6)
@@ -182,12 +182,12 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/DynamicLinks
   - Firebase/Messaging
-  - FittedSheets (= 2.4.0)
+  - FittedSheets (= 2.6.1)
   - GoogleSignIn
   - GradientCircularProgress (from `https://github.com/keygx/GradientCircularProgress`)
   - IQKeyboardManagerSwift
   - KeychainAccess (= 4.2.2)
-  - Kingfisher (= 7.0.0)
+  - Kingfisher (= 7.6.1)
   - libxlsxwriter
   - lottie-ios
   - MKToolTip
@@ -272,7 +272,7 @@ SPEC CHECKSUMS:
   FirebaseDynamicLinks: 1dc816ef789c5adac6fede0b46d11478175c70e4
   FirebaseInstallations: 40bd9054049b2eae9a2c38ef1c3dd213df3605cd
   FirebaseMessaging: 5e5118a2383b3531e730d974680954c679ca0a13
-  FittedSheets: 470a7740a083156d711ab6ccd37d1d539005e6aa
+  FittedSheets: 37e35f105c531f3845075f1788dd8517a35315c4
   GoogleAppMeasurement: 4c19f031220c72464d460c9daa1fb5d1acce958e
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleSignIn: c90b5bec45e780f54c6a8e1e3c182a86e3dda69d
@@ -282,7 +282,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 4577a4cc914a5a07c40a8a0ad0acc22080418c2d
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
-  Kingfisher: 5efc54fec3980f92354898532e562cc17f31efb4
+  Kingfisher: 93a3c6d0d551658a31e19f21747e1d15cb39d525
   libxlsxwriter: f9f040bb01f0aabac1adb09f27c8cf542ae9a044
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   MKToolTip: 69509b1cada10f96bd9f4ab559a768e7c6557933
@@ -297,6 +297,6 @@ SPEC CHECKSUMS:
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
   ZLImageEditor: eae3fcfa3050b42111d53bd4c611c26637ef604d
 
-PODFILE CHECKSUM: 0fd58b197da325e1a3c2b279b8e52947802b7292
+PODFILE CHECKSUM: c601b103ab544bf93fcc96702ad111108c6bac91
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

@@ -20,8 +20,8 @@ variant_for_slice()
   "FBSDKCoreKit.xcframework/ios-arm64")
     echo ""
     ;;
-  "FBSDKCoreKit.xcframework/tvos-arm64_x86_64-simulator")
-    echo "simulator"
+  "FBSDKCoreKit.xcframework/ios-arm64_x86_64-maccatalyst")
+    echo "maccatalyst"
     ;;
   "FBSDKCoreKit.xcframework/ios-arm64_x86_64-simulator")
     echo "simulator"
@@ -29,8 +29,8 @@ variant_for_slice()
   "FBSDKCoreKit.xcframework/tvos-arm64")
     echo ""
     ;;
-  "FBSDKCoreKit.xcframework/ios-arm64_x86_64-maccatalyst")
-    echo "maccatalyst"
+  "FBSDKCoreKit.xcframework/tvos-arm64_x86_64-simulator")
+    echo "simulator"
     ;;
   esac
 }
@@ -41,7 +41,7 @@ archs_for_slice()
   "FBSDKCoreKit.xcframework/ios-arm64")
     echo "arm64"
     ;;
-  "FBSDKCoreKit.xcframework/tvos-arm64_x86_64-simulator")
+  "FBSDKCoreKit.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "arm64 x86_64"
     ;;
   "FBSDKCoreKit.xcframework/ios-arm64_x86_64-simulator")
@@ -50,7 +50,7 @@ archs_for_slice()
   "FBSDKCoreKit.xcframework/tvos-arm64")
     echo "arm64"
     ;;
-  "FBSDKCoreKit.xcframework/ios-arm64_x86_64-maccatalyst")
+  "FBSDKCoreKit.xcframework/tvos-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
   esac
@@ -135,5 +135,5 @@ install_xcframework() {
   echo "Copied $source to $destination"
 }
 
-install_xcframework "${PODS_ROOT}/FBSDKCoreKit/XCFrameworks/FBSDKCoreKit.xcframework" "FBSDKCoreKit" "framework" "ios-arm64" "ios-arm64_x86_64-simulator" "ios-arm64_x86_64-maccatalyst"
+install_xcframework "${PODS_ROOT}/FBSDKCoreKit/XCFrameworks/FBSDKCoreKit.xcframework" "FBSDKCoreKit" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
 

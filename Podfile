@@ -20,7 +20,7 @@ target 'Liteapp' do
  pod 'MKToolTip'
 
   pod 'KeychainAccess', '4.2.2'
-  pod 'Kingfisher', '7.0.0'
+  pod 'Kingfisher', '7.6.1'
   pod 'Alamofire', '5.4.4'
   pod 'IQKeyboardManagerSwift' #, '6.5.9'
 
@@ -52,7 +52,7 @@ target 'Liteapp' do
   
   #View controllers in a bottom sheet that supports scrollviews and multiple sizes
   #https://github.com/gordontucker/FittedSheets
-  pod 'FittedSheets', '2.4.0'
+  pod 'FittedSheets', '2.6.1'
   
   
   # EasyTipView is a fully customizable tooltip view written in Swift that can be used as a call to action or informative tip.
@@ -69,4 +69,13 @@ target 'Liteapp' do
   #https://github.com/raulriera/TextFieldEffects
   pod 'TextFieldEffects', '1.6.0'
   pod 'libxlsxwriter'
+  post_install do |installer|
+      installer.generated_projects.each do |project|
+          project.targets.each do |target|
+              target.build_configurations.each do |config|
+                  config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+              end
+          end
+      end
+  end
 end
