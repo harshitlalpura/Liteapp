@@ -127,6 +127,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     //Selection View
     @IBOutlet var viewSelection: UIView!
     @IBOutlet weak var tblSelection: UITableView!
+    @IBOutlet weak var lblSettingsTitle:UILabel!
     
     @IBOutlet weak var customNavView: UIView!
     var menuV : CustomMenuView!
@@ -215,6 +216,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.lblSettings.text = "\(self.employeeDetails?.empFirstname ?? "") \(self.employeeDetails?.empLastname ?? "")"
+        lblSettingsTitle.text = NSLocalizedString("Settings", comment: "lblSettingsTitle")
         lblEdit.text = NSLocalizedString("Edit", comment: "lblEdit")
         lblAccountSettings.text = NSLocalizedString("Account Settings", comment: "lblAccountSettings")
         lblFirstName.text = NSLocalizedString("First Name", comment: "firstNameLabel")
@@ -1270,6 +1272,10 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
         self.timesheetSettingView.isHidden = true
         self.businessSettingsView.isHidden = true
 //        self.accountSettingView.isHidden = true
+    }
+    
+    @IBAction func btnSettingsBackTapped(_ sender: Any){
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func btnWeek1OptionTapped(_ sender: Any) {
