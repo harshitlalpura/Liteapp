@@ -1250,6 +1250,7 @@ class EmployeeTimeReportVC:BaseViewController, StoryboardSceneBased{
     
     @IBAction func btnSettingsTapped(_ sender: Any) {
         let vc = SettingsVC.instantiate()
+        vc.employeeDetails = self.employeeDetails
         self.pushVC(controller:vc)
     }
     
@@ -2421,6 +2422,7 @@ extension EmployeeTimeReportVC:MenuItemDelegate {
         print(menuName)
         if menuName == Menuname.settings{
             let vc = SettingsVC.instantiate()
+            vc.employeeDetails = self.employeeDetails
             self.pushVC(controller:vc)
         }else  if menuName == Menuname.logout{
             Defaults.shared.currentUser = nil

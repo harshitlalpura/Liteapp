@@ -192,6 +192,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var congoContinueButton: UIButton!
     @IBOutlet weak var congoTitleLabel: UILabel!
     @IBOutlet weak var congoDecsLabel: UILabel!
+    @IBOutlet weak var imgUserName:UIImageView!
     
     var setupMerchant:SetupMerchant!
     var merchantSettings:MerchantSettings?
@@ -199,6 +200,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     var editDurationSelected:EditDuration?
     var setupProfile:Bool = false
     var isForAccountSettings : Bool = false
+    var employeeDetails:EmployeeDetails?
     
     var weekDaysArray = [NSLocalizedString("Sunday", comment: "btnSunday"),NSLocalizedString("Monday", comment: "btnMonday"),NSLocalizedString("Tuesday", comment: "btnTuesday"),NSLocalizedString("Wednesday", comment: "btnWednesday"),NSLocalizedString("Thursday", comment: "btnThursday"),NSLocalizedString("Friday", comment: "btnFriday"),NSLocalizedString("Saturday", comment: "btnSaturday")]
     var durationOptions = [NSLocalizedString("Weekly", comment: "btnWeekly"),NSLocalizedString("Biweekly", comment: "btnBiweekly")]
@@ -212,7 +214,7 @@ class SettingsVC:BaseViewController, StoryboardSceneBased{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lblSettings.text = NSLocalizedString("Settings", comment: "lblSettings")
+        self.lblSettings.text = "\(self.employeeDetails?.empFirstname ?? "") \(self.employeeDetails?.empLastname ?? "")"
         lblEdit.text = NSLocalizedString("Edit", comment: "lblEdit")
         lblAccountSettings.text = NSLocalizedString("Account Settings", comment: "lblAccountSettings")
         lblFirstName.text = NSLocalizedString("First Name", comment: "firstNameLabel")
