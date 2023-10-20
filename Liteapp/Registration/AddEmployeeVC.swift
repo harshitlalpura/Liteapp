@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 protocol AddEmployeeVCDelegate : NSObjectProtocol {
     func didDismiss()
@@ -75,9 +76,11 @@ class AddEmployeeVC:BaseViewController, StoryboardSceneBased{
                 self.delegate?.didDismiss()
             }
         }else if sender.tag == 3{
+            LogFirebaseEvents(event_type: "EM", event_name: "emp_invitation_sent", content_type: "button")
             let vc = InviteViaEmailVC.instantiate()
             self.pushVC(controller:vc)
         }else if sender.tag == 2{
+            LogFirebaseEvents(event_type: "TM", event_name: "emp_invitation_sent", content_type: "button")
             let vc = InviteViaTextVC.instantiate()
             self.pushVC(controller:vc)
         }else if sender.tag == 1{
@@ -88,6 +91,14 @@ class AddEmployeeVC:BaseViewController, StoryboardSceneBased{
                 self.delegate?.didDismiss()
             }
         }
+    }
+    
+    private func LogFirebaseEvents(event_type: String, event_name: String, content_type: String){
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+          AnalyticsParameterItemID: event_type,
+          AnalyticsParameterItemName: event_name,
+          AnalyticsParameterContentType: content_type,
+        ])
     }
     /*
     // MARK: - Navigation

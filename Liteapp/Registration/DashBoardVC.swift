@@ -9,6 +9,7 @@ import UIKit
 import SideMenu
 import ObjectMapper
 import Alamofire
+import FirebaseAnalytics
 
 class DashBoardVC:BaseViewController, StoryboardSceneBased{
     
@@ -343,8 +344,18 @@ class DashBoardVC:BaseViewController, StoryboardSceneBased{
             }
         }
     }
+    
+    private func LogFirebaseEvents(event_type: String, event_name: String, content_type: String){
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+          AnalyticsParameterItemID: event_type,
+          AnalyticsParameterItemName: event_name,
+          AnalyticsParameterContentType: content_type,
+        ])
+    }
+    
     private func changeStatus(event_type: String) {
-
+        
+        LogFirebaseEvents(event_type: event_type, event_name: "time_card_generated", content_type: "button")
         let parameters = ["merchant_id":Defaults.shared.currentUser?.merchantId ?? 0,
             "emp_token":Defaults.shared.currentUser?.empToken ?? "",
             "emp_id":Defaults.shared.currentUser?.empId ?? 0,

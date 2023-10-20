@@ -8,6 +8,7 @@
 import UIKit
 import xlsxwriter
 import PDFKit
+import FirebaseAnalytics
 
 struct TableDataItemPayPeriod {
     let empName: String
@@ -71,19 +72,30 @@ class ExportTimesheetPopupVC: UIViewController,StoryboardSceneBased {
     
     // MARK: - Button
     @IBAction func btnCSVTapped(_ sender: Any) {
+        LogFirebaseEvents(event_type: "CSV", event_name: "timesheet_exported", content_type: "button")
         createCSV()
     }
     
     @IBAction func btnPdfTapped(_ sender: Any) {
+        LogFirebaseEvents(event_type: "PDF", event_name: "timesheet_exported", content_type: "button")
         createPDF()
     }
     
     @IBAction func btnExcelTapped(_ sender: Any) {
+        LogFirebaseEvents(event_type: "XLS", event_name: "timesheet_exported", content_type: "button")
         createExcelSheet()
     }
     
     @IBAction func btnClosetapped(_ sender: Any) {
         hideView()
+    }
+    
+    private func LogFirebaseEvents(event_type: String, event_name: String, content_type: String){
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+          AnalyticsParameterItemID: event_type,
+          AnalyticsParameterItemName: event_name,
+          AnalyticsParameterContentType: content_type,
+        ])
     }
     
     // MARK: - Export Helper
