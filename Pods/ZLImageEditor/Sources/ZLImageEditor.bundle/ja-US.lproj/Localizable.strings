@@ -4,5 +4,6 @@
 "revert" = "元に戻す";
 "brightness" = "明るさ";
 "contrast" = "コントラスト";
-"saturation" = "飽和";
+"saturation" = "暖かさ";
 "textStickerRemoveTips" = "ここにドラッグして削除します";
+"hudProcessing" = "処理中";

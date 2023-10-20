@@ -3,7 +3,7 @@
  *
  * Used in conjunction with the libxlsxwriter library.
  *
- * Copyright 2014-2021, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
+ * Copyright 2014-2022, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
  *
  */
 
@@ -484,7 +484,6 @@ _prepare_fills(lxw_workbook *self)
         if (format->pattern <= LXW_PATTERN_SOLID
             && format->bg_color == LXW_COLOR_UNSET
             && format->fg_color != LXW_COLOR_UNSET) {
-            format->bg_color = LXW_COLOR_UNSET;
             format->pattern = LXW_PATTERN_SOLID;
         }
 
@@ -1881,6 +1880,8 @@ workbook_new_opt(const char *filename, lxw_workbook_options *options)
         workbook->options.constant_memory = options->constant_memory;
         workbook->options.tmpdir = lxw_strdup(options->tmpdir);
         workbook->options.use_zip64 = options->use_zip64;
+        workbook->options.output_buffer = options->output_buffer;
+        workbook->options.output_buffer_size = options->output_buffer_size;
     }
 
     workbook->max_url_length = 2079;
@@ -2118,7 +2119,7 @@ workbook_close(lxw_workbook *self)
         sheet = STAILQ_FIRST(self->sheets);
         if (!sheet->is_chartsheet) {
             worksheet = sheet->u.worksheet;
-            worksheet->selected = 1;
+            worksheet->selected = LXW_TRUE;
             worksheet->hidden = 0;
         }
     }
@@ -2131,7 +2132,7 @@ workbook_close(lxw_workbook *self)
             worksheet = sheet->u.worksheet;
 
         if (worksheet->index == self->active_sheet)
-            worksheet->active = 1;
+            worksheet->active = LXW_TRUE;
 
         if (worksheet->has_dynamic_arrays)
             self->has_metadata = LXW_TRUE;
@@ -2192,6 +2193,11 @@ workbook_close(lxw_workbook *self)
 
     /* Assemble all the sub-files in the xlsx package. */
     error = lxw_create_package(packager);
+
+    if (!self->filename) {
+        *self->options.output_buffer = packager->output_buffer;
+        *self->options.output_buffer_size = packager->output_buffer_size;
+    }
 
     /* Error and non-error conditions fall through to the cleanup code. */
     if (error == LXW_ERROR_CREATING_TMPFILE) {

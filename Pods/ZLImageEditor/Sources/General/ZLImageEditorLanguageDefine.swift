@@ -4,8 +4,6 @@
 //
 //  Created by long on 2020/11/23.
 //
-//  Created by long on 2020/8/17.
-//
 //  Copyright (c) 2020 Long Zhang <495181165@qq.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -42,11 +40,102 @@ import Foundation
     case malay
     case italian
     case indonesian
+    case portuguese
+    case spanish
+    case turkish
+    case arabic
+    case ukrainian
+    case dutch
+    
+    var key: String {
+        var key = "en"
+        
+        switch ZLImageEditorUIConfiguration.default().languageType {
+        case .system:
+            key = Locale.preferredLanguages.first ?? "en"
+            
+            if key.hasPrefix("zh") {
+                if key.range(of: "Hans") != nil {
+                    key = "zh-Hans"
+                } else {
+                    key = "zh-Hant"
+                }
+            } else if key.hasPrefix("ja") {
+                key = "ja-US"
+            } else if key.hasPrefix("fr") {
+                key = "fr"
+            } else if key.hasPrefix("de") {
+                key = "de"
+            } else if key.hasPrefix("ru") {
+                key = "ru"
+            } else if key.hasPrefix("vi") {
+                key = "vi"
+            } else if key.hasPrefix("ko") {
+                key = "ko"
+            } else if key.hasPrefix("ms") {
+                key = "ms"
+            } else if key.hasPrefix("it") {
+                key = "it"
+            } else if key.hasPrefix("id") {
+                key = "id"
+            } else if key.hasPrefix("pt") {
+                key = "pt-BR"
+            } else if key.hasPrefix("es") {
+                key = "es-419"
+            } else if key.hasPrefix("tr") {
+                key = "tr"
+            } else if key.hasPrefix("ar") {
+                key = "ar"
+            } else if key.hasPrefix("uk") {
+                key = "uk"
+            } else if key.hasPrefix("nl") {
+                key = "nl"
+            } else {
+                key = "en"
+            }
+        case .chineseSimplified:
+            key = "zh-Hans"
+        case .chineseTraditional:
+            key = "zh-Hant"
+        case .english:
+            key = "en"
+        case .japanese:
+            key = "ja-US"
+        case .french:
+            key = "fr"
+        case .german:
+            key = "de"
+        case .russian:
+            key = "ru"
+        case .vietnamese:
+            key = "vi"
+        case .korean:
+            key = "ko"
+        case .malay:
+            key = "ms"
+        case .italian:
+            key = "it"
+        case .indonesian:
+            key = "id"
+        case .portuguese:
+            key = "pt-BR"
+        case .spanish:
+            key = "es-419"
+        case .turkish:
+            key = "tr"
+        case .arabic:
+            key = "ar"
+        case .ukrainian:
+            key = "uk"
+        case .dutch:
+            key = "nl"
+        }
+        
+        return key
+    }
 }
 
-
 public struct ZLLocalLanguageKey: Hashable {
-    
     public let rawValue: String
     
     public init(rawValue: String) {
@@ -77,8 +166,14 @@ public struct ZLLocalLanguageKey: Hashable {
     /// Drag here to remove (拖到此处删除)
     public static let textStickerRemoveTips = ZLLocalLanguageKey(rawValue: "textStickerRemoveTips")
     
+    /// Processing (正在处理)
+    public static let hudProcessing = ZLLocalLanguageKey(rawValue: "hudProcessing")
 }
 
 func localLanguageTextValue(_ key: ZLLocalLanguageKey) -> String {
+    if let value = ZLImageEditorUIConfiguration.default().customLanguageConfig[key] {
+        return value
+    }
+    
     return Bundle.zlLocalizedString(key.rawValue)
 }

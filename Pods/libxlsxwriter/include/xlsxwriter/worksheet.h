@@ -1,7 +1,7 @@
 /*
  * libxlsxwriter
  *
- * Copyright 2014-2021, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
+ * Copyright 2014-2022, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
  */
 
 /**
@@ -1793,7 +1793,7 @@ typedef struct lxw_object_properties {
     FILE *stream;
     uint8_t image_type;
     uint8_t is_image_buffer;
-    unsigned char *image_buffer;
+    char *image_buffer;
     size_t image_buffer_size;
     double width;
     double height;
@@ -2108,6 +2108,8 @@ typedef struct lxw_worksheet {
 
     FILE *file;
     FILE *optimize_tmpfile;
+    char *optimize_buffer;
+    size_t optimize_buffer_size;
     struct lxw_table_rows *table;
     struct lxw_table_rows *hyperlinks;
     struct lxw_table_rows *comments;
@@ -2188,6 +2190,7 @@ typedef struct lxw_worksheet {
     uint8_t show_zeros;
     uint8_t vcenter;
     uint8_t zoom_scale_normal;
+    uint8_t black_white;
     uint8_t num_validations;
     uint8_t has_dynamic_arrays;
     char *vba_codename;
@@ -2236,6 +2239,7 @@ typedef struct lxw_worksheet {
     struct lxw_rel_tuples *external_table_links;
 
     struct lxw_panes panes;
+    char top_left_cell[LXW_MAX_CELL_NAME_LENGTH];
 
     struct lxw_protection_obj protection;
 
@@ -4579,6 +4583,27 @@ void worksheet_set_selection(lxw_worksheet *worksheet,
                              lxw_row_t last_row, lxw_col_t last_col);
 
 /**
+ * @brief Set the first visible cell at the top left of a worksheet.
+ *
+ * @param worksheet Pointer to a lxw_worksheet instance to be updated.
+ * @param row       The cell row (zero indexed).
+ * @param col       The cell column (zero indexed).
+ *
+ * The `%worksheet_set_top_left_cell()` function can be used to set the
+ * top leftmost visible cell in the worksheet:
+ *
+ * @code
+ *     worksheet_set_top_left_cell(worksheet, 31, 26);
+ *     worksheet_set_top_left_cell(worksheet, CELL("AA32")); // Same as above.
+ * @endcode
+ *
+ * @image html top_left_cell.png
+ *
+ */
+void worksheet_set_top_left_cell(lxw_worksheet *worksheet, lxw_row_t row,
+                                 lxw_col_t col);
+
+/**
  * @brief Set the page orientation as landscape.
  *
  * @param worksheet Pointer to a lxw_worksheet instance to be updated.
@@ -5349,6 +5374,18 @@ void worksheet_set_start_page(lxw_worksheet *worksheet, uint16_t start_page);
  *
  */
 void worksheet_set_print_scale(lxw_worksheet *worksheet, uint16_t scale);
+
+/**
+ * @brief Set the worksheet to print in black and white
+ *
+ * @param worksheet Pointer to a lxw_worksheet instance to be updated.
+ *
+ * Set the option to print the worksheet in black and white:
+ * @code
+ *     worksheet_print_black_and_white(worksheet);
+ * @endcode
+ */
+void worksheet_print_black_and_white(lxw_worksheet *worksheet);
 
 /**
  * @brief Display the worksheet cells from right to left for some versions of

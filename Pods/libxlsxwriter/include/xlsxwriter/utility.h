@@ -1,7 +1,7 @@
 /*
  * libxlsxwriter
  *
- * Copyright 2014-2021, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
+ * Copyright 2014-2022, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
  */
 
 /**
@@ -9,7 +9,7 @@
  *
  * @brief Utility functions for libxlsxwriter.
  *
- * <!-- Copyright 2014-2021, John McNamara, jmcnamara@cpan.org -->
+ * <!-- Copyright 2014-2022, John McNamara, jmcnamara@cpan.org -->
  *
  */
 
@@ -233,6 +233,7 @@ void lxw_str_tolower(char *str);
 #endif
 
 FILE *lxw_tmpfile(char *tmpdir);
+FILE *lxw_get_filehandle(char **buf, size_t *size, char *tmpdir);
 FILE *lxw_fopen(const char *filename, const char *mode);
 
 /* Use the third party dtoa function to avoid locale issues with sprintf

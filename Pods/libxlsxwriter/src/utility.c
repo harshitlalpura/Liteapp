@@ -3,9 +3,13 @@
  *
  * Used in conjunction with the libxlsxwriter library.
  *
- * Copyright 2014-2021, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
+ * Copyright 2014-2022, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
  *
  */
+
+#ifdef USE_FMEMOPEN
+#define _POSIX_C_SOURCE 200809L
+#endif
 
 #include <ctype.h>
 #include <stdio.h>
@@ -441,7 +445,7 @@ double
 lxw_unixtime_to_excel_date_epoch(int64_t unixtime, uint8_t date_1904)
 {
     double excel_datetime = 0.0;
-    int epoch = date_1904 ? 24107.0 : 25568.0;
+    double epoch = date_1904 ? 24107.0 : 25568.0;
 
     excel_datetime = epoch + (unixtime / (24 * 60 * 60.0));
 
@@ -575,6 +579,25 @@ lxw_tmpfile(char *tmpdir)
 #else
     (void) tmpdir;
     return tmpfile();
+#endif
+}
+
+/**
+ * Return a memory-backed file if supported, otherwise a temporary one
+ */
+FILE *
+lxw_get_filehandle(char **buf, size_t *size, char *tmpdir)
+{
+    static size_t s;
+    if (!size)
+        size = &s;
+    *buf = NULL;
+    *size = 0;
+#ifdef USE_FMEMOPEN
+    (void) tmpdir;
+    return open_memstream(buf, size);
+#else
+    return lxw_tmpfile(tmpdir);
 #endif
 }
 

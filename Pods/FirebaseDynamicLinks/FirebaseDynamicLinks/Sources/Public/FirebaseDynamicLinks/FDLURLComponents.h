@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger, FIRShortDynamicLinkPathLength) {
 typedef void (^FIRDynamicLinkShortenerCompletion)(NSURL *_Nullable shortURL,
                                                   NSArray<NSString *> *_Nullable warnings,
                                                   NSError *_Nullable error)
-    NS_SWIFT_NAME(DynamicLinkShortenerCompletion);
+    NS_SWIFT_UNAVAILABLE("Use Swift's closure syntax instead.");
 
 /**
  * @class FIRDynamicLinkGoogleAnalyticsParameters
@@ -172,7 +172,7 @@ NS_SWIFT_NAME(DynamicLinkIOSParameters)
 
 /**
  @property minimumAppVersion
- @abstract The the minimum version of your app that can open the link. If the
+ @abstract The minimum version of your app that can open the link. If the
  *     installed app is an older version, the user is taken to the AppStore to upgrade the app.
  *     Note: It is app's developer responsibility to open AppStore when received link declares
  *     higher minimumAppVersion than currently installed.
@@ -541,7 +541,9 @@ NS_SWIFT_NAME(DynamicLinkComponents)
  */
 + (void)shortenURL:(NSURL *)url
            options:(FIRDynamicLinkComponentsOptions *_Nullable)options
-        completion:(FIRDynamicLinkShortenerCompletion)completion;
+        completion:(void (^)(NSURL *_Nullable shortURL,
+                             NSArray<NSString *> *_Nullable warnings,
+                             NSError *_Nullable error))completion;
 
 /**
  * @method shortenWithCompletion:
@@ -549,7 +551,9 @@ NS_SWIFT_NAME(DynamicLinkComponents)
  * @param completion A block to be executed upon completion of the shortening attempt. It is
  *     guaranteed to be executed once and on the main thread.
  */
-- (void)shortenWithCompletion:(FIRDynamicLinkShortenerCompletion)completion;
+- (void)shortenWithCompletion:(void (^)(NSURL *_Nullable shortURL,
+                                        NSArray<NSString *> *_Nullable warnings,
+                                        NSError *_Nullable error))completion;
 
 @end
 

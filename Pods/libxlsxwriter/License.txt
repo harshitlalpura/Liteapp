@@ -4,7 +4,7 @@
 
 Libxlsxwriter is released under a FreeBSD license:
 
-    Copyright 2014-2021, John McNamara <jmcnamara@cpan.org>
+    Copyright 2014-2022, John McNamara <jmcnamara@cpan.org>
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -34,9 +34,10 @@ Libxlsxwriter is released under a FreeBSD license:
     official policies, either expressed or implied, of the FreeBSD Project.
 
 
-Libxlsxwriter includes `queue.h` and `tree.h` from FreeBSD, the `minizip`
-component of `zlib`. It also includes and uses the optional `tmpfileplus`,
-`md5` and `emyg_dtoa`. These components which have the following licenses:
+Libxlsxwriter includes the `queue.h` and `tree.h` macros from FreeBSD. It also
+includes and, unless overridden, uses the optional libraries `minizip`,
+`tmpfileplus` and `md5`. It also includes the `emyg_dtoa` library but doesn't
+use it by default. These components have the following licenses:
 
 
 Queue.h from FreeBSD:
@@ -172,7 +173,7 @@ converting doubles to strings. It has the following license:
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 
-This Milo Yip DTOA library (emyg_dtoa) is uses to avoid issues where the
+This Milo Yip DTOA library (emyg_dtoa) is used to avoid issues where the
 standard sprintf() dtoa function changes output based on locale settings. It
 is also 40-50% faster than the standard dtoa for raw numeric data. The use of
 this library is optional. If you wish to use it you can pass

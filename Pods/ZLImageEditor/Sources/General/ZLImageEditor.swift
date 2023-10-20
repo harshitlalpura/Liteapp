@@ -24,4 +24,46 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-let version = "1.0.7"
+import Foundation
+import UIKit
+
+let version = "1.2.1"
+
+public struct ZLImageEditorWrapper<Base> {
+    public let base: Base
+    
+    public init(_ base: Base) {
+        self.base = base
+    }
+}
+
+public protocol ZLImageEditorCompatible: AnyObject { }
+
+public protocol ZLImageEditorCompatibleValue { }
+
+extension ZLImageEditorCompatible {
+    public var zl: ZLImageEditorWrapper<Self> {
+        get { ZLImageEditorWrapper(self) }
+        set { }
+    }
+    
+    public static var zl: ZLImageEditorWrapper<Self>.Type {
+        get { ZLImageEditorWrapper<Self>.self }
+        set { }
+    }
+}
+
+extension ZLImageEditorCompatibleValue {
+    public var zl: ZLImageEditorWrapper<Self> {
+        get { ZLImageEditorWrapper(self) }
+        set { }
+    }
+}
+
+extension UIImage: ZLImageEditorCompatible { }
+extension CIImage: ZLImageEditorCompatible { }
+extension UIColor: ZLImageEditorCompatible { }
+extension UIView: ZLImageEditorCompatible { }
+
+extension String: ZLImageEditorCompatibleValue { }
+extension CGFloat: ZLImageEditorCompatibleValue { }

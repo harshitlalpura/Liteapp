@@ -27,67 +27,66 @@
 import UIKit
 import Accelerate
 
-extension UIImage {
-
+public extension ZLImageEditorWrapper where Base: UIImage {
     // 修复转向
     func fixOrientation() -> UIImage {
-        if self.imageOrientation == .up {
-            return self
+        if base.imageOrientation == .up {
+            return base
         }
         
         var transform = CGAffineTransform.identity
         
-        switch self.imageOrientation {
+        switch base.imageOrientation {
         case .down, .downMirrored:
-            transform = CGAffineTransform(translationX: self.size.width, y: self.size.height)
+            transform = CGAffineTransform(translationX: width, y: height)
             transform = transform.rotated(by: .pi)
         
         case .left, .leftMirrored:
-            transform = CGAffineTransform(translationX: self.size.width, y: 0)
+            transform = CGAffineTransform(translationX: width, y: 0)
             transform = transform.rotated(by: CGFloat.pi / 2)
             
         case .right, .rightMirrored:
-            transform = CGAffineTransform(translationX: 0, y: self.size.height)
+            transform = CGAffineTransform(translationX: 0, y: height)
             transform = transform.rotated(by: -CGFloat.pi / 2)
             
         default:
             break
         }
         
-        switch self.imageOrientation {
+        switch base.imageOrientation {
         case .upMirrored, .downMirrored:
-            transform = transform.translatedBy(x: self.size.width, y: 0)
+            transform = transform.translatedBy(x: width, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
             
         case .leftMirrored, .rightMirrored:
-            transform = transform.translatedBy(x: self.size.height, y: 0)
+            transform = transform.translatedBy(x: height, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
         
         default:
             break
         }
         
-        guard let ci = self.cgImage, let colorSpace = ci.colorSpace else {
-            return self
+        guard let cgImage = base.cgImage, let colorSpace = cgImage.colorSpace else {
+            return base
         }
-        let context = CGContext(data: nil, width: Int(self.size.width), height: Int(self.size.height), bitsPerComponent: ci.bitsPerComponent, bytesPerRow: 0, space: colorSpace, bitmapInfo: ci.bitmapInfo.rawValue)
+        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: cgImage.bitsPerComponent, bytesPerRow: 0, space: colorSpace, bitmapInfo: cgImage.bitmapInfo.rawValue)
         context?.concatenate(transform)
-        switch self.imageOrientation {
+        switch base.imageOrientation {
         case .left, .leftMirrored, .right, .rightMirrored:
-            context?.draw(ci, in: CGRect(x: 0, y: 0, width: self.size.height, height: self.size.width))
+            context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: height, height: width))
         default:
-            context?.draw(ci, in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+            context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
         }
         
-        guard let newCgimg = context?.makeImage() else {
-            return self
+        guard let newCgImage = context?.makeImage() else {
+            return base
         }
-        return UIImage(cgImage: newCgimg)
+        return UIImage(cgImage: newCgImage)
     }
     
     func rotate(orientation: UIImage.Orientation) -> UIImage {
-        guard let imagRef = self.cgImage else {
-            return self
+        guard let imagRef = base.cgImage else {
+            return base
         }
         let rect = CGRect(origin: .zero, size: CGSize(width: CGFloat(imagRef.width), height: CGFloat(imagRef.height)))
         
@@ -97,7 +96,7 @@ extension UIImage {
         
         switch orientation {
         case .up:
-            return self
+            return base
         case .upMirrored:
             transform = transform.translatedBy(x: rect.width, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
@@ -125,7 +124,7 @@ extension UIImage {
             transform = transform.scaledBy(x: -1, y: 1)
             transform = transform.rotated(by: CGFloat.pi / 2)
         @unknown default:
-            return self
+            return base
         }
         
         UIGraphicsBeginImageContext(bnds.size)
@@ -143,7 +142,7 @@ extension UIImage {
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return newImage ?? self
+        return newImage ?? base
     }
     
     func swapRectWidthAndHeight(_ rect: CGRect) -> CGRect {
@@ -154,15 +153,12 @@ extension UIImage {
     }
     
     func rotate(degree: CGFloat) -> UIImage? {
-        guard let cgImage = cgImage else {
+        guard let cgImage = base.cgImage else {
             return nil
         }
         
-        // 将角度转换为相对于 π 的值
-        let transformDegree = degree / 180 * .pi
-        
-        let rotatedViewBox = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        let t = CGAffineTransform(rotationAngle: transformDegree)
+        let rotatedViewBox = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let t = CGAffineTransform(rotationAngle: degree)
         rotatedViewBox.transform = t
         let rotatedSize = rotatedViewBox.frame.size
 
@@ -171,10 +167,10 @@ extension UIImage {
 
         bitmap?.translateBy(x: rotatedSize.width / 2, y: rotatedSize.height / 2)
 
-        bitmap?.rotate(by: transformDegree)
+        bitmap?.rotate(by: degree)
 
         bitmap?.scaleBy(x: 1.0, y: -1.0)
-        bitmap?.draw(cgImage, in: CGRect(x: -size.width / 2, y: -size.height / 2, width: size.width, height: size.height))
+        bitmap?.draw(cgImage, in: CGRect(x: -width / 2, y: -height / 2, width: width, height: height))
 
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -183,44 +179,52 @@ extension UIImage {
     }
     
     func mosaicImage() -> UIImage? {
-        guard let currCgImage = self.cgImage else {
+        guard let currCgImage = base.cgImage else {
             return nil
         }
         
+        let scale = 8 * width / UIScreen.main.bounds.width
         let currCiImage = CIImage(cgImage: currCgImage)
         let filter = CIFilter(name: "CIPixellate")
         filter?.setValue(currCiImage, forKey: kCIInputImageKey)
-        filter?.setValue(20, forKey: kCIInputScaleKey)
+        filter?.setValue(scale, forKey: kCIInputScaleKey)
         guard let outputImage = filter?.outputImage else { return nil }
         
         let context = CIContext()
         
-        if let cgImg = context.createCGImage(outputImage, from: CGRect(origin: .zero, size: self.size)) {
+        if let cgImg = context.createCGImage(outputImage, from: CGRect(origin: .zero, size: base.size)) {
             return UIImage(cgImage: cgImg)
         } else {
             return nil
         }
     }
     
-    func resize(_ size: CGSize) -> UIImage? {
+    func resize(_ size: CGSize, scale: CGFloat? = nil) -> UIImage? {
         if size.width <= 0 || size.height <= 0 {
             return nil
         }
-        UIGraphicsBeginImageContextWithOptions(size, false, self.scale)
-        self.draw(in: CGRect(origin: .zero, size: size))
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, scale ?? base.scale)
+        base.draw(in: CGRect(origin: .zero, size: size))
         let temp = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return temp
     }
     
-    /// Processing speed is better than resize(:) method
-    /// bitsPerPixel = bitsPerComponent * 4
-    func resize_vI(_ size: CGSize, bitsPerComponent: UInt32 = 8, bitsPerPixel: UInt32 = 32) -> UIImage? {
-        guard let cgImage = self.cgImage else { return nil }
+    /// Resize image. Processing speed is better than resize(:) method
+    /// - Parameters:
+    ///   - size: Dest size of the image.
+    ///   - scale: The scale factor of the image.
+    ///   - bitsPerComponent: The number of bits allocated for a single color component of a bitmap image.
+    ///   - bitsPerPixel: The number of bits allocated for a single pixel in a bitmap image. bitsPerComponent * 4
+    func resize_vI(_ size: CGSize, scale: CGFloat? = nil, bitsPerComponent: UInt32 = 8, bitsPerPixel: UInt32 = 32) -> UIImage? {
+        guard let cgImage = base.cgImage else { return nil }
         
-        var format = vImage_CGImageFormat(bitsPerComponent: bitsPerComponent, bitsPerPixel: bitsPerPixel, colorSpace: nil,
-                                          bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue),
-                                          version: 0, decode: nil, renderingIntent: .defaultIntent)
+        var format = vImage_CGImageFormat(
+            bitsPerComponent: bitsPerComponent, bitsPerPixel: bitsPerPixel, colorSpace: nil,
+            bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue),
+            version: 0, decode: nil, renderingIntent: .defaultIntent
+        )
         
         var sourceBuffer = vImage_Buffer()
         defer {
@@ -254,32 +258,37 @@ extension UIImage {
         guard error == kvImageNoError else { return nil }
         
         // create a UIImage
-        return UIImage(cgImage: destCGImage, scale: self.scale, orientation: self.imageOrientation)
+        return UIImage(cgImage: destCGImage, scale: scale ?? base.scale, orientation: base.imageOrientation)
     }
     
     func toCIImage() -> CIImage? {
-        var ci = self.ciImage
-        if ci == nil, let cg = self.cgImage {
-            ci = CIImage(cgImage: cg)
+        var ciImage = base.ciImage
+        if ciImage == nil, let cgImage = base.cgImage {
+            ciImage = CIImage(cgImage: cgImage)
         }
-        return ci
+        return ciImage
     }
     
-    func clipImage(_ angle: CGFloat, _ editRect: CGRect) -> UIImage? {
+    func clipImage(angle: CGFloat, editRect: CGRect, isCircle: Bool) -> UIImage? {
         let a = ((Int(angle) % 360) - 360) % 360
-        var newImage = self
+        var newImage: UIImage = base
         if a == -90 {
-            newImage = self.rotate(orientation: .left)
+            newImage = rotate(orientation: .left)
         } else if a == -180 {
-            newImage = self.rotate(orientation: .down)
+            newImage = rotate(orientation: .down)
         } else if a == -270 {
-            newImage = self.rotate(orientation: .right)
+            newImage = rotate(orientation: .right)
         }
         guard editRect.size != newImage.size else {
             return newImage
         }
         let origin = CGPoint(x: -editRect.minX, y: -editRect.minY)
         UIGraphicsBeginImageContextWithOptions(editRect.size, false, newImage.scale)
+        let context = UIGraphicsGetCurrentContext()
+        if isCircle {
+            context?.addEllipse(in: CGRect(origin: .zero, size: editRect.size))
+            context?.clip()
+        }
         newImage.draw(at: origin)
         let temp = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -291,7 +300,7 @@ extension UIImage {
     }
     
     func blurImage(level: CGFloat) -> UIImage? {
-        guard let ciImage = self.toCIImage() else {
+        guard let ciImage = toCIImage() else {
             return nil
         }
         let blurFilter = CIFilter(name: "CIGaussianBlur")
@@ -308,19 +317,18 @@ extension UIImage {
         return UIImage(cgImage: cgImage)
     }
     
-    
     /// Compress an image to the max size
     /// - Warning: If the image has a transparent background color, this method will change it as jpeg doesn't support it.
     func compress(to maxSize: Int) -> UIImage {
-        if let size = self.jpegData(compressionQuality: 1)?.count, size <= maxSize {
-            return self
+        if let size = base.jpegData(compressionQuality: 1)?.count, size <= maxSize {
+            return base
         }
         var min: CGFloat = 0
         var max: CGFloat = 1
         var data: Data?
         for _ in 0..<6 {
             let mid = (min + max) / 2
-            data = self.jpegData(compressionQuality: mid)
+            data = base.jpegData(compressionQuality: mid)
             let compressSize = data?.count ?? 0
             if compressSize > maxSize {
                 max = mid
@@ -330,29 +338,36 @@ extension UIImage {
                 break
             }
         }
-        guard let d = data else {
-            return self
+        guard let data = data else {
+            return base
         }
-        return UIImage(data: d) ?? self
+        return UIImage(data: data) ?? base
     }
-    
+
+    func fillColor(_ color: UIColor) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(base.size, false, base.scale)
+        let drawRect = CGRect(x: 0, y: 0, width: base.zl.width, height: base.zl.height)
+        color.setFill()
+        UIRectFill(drawRect)
+        base.draw(in: drawRect, blendMode: .destinationIn, alpha: 1)
+
+        let tintedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return tintedImage
+    }
 }
 
-
-extension CIImage {
-    
-    func toUIImage() -> UIImage? {
-        let context = CIContext()
-        guard let cgImage = context.createCGImage(self, from: self.extent) else {
-            return nil
-        }
-        return UIImage(cgImage: cgImage)
+public extension ZLImageEditorWrapper where Base: UIImage {
+    var width: CGFloat {
+        base.size.width
     }
     
+    var height: CGFloat {
+        base.size.height
+    }
 }
 
-extension UIImage {
-    
+public extension ZLImageEditorWrapper where Base: UIImage {
     /// 调整图片亮度、对比度、饱和度
     /// - Parameters:
     ///   - brightness: value in [-1, 1]
@@ -360,7 +375,7 @@ extension UIImage {
     ///   - saturation: value in [-1, 1]
     func adjust(brightness: Float, contrast: Float, saturation: Float) -> UIImage? {
         guard let ciImage = toCIImage() else {
-            return self
+            return base
         }
         
         let filter = CIFilter(name: "CIColorControls")
@@ -369,7 +384,28 @@ extension UIImage {
         filter?.setValue(ZLImageEditorConfiguration.AdjustTool.contrast.filterValue(contrast), forKey: ZLImageEditorConfiguration.AdjustTool.contrast.key)
         filter?.setValue(ZLImageEditorConfiguration.AdjustTool.saturation.filterValue(saturation), forKey: ZLImageEditorConfiguration.AdjustTool.saturation.key)
         let outputCIImage = filter?.outputImage
-        return outputCIImage?.toUIImage()
+        return outputCIImage?.zl.toUIImage()
     }
-    
+}
+
+extension ZLImageEditorWrapper where Base: UIImage {
+    static func getImage(_ named: String) -> UIImage? {
+        if ZLCustomImageDeploy.imageNames.contains(named), let image = UIImage(named: named) {
+            return image
+        }
+        if let image = ZLCustomImageDeploy.imageForKey[named] {
+            return image
+        }
+        return UIImage(named: named, in: Bundle.zlImageEditorBundle, compatibleWith: nil)
+    }
+}
+
+public extension ZLImageEditorWrapper where Base: CIImage {
+    func toUIImage() -> UIImage? {
+        let context = CIContext()
+        guard let cgImage = context.createCGImage(base, from: base.extent) else {
+            return nil
+        }
+        return UIImage(cgImage: cgImage)
+    }
 }

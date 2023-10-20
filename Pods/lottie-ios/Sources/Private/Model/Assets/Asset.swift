@@ -7,7 +7,9 @@
 
 import Foundation
 
-public class Asset: Codable {
+// MARK: - Asset
+
+public class Asset: Codable, DictionaryInitializable {
 
   // MARK: Lifecycle
 
@@ -17,6 +19,16 @@ public class Asset: Codable {
       self.id = id
     } else {
       id = String(try container.decode(Int.self, forKey: .id))
+    }
+  }
+
+  required init(dictionary: [String: Any]) throws {
+    if let id = dictionary[CodingKeys.id.rawValue] as? String {
+      self.id = id
+    } else if let id = dictionary[CodingKeys.id.rawValue] as? Int {
+      self.id = String(id)
+    } else {
+      throw InitializableError.invalidInput
     }
   }
 
@@ -31,3 +43,9 @@ public class Asset: Codable {
     case id
   }
 }
+
+// MARK: Sendable
+
+/// Since `Asset` isn't `final`, we have to use `@unchecked Sendable` instead of `Sendable.`
+/// All `Asset` subclasses are immutable `Sendable` values.
+extension Asset: @unchecked Sendable { }

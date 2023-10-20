@@ -3,7 +3,7 @@
  *
  * Used in conjunction with the libxlsxwriter library.
  *
- * Copyright 2014-2021, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
+ * Copyright 2014-2022, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
  *
  */
 
@@ -195,7 +195,11 @@ lxw_worksheet_new(lxw_worksheet_init_data *init_data)
     if (init_data && init_data->optimize) {
         FILE *tmpfile;
 
-        tmpfile = lxw_tmpfile(init_data->tmpdir);
+        worksheet->optimize_buffer = NULL;
+        worksheet->optimize_buffer_size = 0;
+        tmpfile = lxw_get_filehandle(&worksheet->optimize_buffer,
+                                     &worksheet->optimize_buffer_size,
+                                     init_data->tmpdir);
         if (!tmpfile) {
             LXW_ERROR("Error creating tmpfile() for worksheet in "
                       "'constant_memory' mode.");
@@ -416,6 +420,7 @@ _free_object_properties(lxw_object_properties *object_property)
     free(object_property->md5);
     free(object_property->image_position);
     free(object_property);
+    object_property = NULL;
 }
 
 /*
@@ -2396,27 +2401,28 @@ _worksheet_write_sheet_view(lxw_worksheet *self)
         LXW_PUSH_ATTRIBUTES_STR("showGridLines", "0");
 
     /* Hide zeroes in cells. */
-    if (!self->show_zeros) {
+    if (!self->show_zeros)
         LXW_PUSH_ATTRIBUTES_STR("showZeros", "0");
-    }
 
     /* Display worksheet right to left for Hebrew, Arabic and others. */
-    if (self->right_to_left) {
+    if (self->right_to_left)
         LXW_PUSH_ATTRIBUTES_STR("rightToLeft", "1");
-    }
 
     /* Show that the sheet tab is selected. */
     if (self->selected)
         LXW_PUSH_ATTRIBUTES_STR("tabSelected", "1");
 
     /* Turn outlines off. Also required in the outlinePr element. */
-    if (!self->outline_on) {
+    if (!self->outline_on)
         LXW_PUSH_ATTRIBUTES_STR("showOutlineSymbols", "0");
-    }
 
     /* Set the page view/layout mode if required. */
     if (self->page_view)
         LXW_PUSH_ATTRIBUTES_STR("view", "pageLayout");
+
+    /* Set the top left cell if required. */
+    if (self->top_left_cell[0])
+        LXW_PUSH_ATTRIBUTES_STR("topLeftCell", self->top_left_cell);
 
     /* Set the zoom level. */
     if (self->zoom != 100 && !self->page_view) {
@@ -2522,18 +2528,27 @@ _worksheet_write_optimized_sheet_data(lxw_worksheet *self)
 
         lxw_xml_start_tag(self->file, "sheetData", NULL);
 
-        /* Flush and rewind the temp file. */
+        /* Flush the temp file. */
         fflush(self->optimize_tmpfile);
-        rewind(self->optimize_tmpfile);
 
-        while (read_size) {
-            read_size =
-                fread(buffer, 1, LXW_BUFFER_SIZE, self->optimize_tmpfile);
+        if (self->optimize_buffer) {
             /* Ignore return value. There is no easy way to raise error. */
-            (void) fwrite(buffer, 1, read_size, self->file);
+            (void) fwrite(self->optimize_buffer, self->optimize_buffer_size,
+                          1, self->file);
+        }
+        else {
+            /* Rewind the temp file. */
+            rewind(self->optimize_tmpfile);
+            while (read_size) {
+                read_size =
+                    fread(buffer, 1, LXW_BUFFER_SIZE, self->optimize_tmpfile);
+                /* Ignore return value. There is no easy way to raise error. */
+                (void) fwrite(buffer, 1, read_size, self->file);
+            }
         }
 
         fclose(self->optimize_tmpfile);
+        free(self->optimize_buffer);
 
         lxw_xml_end_tag(self->file, "sheetData");
     }
@@ -2623,6 +2638,9 @@ _worksheet_write_page_setup(lxw_worksheet *self)
         LXW_PUSH_ATTRIBUTES_STR("orientation", "portrait");
     else
         LXW_PUSH_ATTRIBUTES_STR("orientation", "landscape");
+
+    if (self->black_white)
+        LXW_PUSH_ATTRIBUTES_STR("blackAndWhite", "1");
 
     /* Set start page active flag. */
     if (self->page_start)
@@ -3478,8 +3496,8 @@ lxw_worksheet_prepare_header_image(lxw_worksheet *self,
     header_image_vml = calloc(1, sizeof(lxw_vml_obj));
     GOTO_LABEL_ON_MEM_ERROR(header_image_vml, mem_error);
 
-    header_image_vml->width = object_props->width;
-    header_image_vml->height = object_props->height;
+    header_image_vml->width = (uint32_t) object_props->width;
+    header_image_vml->height = (uint32_t) object_props->height;
     header_image_vml->x_dpi = object_props->x_dpi;
     header_image_vml->y_dpi = object_props->y_dpi;
     header_image_vml->rel_index = 1;
@@ -4249,7 +4267,7 @@ _get_image_properties(lxw_object_properties *image_props)
 
     size_read = fread(buffer, 1, LXW_IMAGE_BUFFER_SIZE, image_props->stream);
     while (size_read) {
-        MD5_Update(&md5_context, buffer, size_read);
+        MD5_Update(&md5_context, buffer, (unsigned long) size_read);
         size_read =
             fread(buffer, 1, LXW_IMAGE_BUFFER_SIZE, image_props->stream);
     }
@@ -6364,7 +6382,7 @@ _worksheet_write_cf_rule_top(lxw_worksheet *self,
         LXW_PUSH_ATTRIBUTES_INT("bottom", 1);
 
     /* Rank must be an int in the range 1-1000 . */
-    if (cond_format->min_value < 1.0 || cond_format->min_value > 1.0)
+    if (cond_format->min_value < 1.0 || cond_format->min_value > 1000.0)
         LXW_PUSH_ATTRIBUTES_DBL("rank", 10);
     else
         LXW_PUSH_ATTRIBUTES_DBL("rank", (uint16_t) cond_format->min_value);
@@ -8434,7 +8452,7 @@ worksheet_write_rich_string(lxw_worksheet *self,
         return err;
 
     /* Create a tmp file for the styles object. */
-    tmpfile = lxw_tmpfile(self->tmpdir);
+    tmpfile = lxw_get_filehandle(&rich_string, NULL, self->tmpdir);
     if (!tmpfile)
         return LXW_ERROR_CREATING_TMPFILE;
 
@@ -8470,20 +8488,23 @@ worksheet_write_rich_string(lxw_worksheet *self,
     lxw_styles_free(styles);
     lxw_format_free(default_format);
 
-    /* Flush the file and read the size to calculate the required memory. */
+    /* Flush the file. */
     fflush(tmpfile);
-    file_size = ftell(tmpfile);
 
-    /* Allocate a buffer for the rich string xml data. */
-    rich_string = calloc(file_size + 1, 1);
-    GOTO_LABEL_ON_MEM_ERROR(rich_string, mem_error);
+    if (!rich_string) {
+        /* Read the size to calculate the required memory. */
+        file_size = ftell(tmpfile);
+        /* Allocate a buffer for the rich string xml data. */
+        rich_string = calloc(file_size + 1, 1);
+        GOTO_LABEL_ON_MEM_ERROR(rich_string, mem_error);
 
-    /* Rewind the file and read the data into the memory buffer. */
-    rewind(tmpfile);
-    if (fread(rich_string, file_size, 1, tmpfile) < 1) {
-        fclose(tmpfile);
-        free(rich_string);
-        return LXW_ERROR_READING_TMPFILE;
+        /* Rewind the file and read the data into the memory buffer. */
+        rewind(tmpfile);
+        if (fread(rich_string, file_size, 1, tmpfile) < 1) {
+            fclose(tmpfile);
+            free(rich_string);
+            return LXW_ERROR_READING_TMPFILE;
+        }
     }
 
     /* Close the temp file. */
@@ -9466,6 +9487,18 @@ worksheet_set_selection(lxw_worksheet *self,
 }
 
 /*
+ * Set the first visible cell at the top left of the worksheet.
+ */
+void
+worksheet_set_top_left_cell(lxw_worksheet *self, lxw_row_t row, lxw_col_t col)
+{
+    if (row == 0 && col == 0)
+        return;
+
+    lxw_rowcol_to_cell(self->top_left_cell, row, col);
+}
+
+/*
  * Set panes and mark them as frozen. With extra options.
  */
 void
@@ -9602,25 +9635,30 @@ worksheet_set_header_opt(lxw_worksheet *self, const char *string,
                          lxw_header_footer_options *options)
 {
     lxw_error err;
+    char *tmp_header;
     char *found_string;
     char *offset_string;
     uint8_t placeholder_count = 0;
     uint8_t image_count = 0;
 
-    if (!string)
+    if (!string) {
+        LXW_WARN_FORMAT("worksheet_set_header_opt/footer_opt(): "
+                        "header/footer string cannot be NULL.");
         return LXW_ERROR_NULL_PARAMETER_IGNORED;
+    }
 
-    if (lxw_utf8_strlen(string) > LXW_HEADER_FOOTER_MAX)
+    if (lxw_utf8_strlen(string) > LXW_HEADER_FOOTER_MAX) {
+        LXW_WARN_FORMAT("worksheet_set_header_opt/footer_opt(): "
+                        "header/footer string exceeds Excel's limit of "
+                        "255 characters.");
         return LXW_ERROR_255_STRING_LENGTH_EXCEEDED;
+    }
 
-    /* Clear existing header. */
-    free(self->header);
-
-    self->header = lxw_strdup(string);
-    RETURN_ON_MEM_ERROR(self->header, LXW_ERROR_MEMORY_MALLOC_FAILED);
+    tmp_header = lxw_strdup(string);
+    RETURN_ON_MEM_ERROR(tmp_header, LXW_ERROR_MEMORY_MALLOC_FAILED);
 
     /* Replace &[Picture] with &G which is used internally by Excel. */
-    while ((found_string = strstr(self->header, "&[Picture]"))) {
+    while ((found_string = strstr(tmp_header, "&[Picture]"))) {
         found_string++;
         *found_string = 'G';
 
@@ -9632,7 +9670,7 @@ worksheet_set_header_opt(lxw_worksheet *self, const char *string,
     }
 
     /* Count &G placeholders and ensure there are sufficient images. */
-    found_string = self->header;
+    found_string = tmp_header;
     while (*found_string) {
         if (*found_string == '&' && *(found_string + 1) == 'G')
             placeholder_count++;
@@ -9645,11 +9683,13 @@ worksheet_set_header_opt(lxw_worksheet *self, const char *string,
                          "string \"%s\" does not match the number of supplied "
                          "images.", string);
 
-        /* Reset the header string. */
-        free(self->header);
-
+        free(tmp_header);
         return LXW_ERROR_PARAMETER_VALIDATION;
     }
+
+    /* Free any previous header string so we can overwrite it. */
+    free(self->header);
+    self->header = NULL;
 
     if (options) {
         /* Ensure there are enough images to match the placeholders. There is
@@ -9668,9 +9708,7 @@ worksheet_set_header_opt(lxw_worksheet *self, const char *string,
                              "string \"%s\" does not match the number of supplied "
                              "images.", string);
 
-            /* Reset the header string. */
-            free(self->header);
-
+            free(tmp_header);
             return LXW_ERROR_PARAMETER_VALIDATION;
         }
 
@@ -9686,7 +9724,7 @@ worksheet_set_header_opt(lxw_worksheet *self, const char *string,
                                                  options->image_left,
                                                  HEADER_LEFT);
         if (err) {
-            free(self->header);
+            free(tmp_header);
             return err;
         }
 
@@ -9694,7 +9732,7 @@ worksheet_set_header_opt(lxw_worksheet *self, const char *string,
                                                  options->image_center,
                                                  HEADER_CENTER);
         if (err) {
-            free(self->header);
+            free(tmp_header);
             return err;
         }
 
@@ -9702,12 +9740,13 @@ worksheet_set_header_opt(lxw_worksheet *self, const char *string,
                                                  options->image_right,
                                                  HEADER_RIGHT);
         if (err) {
-            free(self->header);
+            free(tmp_header);
             return err;
         }
     }
 
-    self->header_footer_changed = 1;
+    self->header = tmp_header;
+    self->header_footer_changed = LXW_TRUE;
 
     return LXW_NO_ERROR;
 }
@@ -9720,25 +9759,30 @@ worksheet_set_footer_opt(lxw_worksheet *self, const char *string,
                          lxw_header_footer_options *options)
 {
     lxw_error err;
+    char *tmp_footer;
     char *found_string;
     char *offset_string;
     uint8_t placeholder_count = 0;
     uint8_t image_count = 0;
 
-    if (!string)
+    if (!string) {
+        LXW_WARN_FORMAT("worksheet_set_header_opt/footer_opt(): "
+                        "header/footer string cannot be NULL.");
         return LXW_ERROR_NULL_PARAMETER_IGNORED;
+    }
 
-    if (lxw_utf8_strlen(string) > LXW_HEADER_FOOTER_MAX)
+    if (lxw_utf8_strlen(string) > LXW_HEADER_FOOTER_MAX) {
+        LXW_WARN_FORMAT("worksheet_set_header_opt/footer_opt(): "
+                        "header/footer string exceeds Excel's limit of "
+                        "255 characters.");
         return LXW_ERROR_255_STRING_LENGTH_EXCEEDED;
+    }
 
-    /* Clear existing header. */
-    free(self->footer);
-
-    self->footer = lxw_strdup(string);
-    RETURN_ON_MEM_ERROR(self->footer, LXW_ERROR_MEMORY_MALLOC_FAILED);
+    tmp_footer = lxw_strdup(string);
+    RETURN_ON_MEM_ERROR(tmp_footer, LXW_ERROR_MEMORY_MALLOC_FAILED);
 
     /* Replace &[Picture] with &G which is used internally by Excel. */
-    while ((found_string = strstr(self->footer, "&[Picture]"))) {
+    while ((found_string = strstr(tmp_footer, "&[Picture]"))) {
         found_string++;
         *found_string = 'G';
 
@@ -9750,7 +9794,7 @@ worksheet_set_footer_opt(lxw_worksheet *self, const char *string,
     }
 
     /* Count &G placeholders and ensure there are sufficient images. */
-    found_string = self->footer;
+    found_string = tmp_footer;
     while (*found_string) {
         if (*found_string == '&' && *(found_string + 1) == 'G')
             placeholder_count++;
@@ -9763,11 +9807,13 @@ worksheet_set_footer_opt(lxw_worksheet *self, const char *string,
                          "string \"%s\" does not match the number of supplied "
                          "images.", string);
 
-        /* Reset the footer string. */
-        free(self->footer);
-
+        free(tmp_footer);
         return LXW_ERROR_PARAMETER_VALIDATION;
     }
+
+    /* Free any previous footer string so we can overwrite it. */
+    free(self->footer);
+    self->footer = NULL;
 
     if (options) {
         /* Ensure there are enough images to match the placeholders. There is
@@ -9786,9 +9832,7 @@ worksheet_set_footer_opt(lxw_worksheet *self, const char *string,
                              "string \"%s\" does not match the number of supplied "
                              "images.", string);
 
-            /* Reset the header string. */
-            free(self->footer);
-
+            free(tmp_footer);
             return LXW_ERROR_PARAMETER_VALIDATION;
         }
 
@@ -9804,7 +9848,7 @@ worksheet_set_footer_opt(lxw_worksheet *self, const char *string,
                                                  options->image_left,
                                                  FOOTER_LEFT);
         if (err) {
-            free(self->footer);
+            free(tmp_footer);
             return err;
         }
 
@@ -9812,7 +9856,7 @@ worksheet_set_footer_opt(lxw_worksheet *self, const char *string,
                                                  options->image_center,
                                                  FOOTER_CENTER);
         if (err) {
-            free(self->footer);
+            free(tmp_footer);
             return err;
         }
 
@@ -9820,12 +9864,13 @@ worksheet_set_footer_opt(lxw_worksheet *self, const char *string,
                                                  options->image_right,
                                                  FOOTER_RIGHT);
         if (err) {
-            free(self->footer);
+            free(tmp_footer);
             return err;
         }
     }
 
-    self->header_footer_changed = 1;
+    self->footer = tmp_footer;
+    self->header_footer_changed = LXW_TRUE;
 
     return LXW_NO_ERROR;
 }
@@ -10031,6 +10076,16 @@ worksheet_set_print_scale(lxw_worksheet *self, uint16_t scale)
     self->fit_page = LXW_FALSE;
 
     self->print_scale = scale;
+    self->page_setup_changed = LXW_TRUE;
+}
+
+/*
+ * Set the print in black and white option.
+ */
+void
+worksheet_print_black_and_white(lxw_worksheet *self)
+{
+    self->black_white = LXW_TRUE;
     self->page_setup_changed = LXW_TRUE;
 }
 

@@ -1,7 +1,7 @@
 /*
  * libxlsxwriter
  *
- * Copyright 2014-2021, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
+ * Copyright 2014-2022, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
  *
  * packager - A libxlsxwriter library for creating Excel XLSX packager files.
  *
@@ -12,6 +12,7 @@
 #include <stdint.h>
 
 #ifdef USE_SYSTEM_MINIZIP
+#pragma GCC system_header
 #include "minizip/zip.h"
 #else
 #include "third_party/zip.h"
@@ -61,10 +62,12 @@ typedef struct lxw_packager {
     lxw_workbook *workbook;
 
     size_t buffer_size;
+    size_t output_buffer_size;
     zipFile zipfile;
     zip_fileinfo zipfile_info;
     char *filename;
     char *buffer;
+    char *output_buffer;
     char *tmpdir;
     uint8_t use_zip64;
 
