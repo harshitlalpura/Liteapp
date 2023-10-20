@@ -31,7 +31,8 @@ target 'Liteapp' do
   # Add the Firebase pod for Google Analytics
   # https://firebase.google.com/docs/analytics/get-started?platform=ios
   pod 'Firebase/Analytics'
-
+  pod 'Firebase/Performance'
+  pod 'FirebaseCoreDiagnostics'
 
   # Firebase Crashlytics using the Firebase Crashlytics SDK
   # https://firebase.google.com/docs/crashlytics/get-started-new-sdk?platform=ios&authuser=0
@@ -63,7 +64,6 @@ target 'Liteapp' do
   # Google Sign In
   # https://firebase.google.com/docs/auth/ios/google-signin
   pod 'Firebase/Auth'
-
   
   #Text filed Effext
   #https://github.com/raulriera/TextFieldEffects
