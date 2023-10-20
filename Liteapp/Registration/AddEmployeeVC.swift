@@ -94,7 +94,7 @@ class AddEmployeeVC:BaseViewController, StoryboardSceneBased{
     }
     
     private func LogFirebaseEvents(event_type: String, event_name: String, content_type: String){
-        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+        Analytics.logEvent(event_name, parameters: [
           AnalyticsParameterItemID: event_type,
           AnalyticsParameterItemName: event_name,
           AnalyticsParameterContentType: content_type,
