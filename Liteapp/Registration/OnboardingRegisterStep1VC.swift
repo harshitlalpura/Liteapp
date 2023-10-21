@@ -62,6 +62,8 @@ class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
     var isPasswordValidSpecialChar : Bool = false
     var isPasswordValidNumberChar : Bool = false
     
+    var performanceTracker = PerformanceTracker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -218,6 +220,7 @@ class OnboardingRegisterStep1VC: BaseViewController, StoryboardSceneBased{
                                     saveMerchent.emp_password = self.txtPassword.text!
                                     print(saveMerchent)
                                     let vc = OnboardingRegisterStep2VC.instantiate()
+                                    vc.performanceTracker = self.performanceTracker
                                     vc.saveMerchent = saveMerchent
                                     self.pushVC(controller:vc)
                                 }

@@ -22,6 +22,8 @@ class OnboardingRegisterVC: BaseViewController, StoryboardSceneBased{
     var privacyText : String = ""
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
     
+    private let performanceTracker = PerformanceTracker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         lblTitle.text = NSLocalizedString("We've made time tracking easier. Let's get started", comment: "titleLabel")
@@ -83,11 +85,15 @@ class OnboardingRegisterVC: BaseViewController, StoryboardSceneBased{
     
     
     @IBAction func registerAsEmployeeClicked(sender:UIButton){
+        performanceTracker.startTrackPerformance(traceName: "employee_registration")
         let vc = EmployeeOnboardingVCStep1.instantiate()
+        vc.performanceTracker = self.performanceTracker
         self.pushVC(controller:vc)
     }
     @IBAction func registerAsManagerClicked(sender:UIButton){
+        performanceTracker.startTrackPerformance(traceName: "manager_registration")
         let vc = OnboardingRegisterStep1VC.instantiate()
+        vc.performanceTracker = self.performanceTracker
         self.pushVC(controller:vc)
     }
     @IBAction func userAvailableClicked(sender:UIButton){

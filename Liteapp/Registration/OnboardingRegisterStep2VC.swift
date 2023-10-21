@@ -30,6 +30,7 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var timeZoneValidationLabel: UILabel!
     @IBOutlet weak var btnContinue: UIButton!
     
+    var performanceTracker = PerformanceTracker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +112,7 @@ class OnboardingRegisterStep2VC:BaseViewController, StoryboardSceneBased{
                 saveMerchent.merchant_timezone = "US/\(timezone)"
 //            }
             let vc = OnboardingRegisterStep3VC.instantiate()
+            vc.performanceTracker = self.performanceTracker
             vc.saveMerchent = saveMerchent
             self.pushVC(controller:vc)
         }

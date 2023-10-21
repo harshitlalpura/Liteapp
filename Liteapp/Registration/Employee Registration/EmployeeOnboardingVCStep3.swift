@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import ObjectMapper
+import FirebasePerformance
 
 class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
     static let sceneStoryboard = UIStoryboard(name:Device.current.isPad ? StoryboardName.mainiPad.rawValue : StoryboardName.main.rawValue, bundle: nil)
@@ -25,6 +26,7 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var noReferalLabel: UILabel!
     @IBOutlet weak var btnContinue: UIButton!
     
+    var performanceTracker = PerformanceTracker()
     
     var saveEmployee:SaveEmployee!
     override func viewDidLoad() {
@@ -78,6 +80,7 @@ class EmployeeOnboardingVCStep3:BaseViewController, StoryboardSceneBased{
     }
     func saveEmployeeapiCall(){
         NetworkLayer.sharedNetworkLayer.postWebApiCall(apiEndPoints:APIEndPoints.saveEmployees(), param: self.saveEmployee.getParam()) { success, response, error in
+            self.performanceTracker.stopTrackPerformance(traceName: "employee_registration")
             if let res = response{
                 print(res)
                 let user = Mapper<EmployeeData>().map(JSONObject:res)

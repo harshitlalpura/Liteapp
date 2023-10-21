@@ -46,6 +46,9 @@ class OnboardingRegisterStep4VC: BaseViewController, StoryboardSceneBased{
     var saveMerchent:SaveMerchant!
     var selectedEmployeeRange:EmployeeRange = .employee1to4
     var selectedEmployees = "1 to 4"
+    
+    var performanceTracker = PerformanceTracker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
@@ -124,6 +127,7 @@ class OnboardingRegisterStep4VC: BaseViewController, StoryboardSceneBased{
     func saveMerchant(){
         print(self.saveMerchent.getParam())
         NetworkLayer.sharedNetworkLayer.postWebApiCall(apiEndPoints:APIEndPoints.saveMerchants(), param: self.saveMerchent.getParam()) { success, response, error in
+            self.performanceTracker.stopTrackPerformance(traceName: "manager_registration")
             if let res = response{
                 print(res)
                 let user = Mapper<EmployeeData>().map(JSONObject:res)

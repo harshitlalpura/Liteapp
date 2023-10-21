@@ -23,6 +23,8 @@ class OnboardingRegisterStep3VC: BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var btnSkip: UIButton!
     @IBOutlet weak var btnContinue: UIButton!
     
+    var performanceTracker = PerformanceTracker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
@@ -66,12 +68,14 @@ class OnboardingRegisterStep3VC: BaseViewController, StoryboardSceneBased{
         if checkValidation(){
             saveMerchent.merchant_web = txtBusinessURL.text!
             let vc = OnboardingRegisterStep4VC.instantiate()
+            vc.performanceTracker = self.performanceTracker
             vc.saveMerchent = saveMerchent
             self.pushVC(controller:vc)
         }
     }
     @IBAction func skipClicked(sender:UIButton){
         let vc = OnboardingRegisterStep4VC.instantiate()
+        vc.performanceTracker = self.performanceTracker
         vc.saveMerchent = saveMerchent
         self.pushVC(controller:vc)
     }

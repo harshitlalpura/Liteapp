@@ -43,6 +43,8 @@ class EmployeeOnboardingVCStep2:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var requirementLabel4: UILabel!
     @IBOutlet weak var requirementLabel5: UILabel!
     
+    var performanceTracker = PerformanceTracker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         vwGradiantContainer.setGradientBackground()
@@ -80,6 +82,7 @@ class EmployeeOnboardingVCStep2:BaseViewController, StoryboardSceneBased{
            
             
             let vc = EmployeeOnboardingVCStep3.instantiate()
+            vc.performanceTracker = self.performanceTracker
             vc.saveEmployee = saveEmployee
             self.pushVC(controller:vc)
         }

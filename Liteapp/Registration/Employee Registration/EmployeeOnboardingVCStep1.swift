@@ -26,6 +26,7 @@ class EmployeeOnboardingVCStep1:BaseViewController, StoryboardSceneBased{
     @IBOutlet weak var lastNameValidationLabel: UILabel!
     @IBOutlet weak var btnContinue: UIButton!
     
+    var performanceTracker = PerformanceTracker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,7 @@ class EmployeeOnboardingVCStep1:BaseViewController, StoryboardSceneBased{
 //            saveEmployee.emp_job_title = txtJobTitle.text!
             
             let vc = EmployeeOnboardingVCStep2.instantiate()
+            vc.performanceTracker = self.performanceTracker
             vc.saveEmployee = saveEmployee
             self.pushVC(controller:vc)
         }

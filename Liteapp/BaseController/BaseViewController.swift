@@ -6,6 +6,7 @@
 
 import UIKit
 import Kingfisher
+import FirebasePerformance
 
 typealias CompletionHandler = (_ success:Bool) -> Void
 class BaseViewController: UIViewController {
@@ -297,5 +298,34 @@ class SplashView:UIView{
            }
         )
     
+    }
+}
+final class PerformanceTracker {
+    private var traces: [String: Trace] = [:]
+    
+    init() { }
+    
+    // To Start Tracking
+    func startTrackPerformance(traceName: String) {
+        guard let trace = Performance.startTrace(name: traceName) else {
+            print("Failed to startTrackPerformance of \(traceName)")
+            return
+        }
+        print("startTrackPerformance of \(traceName)")
+        
+        // Save the current running trace in a dictionary
+        traces[traceName] = trace
+    }
+    
+    // To Stop Tracking
+    func stopTrackPerformance(traceName: String) {
+        guard let trace = traces[traceName] else {
+            print("Failed to stopTrackPerformance of \(traceName)")
+            return
+        }
+        print("stopTrackPerformance of \(traceName)")
+        
+        // Stop the running trace
+        trace.stop()
     }
 }
