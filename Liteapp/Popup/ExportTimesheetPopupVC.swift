@@ -134,6 +134,11 @@ class ExportTimesheetPopupVC: UIViewController,StoryboardSceneBased {
                         applicationActivities: []
                     )
                     ProgressHUD.hide()
+                    if let popoverController = vc.popoverPresentationController {
+                            popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2, width: 0, height: 0)
+                            popoverController.sourceView = self.view
+                            popoverController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+                        }
                     self.present(vc, animated: true, completion: nil)
                 }
             } catch {
@@ -258,6 +263,11 @@ class ExportTimesheetPopupVC: UIViewController,StoryboardSceneBased {
             let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
             
             // Show the share-view
+            if let popoverController = activityViewController.popoverPresentationController {
+                    popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2, width: 0, height: 0)
+                    popoverController.sourceView = self.view
+                    popoverController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+                }
             self.present(activityViewController, animated: true, completion: nil)
         }
         
@@ -319,6 +329,11 @@ class ExportTimesheetPopupVC: UIViewController,StoryboardSceneBased {
                     applicationActivities: []
                 )
                 ProgressHUD.hide()
+                if let popoverController = vc.popoverPresentationController {
+                        popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2, width: 0, height: 0)
+                        popoverController.sourceView = self.view
+                        popoverController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+                    }
                 self.present(vc, animated: true, completion: nil)
             }
         } catch {
