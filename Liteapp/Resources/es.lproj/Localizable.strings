@@ -43,7 +43,7 @@
 "e.g. Doe"="p.ej. Doe";
 "Please Enter Last Name"="Por favor ingrese Apellido";
 "e.g. myemail@email.com"="e.g. myemail@email.com";
-"Please Enter Email"="Por favor ingrese Correo Electrónico";
+"Please Enter Email"="Por favor ingrese Campo Requerido";
 "Username"="Nombre de Usuario";
 "Enter Username"="Ingrese Nombre de Usuario";
 "Please Enter Username"="Por favor Ingrese Nombre de Usuario";
@@ -264,7 +264,7 @@
 "Preferences"="Preferencias";
 "General app preferences"="Preferencias general de de la aplicación";
 "Business & timeclock settings"="Configuration de la Empresa y el reloj de tiempo";
-"Please enter email"="Por favor ingrese Correo Electrónico";
+"Please enter email"="Por favor ingrese Campo Requerido";
 "Please enter password"="Por favor ingrese Contraseña";
 "Change Language"="Cambiar idioma";
 "Business Settings"="Configuración Empresarial";
