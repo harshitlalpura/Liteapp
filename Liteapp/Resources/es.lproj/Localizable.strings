@@ -6,8 +6,8 @@
   
 */
 "By signing up, you agree to our End User License Agreement and Privacy Policy."="Al registrarse, acepta nuestro Acuerdo de licencia de usuario final Y nuestra Política de privacidad";
-"End User License Agreement"="Y Acuerdo de la licencia de usuario";
-"Privacy Policy"="Politica de Privacidad";
+"End User License Agreement"="Acuerdo de licencia de usuario final";
+"Privacy Policy"="Política de privacidad";
 "We've made time tracking easier. Let's get started"="Hemos diseñado el mejor Seguimiento de tiempo laboral, Empecemos!";
 "Email"="Correo Electrónico";
 "Password"="Contraseña";
@@ -22,6 +22,7 @@
 "Are you the employee?"="Usted es empleado?";
 "Register as Employee"="Registro como Empleado";
 "Already have an account?"="Ya tiene una cuenta?";
+"Employee account not found. Please try again."="Email inválido. Inténtalo de nuevo.";
 "Login Here"="Ingrese Aqui";
 "Step 1 of 5"="Paso 1 de 4";
 "Step 2 of 5"="Paso 2 de 4";
@@ -86,8 +87,8 @@
 "Company"="Empresa";
 "--------"="--------";
 "Don’t have a referral code? That’s ok! The person who set up your company’s account can provide this to you."="¿No tienes un código de referencia? ¡Está bien! La persona que configuró la cuenta de su empresa puede proporcionarle esto.";
-"End User License Agreement"="Y Acuerdo de la licencia de usuario";
-"Privacy Policy"="Politica de Privacidad";
+//"End User License Agreement"="Y Acuerdo de la licencia de usuario";
+//"Privacy Policy"="Politica de Privacidad";
 "Something went wrong, Please try again later."="Algo salió mal, intently de nuevo mas tarde";
 "Support"="Soporte";
 "Looking for support?"="Necesita Soporte?";

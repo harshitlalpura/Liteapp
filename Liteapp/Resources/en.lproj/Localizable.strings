@@ -22,6 +22,7 @@
 "Are you the employee?"="Are you the employee?";
 "Register as Employee"="Register as Employee";
 "Already have an account?"="Already have an account?";
+"Employee account not found. Please try again."="Email inválido. Inténtalo de nuevo.";
 "Login Here"="Login Here";
 "Step 1 of 5"="Step 1 of 4";
 "Step 2 of 5"="Step 2 of 4";

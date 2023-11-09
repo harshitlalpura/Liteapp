@@ -83,7 +83,8 @@ class ForgotPasswordVC: UIViewController {
                 if let status = res["status"] as? Int{
                     if status == 0{
                         if let messagae  = res["message"] as? String{
-                            self.showAlert(alertType:.validation, message: messagae)
+                            let alertMessage = NSLocalizedString("Employee account not found. Please try again.", comment: "Employee Not Found")
+                            self.showAlert(alertType:.validation, message: alertMessage)
                             
                         }
                     }else{
